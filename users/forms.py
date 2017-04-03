@@ -1,5 +1,5 @@
 from django import forms
-from . models import student
+from . models import student, interests, student_detail,judge_detail
 from django.contrib.auth import (authenticate,login,logout,get_user_model)
 from django.forms.extras import SelectDateWidget
 
@@ -24,16 +24,30 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
        '2012', '2013', '2014', '2015', '2016', '2017', '2018',)
 
 
-
-class StudentInfo(forms.ModelForm):
-    dob = forms.DateField(widget=SelectDateWidget(years = DOY))
+class defaultForm(forms.ModelForm):
+    dob = forms.DateField(widget=SelectDateWidget(years=DOY))
+    location = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student
-        fields = ['profile_picture','location','degree', 'college', 'year','dob',]
+        fields = ['profile_picture', 'location', 'dob', ]
+
+
+class StudentInfo(forms.ModelForm):
+    college = forms.CharField(label="",required=True,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    class Meta:
+        model = student_detail
+        fields = ['degree', 'college', 'year',]
+
 
 
 class JudgeInfo(forms.ModelForm):
     dob = forms.DateField(widget=SelectDateWidget(years = DOY))
     class Meta:
-        model = student
-        fields = ['profile_picture','location','degree', 'designation','dob', 'industry_exp','website',]
+        model = judge_detail
+        fields = ['degree', 'designation', 'industry_exp', 'website',]
+
+
+class interestModel(forms.ModelForm):
+    class Meta:
+        model = interests
+        fields = ['marketing', 'finance', 'public_relations', 'human_resources', 'ent_dev', 'business_quiz']

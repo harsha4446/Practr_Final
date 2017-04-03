@@ -106,13 +106,13 @@
                 <form method="post" action="">
                     {% csrf_token %}
               <div class="field">
-              {{ name.as_table }}
+              {{ form.name }}
               </div>
               <div class="field">
-                {{ email.as_table }}
+                {{ form.email }}
               </div>
               <div class="field custom-select-box">
-                {{ college.as_table }}
+                {{ form.college }}
               </div>
                    <div class="search-button">   <button>Search</button>
             </div>
@@ -134,7 +134,7 @@
             <div class="column">
                 <div class="col-sm-3">
                     <div class="uou-block-6a"> <img src="{{ user.profile_picture.url }}" alt="">
-                        <h6>{{ user.name }}<span>{{ user.college }}</span></h6>
+                        <h6>{{ user.name }}<span>{{ user.degree }}</span></h6>
                         <p><i class="fa fa-map-marker"></i>{{ user.location }}</p>
                     </div>
                 </div>

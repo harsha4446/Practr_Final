@@ -90,7 +90,7 @@
       <div class="container">
         <div class="pull-left">
           <h2>{{ user.name }}</h2>
-          <h5>{{ user.college }}</h5>
+          <h5>{{ details.college }}</h5>
         </div>
 
         <!-- Top Riht Button -->
@@ -331,13 +331,13 @@
                             <span class="subtitle col-xs-6">{{ user.experience }} Events</span></li>
                         <li class="row">
                             <h6 class="title col-xs-6">College</h6>
-                            <span class="subtitle col-xs-6"><a href="#.">{{ user.college }}</a></span></li>
+                            <span class="subtitle col-xs-6"><a href="#.">{{ details.college }}</a></span></li>
                           <li class="row">
                             <h6 class="title col-xs-6">Degree</h6>
-                            <span class="subtitle col-xs-6">{{ user.degree }}</span></li>
+                            <span class="subtitle col-xs-6">{{ details.degree }}</span></li>
                           <li class="row">
                             <h6 class="title col-xs-6">Year</h6>
-                            <span class="subtitle col-xs-6">First Year</span></li>
+                            <span class="subtitle col-xs-6">{{ details.year }}</span></li>
                           <li class="row">
                             <h6 class="title col-xs-6">E-mail</h6>
                             <span class="subtitle col-xs-6"><a href="#.">{{ user.email }}</a></span></li>
@@ -638,7 +638,7 @@
                                 <span>Marketing</span> </div>
                             </div>
                             <!-- Location -->
-                            <div class="col-xs-3 n-p-r n-p-l"> <span>{{ user.college }}</span> </div>
+                            <div class="col-xs-3 n-p-r n-p-l"> <span>{{ details.college }}</span> </div>
                             <!-- Network -->
                             <div class="col-xs-3 n-p-r"> <span>21 Followers</span> <span>10 Following</span> </div>
                             <!-- Connections -->

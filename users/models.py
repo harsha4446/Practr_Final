@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.utils.translation import ugettext_lazy as _
 from django.core.mail import send_mail
-from time import timezone
 import datetime
 
 # Create your models here.
@@ -43,19 +41,10 @@ class student(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     activated = models.BooleanField(default=False)
     judge = models.BooleanField(default=False)
-    designation = models.CharField(max_length=100,default='')
-    industry_exp = models.PositiveSmallIntegerField(default=0)
     about = models.CharField(max_length=500,default='')
     dob = models.DateField(default=datetime.date.today)
     experience = models.PositiveSmallIntegerField(default=0)
     location = models.CharField(max_length=100, default='')
-    degree = models.CharField(max_length=100, default='')
-    college = models.CharField(max_length=150, default='')
-    year = models.CharField(max_length=10, choices=(('First', 'First'),
-                                                    ('Second', 'Second'),
-                                                    ('Third', 'Third')),
-                            default='First')
-    website = models.EmailField(default='dummy@dummy.com')
     profile_picture = models.ImageField(upload_to=upload_loction,null=True,blank=True)
 
     USERNAME_FIELD = 'email'
@@ -95,6 +84,60 @@ class student_scores(models.Model):
 
     def __unicode__(self):
         return self.username
+
+
+
+class student_detail(models.Model):
+    email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
+    label = models.CharField(max_length=50,default='')
+    degree = models.CharField(max_length=100, default='')
+    college = models.CharField(max_length=150, default='')
+    year = models.CharField(max_length=10, choices=(('First', 'First'),
+                                                    ('Second', 'Second'),
+                                                    ('Third', 'Third')),
+                            default='First')
+    def __str__(self):
+        return self.label
+
+    def __unicode__(self):
+        return self.label
+
+
+
+class judge_detail(models.Model):
+    email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
+    label = models.CharField(max_length=50, default='')
+    degree = models.CharField(max_length=100, default='')
+    website = models.EmailField(default='dummy@dummy.com')
+    designation = models.CharField(max_length=100,default='')
+    industry_exp = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return self.label
+
+    def __unicode__(self):
+        return self.label
+
+
+
+class interests(models.Model):
+    email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key= True)
+    label = models.CharField(max_length=50, default='')
+    marketing = models.BooleanField(default=False)
+    finance = models.BooleanField(default=False)
+    public_relations = models.BooleanField(default=False)
+    human_resources = models.BooleanField(default=False)
+    ent_dev = models.BooleanField(default=False)
+    business_quiz = models.BooleanField(default=False)
+
+
+    def __str__(self):
+        return self.label
+
+    def __unicode__(self):
+        return self.label
+
+
 
 
 class colleges(models.Model):
