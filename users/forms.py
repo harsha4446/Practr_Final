@@ -1,5 +1,5 @@
 from django import forms
-from . models import student, interests, student_detail,judge_detail
+from . models import student, interests, student_detail,judge_detail,colleges,clubs
 from django.contrib.auth import (authenticate,login,logout,get_user_model)
 from django.forms.extras import SelectDateWidget
 
@@ -34,6 +34,7 @@ class defaultForm(forms.ModelForm):
 
 class StudentInfo(forms.ModelForm):
     college = forms.CharField(label="",required=True,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    degree = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student_detail
         fields = ['degree', 'college', 'year',]
@@ -41,13 +42,35 @@ class StudentInfo(forms.ModelForm):
 
 
 class JudgeInfo(forms.ModelForm):
-    dob = forms.DateField(widget=SelectDateWidget(years = DOY))
+    degree = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    designation = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    college = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    website = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = judge_detail
-        fields = ['degree', 'designation', 'industry_exp', 'website',]
+        fields = ['degree', 'designation', 'industry_exp', 'website', 'college']
 
 
 class interestModel(forms.ModelForm):
     class Meta:
         model = interests
         fields = ['marketing', 'finance', 'public_relations', 'human_resources', 'ent_dev', 'business_quiz']
+
+
+class newCollege(forms.ModelForm):
+    college_name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    class Meta:
+        model = colleges
+        fields = ['college_name','address','phone']
+
+class newClub(forms.ModelForm):
+    name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    admin_name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    club_password = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    club_email = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    class Meta:
+        model = clubs
+        fields = ['name','admin_name','club_password','club_email', 'phone']

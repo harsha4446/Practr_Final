@@ -41,6 +41,8 @@ class student(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     activated = models.BooleanField(default=False)
     judge = models.BooleanField(default=False)
+    college = models.BooleanField(default=False)
+    club = models.BooleanField(default=False)
     about = models.CharField(max_length=500,default='')
     dob = models.DateField(default=datetime.date.today)
     experience = models.PositiveSmallIntegerField(default=0)
@@ -108,9 +110,10 @@ class judge_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
     label = models.CharField(max_length=50, default='')
     degree = models.CharField(max_length=100, default='')
-    website = models.EmailField(default='dummy@dummy.com')
+    website = models.URLField(default='')
     designation = models.CharField(max_length=100,default='')
     industry_exp = models.PositiveSmallIntegerField(default=0)
+    college = models.CharField(max_length=150, default='')
 
     def __str__(self):
         return self.label
@@ -141,23 +144,28 @@ class interests(models.Model):
 
 
 class colleges(models.Model):
-    name = models.CharField(max_length=150,default='',unique=True)
-    college_number = models.CharField(max_length=10)
-    college_email = models.EmailField(default='')
+    email = models.OneToOneField(student,on_delete=models.CASCADE, primary_key=True,default='')
+    address = models.CharField(max_length=350, default='')
+    college_name = models.CharField(max_length=200, default='')
+    phone = models.CharField(max_length=10, default='')
+
 
     def __str__(self):
-        return self.name
+        return self.college_name
 
     def __unicode__(self):
-        return self.name
+        return self.college_name
 
 
 class clubs(models.Model):
-    name = models.ForeignKey(colleges,on_delete=models.CASCADE,default='')
-    club_name = models.CharField(max_length=100,default='')
+    email = models.ForeignKey(colleges, on_delete=models.CASCADE,default='')
+    name = models.CharField(max_length=100,default='')
+    admin_name = models.CharField(max_length=100,default='')
+    club_email = models.CharField(max_length=100,default='')
+    phone = models.CharField(max_length=10, default='')
 
     def __str__(self):
-        return self.club_name
+        return self.name
 
     def __unicode__(self):
-        return self.club_name
+        return self.name

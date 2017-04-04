@@ -8,7 +8,9 @@ urlpatterns = [
     url(r'^$', views.index,name='index'),
     url(r'^logout$', views.user_logout, name='logout'),
     url(r'^student_details/', include('profile_page.urls')),
-    url(r'^personal_info', views.personal_info, name='personal_info'),
+    url(r'^newstudent_info', views.new_student, name='newstudent'),
+    url(r'^newjudge_info', views.new_judge, name='newjudge'),
+    url(r'^newcollege_info', views.new_college, name='newcollege_info'),
     url(r'^judge_details/', include('judge.urls')),
     url(r'^student_list/', include('studentlist.urls')),
 ]
