@@ -10,7 +10,7 @@ class openRegistarion(forms.ModelForm):
 
 class addEvent(forms.ModelForm):
     name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'cols': 30}))
     website = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = events
