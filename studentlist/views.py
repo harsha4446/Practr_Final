@@ -5,7 +5,6 @@ from . forms import userForm
 # Create your views here.
 
 def student_list(request):
-    colleg_field = ''
     all_users = student.objects.filter(judge=False)
     formuser = userForm(request.POST or None)
 
@@ -15,11 +14,11 @@ def student_list(request):
 
     if formuser.is_valid()and formuser.cleaned_data['name'] != '':
         name = formuser.cleaned_data['name']
-        all_users = student.objects.filter(judge=False,name=r'^[name]$')
+        all_users = student.objects.filter(judge=False,name=name)
 
     if formuser.is_valid()and formuser.cleaned_data['college'] != '':
         college = formuser.cleaned_data['college']
-        all_users = student.objects.filter(judge=False,degree=college)
+        all_users = student.objects.filter(judge=False,student_detail__college=college)
 
     context = {"all_users":all_users,"form":formuser,}
     return render (request,'student_list/student_list.html',context)

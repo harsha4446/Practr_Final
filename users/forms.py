@@ -68,7 +68,7 @@ class newCollege(forms.ModelForm):
 class newClub(forms.ModelForm):
     name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     admin_name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    club_password = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    club_password = forms.CharField(label="", required=True, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     club_email = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     phone = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:

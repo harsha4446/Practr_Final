@@ -25,7 +25,7 @@ def index(request):
         if user is not None:
             auth.login(request,user)
             if user.activated:
-                return HttpResponseRedirect('/user/student_details')
+                return HttpResponseRedirect('/user/club_dashboard')
             else:
                 return HttpResponseRedirect('/home/newstudent_info/')
     context={"form":form, "formin":formin}
@@ -101,7 +101,7 @@ def new_judge(request):
         user_interest.ent_dev = interestForm.cleaned_data.get("ent_dev")
         user_interest.business_quiz = interestForm.cleaned_data.get("business_quiz")
         user_interest.save()
-        return HttpResponseRedirect('/profile_page/')
+        return HttpResponseRedirect('/judge_dashboard/')
     context = {"formInfo": formInfo, "interest": interestForm, "default": formDefault, "user":request.user,}
     return render(request, 'home/new_judge.html', context)
 
@@ -117,6 +117,8 @@ def new_college(request):
         college.address = formCollege.cleaned_data.get("address")
         college.phone = formCollege.cleaned_data.get("phone")
         college.save()
+        request.user.activated= True
+        request.user.save()
         club = clubs(email=college)
         club.name = formClub.cleaned_data.get("name")
         club.admin_name = formClub.cleaned_data.get("admin_name")
@@ -124,15 +126,15 @@ def new_college(request):
         club.phone = formClub.cleaned_data.get("phone")
         club.club_email = formClub.cleaned_data.get("club_email")
         new_user = User.objects.create_user(club.club_email, club_password, club.admin_name, club.phone)
+        new_user.club=True
         new_user.save()
         club.save()
+        college = colleges(email = club)
+        college.save()
         return HttpResponseRedirect('/college_dashboard/')
 
     context = {"college":formCollege, "club":formClub,}
     return render (request, 'home/new_college.html', context)
-
-
-
 
 
 

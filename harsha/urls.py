@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^profile_page/', include('profile_page.urls')),
     url(r'^student_list/', include('studentlist.urls')),
     url(r'^judge_list/', include('judgelist.urls')),
+    #url(r'^club_dashboard/', include('club_dashboard.urls'))
 ]
 
 if settings.DEBUG:

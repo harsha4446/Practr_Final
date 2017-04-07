@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^newcollege_info', views.new_college, name='newcollege_info'),
     url(r'^judge_details/', include('judge.urls')),
     url(r'^student_list/', include('studentlist.urls')),
+    url(r'^club_dashboard/', include('club_dashboard.urls')),
 ]

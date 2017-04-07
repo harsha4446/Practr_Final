@@ -104,6 +104,9 @@ class student_detail(models.Model):
     def __unicode__(self):
         return self.label
 
+    def __college(self):
+        return self.college
+
 
 
 class judge_detail(models.Model):
@@ -161,8 +164,20 @@ class clubs(models.Model):
     email = models.ForeignKey(colleges, on_delete=models.CASCADE,default='')
     name = models.CharField(max_length=100,default='')
     admin_name = models.CharField(max_length=100,default='')
-    club_email = models.CharField(max_length=100,default='')
+    club_email = models.CharField(max_length=100,default='', unique=True)
     phone = models.CharField(max_length=10, default='')
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
+
+
+class events(models.Model):
+    email = models.ForeignKey(clubs, on_delete=models.CASCADE,default='')
+    name = models.CharField(max_length=150, default='')
+    registration = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
