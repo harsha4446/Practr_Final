@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from . models import student, interests, student_detail, judge_detail,colleges, clubs
-from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, interestModel, defaultForm, newClub,newCollege
+from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, interestModel, defaultForm, newClub,newCollege, clubsetup
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
-from .models import student as User
-
+from .models import student
 
 # Create your views here.
 
@@ -15,7 +14,7 @@ def index(request):
         password=form.cleaned_data['password']
         name = form.cleaned_data['name']
         phoneno = form.cleaned_data['phoneno']
-        new_user=User.objects.create_user(username,password,name,phoneno)
+        new_user=student.objects.create_user(username,password,name,phoneno)
         new_user.save()
     formin = LoginForm(request.POST or None)
     if formin.is_valid():
@@ -41,6 +40,8 @@ def new_student(request):
         return HttpResponseRedirect('/home/newjudge_info/')
     if request.user.college:
         return HttpResponseRedirect('/home/newcollege_info/')
+    if request.user.club:
+        return HttpResponseRedirect('/home/newclub_info/')
     interestForm = interestModel(request.POST or None)
     formInfo = StudentInfo(request.POST or None)
     formDefault = defaultForm(request.POST or None, request.FILES or None)
@@ -72,9 +73,12 @@ def new_student(request):
 
 def new_judge(request):
     if not request.user.judge:
-        return HttpResponseRedirect('/home/newstudent_info/')
-    if request.user.college:
-        return HttpResponseRedirect('/home/newcollege_info/')
+        if request.user.club:
+            return HttpResponseRedirect('/home/newclub_info/')
+        elif request.user.college:
+            return HttpResponseRedirect('/home/newcollege_info/')
+        else:
+            return HttpResponseRedirect('/home/newstudent_info/')
     interestForm = interestModel(request.POST or None)
     formInfo = JudgeInfo(request.POST or None)
     formDefault = defaultForm(request.POST or None, request.FILES or None)
@@ -108,7 +112,12 @@ def new_judge(request):
 
 def new_college(request):
     if not request.user.college:
-        return HttpResponseRedirect('/home/newstudent_info/')
+        if request.user.club:
+            return HttpResponseRedirect('/home/newclub_info/')
+        elif request.user.judge:
+            return HttpResponseRedirect('/home/newjudge_info/')
+        else:
+            return HttpResponseRedirect('/home/newstudent_info/')
     formCollege = newCollege(request.POST or None)
     formClub = newClub(request.POST or None)
     if formCollege.is_valid() and formClub.is_valid():
@@ -125,16 +134,38 @@ def new_college(request):
         club_password = formClub.cleaned_data.get("club_password")
         club.phone = formClub.cleaned_data.get("phone")
         club.club_email = formClub.cleaned_data.get("club_email")
-        new_user = User.objects.create_user(club.club_email, club_password, club.admin_name, club.phone)
+        new_user = student.objects.create_user(club.club_email, club_password, club.admin_name, club.phone)
         new_user.club=True
         new_user.save()
         club.save()
-        college = colleges(email = club)
-        college.save()
-        return HttpResponseRedirect('/college_dashboard/')
-
+        #college = colleges(email = club)
+        #college.save()
+        return HttpResponseRedirect('/user/college_dashboard/')
     context = {"college":formCollege, "club":formClub,}
     return render (request, 'home/new_college.html', context)
+
+
+def new_club(request):
+    if not request.user.club:
+        if request.user.college:
+            return HttpResponseRedirect('/home/newcollege_info/')
+        elif request.user.judge:
+            return HttpResponseRedirect('/home/newjudge_info/')
+        else:
+            return HttpResponseRedirect('/home/newstudent_info/')
+    form = clubsetup(request.POST or None)
+    user = request.user
+    club = clubs.objects.get(club_email=user.email)
+    if form.is_valid():
+        club.video = form.cleaned_data.get("video")
+        club.website = form.cleaned_data.get("website")
+        club.about = form.cleaned_data.get("about")
+        request.user.activated = True
+        request.user.save()
+        club.save()
+        return HttpResponseRedirect('/user/club_dashboard/')
+    context = {"form":form, "user":user,}
+    return render (request, 'home/new_club.html', context)
 
 
 

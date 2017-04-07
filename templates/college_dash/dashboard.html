@@ -47,7 +47,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                    {{ club.name }}
+                    {{ college.college_name }}
                 </a>
             </div>
 
@@ -156,25 +156,25 @@
                     <div class="col-md-6">
                         <div class="card ">
                             <div class="header">
-                                <h4 class="title">Events</h4>
-                                <p class="category">Here are all the events hosted by {{ club.name }}</p>
+                                <h4 class="title">Clubs</h4>
+                                <p class="category">Here are all the clubs hosted by {{ college.college_name }}</p>
                             </div>
                             <div class="content">
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
-                                        {% for event in all_events %}
+                                        {% for club in clubs %}
                                             <tr>
                                                 <td>
                                                     <label>
-                                                        <strong>{{ event.name }}</strong>
+                                                        <strong>{{ club.name }}</strong>
                                                     </label>
                                                 </td>
-                                                {% if event.registration is False %}
-                                                <td><button><a href="/user/club_dashboard/{{ event.id }}">Open Registration </a></button>
-                                                {% else %}
-                                                <td><button><a href="/user/club_dashboard/{{ event.id }}">Close Registration</a></button>
-                                                {% endif %}
+{#                                                {% if event.registration is False %}#}
+{#                                                <td><button><a href="/user/club_dashboard/{{ event.id }}">Open Registration </a></button>#}
+{#                                                {% else %}#}
+{#                                                <td><button><a href="/user/club_dashboard/{{ event.id }}">Close Registration</a></button>#}
+{#                                                {% endif %}#}
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
                                                         <i class="fa fa-edit"></i>
@@ -188,12 +188,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="wizard-footer height-wizard">
-                                    <div class="pull-right">
-                                        <button><a href="/user/club_dashboard/new_event">Add Event</a></button>
-                                    </div>
-                                    <div class="clearfix"></div>
+                            <div class="wizard-footer height-wizard">
+                            <div class="pull-right">
+                                    <button><a href="/user/college_dashboard/new_club">Add Club</a></button>
                                 </div>
+                                <div class="clearfix"></div>
+                            </div>
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">

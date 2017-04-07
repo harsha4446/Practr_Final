@@ -166,6 +166,9 @@ class clubs(models.Model):
     admin_name = models.CharField(max_length=100,default='')
     club_email = models.CharField(max_length=100,default='', unique=True)
     phone = models.CharField(max_length=10, default='')
+    video = models.CharField(max_length=250, default='')
+    website = models.CharField(max_length=250, default='')
+    about = models.CharField(max_length=1000, default='')
 
     def __str__(self):
         return self.name
@@ -178,6 +181,8 @@ class events(models.Model):
     email = models.ForeignKey(clubs, on_delete=models.CASCADE,default='')
     name = models.CharField(max_length=150, default='')
     registration = models.BooleanField(default=False)
+    about = models.CharField(max_length=1000, default='')
+    website = models.CharField(max_length=250, default='')
 
     def __str__(self):
         return self.name

@@ -11,7 +11,9 @@ urlpatterns = [
     url(r'^newstudent_info', views.new_student, name='newstudent'),
     url(r'^newjudge_info', views.new_judge, name='newjudge'),
     url(r'^newcollege_info', views.new_college, name='newcollege_info'),
+    url(r'^newclub_info', views.new_club, name='newclub_info'),
     url(r'^judge_details/', include('judge.urls')),
     url(r'^student_list/', include('studentlist.urls')),
     url(r'^club_dashboard/', include('club_dashboard.urls')),
+    url(r'^college_dashboard/', include('college_dashboard.urls')),
 ]
