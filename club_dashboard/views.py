@@ -3,6 +3,7 @@ from users.models import clubs, events, colleges, rounds
 from . forms import openRegistarion, addEvent, addRound
 from django.http import HttpResponseRedirect
 
+#delete comment
 # Create your views here.
 def dashboard(request):
     user = request.user
