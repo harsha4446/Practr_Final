@@ -51,6 +51,7 @@
 
                 <div class="card wizard-card" data-color="orange" id="wizardProfile">
                     <form action="" method="post" enctype="multipart/form-data">
+
                 <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
                         {% csrf_token %}
                     	<div class="wizard-header">
@@ -71,6 +72,15 @@
                             <div class="tab-pane" id="about">
                               <div class="row">
                                   <h4 class="info-text"> Let's start with the basics</h4>
+                                  <div class="col-sm-4 col-sm-offset-1">
+                                     <div class="picture-container">
+                                          <div class="picture">
+                                              <img src="{% static 'assets/img/default-avatar.png'%}" class="picture-src" id="wizardPicturePreview" title=""/>
+                                              {{ form.logo }}
+                                          </div>
+                                          <h6>Choose Event Logo</h6>
+                                      </div>
+                                  </div>
                                   <div class="col-sm-10 col-sm-offset-1">
                                       <div class="form-group">
                                         <label> Name Of Event <small>(required)</small></label>
@@ -85,6 +95,12 @@
                                       <div class="form-group">
                                           <label>About<small> (required)</small></label>
                                           {{ form.about }}
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-10 col-sm-offset-1">
+                                      <div class="form-group">
+                                          <label>Inter College?</label>
+                                          {{ form.inter_type }}
                                       </div>
                                   </div>
                               </div>

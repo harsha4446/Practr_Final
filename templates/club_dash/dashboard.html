@@ -176,9 +176,9 @@
                                                 <td><button><a href="/user/club_dashboard/{{ event.id }}">Close Registration</a></button>
                                                 {% endif %}
                                                 <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
+                                                    <button class="btn btn-info btn-simple btn-xs"  type="button" rel="tooltip" title="Edit Task"><a href="/user/club_dashboard/addRound/{{ event.id }}">
                                                         <i class="fa fa-edit"></i>
-                                                    </button>
+                                                    </a></button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
                                                         <i class="fa fa-times"></i>
                                                     </button>
@@ -276,24 +276,24 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Tasks</h4>
-                                <p class="category">Here are all your cases and tasks for event "Anveshana"</p>
+                                <p class="category">Here are all your cases and tasks for event {{ event.name }}</p>
                             </div>
                             <div class="content">
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
+                                        {% for round  in all_rounds %}
                                             <tr>
                                                 <td>
                                                     <label>
-                                                        <strong>Marketing</strong>
+                                                        <strong>{{ round.event }}</strong>
                                                     </label>
                                                 </td>
-                                                <td>Case Name</td>
+                                                <td>{{ round.title }}</td>
                                                 <td><button>Publish</button></td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
@@ -304,95 +304,10 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <label>
-                                                        <strong>Finance</strong>
-                                                    </label>
-                                                </td>
-                                                <td>Case Name</td>
-                                                <td><button>Publish</button></td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label>
-                                                        <strong>Public Relations</strong>
-                                                    </label>
-                                                </td>
-                                                <td>Case Name</td>
-                                                <td><button>Publish</button></td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label>
-                                                        <strong>Entrepreneurship</strong>
-                                                    </label>
-                                                </td>
-                                                <td>Case Name</td>
-                                                <td><button>Publish</button></td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label>
-                                                        <strong>Human Resources</strong>
-                                                    </label>
-                                                </td>
-                                                <td>Case Name</td>
-                                                <td><button>Publish</button></td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <label>
-                                                        <strong>Best Manager</strong>
-                                                    </label>
-                                                </td>
-                                                <td>Case Name</td>
-                                                <td><button>Publish</button></td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <div class="footer">
                                     <hr>
                                     <div class="stats">

@@ -31,6 +31,7 @@ class CustomUserManager(BaseUserManager):
 def upload_loction(object, filename):
     return "%s/%s" %(object.email , filename)
 
+
 class student(AbstractBaseUser):
     email = models.EmailField(max_length=100,unique=True)
     name=models.CharField(max_length=50)
@@ -88,7 +89,6 @@ class student_scores(models.Model):
         return self.username
 
 
-
 class student_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
     label = models.CharField(max_length=50,default='')
@@ -108,7 +108,6 @@ class student_detail(models.Model):
         return self.college
 
 
-
 class judge_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
     label = models.CharField(max_length=50, default='')
@@ -123,7 +122,6 @@ class judge_detail(models.Model):
 
     def __unicode__(self):
         return self.label
-
 
 
 class interests(models.Model):
@@ -142,8 +140,6 @@ class interests(models.Model):
 
     def __unicode__(self):
         return self.label
-
-
 
 
 class colleges(models.Model):
@@ -183,9 +179,65 @@ class events(models.Model):
     registration = models.BooleanField(default=False)
     about = models.CharField(max_length=1000, default='')
     website = models.CharField(max_length=250, default='')
+    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True)
+    inter_type = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
     def __unicode__(self):
         return self.name
+
+
+class rounds(models.Model):
+    email = models.ForeignKey(events, on_delete=models.CASCADE, default='')
+    event = models.CharField(max_length=150, default='')
+    club = models.CharField(max_length=150, default='')
+    ext_judge = models.BooleanField(default=False)
+    title = models.CharField(max_length=150, default='')
+    sub_title = models.CharField(max_length=150, default='')
+    about = models.CharField(max_length=1000, default='')
+    task1 = models.CharField(max_length=150, default='')
+    task2 = models.CharField(max_length=150, default='', blank=True)
+    tast3 = models.CharField(max_length=150, default='', blank=True)
+    task4 = models.CharField(max_length=150, default='', blank=True)
+    task5 = models.CharField(max_length=150, default='', blank=True)
+    resource1 = models.CharField(max_length=150, default='')
+    resource2 = models.CharField(max_length=150, default='', blank=True)
+    resource3 = models.CharField(max_length=150, default='', blank=True)
+    resource4 = models.CharField(max_length=150, default='', blank=True)
+    resource5 = models.CharField(max_length=150, default='', blank=True)
+    creativity = models.BooleanField(default=False)
+    content = models.BooleanField(default=False)
+    presentation = models.BooleanField(default=False)
+    rebuttal = models.BooleanField(default=False)
+    communication = models.BooleanField(default=False)
+    feasibility = models.BooleanField(default=False)
+    feedback = models.BooleanField(default=False)
+    question1 = models.CharField(max_length=150, default='')
+    question2 = models.CharField(max_length=150, default='', blank=True)
+    question3 = models.CharField(max_length=150, default='', blank=True)
+    question4 = models.CharField(max_length=150, default='', blank=True)
+    question5 = models.CharField(max_length=150, default='', blank=True)
+
+
+    def __str__(self):
+        return self.title
+
+    def __unicode__(self):
+        return self.title
+
+
+class follow_table(models.Model):
+    user = models.ManyToManyField(student)
+    current_user = models.ForeignKey(student,related_name='owner', null=True)
+
+    @classmethod
+    def make_friend(cls,current_user, new_friend):
+        follow,created = cls.objects.get_or_create(current_user = current_user)
+        follow.user.add(new_friend)
+
+    @classmethod
+    def lose_friend(cls, current_user, new_friend):
+        follow, created = cls.objects.get_or_create(current_user=current_user)
+        follow.user.remove(new_friend)
