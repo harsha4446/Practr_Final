@@ -33,11 +33,11 @@ class defaultForm(forms.ModelForm):
 
 
 class StudentInfo(forms.ModelForm):
-    college = forms.CharField(label="",required=True,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    #college = forms.CharField(label="",required=True,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     degree = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student_detail
-        fields = ['degree', 'college', 'year',]
+        fields = ['degree', 'year',]
 
 
 

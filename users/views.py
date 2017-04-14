@@ -53,7 +53,7 @@ def new_student(request):
         request.user.save()
         user_info = student_detail(email=request.user, )
         user_info.label = request.user.email
-        user_info.college = formInfo.cleaned_data.get("college")
+        user_info.college = request.POST.get('college_name')
         user_info.industry_exp = formInfo.cleaned_data.get("industry_exp")
         user_info.degree = formInfo.cleaned_data.get("degree")
         user_info.save()
@@ -67,7 +67,8 @@ def new_student(request):
         user_interest.business_quiz = interestForm.cleaned_data.get("business_quiz")
         user_interest.save()
         return HttpResponseRedirect('/profile_page/')
-    context = {"formInfo":formInfo, "interest":interestForm, "default":formDefault, "user":request.user,}
+    all_colleges = colleges.objects.filter()
+    context = {"formInfo":formInfo, "interest":interestForm, "default":formDefault, "user":request.user, "all_colleges":all_colleges}
     return render(request,'home/new_studentsetup.html',context)
 
 

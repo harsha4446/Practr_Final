@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'profile_page.apps.ProfilePageConfig',
     'studentlist.apps.StudentlistConfig',
     'judge.apps.JudgeConfig',
+    'club_dashboard.apps.ClubDashboardConfig',
+    'college_dashboard.apps.CollegeDashboardConfig',
+    'judgelist.apps.JudgelistConfig',
+    'student_dashboard.apps.StudentDashboardConfig',
 ]
 
 
