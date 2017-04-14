@@ -133,10 +133,12 @@
         {% for user in all_users %}
             <div class="column">
                 <div class="col-sm-3">
+                <a href = '/profile_page/{{ user.id }}/'>
                     <div class="uou-block-6a"> <img src="{{ user.profile_picture.url }}" alt="">
                         <h6>{{ user.name }}<span>{{ user.student_detail.college }}</span></h6>
                         <p><i class="fa fa-map-marker"></i>{{ user.location }}</p>
                     </div>
+                </a>
                 </div>
         {% endfor %}
         </div>

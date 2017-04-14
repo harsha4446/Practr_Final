@@ -29,37 +29,6 @@
 <body>
 <div id="main-wrapper">
 
-  <!-- Top Toolbar -->
-  <div class="toolbar">
-    <div class="uou-block-1a blog">
-      <div class="container">
-        <div class="search"> <a href="#" class="toggle fa fa-search"></a>
-          <form action="#">
-            <input type="text" class="search-input" placeholder="Search ...">
-            <input type="submit" value="">
-          </form>
-        </div>
-        <ul class="social">
-          <li><a href="#" class="fa fa-facebook"></a></li>
-          <li><a href="#" class="fa fa-twitter"></a></li>
-          <li><a href="#" class="fa fa-google-plus"></a></li>
-        </ul>
-        <ul class="authentication">
-          <li><a href="/home/logout">Logout</a></li>
-        </ul>
-        <div class="language"> <a href="#" class="toggle"><img src="{% static 'images/flags/32/US.png'%}" alt=""> ENG</a>
-          <ul>
-            <li><a href="#"><img src="{% static 'images/flags/32/PT.png'%}" alt=""> PT</a></li>
-            <li><a href="#"><img src="{% static 'images/flags/32/FR.png'%}" alt=""> FR</a></li>
-            <li><a href="#"><img src="{% static 'images/flags/32/ES.png'%}" alt=""> ES</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- end .uou-block-1a -->
-  </div>
-  <!-- end toolbar -->
-
  <div class="box-shadow-for-ui">
     <div class="uou-block-2b">
       <div class="container"> <a href="#" class="logo"><img src="{% static 'images/logo.png'%}" alt=""></a> <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
@@ -84,7 +53,7 @@
   </div>
   <!-- end .uou-block-2b -->
 
-  <div class="compny-profile">
+  <div class="company-profile">
     <!-- SUB Banner -->
     <div class="profile-bnr user-profile-bnr">
       <div class="container">
@@ -109,20 +78,9 @@
               <h6><a class="close" href="#." data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a> Send Message</h6>
 
               <!-- Forms -->
-              <form action="#">
+              <form action="/profile_page/connect/{{ user.id }}/" method="post">
+                  {% csrf_token %}
                 <ul class="row">
-                  <li class="col-xs-6">
-                    <input type="text" placeholder="First Name ">
-                  </li>
-                  <li class="col-xs-6">
-                    <input type="text" placeholder="Last Name">
-                  </li>
-                  <li class="col-xs-6">
-                    <input type="text" placeholder="Country">
-                  </li>
-                  <li class="col-xs-6">
-                    <input type="text" placeholder="Email">
-                  </li>
                   <li class="col-xs-12">
                     <textarea placeholder="Your Message"></textarea>
                   </li>

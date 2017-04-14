@@ -1,5 +1,6 @@
 from django.conf.urls import url,include
 from . import views
+from profile_page.views import profile_page
 
 
 

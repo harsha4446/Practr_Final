@@ -5,7 +5,7 @@ from . forms import userForm
 # Create your views here.
 
 def student_list(request):
-    all_users = student.objects.filter(judge=False)
+    all_users = student.objects.filter(judge=False, college=False,club=False)
     formuser = userForm(request.POST or None)
 
     if formuser.is_valid() and formuser.cleaned_data['email'] != '':
