@@ -9,15 +9,15 @@ def student_list(request):
     formuser = userForm(request.POST or None)
 
     if formuser.is_valid() and formuser.cleaned_data['email'] != '':
-        email = formuser.cleaned_data['email']
+        email = formuser.cleaned_data.get('email')
         all_users = student.objects.filter(judge=False,email=email)
 
     if formuser.is_valid()and formuser.cleaned_data['name'] != '':
-        name = formuser.cleaned_data['name']
+        name = formuser.cleaned_data.get('name')
         all_users = student.objects.filter(judge=False,name=name)
 
     if formuser.is_valid()and formuser.cleaned_data['college'] != '':
-        college = formuser.cleaned_data['college']
+        college = formuser.cleaned_data.get('college')
         all_users = student.objects.filter(judge=False,student_detail__college=college)
 
     context = {"all_users":all_users,"form":formuser,}

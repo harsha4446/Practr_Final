@@ -78,9 +78,18 @@ class student(AbstractBaseUser):
 
 class student_scores(models.Model):
     username=models.OneToOneField(student,on_delete=models.CASCADE)
-    creativiy=models.IntegerField(default=0)
-    presentation=models.IntegerField(default=0)
-    overall=models.IntegerField(default=0)
+    creativity = models.IntegerField(default=0)
+    content = models.IntegerField(default=0)
+    presentation = models.IntegerField(default=0)
+    rebuttal = models.IntegerField(default=0)
+    communication = models.IntegerField(default=0)
+    feasibility = models.IntegerField(default=0)
+    feedback = models.CharField(max_length=1000, default='')
+    question1 = models.IntegerField(default=0)
+    question2 = models.IntegerField(default=0, blank=True)
+    question3 = models.IntegerField(default=0, blank=True)
+    question4 = models.IntegerField(default=0, blank=True)
+    question5 = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return self.username
@@ -229,15 +238,22 @@ class rounds(models.Model):
 
 
 class follow_table(models.Model):
-    user = models.ManyToManyField(student)
-    current_user = models.ForeignKey(student,related_name='owner', null=True)
+    connected_to = models.ManyToManyField(student)
+    current_user = models.ForeignKey(student, related_name='owner', null=True)
 
     @classmethod
-    def make_friend(cls,current_user, new_friend):
-        follow,created = cls.objects.get_or_create(current_user = current_user)
-        follow.user.add(new_friend)
+    def make_friend(cls, current_user, new_friend):
+        follow, created = cls.objects.get_or_create(current_user=current_user)
+        follow.connected_to.add(new_friend)
 
     @classmethod
     def lose_friend(cls, current_user, new_friend):
         follow, created = cls.objects.get_or_create(current_user=current_user)
-        follow.user.remove(new_friend)
+        follow.connected_to.remove(new_friend)
+
+    def __str__(self):
+        return '%s' % self.current_user.email
+
+    def __unicode__(self):
+        return '%s' % self.current_user.email
+

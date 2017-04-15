@@ -111,11 +111,9 @@
 									</p>
                               </a>
                               <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                                {% for request in requests %}
+                                <li><a href="#">{{ request.email }}</a></li>
+                                {% endfor %}
                               </ul>
                         </li>
                     </ul>
@@ -153,24 +151,24 @@
 <!--       Abhishek do the body inside this section  -->
 
         <div class="services">
-{% for i in "xxxxxxxxxxxx" %}
+{% for event in events %}
 <div class="col-md-4">
     <figure class="snip1174 navy col-md-4">
-      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample33.jpg" alt="sq-sample33" />
+      <img src="{{ event.logo.url }}" alt="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample33.jpg" />
       <figcaption>
-        <h2>Hello </h2>
+        <h2>{{ event.name }} </h2>
         <p>
-          Reva university
+          {{ event.email.email.college_name }}
         </p>
-        <a href ="#">Information aboyt ddfdsf dsfdsfds fdsf sdfd sdf dfdsfsdfdsfdsfdfdsfds df df sdf ff dsfsfsdf dfsdfsdfsds </a>
+        <a href ="{{ event.website }}">{{ event.about }}</a>
       </figcaption>
     </figure>
 </div>
 {% endfor %}
 
 </div>
-
-
+    </div>
+    </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

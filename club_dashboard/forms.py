@@ -12,6 +12,7 @@ class addEvent(forms.ModelForm):
     name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'cols': 30}))
     website = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    logo = forms.IntegerField(required=False)
     class Meta:
         model = events
         fields = ['name', 'about', 'website', 'logo', 'inter_type' ]
