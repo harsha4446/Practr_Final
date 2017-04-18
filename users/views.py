@@ -4,18 +4,11 @@ from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, interestMode
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from .models import student
+import media.default
 
 # Create your views here.
 
 def index(request):
-    form = RegisterModel(request.POST or None)
-    if form.is_valid():
-        username=form.cleaned_data['email']
-        password=form.cleaned_data['password']
-        name = form.cleaned_data['name']
-        phoneno = form.cleaned_data['phoneno']
-        new_user=student.objects.create_user(username,password,name,phoneno)
-        new_user.save()
     formin = LoginForm(request.POST or None)
     if formin.is_valid():
         username = formin.cleaned_data.get("username")
@@ -27,9 +20,22 @@ def index(request):
                 return HttpResponseRedirect('/user/club_dashboard')
             else:
                 return HttpResponseRedirect('/home/newstudent_info/')
-    context={"form":form, "formin":formin}
+    context={"form":formin}
     return render(request,'home/index.html',context)
 
+
+def register(request):
+    form = RegisterModel(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        name = form.cleaned_data['name']
+        phoneno = form.cleaned_data['phoneno']
+        new_user = student.objects.create_user(username, password, name, phoneno)
+        new_user.save()
+        return HttpResponseRedirect('/home/')
+    context = {"form":form}
+    return render(request, 'home/register.html', context)
 
 def user_logout(request):
     auth.logout(request)
@@ -49,6 +55,7 @@ def new_student(request):
         request.user.location = formDefault.cleaned_data.get("location")
         request.user.dob = formDefault.cleaned_data.get("dob")
         request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
+        request.user.about = formDefault.cleaned_data.get("about")
         request.user.activated = True
         request.user.save()
         user_info = student_detail(email=request.user, )

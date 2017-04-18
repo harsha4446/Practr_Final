@@ -14,6 +14,7 @@ def dashboard(request):
             return HttpResponseRedirect("/user/student_dashboard/")
     college = colleges.objects.get(email = user)
     all_clubs = clubs.objects.filter(email = college)
+    print(all_clubs)
     context = {"user":user, "college":college, "clubs":all_clubs,}
     return render(request,'college_dash/dashboard.html',context)
 

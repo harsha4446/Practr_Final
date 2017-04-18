@@ -1,385 +1,206 @@
-
 <!doctype html>
 <html lang="en">
+{% load staticfiles %}
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Practr - Applied Learning Platform</title>
-
-    {% load staticfiles %}
-
-
-<!-- Fonts Online -->
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
--
-<!-- Style Sheet -->
-<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-<link rel="stylesheet" href="{% static 'css/main-style.css' %}">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png'%}" />
+    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png'%}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Practr Login</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{% static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
 </head>
 
 <body>
-<div id="main-wrapper">
-
-  <!-- Top Toolbar -->
-  <div class="toolbar">
-    <div class="uou-block-1a blog">
-      <div class="container">
-        <div class="search"> <a href="#" class="toggle fa fa-search"></a>
-          <form action="#">
-            <input type="text" class="search-input" placeholder="Search ...">
-            <input type="submit" value="">
-          </form>
-        </div>
-        <ul class="social">
-          <li><a href="#" class="fa fa-facebook"></a></li>
-          <li><a href="#" class="fa fa-twitter"></a></li>
-          <li><a href="#" class="fa fa-google-plus"></a></li>
-        </ul>
-        <ul class="authentication">
-          <li><a href="logout">Logout</a></li>
-        </ul>
-        <div class="language"> <a href="#" class="toggle"><img src="{% static 'images/flags/32/US.png' %}" alt=""> ENG</a>
-          <ul>
-            <li><a href="#"><img src="{% static 'images/flags/32/PT.png'%}" alt=""> ENG</a></li>
-            <li><a href="#"><img src="{% static 'images/flags/32/FR.png'%}" alt=""> FR</a></li>
-            <li><a href="#"><img src="{% static 'images/flags/32/ES.png'%}" alt=""> ES</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- end .uou-block-1a -->
-  </div>
-  <!-- end toolbar -->
-
-  <div class="box-shadow-for-ui">
-    <div class="uou-block-2b">
-      <div class="container"> <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt=""></a> <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
-        <nav class="nav">
-          <ul class="sf-menu">
-            <li class="active"><a href="index.html"><i class="fa  fa-home"></i></a></li>
-            <li> <a href="listing-filter.html">List</a> </li>
-            <li><a href="listing-filter-students.html">Students</a></li>
-                <li><a href="profile_company.html">Club</a></li>
-                <li><a href="user-profile(layout-2).html">Judge</a></li>
-                <li><a href="Performance%20Review.html">Performance Review</a></li>
-                <li><a href="user-dashboard(connections)(hotkeys-disabled).html">Network </a></li>
-            <li> <a href="user">User </a></li>
-            <li> <a href="user-profile(layout-2).html">Judge </a></li>
-            <li> <a href="profile_company.html">Club</a></li>
-            <li><a href="blog.html">Courses</a></li>
-            <li><a href="profile_placement.html">Placement</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-    <!-- end .uou-block-2b -->
-  </div>
-
-  <!-- HOME PRO-->
-  <div class="home-pro">
-
-    <!-- PRO BANNER HEAD -->
-    <div class="banr-head">
-      <div class="container">
-        <div class="row">
-
-          <!-- CONTENT -->
-          <div class="col-sm-7">
-            <div class="text-area">
-              <div class="position-center-center col-md-10">
-                  <h1> We are a platform and community for proactive students</h1><h6>Practr helps proactive students explore, identify and harness their talents
-                  </h6>
-              </div>
+    <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home/ ">Practr</a>
             </div>
-          </div>
-
-          <!-- FORM SECTION -->
-          <div class="col-sm-5">
-            <div class="login-sec">
-
-              <!-- TABS -->
-              <div class="uou-tabs">
-                <ul class="tabs">
-                  <li><a href="#register">Register Now</a></li>
-                  <li class="active"><a href="#log-in">Member Login</a></li>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../dashboard.html">
+                            <i class="material-icons">dashboard</i> Dashboard
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="register">
+                            <i class="material-icons">person_add</i> Register
+                        </a>
+                    </li>
+                    <li class=" active ">
+                        <a href="login.html">
+                            <i class="material-icons">fingerprint</i> Login
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="lock.html">
+                            <i class="material-icons">lock_open</i> Lock
+                        </a>
+                    </li>
                 </ul>
-
-                <!-- REGISTER -->
-                <div class="content">
-                  <div id="register">
-                    <form method="post" action="">
-                        {% csrf_token %}
-                      {{ form.as_p }}
-                      <button type="submit">Register</button>
-                      <div class="login-with"> <span>Or login with:</span> <a href="#."><i class="fa fa-facebook"></i></a> <a href="#."><i class="fa fa-google"></i></a> <a href="#."><i class="fa fa-linkedin"></i></a> </div>
-                    </form>
-                  </div>
-
-                  <!-- LOGIN -->
-                  <div id="log-in" class="active">
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        {{ formin.as_p }}
-                      <button type="submit">Login</button>
-                      <div class="login-with"> <span>Or login with:</span> <a href="#."><i class="fa fa-facebook"></i></a> <a href="#."><i class="fa fa-google"></i></a> <a href="#."><i class="fa fa-linkedin"></i></a> </div>
-                      <div class="forget">Forgot your password? <a href="#.">Click Here</a></div>
-                    </form>
-                  </div>
-                  <div id="forget">
-                    <form>
-                      <input type="email" placeholder="Email Address">
-                      <button type="submit">Login</button>
-                    </form>
-                  </div>
+            </div>
+        </div>
+    </nav>
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page login-page" filter-color="black" data-image="{% static 'assets/img/login.jpeg'%}">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <div class="card card-login card-hidden">
+                                    <div class="card-header text-center" data-background-color="rose">
+                                        <h4 class="card-title">Login</h4>
+                                        <div class="social-line">
+                                            <a href="#btn" class="btn btn-just-icon btn-simple">
+                                                <i class="fa fa-facebook-square"></i>
+                                            </a>
+                                            <a href="#pablo" class="btn btn-just-icon btn-simple">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                            <a href="#eugen" class="btn btn-just-icon btn-simple">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <p class="category text-center">
+                                        Or Be Classical
+                                    </p>
+                                    <div class="card-content">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">email</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Email address</label>
+                                                {{ form.username }}
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="material-icons">lock_outline</i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Password</label>
+                                                {{ form.password }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer text-center">
+                                        <button type="submit" class="btn btn-rose btn-simple btn-wd btn-lg">Let's go</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
+            <footer class="footer">
+                <div class="container">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Company
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="/dashboard/">Practr Team</a>, made to help.
+                    </p>
+                </div>
+            </footer>
         </div>
-      </div>
     </div>
-
-    <!-- SERVICES -->
-    <section class="services">
-
-      <!-- SERVICES ROW -->
-      <ul class="row">
-
-        <!-- SECTION -->
-        <li class="col-md-4">
-          <div class="ser-inn">
-          <i class="fa fa-globe"></i>
-            <h4>Engage with other students</h4>
-            <i class="fa fa-globe big"></i>
-            <p>Collaborate and compete with other students in the community who share your love for challenge, thrill and business acumen.</p>
-          </div>
-        </li>
-
-        <!-- SECTION -->
-        <li class="col-md-4">
-          <div class="ser-inn">
-            <i class="fa fa-book"></i>
-            <h4>Gain insight on your growth</h4>
-            <i class="fa fa-book big"></i>
-            <p>We domument and catalogue your experiences in various competitive events and projects to help you build a versatile profile</p>
-          </div>
-        </li>
-
-        <!-- SECTION  -->
-        <li class="col-md-4">
-          <div class="ser-inn">
-          <i class="fa fa-picture-o"></i>
-            <h4>Showcase your profile</h4>
-            <i class="fa fa-picture-o big"></i>
-            <p>Practr is your living and breathing rèsumè that grows as you grow. Showcase your portfolio to earn incredible job opportunities.</p>
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- PRO SECTION -->
-    <section class="pro-content">
-      <div class="container-fluid">
-        <div class="row">
-
-          <!-- PRO IMAGE -->
-          <div class="col-md-6 pro-inside" style="background:url({% static 'images/pro-img-1.jpg' %}) center center no-repeat;"></div>
-
-          <!-- PRO CONTENT -->
-          <div class="col-md-6 pro-inside">
-            <div class="position-center-center col-md-6">
-              <h1>Practr helps companies hire talented and driven freshers.</h1>
-              <p>Hire from a pool of eccentric proactive students. Get a 360 degree view of their abilities by browsing through their profile and portfolio on practr </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRO SECTION -->
-      <div class="container-fluid">
-        <div class="row">
-
-          <!-- PRO TEXT -->
-          <div class="col-md-6 pro-inside">
-            <div class="position-center-center col-md-6">
-              <h1>Affiliate with a club</h1>
-              <p> Unlock unlimited branding potential amongst colleges. Practr helps brands browse, connect and partner with student clubs within various universities and colleges. </p>
-            </div>
-          </div>
-
-          <!-- PRO BACKGROUND -->
-          <div class="col-md-6 pro-inside" style="background:url({% static 'images/pro-img-2.jpg' %}) center center no-repeat;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- APP IMAGE -->
-
-
-          <!-- TEXT -->
-
-
-    <!-- TESTIMONIALS -->
-    <section class="clients-says">
-      <div class="container">
-        <h3 class="section-title">Featured Judges Comments </h3>
-        <div class="testi">
-          <div class="texti-slide">
-            <!-- SLide -->
-            <div class="clints-text">
-              <div class="text-in">
-                <p>Great Design, good text copy, Would look great as a sticker on cars and on other objects. - Pilot Event</p>
-              </div>
-              <div class="avatar">
-                <div class="media-left"> <a href="#."> <img src="{%static 'images/clients-avatar-1.jpg'%}" alt=""> </a> </div>
-                <div class="media-body">
-                  <h6>Sudeep Shenoy</h6>
-                  <span>Senior copywriter at Tata Consultancy Services</span> </div>
-              </div>
-            </div>
-
-            <!-- SLide -->
-            <div class="clints-text">
-              <div class="text-in">
-                <p>With the right support this idea could work wonders. -Ink Inc., E-Cell, Christ University</p>
-              </div>
-              <div class="avatar">
-                <div class="media-left"> <a href="#."> <img src="{% static 'images/clients-avatar-2.jpg'%}" alt=""> </a> </div>
-                <div class="media-body">
-                  <h6>Rohit Rammurthy</h6>
-                  <span>Associate Professor at Jain University</span> </div>
-              </div>
-            </div>
-
-            <!-- SLide -->
-            <div class="clints-text">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- sponsors -->
-    <div class="sponsors" style="background:url({% static 'images/sponser-bg.jpg'%}) no-repeat;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h3 class="section-title">Our Partners</h3>
-            <div class="sponsors-slider">
-              <div class="item"><img src="{% static 'images/sponsor_logo1.png'%}" alt="" class="img-responsive"></div>
-              <div class="item"><img src="{% static 'images/sponsor_logo2.png'%}" alt="" class="img-responsive"></div>
-              <div class="item"><img src="{% static 'images/sponsor_logo3.png'%}" alt="" class="img-responsive"></div>
-              <div class="item"><img src="{% static 'images/sponsor_logo4.png'%}" alt="" class="img-responsive"></div>
-              <div class="item"><img src="{% static 'images/sponsor_logo5.png'%}" alt="" class="img-responsive"></div>
-              <div class="item"><img src="{% static 'images/sponsor_logo6.png'%}" alt="" class="img-responsive"></div>
-              <div class="item"><img src="{% static 'images/sponsor_logo4.png'%}" alt="" class="img-responsive"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<div class="uou-block-4e">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-sm-6"> <a href="#" class="logo"><img src="{% static 'images/logo.png' %}" alt=""></a>
-        <ul class="contact-info has-bg-image contain" data-bg-image="{% static 'images/footer-map-bg.png'%}">
-          <li> <i class="fa fa-map-marker"></i>
-            <address>
-            795 Folsom Ave, Suite 600, San Francisco, CA 94107
-            </address>
-          </li>
-          <li> <i class="fa fa-phone"></i> <a href="tel:#">(123) 456-7890</a> </li>
-          <li> <i class="fa fa-envelope"></i> <a href="mailto:#">first.last@example.com</a> </li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Twitter Feed</h5>
-        <ul class="twitter-feed">
-          <li> RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell of a stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a> <a href="#" class="time">May 25</a> </li>
-          <li> Check out the wordpress version of Tucson - <a href="#">http://t.co/sBlU3GbapT</a> <a href="#" class="time">May 22</a> </li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Photostream</h5>
-        <ul class="photos-list">
-          <li><img src="{% static 'images/photostream4.jpg' %}" alt=""></li>
-          <li><img src="{% static 'images/photostream6.jpg' %}" alt=""></li>
-          <li><img src="{% static 'images/photostream3.jpg' %}" alt=""></li>
-          <li><img src="{% static 'images/photostream2.jpg' %}" alt=""></li>
-          <li><img src="{% static 'images/photostream1.jpg' %}" alt=""></li>
-          <li><img src="{% static 'images/photostream.jpg' %}" alt=""></li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Newsletter</h5>
-        <p>Subscribe to our newsletter to receive our latest news and updates. We do not spam.</p>
-        <form class="newsletter-form" action="#">
-          <input type="email" placeholder="Enter your email address">
-          <input type="submit" class="btn btn-primary" value="Subscribe">
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end .uou-block-4e -->
-
-<div class="uou-block-4a secondary dark">
-  <div class="container">
-    <ul class="links">
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms &amp; Conditions</a></li>
-    </ul>
-    <p>Copyright &copy; 2015 <a href="#">Practr</a>. All Rights reserved.</p>
-  </div>
-</div>
-<!-- end .uou-block-4a -->
-
-<div class="uou-block-11a">
-  <h5 class="title">Menu</h5>
-  <a href="#" class="mobile-sidebar-close">&times;</a>
-  <nav class="main-nav">
-    <ul>
-      <li class="active"><a href="index.html">Index</a></li>
-      <li> <a href="listing-filter.html">Judges</a> </li>
-      <li><a href="profile_company.html">Profile Club</a></li>
-      <li><a href="user-dashboard(connections)(hotkeys-disabled).html">User Dashboard 1</a></li>
-      <li> <a href="user-profile(layout-1).html">User Profile</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="gui-kit.html">GUI KIT</a></li>
-    </ul>
-  </nav>
-  <hr>
-</div>
-
-<!-- Scripts -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-<script src="{% static 'js/plugins/superfish.min.js' %}"></script>
-<script src="{% static 'js/jquery.ui.min.js' %}"></script>
-<script src="{% static 'js/plugins/rangeslider.min.js' %}"></script>
-<script src="{% static 'js/plugins/jquery.flexslider-min.js' %}"></script>
-<script src="{% static 'js/uou-accordions.js' %}"></script>
-<script src="{% static 'js/uou-tabs.js' %}"></script>
-<script src="{% static 'js/plugins/select2.min.js' %}"></script>
-<script src="{% static 'js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'js/gmap3.min.js' %}"></script>
-<script src="{% static 'js/scripts.js' %}"></script>
-<script>
-
-</script>
 </body>
+<!--   Core JS Files   -->
+<script src="{% static 'assets/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/jquery-ui.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/material.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/perfect-scrollbar.jquery.min.js'%}" type="text/javascript"></script>
+<!-- Forms Validations Plugin -->
+<script src="{% static 'assets/js/jquery.validate.min.js'%}"></script>
+<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+<script src="{% static 'assets/js/moment.min.js'%}"></script>
+<!--  Charts Plugin -->
+<script src="{% static 'assets/js/chartist.min.js'%}"></script>
+<!--  Plugin for the Wizard -->
+<script src="{% static 'assets/js/jquery.bootstrap-wizard.js'%}"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'assets/js/bootstrap-notify.js'%}"></script>
+<!-- DateTimePicker Plugin -->
+<script src="{% static 'assets/js/bootstrap-datetimepicker.js'%}"></script>
+<!-- Vector Map plugin -->
+<script src="{% static 'assets/js/jquery-jvectormap.js'%}"></script>
+<!-- Sliders Plugin -->
+<script src="{% static 'assets/js/nouislider.min.js'%}"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- Select Plugin -->
+<script src="{% static 'assets/js/jquery.select-bootstrap.js'%}"></script>
+<!--  DataTables.net Plugin    -->
+<script src="{% static 'assets/js/jquery.datatables.js'%}"></script>
+<!-- Sweet Alert 2 plugin -->
+<script src="{% static 'assets/js/sweetalert2.js'%}"></script>
+<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="{% static 'assets/js/jasny-bootstrap.min.js'%}"></script>
+<!--  Full Calendar Plugin    -->
+<script src="{% static 'assets/js/fullcalendar.min.js'%}"></script>
+<!-- TagsInput Plugin -->
+<script src="{% static 'assets/js/jquery.tagsinput.js'%}"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="{% static 'assets/js/material-dashboard.js'%}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{% static 'assets/js/demo.js'%}"></script>
+<script type="text/javascript">
+    $().ready(function() {
+        demo.checkFullPageBackgroundImage();
+
+        setTimeout(function() {
+            // after 1000 ms we add the class animated to the login/register card
+            $('.card').removeClass('card-hidden');
+        }, 700)
+    });
+</script>
+
 </html>

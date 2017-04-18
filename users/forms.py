@@ -6,15 +6,18 @@ from django.forms.extras import SelectDateWidget
 user = get_user_model()
 
 class RegisterModel(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput)
+    password=forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    email = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
+    name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}))
+    phoneno = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}))
     class Meta:
         model = student
         fields = ['email','password','name','phoneno',]
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', }))
+    password = forms.CharField(label='',widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 
 DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
@@ -27,9 +30,10 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
 class defaultForm(forms.ModelForm):
     dob = forms.DateField(widget=SelectDateWidget(years=DOY))
     location = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student
-        fields = ['profile_picture', 'location', 'dob', ]
+        fields = ['profile_picture', 'location', 'dob', 'about' ]
 
 
 class StudentInfo(forms.ModelForm):

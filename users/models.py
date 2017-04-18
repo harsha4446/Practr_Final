@@ -44,11 +44,11 @@ class student(AbstractBaseUser):
     judge = models.BooleanField(default=False)
     college = models.BooleanField(default=False)
     club = models.BooleanField(default=False)
-    about = models.CharField(max_length=500,default='')
+    about = models.CharField(max_length=500,default='', blank=True)
     dob = models.DateField(default=datetime.date.today)
     experience = models.PositiveSmallIntegerField(default=0)
-    location = models.CharField(max_length=100, default='')
-    profile_picture = models.ImageField(upload_to=upload_loction,null=True,blank=True)
+    location = models.CharField(max_length=100, default='', blank=True)
+    profile_picture = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/new_logo.png')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name','phoneno']
@@ -174,6 +174,7 @@ class clubs(models.Model):
     video = models.CharField(max_length=250, default='')
     website = models.CharField(max_length=250, default='')
     about = models.CharField(max_length=1000, default='')
+    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/club_default.jpg')
 
     def __str__(self):
         return self.name
@@ -188,8 +189,9 @@ class events(models.Model):
     registration = models.BooleanField(default=False)
     about = models.CharField(max_length=1000, default='')
     website = models.CharField(max_length=250, default='')
-    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True)
+    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True,default='default/new_logo.png')
     inter_type = models.BooleanField(default=False)
+    team_size = models.IntegerField(default=1)
 
     def __str__(self):
         return self.name
@@ -257,3 +259,23 @@ class follow_table(models.Model):
     def __unicode__(self):
         return '%s' % self.current_user.email
 
+
+class register_table(models.Model):
+    registered_to = models.ManyToManyField(clubs)
+    current_user = models.ForeignKey(student, related_name='following', null=True)
+
+    @classmethod
+    def register(cls, current_user, registered_to):
+        follow, created = cls.objects.get_or_create(current_user=current_user)
+        follow.registered_to.add(registered_to)
+
+    @classmethod
+    def rmregister(cls, current_user, registered_to):
+        follow, created = cls.objects.get_or_create(current_user=current_user)
+        follow.registered_to.remove(registered_to)
+
+    def __str__(self):
+        return '%s' % self.current_user.email
+
+    def __unicode__(self):
+        return '%s' % self.current_user.email

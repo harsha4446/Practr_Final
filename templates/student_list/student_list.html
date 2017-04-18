@@ -135,14 +135,15 @@
             <div class="column">
                 <div class="col-sm-3">
                 <a href = '/profile_page/{{ user.id }}/'>
-                    <div class="uou-block-6a"> <img src="{{ user.profile_picture.url }}" alt="">
+                    <div class="uou-block-6a">
+                        <img src="{{ user.profile_picture.url }}" height="180" width="440" alt="">
                         <h6>{{ user.name }}<span>{{ user.student_detail.college }}</span></h6>
-                        <p><i class="fa fa-map-marker"></i>{{ user.location }}</p>
+                        <p><i class="fa-map-marker"></i>{{ user.location }}</p>
                     </div>
                 </a>
                 </div>
+            </div>
         {% endfor %}
-        </div>
     </div>
   </section>
 </div>

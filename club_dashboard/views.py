@@ -18,7 +18,7 @@ def dashboard(request):
     open = openRegistarion(request.POST or None)
     all_event = events.objects.filter(email = club)
     all_rounds = rounds.objects.filter(club = club.club_email)
-    context = {"user":user, "all_events":all_event, "club":club,"open":open,"all_rounds":all_rounds,}
+    context = {"user":user, "events":all_event, "club":club,"open":open,"all_rounds":all_rounds,}
     return render(request,'club_dash/dashboard.html',context)
 
 
@@ -42,6 +42,7 @@ def add_event(request):
         event.website = form.cleaned_data.get("website")
         event.logo = form.cleaned_data.get("logo")
         event.inter_type = form.cleaned_data.get("inter_type")
+        event.team_size = form.changed_data.get("team_size")
         event.save()
         return HttpResponseRedirect("/user/club_dashboard")
     context = {"form":form, "user":request.user}
@@ -82,12 +83,16 @@ def add_round(request, id=None):
         round.question3 = form.cleaned_data.get("question3")
         round.question4 = form.cleaned_data.get("question4")
         round.question5 = form.cleaned_data.get("question5")
-        #round.ext_judge = False
         round.save()
         return HttpResponseRedirect("/user/club_dashboard")
     else:
         print("not valid form")
     context = {"form":form,}
     return render (request,'club_dash/add_round.html',context)
+
+def del_event(request, id = None):
+    event = events.objects.get(id = id)
+    event.delete()
+    return HttpResponseRedirect("/user/club_dashboard")
 
 
