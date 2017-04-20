@@ -366,60 +366,108 @@
                     <h3>My Events</h3>
                     <br>
                     <div class="row">
-                        {% for event in events %}
-                        <div class="col-md-4">
-                            <div class="card card-product">
-                                <div class="card-image" data-header-animation="true">
-                                    <a href="#pablo">
-                                        <img class="img" src="{{ event.logo.url }}">
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <a href="/user/club_dashboard/{{ event.id }}">
-                                            {% if event.registration is False %}
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Open Registration">
-                                            <i class="material-icons">whatshot</i>
-                                            {% else %}
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Close Registration">
-                                            <i class="material-icons">block</i>
-                                            {% endif %}
-                                        </button>
+                        {% if event.marketing %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/1">
+                                        <h6 class="category">Marketing</h6>
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">record_voice_over</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count1 }}</h3>
+                                        <br>
                                         </a>
-                                        <a href = "/user/club_dashboard/subEvents/{{ event.id }}">
-                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Sub Events">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" href="delEvent/{{ event.id }}"
-                                                data-placement="bottom" title="Remove" onclick="demo.showSwal('warning-message-and-confirmation')">
-                                            <i class="material-icons">close</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">
-                                        <a href="#pablo">{{ event.name }}</a>
-                                    </h4>
-                                    <div class="card-description">
-                                        {{ event.about }}
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="price">
-                                        <h4>{{ event.email.name }}</h4>
-                                    </div>
-                                    <div class="stats pull-right">
-                                        <p class="category"><i class="material-icons">place</i> {{ event.email.email.college_name }}</p>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {% endfor %}
-                    <button class="btn btn-primary btn-round btn-fab btn-fab-mini"><a href="/user/club_dashboard/new_event">
-                                        <i class="material-icons">add</i>
-                    </a></button>
+                        {% endif %}
+                    {% if event.finance %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/2">
+                                        <h6 class="category">Finance</h6>
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">attach_money</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count2 }}</h3>
+                                        <br>
+                                        </a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/2" class="btn btn-rose btn-round">Create Case</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% if event.public_relations %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/3">
+                                        <h6 class="category">Public Relations</h6>
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">group</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count3 }}</h3>
+                                        <br>
+                                        </a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/3" class="btn btn-rose btn-round">Create Case</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% if event.human_resources %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/4">
+                                        <h6 class="category">Human Resource</h6>
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">wc</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count4 }}</h3>
+                                        <br>
+                                        </a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/4" class="btn btn-rose btn-round">Create Case</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% if event.ent_dev %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/5">
+                                        <h6 class="category">Entrepreneur and Development</h6>
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">gesture</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count5 }}</h3>
+                                        <br>
+                                        </a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/5" class="btn btn-rose btn-round">Create Case</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% if event.business_quiz %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/6">
+                                        <h6 class="category">Business Quiz</h6>
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">local_library</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count6 }}</h3>
+                                        <br>
+                                        </a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/6" class="btn btn-rose btn-round">Create Case</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 <h3>Stats</h3>
                     <br>

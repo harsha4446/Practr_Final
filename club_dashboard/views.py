@@ -3,8 +3,10 @@ from users.models import clubs, events, colleges, rounds
 from . forms import openRegistarion, addEvent, addRound
 from django.http import HttpResponseRedirect
 
-#delete comment
+
 # Create your views here.
+
+
 def dashboard(request):
     user = request.user
     if not user.club:
@@ -14,11 +16,9 @@ def dashboard(request):
         return HttpResponseRedirect("/user/student_dashboard/")
     user = request.user
     club = clubs.objects.get(club_email=user.email)
-    #college = colleges(email = user)
     open = openRegistarion(request.POST or None)
     all_event = events.objects.filter(email = club)
-    all_rounds = rounds.objects.filter(club = club.club_email)
-    context = {"user":user, "events":all_event, "club":club,"open":open,"all_rounds":all_rounds,}
+    context = {"user":user, "events":all_event, "club":club,"open":open,}
     return render(request,'club_dash/dashboard.html',context)
 
 
@@ -40,23 +40,42 @@ def add_event(request):
         event.name = form.cleaned_data.get("name")
         event.about = form.cleaned_data.get("about")
         event.website = form.cleaned_data.get("website")
-        event.logo = form.cleaned_data.get("logo")
         event.inter_type = form.cleaned_data.get("inter_type")
-        event.team_size = form.changed_data.get("team_size")
+        event.team_size = form.cleaned_data.get("team_size")
+        event.marketing = form.cleaned_data.get("marketing")
+        event.finance = form.cleaned_data.get("finance")
+        event.public_relations = form.cleaned_data.get("public_relations")
+        event.human_resources = form.cleaned_data.get("human_resources")
+        event.ent_dev = form.cleaned_data.get("ent_dev")
+        event.business_quiz = form.cleaned_data.get("business_quiz")
+        if form.cleaned_data.get("logo"):
+            event.logo = form.cleaned_data.get("logo")
         event.save()
         return HttpResponseRedirect("/user/club_dashboard")
     context = {"form":form, "user":request.user}
     return render(request,'club_dash/add_event.html',context)
 
 
-def add_round(request, id=None):
+def sub_events(request, id = None):
+    event = events.objects.get(id = id)
+    user = request.user
+    count1 = rounds.objects.filter(email=event, type=1).count()
+    count2 = rounds.objects.filter(email=event, type=2).count()
+    count3 = rounds.objects.filter(email=event, type=3).count()
+    count4 = rounds.objects.filter(email=event, type=4).count()
+    count5 = rounds.objects.filter(email=event, type=5).count()
+    count6 = rounds.objects.filter(email=event, type=6).count()
+    context = {'event':event, 'user':user, 'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
+               'count5':count5, 'count6':count6,}
+    return render(request,'club_dash/sub_events.html',context)
+
+
+def add_round(request, id=None, operation=None):
     club = clubs.objects.get(club_email = request.user.email)
     event = events.objects.get(id=id)
     round = rounds(email = event)
     form = addRound(request.POST or None)
     if form.is_valid():
-        round.club = club.club_email
-        round.event = event.name
         round.title = form.cleaned_data.get("title")
         round.sub_title = form.cleaned_data.get("sub_title")
         round.about = form.cleaned_data.get("sub_title")
@@ -83,16 +102,22 @@ def add_round(request, id=None):
         round.question3 = form.cleaned_data.get("question3")
         round.question4 = form.cleaned_data.get("question4")
         round.question5 = form.cleaned_data.get("question5")
+        round.type = operation
         round.save()
         return HttpResponseRedirect("/user/club_dashboard")
-    else:
-        print("not valid form")
     context = {"form":form,}
     return render (request,'club_dash/add_round.html',context)
+
 
 def del_event(request, id = None):
     event = events.objects.get(id = id)
     event.delete()
     return HttpResponseRedirect("/user/club_dashboard")
 
+
+def case_view(request, id, type):
+    event = events.objects.get(id=id)
+    all_rounds = rounds.objects.filter(email=event,type=type)
+    context = {'all_rounds':all_rounds, 'user':request.user}
+    return render(request,'club_dash/case_view.html',context)
 

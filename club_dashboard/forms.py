@@ -12,11 +12,12 @@ class addEvent(forms.ModelForm):
     name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'cols': 30}))
     website = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    logo = forms.ImageField(required=True)
-    #team_size = forms.IntegerField(label="", required=True)
+    logo = forms.ImageField(required=False)
+    team_size = forms.IntegerField(label="", required=True)
     class Meta:
         model = events
-        fields = ['name', 'about', 'website', 'logo', 'inter_type', 'team_size', ]
+        fields = ['name', 'about', 'website', 'logo', 'inter_type', 'team_size', 'marketing',
+                  'finance', 'public_relations', 'human_resources', 'ent_dev', 'business_quiz',]
 
 
 

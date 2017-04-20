@@ -77,7 +77,7 @@ class newClub(forms.ModelForm):
     phone = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = clubs
-        fields = ['name','admin_name','club_password','club_email', 'phone']
+        fields = ['name','admin_name','club_password','club_email', 'phone',]
 
 class clubsetup(forms.ModelForm):
     video = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))

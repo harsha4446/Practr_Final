@@ -189,9 +189,15 @@ class events(models.Model):
     registration = models.BooleanField(default=False)
     about = models.CharField(max_length=1000, default='')
     website = models.CharField(max_length=250, default='')
-    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True,default='default/new_logo.png')
+    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True,default='default/club_default.jpg')
     inter_type = models.BooleanField(default=False)
     team_size = models.IntegerField(default=1)
+    marketing = models.BooleanField(default=False)
+    finance = models.BooleanField(default=False)
+    public_relations = models.BooleanField(default=False)
+    human_resources = models.BooleanField(default=False)
+    ent_dev = models.BooleanField(default=False)
+    business_quiz = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -202,8 +208,6 @@ class events(models.Model):
 
 class rounds(models.Model):
     email = models.ForeignKey(events, on_delete=models.CASCADE, default='')
-    event = models.CharField(max_length=150, default='')
-    club = models.CharField(max_length=150, default='')
     ext_judge = models.BooleanField(default=False)
     title = models.CharField(max_length=150, default='')
     sub_title = models.CharField(max_length=150, default='')
@@ -230,7 +234,8 @@ class rounds(models.Model):
     question3 = models.CharField(max_length=150, default='', blank=True)
     question4 = models.CharField(max_length=150, default='', blank=True)
     question5 = models.CharField(max_length=150, default='', blank=True)
-
+    type = models.IntegerField(default=0)
+    created = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return self.title
