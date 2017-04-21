@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^club_dashboard/', include('club_dashboard.urls')),
     url(r'^college_dashboard/', include('college_dashboard.urls')),
     url(r'^student_dashboard/', include('student_dashboard.urls')),
+    url(r'^judge_dashboard/', include('judge_dashboard.urls')),
     url(r'^network/', include('networks.urls')),
 ]

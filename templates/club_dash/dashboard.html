@@ -394,8 +394,9 @@
                                             <i class="material-icons">edit</i>
                                         </button>
                                         </a>
-                                        <a href="delEvent/{{ event.id }}">
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
+{#                                        <a href="delEvent/{{ event.id }}">#}
+                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip"  onclick="demo.showSwal('warning-message-and-confirmation')" data-placement="bottom" title="Remove">
+{#                                            <button class="btn btn-success" href="delEvent/{{ event.id }}"></button>#}
                                             <i class="material-icons">close</i>
                                         </button>
                                         </a>

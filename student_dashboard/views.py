@@ -15,7 +15,7 @@ def dashboard(request):
         friend_requests = None
     all_events  = events.objects.filter()
     context = {"requests":friend_requests, "user":current_user, "events":all_events, }
-    return render(request,'student_dash/events_feed.html',context)
+    return render(request, 'student_dash/dashboard.html', context)
 
 
 def clubs_view(request):
