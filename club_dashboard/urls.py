@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^delEvent/(?P<id>\d+)/$', views.del_event,name='delEvent'),
     url(r'^subEvents/(?P<id>\d+)/$', views.sub_events,name='subevent'),
     url(r'^caseView/(?P<id>\d+)/(?P<type>\d+)/$', views.case_view,name='caseview'),
+    url(r'^publish/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.publish,name='publish'),
 
 
 ]

@@ -118,6 +118,17 @@ def del_event(request, id = None):
 def case_view(request, id, type):
     event = events.objects.get(id=id)
     all_rounds = rounds.objects.filter(email=event,type=type)
-    context = {'all_rounds':all_rounds, 'user':request.user}
+    context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type,}
     return render(request,'club_dash/case_view.html',context)
+
+
+def publish(request, id, event, type):
+    round = rounds.objects.get(id=id)
+    if round.published:
+        round.published = False
+    else:
+        round.published = True
+    round.save()
+    return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
+
 

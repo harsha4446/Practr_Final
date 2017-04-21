@@ -236,6 +236,7 @@ class rounds(models.Model):
     question5 = models.CharField(max_length=150, default='', blank=True)
     type = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
+    published = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

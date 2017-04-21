@@ -370,7 +370,7 @@
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
-                                    <a href="#pablo">
+                                    <a href="/user/club_dashboard/subEvents/{{ event.id }}">
                                         <img class="img" src="{{ event.logo.url }}">
                                     </a>
                                 </div>
@@ -394,13 +394,14 @@
                                             <i class="material-icons">edit</i>
                                         </button>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" href="delEvent/{{ event.id }}"
-                                                data-placement="bottom" title="Remove" onclick="demo.showSwal('warning-message-and-confirmation')">
+                                        <a href="delEvent/{{ event.id }}">
+                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
                                             <i class="material-icons">close</i>
                                         </button>
+                                        </a>
                                     </div>
                                     <h4 class="card-title">
-                                        <a href="#pablo">{{ event.name }}</a>
+                                        {{ event.name }}
                                     </h4>
                                     <div class="card-description">
                                         {{ event.about }}
