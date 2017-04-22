@@ -298,12 +298,11 @@
                                         <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="View">
                                             <i class="material-icons">art_track</i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Edit">
-                                            <i class="material-icons">edit</i>
+                                        <a href="/user/student_dashboard/eventRegister/{{ event.id }}">
+                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Register">
+                                            <i class="material-icons">people</i>
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
-                                            <i class="material-icons">close</i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <h4 class="card-title">
                                         <a href="#pablo">{{ event.name }}</a>

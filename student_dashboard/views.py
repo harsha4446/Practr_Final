@@ -14,11 +14,15 @@ def dashboard(request):
          register = event_registered.objects.get(current_user = current_user)
          registered = register.registered_to.all()
          for x in registered:
-             round = rounds.objects.get(email = x)
-             all_rounds = all_rounds | round
+             round = rounds.objects.filter(email = x, published=True)
+             if all_rounds is None:
+                 all_rounds = round
+             else:
+                 all_rounds = all_rounds | round
     except event_registered.DoesNotExist:
         registered = None
-    print(all_rounds)
+    except rounds.DoesNotExist:
+        round = None
     context = {"rounds":all_rounds, "user":current_user, }
     return render(request, 'student_dash/dashboard.html', context)
 

@@ -617,7 +617,7 @@ demo = {
     	}else if(type == 'warning-message-and-cancel'){
             swal({
                     title: 'Are you sure?',
-                    text: 'You will not be able to recover this imaginary file!',
+                    text: 'You will not be able to undo this!',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
@@ -628,18 +628,19 @@ demo = {
                 }).then(function() {
                   swal({
                     title: 'Deleted!',
-                    text: 'Your imaginary file has been deleted.',
+                    text: 'Successfully Deleted',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
-                    });
-                // window.location.href = variable;
+                    }).then(function () {
+                        window.location.href = variable;
+                  })
                 }, function(dismiss) {
                   // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
                   if (dismiss === 'cancel') {
                     swal({
                       title: 'Cancelled',
-                      text: 'Your imaginary file is safe :)',
+                      text: 'Safe, we did not delete it.',
                       type: 'error',
                       confirmButtonClass: "btn btn-info",
                       buttonsStyling: false
