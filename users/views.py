@@ -37,9 +37,11 @@ def register(request):
     context = {"form":form}
     return render(request, 'home/register.html', context)
 
+
 def user_logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/home/')
+
 
 def new_student(request):
     if request.user.judge:
@@ -54,7 +56,8 @@ def new_student(request):
     if formInfo.is_valid() and formDefault.is_valid() and interestForm.is_valid():
         request.user.location = formDefault.cleaned_data.get("location")
         request.user.dob = formDefault.cleaned_data.get("dob")
-        request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
+        if formDefault.cleaned_data.get("profile_picture"):
+            request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
         request.user.about = formDefault.cleaned_data.get("about")
         request.user.activated = True
         request.user.save()
@@ -73,7 +76,7 @@ def new_student(request):
         user_interest.ent_dev = interestForm.cleaned_data.get("ent_dev")
         user_interest.business_quiz = interestForm.cleaned_data.get("business_quiz")
         user_interest.save()
-        return HttpResponseRedirect('/profile_page/')
+        return HttpResponseRedirect('/user/student_dashboard')
     all_colleges = colleges.objects.filter()
     context = {"formInfo":formInfo, "interest":interestForm, "default":formDefault, "user":request.user, "all_colleges":all_colleges}
     return render(request,'home/new_studentsetup.html',context)

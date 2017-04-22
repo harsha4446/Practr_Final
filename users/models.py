@@ -285,3 +285,18 @@ class register_table(models.Model):
 
     def __unicode__(self):
         return '%s' % self.current_user.email
+
+
+class event_registered(models.Model):
+    registered_to = models.ManyToManyField(events)
+    current_user = models.ForeignKey(student, related_name='registered', null=True)
+
+    @classmethod
+    def register(cls, current_user, registered_to):
+        follow, created = cls.objects.get_or_create(current_user=current_user)
+        follow.registered_to.add(registered_to)
+
+    @classmethod
+    def rmregister(cls, current_user, registered_to):
+        follow, created = cls.objects.get_or_create(current_user=current_user)
+        follow.registered_to.remove(registered_to)

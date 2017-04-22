@@ -57,7 +57,7 @@
                                     <a href="#">Edit Profile</a>
                                 </li>
                                 <li>
-                                    <a href="/home/logout">Log Out</a>
+                                     <a href="/home/logout">Log Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -70,13 +70,13 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="/user/student_dashboard/clubs">
                             <i class="material-icons">apps</i>
                             <p>Clubs</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/user/student_dashboard/events">
                             <i class="material-icons">apps</i>
                             <p>Events</p>
@@ -279,15 +279,15 @@
                             </div>
                         </div>
                     </div>
-                    <h3>{{ user.student_detail.college }}'s Clubs</h3>
+                    <h3>Available Events</h3>
                     <br>
                     <div class="row">
-                        {% for club in my_clubs %}
+                        {% for event in events %}
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
                                     <a href="#pablo">
-                                        <img class="img" src="{{ club.logo.url }}">
+                                        <img class="img" src="{{ event.logo.url }}">
                                     </a>
                                 </div>
                                 <div class="card-content">
@@ -298,66 +298,118 @@
                                         <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="View">
                                             <i class="material-icons">art_track</i>
                                         </button>
-                                        <a href="/user/student_dashboard/register/{{ club.id }}">
-                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Register">
-                                            <i class="material-icons">people</i>
+                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Edit">
+                                            <i class="material-icons">edit</i>
                                         </button>
-                                        </a>
+                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
+                                            <i class="material-icons">close</i>
+                                        </button>
                                     </div>
                                     <h4 class="card-title">
-                                        <a href="#pablo">{{ club.name }}</a>
+                                        <a href="#pablo">{{ event.name }}</a>
                                     </h4>
                                     <div class="card-description">
-                                        {{ club.about }}
+                                        {{ event.about }}
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="price">
-                                        <h4>{{ club.website }}</h4>
+                                        <h4>{{ event.email.name }}</h4>
                                     </div>
                                     <div class="stats pull-right">
-                                        <p class="category"><i class="material-icons">place</i> {{ club.email.college_name }}</p>
+                                        <p class="category"><i class="material-icons">place</i> {{ event.email.email.college_name }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-                <h3>All Clubs</h3>
+                <br>
+                <h3>Stats</h3>
                     <br>
-                    <div class="row">
-                        {% for club in all_clubs %}
+                <div class="row">
                         <div class="col-md-4">
-                            <div class="card card-product">
-                                <div class="card-image" data-header-animation="true">
-                                    <a href="#pablo">
-                                        <img class="img" src="{{ club.logo.url }}">
-                                    </a>
+                            <div class="card card-chart">
+                                <div class="card-header" data-background-color="rose" data-header-animation="true">
+                                    <div class="ct-chart" id="websiteViewsChart"></div>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-actions">
                                         <button type="button" class="btn btn-danger btn-simple fix-broken-card">
                                             <i class="material-icons">build</i> Fix Header!
                                         </button>
+                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
+                                            <i class="material-icons">refresh</i>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
+                                            <i class="material-icons">edit</i>
+                                        </button>
                                     </div>
-                                    <h4 class="card-title">
-                                        <a href="#pablo">{{ club.name }}</a>
-                                    </h4>
-                                    <div class="card-description">
-                                        {{ club.about }}
-                                    </div>
+                                    <h4 class="card-title">Website Views</h4>
+                                    <p class="category">Last Campaign Performance</p>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="price">
-                                        <h4>{{ club.website }}</h4>
-                                    </div>
-                                    <div class="stats pull-right">
-                                        <p class="category"><i class="material-icons">place</i> {{ club.email.college_name }}</p>
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
+                        <div class="col-md-4">
+                            <div class="card card-chart">
+                                <div class="card-header" data-background-color="green" data-header-animation="true">
+                                    <div class="ct-chart" id="dailySalesChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-actions">
+                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
+                                            <i class="material-icons">build</i> Fix Header!
+                                        </button>
+                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
+                                            <i class="material-icons">refresh</i>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </div>
+                                    <h4 class="card-title">Daily Sales</h4>
+                                    <p class="category">
+                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-chart">
+                                <div class="card-header" data-background-color="blue" data-header-animation="true">
+                                    <div class="ct-chart" id="completedTasksChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-actions">
+                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
+                                            <i class="material-icons">build</i> Fix Header!
+                                        </button>
+                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
+                                            <i class="material-icons">refresh</i>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </div>
+                                    <h4 class="card-title">Completed Tasks</h4>
+                                    <p class="category">Last Campaign Performance</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

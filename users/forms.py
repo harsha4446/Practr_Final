@@ -28,16 +28,16 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
 
 
 class defaultForm(forms.ModelForm):
-    dob = forms.DateField(widget=SelectDateWidget(years=DOY))
+    dob = forms.DateField(widget=SelectDateWidget(years=DOY, attrs={'class': 'form-control'}))
     location = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
+    profile_picture = forms.ImageField(required=False)
     class Meta:
         model = student
-        fields = ['profile_picture', 'location', 'dob', 'about' ]
+        fields = ['profile_picture', 'location', 'dob', 'about', ]
 
 
 class StudentInfo(forms.ModelForm):
-    #college = forms.CharField(label="",required=True,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     degree = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student_detail

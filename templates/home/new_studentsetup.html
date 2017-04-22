@@ -24,7 +24,6 @@
 <body>
 <div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg'%}')">
     <!--   Creative Tim Branding   -->
-    <a href="http://creative-tim.com">
          <div class="logo-container">
             <div class="logo">
                 <img src="{% static 'assets_old/img/new_logo.png'%}">
@@ -33,13 +32,13 @@
                 {{ user.name }}
             </div>
         </div>
-    </a>
 
 	<!--  Made With Get Shit Done Kit  -->
-		<a href="http://demos.creative-tim.com/get-shit-done/index.html?ref=get-shit-done-bootstrap-wizard" class="made-with-mk">
-			<div class="brand">GK</div>
-			<div class="made-with">Made with <strong>GSDK</strong></div>
+		<a href="/home" class="made-with-mk">
+			<div class="brand">PR</div>
+			<div class="made-with">Take me  <strong>Home</strong></div>
 		</a>
+
 
     <!--   Big container   -->
     <div class="container">
@@ -95,7 +94,7 @@
                                   <div class="col-sm-10 col-sm-offset-1">
                                       <div class="form-group">
                                         <label>Introduce Yourself <small>(required)</small></label>
-                                        {{ default.dob }}
+                                        {{ default.about }}
                                       </div>
                                   </div>
                               </div>

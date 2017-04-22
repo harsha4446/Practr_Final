@@ -57,7 +57,7 @@
                                     <a href="#">Edit Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#">Settings</a>
+                                     <a href="/home/logout">Log Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -65,73 +65,16 @@
                 </div>
                 <ul class="nav">
                     <li class="active">
-                        <a href="./dashboard.html">
+                        <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
-                        <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="material-icons">image</i>
-                            <p>Pages
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="pagesExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="./pages/pricing.html">Pricing</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/timeline.html">Timeline</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/login.html">Login Page</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/register.html">Register Page</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/lock.html">Lock Screen Page</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/user.html">User Profile</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#componentsExamples">
+                   <li>
+                        <a href="/user/club_dashboard/members">
                             <i class="material-icons">apps</i>
-                            <p>Components
-                                <b class="caret"></b>
-                            </p>
+                            <p>Members</p>
                         </a>
-                        <div class="collapse" id="componentsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="./components/buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="./components/grid.html">Grid System</a>
-                                </li>
-                                <li>
-                                    <a href="./components/panels.html">Panels</a>
-                                </li>
-                                <li>
-                                    <a href="./components/sweet-alert.html">Sweet Alert</a>
-                                </li>
-                                <li>
-                                    <a href="./components/notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="./components/icons.html">Icons</a>
-                                </li>
-                                <li>
-                                    <a href="./components/typography.html">Typography</a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li>
                         <a data-toggle="collapse" href="#formsExamples">
@@ -394,9 +337,8 @@
                                             <i class="material-icons">edit</i>
                                         </button>
                                         </a>
-{#                                        <a href="delEvent/{{ event.id }}">#}
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip"  onclick="demo.showSwal('warning-message-and-confirmation')" data-placement="bottom" title="Remove">
-{#                                            <button class="btn btn-success" href="delEvent/{{ event.id }}"></button>#}
+                                        <a href="delEvent/{{ event.id }}">
+                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
                                             <i class="material-icons">close</i>
                                         </button>
                                         </a>

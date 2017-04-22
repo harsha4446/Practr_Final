@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import student,student_scores,colleges,clubs,interests, student_detail,judge_detail,events,rounds,follow_table, register_table
+from .models import student,student_scores,colleges,clubs,interests, student_detail,judge_detail,\
+    events,rounds,follow_table, register_table, event_registered
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
@@ -18,3 +19,4 @@ admin.site.register(events)
 admin.site.register(rounds)
 admin.site.register(follow_table)
 admin.site.register(register_table)
+admin.site.register(event_registered)

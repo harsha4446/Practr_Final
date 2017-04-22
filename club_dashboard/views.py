@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from users.models import clubs, events, colleges, rounds
+from users.models import clubs, events, colleges, rounds, register_table,student
 from . forms import openRegistarion, addEvent, addRound
 from django.http import HttpResponseRedirect
 
@@ -130,5 +130,19 @@ def publish(request, id, event, type):
         round.published = True
     round.save()
     return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
+
+
+def members(request):
+    current_user = request.user
+    students= None
+    try:
+        studen = register_table.objects.get(current_user = current_user)
+        students = studen.registered_to.all()
+    except register_table.DoesNotExist:
+        studen = None
+    print (students)
+    context = {'user':current_user, 'students':students}
+    return render(request,'club_dash/members.html',context)
+
 
 
