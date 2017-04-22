@@ -57,7 +57,7 @@
                                     <a href="#">Edit Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#">Settings</a>
+                                    <a href="/home/logout">Log Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -65,7 +65,7 @@
                 </div>
                 <ul class="nav">
                     <li class="active">
-                        <a href="./dashboard.html">
+                        <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
@@ -379,7 +379,7 @@
                                                 <tr>
                                                     <th>Title</th>
                                                     <th>Event</th>
-                                                    <th>Team Size</th>
+                                                    <th>Registered</th>
                                                     <th>External Judge</th>
                                                     <th class="text-right">Created</th>
                                                     <th class="text-right">Actions</th>
@@ -390,7 +390,7 @@
                                                 <tr>
                                                     <td> {{ round.title }}</td>
                                                     <td> {{ round.email.name }}</td>
-                                                    <td> {{ round.email.team_size }}</td>
+                                                    <td class="text-left"> {{ count }}</td>
                                                     <td> {{ round.ext_judge }}</td>
                                                     <td class="text-right"> {{ round.created }}</td>
                                                     <td class="td-actions text-right">

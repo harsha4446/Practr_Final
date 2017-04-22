@@ -104,7 +104,7 @@ def add_round(request, id=None, operation=None):
         round.question5 = form.cleaned_data.get("question5")
         round.type = operation
         round.save()
-        return HttpResponseRedirect("/user/club_dashboard")
+        return HttpResponseRedirect("/user/club_dashboard/subEvents/"+id)
     context = {"form":form,}
     return render (request,'club_dash/add_round.html',context)
 
@@ -118,7 +118,13 @@ def del_event(request, id = None):
 def case_view(request, id, type):
     event = events.objects.get(id=id)
     all_rounds = rounds.objects.filter(email=event,type=type)
-    context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type,}
+    register = 0
+    try:
+        club = clubs.objects.get(club_email=request.user.email)
+        register = register_table.objects.filter(registered_to=club).count()
+    except register_table.DoesNotExist:
+        register = 0
+    context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type, 'count':register}
     return render(request,'club_dash/case_view.html',context)
 
 
