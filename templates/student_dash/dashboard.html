@@ -279,15 +279,15 @@
                             </div>
                         </div>
                     </div>
-                    <h3>Available Events</h3>
+                    <h3>News Feed</h3>
                     <br>
                     <div class="row">
-                        {% for event in events %}
+                        {% for round in rounds %}
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
                                     <a href="#pablo">
-                                        <img class="img" src="{{ event.logo.url }}">
+                                        <img class="img" src="{{ round.email.logo.url }}">
                                     </a>
                                 </div>
                                 <div class="card-content">
@@ -306,18 +306,18 @@
                                         </button>
                                     </div>
                                     <h4 class="card-title">
-                                        <a href="#pablo">{{ event.name }}</a>
+                                        <a href="#pablo">{{ round.title }}</a>
                                     </h4>
                                     <div class="card-description">
-                                        {{ event.about }}
+                                        {{ round.about }}
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="price">
-                                        <h4>{{ event.email.name }}</h4>
+                                        <h4>{{ round.email.name }}</h4>
                                     </div>
                                     <div class="stats pull-right">
-                                        <p class="category"><i class="material-icons">place</i> {{ event.email.email.college_name }}</p>
+                                        <p class="category"><i class="material-icons">place</i> {{ round.email.email.collge_name }}</p>
                                     </div>
                                 </div>
                             </div>

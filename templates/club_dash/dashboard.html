@@ -337,11 +337,9 @@
                                             <i class="material-icons">edit</i>
                                         </button>
                                         </a>
-                                        <a href="delEvent/{{ event.id }}">
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
+                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip"  onclick="demo.showSwal('warning-message-and-cancel','delEven/{{ event.id }}')" data-placement="bottom" title="Remove">
                                             <i class="material-icons">close</i>
                                         </button>
-                                        </a>
                                     </div>
                                     <h4 class="card-title">
                                         {{ event.name }}

@@ -298,11 +298,13 @@
                                         <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="View">
                                             <i class="material-icons">art_track</i>
                                         </button>
+                                        {% if club in all_clubs %}
                                         <a href="/user/student_dashboard/register/{{ club.id }}">
                                         <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Register">
                                             <i class="material-icons">people</i>
                                         </button>
                                         </a>
+                                        {% endif %}
                                     </div>
                                     <h4 class="card-title">
                                         <a href="#pablo">{{ club.name }}</a>

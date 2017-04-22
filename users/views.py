@@ -4,7 +4,7 @@ from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, interestMode
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from .models import student
-import media.default
+
 
 # Create your views here.
 

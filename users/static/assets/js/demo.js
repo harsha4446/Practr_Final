@@ -569,7 +569,7 @@ demo = {
 
     },
 
-    showSwal: function(type){
+    showSwal: function(type,variable){
 
         if(type == 'basic'){
         	swal({
@@ -632,7 +632,8 @@ demo = {
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
-                    })
+                    });
+                // window.location.href = variable;
                 }, function(dismiss) {
                   // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
                   if (dismiss === 'cancel') {
