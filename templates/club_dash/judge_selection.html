@@ -377,29 +377,29 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Event</th>
-                                                    <th>Registered</th>
-                                                    <th>External Judge</th>
-                                                    <th class="text-right">Created</th>
+                                                    <th>Username</th>
+                                                    <th>College</th>
+                                                    <th>Year</th>
+                                                    <th>Degree</th>
+                                                    <th class="text-right">Experience</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {% for round in all_rounds %}
+                                            {% for student in registered %}
                                                 <tr>
-                                                    <td> {{ round.title }}</td>
-                                                    <td> {{ round.email.name }}</td>
-                                                    <td class="text-left"> {{ count }}</td>
-                                                    <td> {{ round.ext_judge }}</td>
-                                                    <td class="text-right"> {{ round.created }}</td>
+                                                    <td> {{ student.current_user.email }}</td>
+                                                    <td> {{ student.current_user.student_detail.college }}</td>
+                                                    <td class="text-left"> {{ student.current_user.student_detail.year }}</td>
+                                                    <td> {{ student.current_user.student_detail.degree }}</td>
+                                                    <td class="text-right"> {{ student.current_user.experience }}</td>
                                                     <td class="td-actions text-right">
                                                         <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}">
                                                         <button type="button" rel="tooltip" class="btn btn-info" title="Publish Case">
                                                             <i class="material-icons">person</i>
                                                         </button>
                                                         </a>
-                                                        <a href="/user/club_dashboard/judge/{{ event }}">
+                                                        <a href="/user/club_dashboard/judge/{{ event }}/{{ student.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge The Case">
                                                             <i class="material-icons">edit</i>
                                                         </button>

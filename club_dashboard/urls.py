@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^caseView/(?P<id>\d+)/(?P<type>\d+)/$', views.case_view,name='caseview'),
     url(r'^publish/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.publish,name='publish'),
     url(r'^members/$', views.members, name='members'),
+    url(r'^judge/(?P<id>\d+)/$', views.judge, name='judge'),
 
 
 ]

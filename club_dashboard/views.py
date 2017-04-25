@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from users.models import clubs, events, colleges, rounds, register_table,student
+from users.models import clubs, events, colleges, rounds, register_table,student, event_registered
 from . forms import openRegistarion, addEvent, addRound
 from django.http import HttpResponseRedirect
 
@@ -149,6 +149,17 @@ def members(request):
     print (students)
     context = {'user':current_user, 'students':students}
     return render(request,'club_dash/members.html',context)
+
+def judge(request, id=None):
+    user = request.user
+    event = events.objects.get(id=id)
+    registered = None
+    try:
+        registered = event_registered.objects.filter(registered_to=event)
+    except event_registered.DoesNotExist:
+        registered = None
+    context = {'user': user, 'registered':registered}
+    return render(request, 'club_dash/judge_selection.html', context)
 
 
 

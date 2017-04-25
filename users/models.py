@@ -300,3 +300,9 @@ class event_registered(models.Model):
     def rmregister(cls, current_user, registered_to):
         follow, created = cls.objects.get_or_create(current_user=current_user)
         follow.registered_to.remove(registered_to)
+
+    def __str__(self):
+        return '%s' % self.current_user.email
+
+    def __unicode__(self):
+        return '%s' % self.registered_to.name
