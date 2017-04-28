@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from users.models import clubs, events, colleges, rounds, register_table,student, event_registered
-from . forms import openRegistarion, addEvent, addRound
+from users.models import clubs, events, colleges, rounds, register_table,student, event_registered, round_scores
+from . forms import openRegistarion, addEvent, addRound, scoreForm
 from django.http import HttpResponseRedirect
 
 
@@ -150,7 +150,8 @@ def members(request):
     context = {'user':current_user, 'students':students}
     return render(request,'club_dash/members.html',context)
 
-def judge(request, id=None):
+
+def judge_list(request, id=None, round=None):
     user = request.user
     event = events.objects.get(id=id)
     registered = None
@@ -158,8 +159,35 @@ def judge(request, id=None):
         registered = event_registered.objects.filter(registered_to=event)
     except event_registered.DoesNotExist:
         registered = None
-    context = {'user': user, 'registered':registered}
+    context = {'user': user, 'registered':registered, 'event':event, 'round':round}
     return render(request, 'club_dash/judge_selection.html', context)
 
+
+def judge(request, id=None,student_id=None,event=None):
+    Student = student.objects.get(id=student_id)
+    round = rounds.objects.get(id=id)
+    scores = round_scores(round=round,student=Student)
+    form = scoreForm(request.POST or None)
+    if form.is_valid:
+        scores.question1 = form.cleaned_data.get('question1')
+        scores.question2 = form.cleaned_data.get('question2')
+        scores.question3 = form.cleaned_data.get('question3')
+        scores.question4 = form.cleaned_data.get('question4')
+        scores.question5 = form.cleaned_data.get('question5')
+        scores.feedback = form.cleaned_data.get('feedback')
+        if round.feasibility:
+            scores.feasibility = form.cleaned_data.get('feasibility')
+        if round.communication:
+            scores.communication = form.cleaned_data.get('communication')
+        if round.content:
+            scores.content = form.cleaned_data.get('content')
+        if round.creativity:
+            scores.creativity = form.cleaned_data.get('creativity')
+        if round.rebuttal:
+            scores.rebuttal = form.cleaned_data.get('rebuttal')
+        scores.save()
+        return HttpResponseRedirect('/user/club_dashboard/judge_list/'+event)
+    context = {'form':form}
+    return render (request, '', context)
 
 

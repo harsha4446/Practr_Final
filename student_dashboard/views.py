@@ -55,8 +55,8 @@ def event_feed(request):
                 all_events = y
             else:
                 all_events = all_events | y
-    except follow_table.DoesNotExist:
-        register = None
+    except register_table.DoesNotExist:
+        all_events = None
     context = { "user": current_user, "events": all_events, }
     return render(request, 'student_dash/event_feed.html', context)
 

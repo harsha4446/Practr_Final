@@ -392,21 +392,13 @@
                                                     <td> {{ student.current_user.student_detail.college }}</td>
                                                     <td class="text-left"> {{ student.current_user.student_detail.year }}</td>
                                                     <td> {{ student.current_user.student_detail.degree }}</td>
-                                                    <td class="text-right"> {{ student.current_user.experience }}</td>
+                                                    <td class="text-right"> {{ student.current_user.experience }} Practr events</td>
                                                     <td class="td-actions text-right">
-                                                        <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}">
-                                                        <button type="button" rel="tooltip" class="btn btn-info" title="Publish Case">
-                                                            <i class="material-icons">person</i>
-                                                        </button>
-                                                        </a>
-                                                        <a href="/user/club_dashboard/judge/{{ event }}/{{ student.id }}">
+                                                        <a href="/user/club_dashboard/judge/{{ round }}/{{ student.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge The Case">
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         </a>
-                                                        <button type="button" rel="tooltip" class="btn btn-danger" title="Delete Case">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
                                                     </td>
                                                 </tr>
                                             {% endfor %}

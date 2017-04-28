@@ -168,6 +168,7 @@ class colleges(models.Model):
 class clubs(models.Model):
     email = models.ForeignKey(colleges, on_delete=models.CASCADE,default='')
     name = models.CharField(max_length=100,default='')
+    college = models.CharField(max_length=150, default='')
     admin_name = models.CharField(max_length=100,default='')
     club_email = models.CharField(max_length=100,default='', unique=True)
     phone = models.CharField(max_length=10, default='')
@@ -175,6 +176,7 @@ class clubs(models.Model):
     website = models.CharField(max_length=250, default='')
     about = models.CharField(max_length=1000, default='')
     logo = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/club_default.jpg')
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -244,7 +246,7 @@ class rounds(models.Model):
     def __unicode__(self):
         return self.title
 
-
+#student to student
 class follow_table(models.Model):
     connected_to = models.ManyToManyField(student)
     current_user = models.ForeignKey(student, related_name='owner', null=True)
@@ -266,6 +268,7 @@ class follow_table(models.Model):
         return '%s' % self.current_user.email
 
 
+#student to club
 class register_table(models.Model):
     registered_to = models.ManyToManyField(clubs)
     current_user = models.ForeignKey(student, related_name='following', null=True)
@@ -287,6 +290,7 @@ class register_table(models.Model):
         return '%s' % self.current_user.email
 
 
+#student to event
 class event_registered(models.Model):
     registered_to = models.ManyToManyField(events)
     current_user = models.ForeignKey(student, related_name='registered', null=True)
@@ -306,3 +310,25 @@ class event_registered(models.Model):
 
     def __unicode__(self):
         return '%s' % self.registered_to.name
+
+
+#per round scores and data
+class round_scores(models.Model):
+    round = models.ForeignKey(rounds, related_name='round_score', on_delete=models.CASCADE)
+    student = models.OneToOneField(student)
+    question1 = models.IntegerField(default=0, blank=True, null=True)
+    question2 = models.IntegerField(default=0, blank=True, null=True)
+    question3 = models.IntegerField(default=0, blank=True, null=True)
+    question4 = models.IntegerField(default=0, blank=True, null=True)
+    question5 = models.IntegerField(default=0, blank=True, null=True)
+    creativity = models.IntegerField(default=0, blank=True, null=True)
+    content = models.IntegerField(default=0, blank=True, null=True)
+    presentation = models.IntegerField(default=0, blank=True, null=True)
+    rebuttal = models.IntegerField(default=0, blank=True, null=True)
+    communication = models.IntegerField(default=0, blank=True, null=True)
+    feasibility = models.IntegerField(default=0, blank=True, null=True)
+    feedback = models.CharField(default='', max_length=1000)
+    submitted = models.BooleanField(default=False)
+    data1 = models.FileField(upload_to=upload_loction, null=True)
+    data2 = models.FileField(upload_to=upload_loction, null=True)
+    data3 = models.FileField(upload_to=upload_loction, null=True)

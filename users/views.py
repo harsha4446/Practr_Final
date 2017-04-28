@@ -166,8 +166,18 @@ def new_club(request):
             return HttpResponseRedirect('/home/newstudent_info/')
     form = clubsetup(request.POST or None)
     user = request.user
-    club = clubs.objects.get(club_email=user.email)
+    all_colleges = colleges.objects.filter()
+    try:
+        club = clubs.objects.get(club_email=user.email)
+    except clubs.DoesNotExist:
+        club = clubs(club_email=user.email)
     if form.is_valid():
+        if club.college == '':
+            name = request.POST.get("college_name")
+            print(name)
+            college = colleges.objects.get(college_name=name)
+            club.college = name
+            club.email = college
         club.video = form.cleaned_data.get("video")
         club.website = form.cleaned_data.get("website")
         club.about = form.cleaned_data.get("about")
@@ -175,8 +185,5 @@ def new_club(request):
         request.user.save()
         club.save()
         return HttpResponseRedirect('/user/club_dashboard/')
-    context = {"form":form, "user":user,}
-    return render (request, 'home/new_club.html', context)
-
-
-
+    context = {"form": form, "user": user, 'all_colleges':all_colleges, 'club':club}
+    return render(request, 'home/new_club.html', context)

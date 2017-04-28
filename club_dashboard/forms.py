@@ -1,4 +1,4 @@
-from users.models import events, rounds
+from users.models import events, rounds, round_scores
 from django import forms
 
 class openRegistarion(forms.ModelForm):
@@ -18,7 +18,6 @@ class addEvent(forms.ModelForm):
         model = events
         fields = ['name', 'about', 'website', 'logo', 'inter_type', 'team_size', 'marketing',
                   'finance', 'public_relations', 'human_resources', 'ent_dev', 'business_quiz',]
-
 
 
 class addRound(forms.ModelForm):
@@ -46,3 +45,26 @@ class addRound(forms.ModelForm):
                   ,'resource2','resource3','resource4','resource5','question1','question2','question3'
                   ,'question4','question5','creativity','content','communication','presentation','feasibility'
                   ,'rebuttal', 'feedback', 'ext_judge']
+
+
+class scoreForm(forms.ModelForm):
+    question1 = forms.CharField(label="", required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    question2 = forms.CharField(label="", required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    question3 = forms.CharField(label="", required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    question4 = forms.CharField(label="", required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    question5 = forms.CharField(label="", required=False,
+                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    feedback = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 9}))
+    communication = forms.IntegerField(label="", required=False)
+    content = forms.IntegerField(label="", required=False)
+    creativity = forms.IntegerField(label="", required=False)
+    rebuttal = forms.IntegerField(label="", required=False)
+    feasibility = forms.IntegerField(label="", required=False)
+    class Meta:
+        model = round_scores
+        fields = ['question1','question2','question3','question4','question5','communication','content',
+                  'creativity','feedback','rebuttal','feasibility',]

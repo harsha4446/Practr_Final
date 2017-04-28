@@ -45,7 +45,7 @@
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            {{ user.name }}
+                            {{ college.college_name }}
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample">
@@ -216,11 +216,11 @@
                             </div>
                         </div>
                     </div>
-                    <h3>My Clubs
+                    <h3>My Verified Clubs
                     </h3>
                     <br>
                     <div class="row">
-                        {% for club in clubs %}
+                        {% for club in ver_clubs %}
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
@@ -264,6 +264,54 @@
                     <button class="btn btn-primary btn-round btn-fab btn-fab-mini"><a href="/user/college_dashboard/new_club">
                                         <i class="material-icons">add</i>
                     </a></button>
+                    </div>
+                <h3>My Unverified Clubs
+                    </h3>
+                    <br>
+                    <div class="row">
+                        {% for club in unver_clubs %}
+                        <div class="col-md-4">
+                            <div class="card card-product">
+                                <div class="card-image" data-header-animation="true">
+                                    <a href="#pablo">
+                                        <img class="img" src="{{ club.logo.url }}">
+                                    </a>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-actions">
+                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
+                                            <i class="material-icons">build</i> Fix Header!
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="View">
+                                            <i class="material-icons">art_track</i>
+                                        </button>
+                                        <a href = '/user/college_dashboard/verify/{{ club.id }}' >
+                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Verify">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </div>
+                                    <h4 class="card-title">
+                                        <a href="#pablo">{{ club.name }}</a>
+                                    </h4>
+                                    <div class="card-description">
+                                        {{ club.about }}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="price">
+                                        <h4>{{ club.admin_name }}</h4>
+                                    </div>
+                                    <div class="stats pull-right">
+                                        <p class="category"><i class="material-icons"></i> {{ club.phone }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 <div class="row">
                         <div class="col-md-4">
