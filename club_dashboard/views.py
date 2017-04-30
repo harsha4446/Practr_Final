@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from users.models import clubs, events, colleges, rounds, register_table,student, event_registered, round_scores
-from . forms import openRegistarion, addEvent, addRound, scoreForm
+from . forms import openRegistarion, addEvent, addRound, scoreForm, toggles
 from django.http import HttpResponseRedirect
 
 
@@ -9,16 +9,33 @@ from django.http import HttpResponseRedirect
 
 def dashboard(request):
     user = request.user
+    form = toggles(request.POST or None)
     if not user.club:
         if user.college:
             return HttpResponseRedirect("/user/college_dashboard/")
-
         return HttpResponseRedirect("/user/student_dashboard/")
     user = request.user
     club = clubs.objects.get(club_email=user.email)
     open = openRegistarion(request.POST or None)
-    all_event = events.objects.filter(email = club)
-    context = {"user":user, "events":all_event, "club":club,"open":open,}
+    try:
+        event = events.objects.get(email = club, current = True)
+        count1 = rounds.objects.filter(email=event, type=1).count()
+        count2 = rounds.objects.filter(email=event, type=2).count()
+        count3 = rounds.objects.filter(email=event, type=3).count()
+        count4 = rounds.objects.filter(email=event, type=4).count()
+        count5 = rounds.objects.filter(email=event, type=5).count()
+        count6 = rounds.objects.filter(email=event, type=6).count()
+        if form.is_valid():
+            if request.POST.get('live'):
+                event.live = request.POST.get('live')
+            if request.POST.get('active'):
+                event.live = request.POST.get('active')
+    except events.DoesNotExist:
+        context= {"user":user, "club":club,}
+        return render(request,'club_dash/noEvent.html',context)
+    print(event)
+    context = {"user":user, "event":event, "club":club,"open":open,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
+               'count5':count5, 'count6':count6, 'form':form}
     return render(request,'club_dash/dashboard.html',context)
 
 
@@ -32,7 +49,7 @@ def activate(request, id):
     return HttpResponseRedirect("/user/club_dashboard/")
 
 
-def add_event(request):
+def add_event(request,access = None):
     club = clubs.objects.get(club_email=request.user.email)
     form = addEvent(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -40,34 +57,33 @@ def add_event(request):
         event.name = form.cleaned_data.get("name")
         event.about = form.cleaned_data.get("about")
         event.website = form.cleaned_data.get("website")
-        event.inter_type = form.cleaned_data.get("inter_type")
-        event.team_size = form.cleaned_data.get("team_size")
+        if access == 1:
+            event.inter_type = True
         event.marketing = form.cleaned_data.get("marketing")
         event.finance = form.cleaned_data.get("finance")
         event.public_relations = form.cleaned_data.get("public_relations")
         event.human_resources = form.cleaned_data.get("human_resources")
         event.ent_dev = form.cleaned_data.get("ent_dev")
-        event.business_quiz = form.cleaned_data.get("business_quiz")
+        event.business_quiz = form.cleaned_data.get("best_manager")
+        if form.cleaned_data.get("team_size1") != None:
+            event.team_size1 = form.cleaned_data.get("team_size1")
+        if form.cleaned_data.get("team_size2") != None:
+            event.team_size2 = form.cleaned_data.get("team_size2")
+        if form.cleaned_data.get("team_size3")!= None:
+            event.team_size3 = form.cleaned_data.get("team_size3")
+        if form.cleaned_data.get("team_size4")!= None:
+            event.team_size4 = form.cleaned_data.get("team_size4")
+        if form.cleaned_data.get("team_size5")!= None:
+            event.team_size5 = form.cleaned_data.get("team_size5")
+        if form.cleaned_data.get("team_size6")!= None:
+            event.team_size6 = form.cleaned_data.get("team_size6")
         if form.cleaned_data.get("logo"):
             event.logo = form.cleaned_data.get("logo")
+        event.current = True
         event.save()
         return HttpResponseRedirect("/user/club_dashboard")
     context = {"form":form, "user":request.user}
     return render(request,'club_dash/add_event.html',context)
-
-
-def sub_events(request, id = None):
-    event = events.objects.get(id = id)
-    user = request.user
-    count1 = rounds.objects.filter(email=event, type=1).count()
-    count2 = rounds.objects.filter(email=event, type=2).count()
-    count3 = rounds.objects.filter(email=event, type=3).count()
-    count4 = rounds.objects.filter(email=event, type=4).count()
-    count5 = rounds.objects.filter(email=event, type=5).count()
-    count6 = rounds.objects.filter(email=event, type=6).count()
-    context = {'event':event, 'user':user, 'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
-               'count5':count5, 'count6':count6,}
-    return render(request,'club_dash/sub_events.html',context)
 
 
 def add_round(request, id=None, operation=None):
@@ -190,4 +206,16 @@ def judge(request, id=None,student_id=None,event=None):
     context = {'form':form}
     return render (request, '', context)
 
-
+#Sub-Event Old
+# def sub_events(request, id = None):
+#     event = events.objects.get(id = id)
+#     user = request.user
+#     count1 = rounds.objects.filter(email=event, type=1).count()
+#     count2 = rounds.objects.filter(email=event, type=2).count()
+#     count3 = rounds.objects.filter(email=event, type=3).count()
+#     count4 = rounds.objects.filter(email=event, type=4).count()
+#     count5 = rounds.objects.filter(email=event, type=5).count()
+#     count6 = rounds.objects.filter(email=event, type=6).count()
+#     context = {'event':event, 'user':user, 'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
+#                'count5':count5, 'count6':count6,}
+#     return render(request,'club_dash/sub_events.html',context)

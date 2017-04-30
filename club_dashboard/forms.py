@@ -13,11 +13,17 @@ class addEvent(forms.ModelForm):
     about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'cols': 30}))
     website = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     logo = forms.ImageField(required=False)
-    team_size = forms.IntegerField(label="", required=True)
+    team_size1 = forms.IntegerField(required=False)
+    team_size2 = forms.IntegerField(required=False)
+    team_size3 = forms.IntegerField(required=False)
+    team_size4 = forms.IntegerField(required=False)
+    team_size5 = forms.IntegerField(required=False)
+    team_size6 = forms.IntegerField(required=False)
     class Meta:
         model = events
-        fields = ['name', 'about', 'website', 'logo', 'inter_type', 'team_size', 'marketing',
-                  'finance', 'public_relations', 'human_resources', 'ent_dev', 'business_quiz',]
+        fields = ['name', 'about', 'website', 'logo', 'inter_type', 'marketing',
+                  'finance', 'public_relations', 'human_resources', 'ent_dev', 'best_manager',
+                  'team_size1', 'team_size2', 'team_size3', 'team_size4', 'team_size5', 'team_size6']
 
 
 class addRound(forms.ModelForm):
@@ -68,3 +74,8 @@ class scoreForm(forms.ModelForm):
         model = round_scores
         fields = ['question1','question2','question3','question4','question5','communication','content',
                   'creativity','feedback','rebuttal','feasibility',]
+
+
+class toggles(forms.Form):
+    live = forms.CheckboxInput(attrs={'class':'togglebutton'})
+    active = forms.CheckboxInput(attrs={'class':'togglebutton'})

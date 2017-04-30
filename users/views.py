@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from . models import student, interests, student_detail, judge_detail,colleges, clubs
-from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, interestModel, defaultForm, newClub,newCollege, clubsetup
+from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, \
+    interestModel, defaultForm, newClub,newCollege, clubsetup
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from .models import student
@@ -25,16 +26,39 @@ def index(request):
 
 
 def register(request):
-    form = RegisterModel(request.POST or None)
-    if form.is_valid():
-        username = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-        name = form.cleaned_data['name']
-        phoneno = form.cleaned_data['phoneno']
+    formst = RegisterModel(request.POST or None)
+    formcl = RegisterModel(request.POST or None)
+    formun = RegisterModel(request.POST or None)
+    if formcl.is_valid():
+        print("herecl")
+        username = formcl.cleaned_data.get('email')
+        password = formcl.cleaned_data.get('password')
+        name = formcl.cleaned_data.get('name')
+        phoneno = formcl.cleaned_data.get('phoneno')
+        new_user = student.objects.create_user(username, password, name, phoneno)
+        new_user.club = True
+        new_user.save()
+        return HttpResponseRedirect('/home/')
+    if formun.is_valid():
+        print("hereun")
+        username = formun.cleaned_data.get('email')
+        password = formun.cleaned_data.get('password')
+        name = formun.cleaned_data.get('name')
+        phoneno = formun.cleaned_data.get('phoneno')
+        new_user = student.objects.create_user(username, password, name, phoneno)
+        new_user.college = True
+        new_user.save()
+        return HttpResponseRedirect('/home/')
+    if formst.is_valid():
+        print("herest")
+        username = formst.cleaned_data.get('email')
+        password = formst.cleaned_data.get('password')
+        name = formst.cleaned_data.get('name')
+        phoneno = formst.cleaned_data.get('phoneno')
         new_user = student.objects.create_user(username, password, name, phoneno)
         new_user.save()
         return HttpResponseRedirect('/home/')
-    context = {"form":form}
+    context = {"formst":formst, "formcl":formcl,"formun":formun}
     return render(request, 'home/register.html', context)
 
 
@@ -174,10 +198,12 @@ def new_club(request):
     if form.is_valid():
         if club.college == '':
             name = request.POST.get("college_name")
-            print(name)
             college = colleges.objects.get(college_name=name)
             club.college = name
             club.email = college
+            club.name = request.POST.get("name")
+            club.admin_name = user.name
+            club.phone = user.phoneno
         club.video = form.cleaned_data.get("video")
         club.website = form.cleaned_data.get("website")
         club.about = form.cleaned_data.get("about")

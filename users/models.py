@@ -188,18 +188,25 @@ class clubs(models.Model):
 class events(models.Model):
     email = models.ForeignKey(clubs, on_delete=models.CASCADE,default='')
     name = models.CharField(max_length=150, default='')
+    live = models.BooleanField(default=False)
     registration = models.BooleanField(default=False)
     about = models.CharField(max_length=1000, default='')
     website = models.CharField(max_length=250, default='')
     logo = models.ImageField(upload_to=upload_loction,null=True,blank=True,default='default/club_default.jpg')
     inter_type = models.BooleanField(default=False)
-    team_size = models.IntegerField(default=1)
     marketing = models.BooleanField(default=False)
+    team_size1 = models.IntegerField(default=1)
     finance = models.BooleanField(default=False)
+    team_size2 = models.IntegerField(default=1)
     public_relations = models.BooleanField(default=False)
+    team_size3 = models.IntegerField(default=1)
     human_resources = models.BooleanField(default=False)
+    team_size4 = models.IntegerField(default=1)
     ent_dev = models.BooleanField(default=False)
-    business_quiz = models.BooleanField(default=False)
+    team_size5 = models.IntegerField(default=1)
+    best_manager = models.BooleanField(default=False)
+    team_size6 = models.IntegerField(default=1)
+    current = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
