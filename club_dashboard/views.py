@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from users.models import clubs, events, colleges, rounds, register_table,student, event_registered, round_scores
-from . forms import openRegistarion, addEvent, addRound, scoreForm, toggles
+from users.models import clubs, events, colleges, rounds, register_table,student, event_registered, round_room, room_judge, round_scores
+from . forms import addEvent, addRound, scoreForm, toggles, rooms, deadlines, newJudge
 from django.http import HttpResponseRedirect
-
 
 # Create your views here.
 
@@ -16,7 +15,6 @@ def dashboard(request):
         return HttpResponseRedirect("/user/student_dashboard/")
     user = request.user
     club = clubs.objects.get(club_email=user.email)
-    open = openRegistarion(request.POST or None)
     try:
         event = events.objects.get(email = club, current = True)
         count1 = rounds.objects.filter(email=event, type=1).count()
@@ -25,16 +23,20 @@ def dashboard(request):
         count4 = rounds.objects.filter(email=event, type=4).count()
         count5 = rounds.objects.filter(email=event, type=5).count()
         count6 = rounds.objects.filter(email=event, type=6).count()
-        if form.is_valid():
-            if request.POST.get('live'):
-                event.live = request.POST.get('live')
-            if request.POST.get('active'):
-                event.live = request.POST.get('active')
+        form.active = event.registration
+        form.live = event.live
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
-    print(event)
-    context = {"user":user, "event":event, "club":club,"open":open,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
+
+    if form.is_valid():
+        print("adsfasdfasdljkfhasdlkjfhasd")
+        if request.POST.get('live'):
+            event.live = request.POST.get('live')
+        if request.POST.get('active'):
+            event.live = request.POST.get('active')
+        event.save()
+    context = {"user":user, "event":event, "club":club,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
                'count5':count5, 'count6':count6, 'form':form}
     return render(request,'club_dash/dashboard.html',context)
 
@@ -94,7 +96,7 @@ def add_round(request, id=None, operation=None):
     if form.is_valid():
         round.title = form.cleaned_data.get("title")
         round.sub_title = form.cleaned_data.get("sub_title")
-        round.about = form.cleaned_data.get("sub_title")
+        round.about = form.cleaned_data.get("about")
         round.task1 = form.cleaned_data.get("task1")
         round.task2 = form.cleaned_data.get("task2")
         round.task3 = form.cleaned_data.get("task3")
@@ -120,7 +122,7 @@ def add_round(request, id=None, operation=None):
         round.question5 = form.cleaned_data.get("question5")
         round.type = operation
         round.save()
-        return HttpResponseRedirect("/user/club_dashboard/subEvents/"+id)
+        return HttpResponseRedirect("/user/club_dashboard/")
     context = {"form":form,}
     return render (request,'club_dash/add_round.html',context)
 
@@ -134,22 +136,32 @@ def del_event(request, id = None):
 def case_view(request, id, type):
     event = events.objects.get(id=id)
     all_rounds = rounds.objects.filter(email=event,type=type)
+    roomForm = rooms(request.POST or None)
+    deadlineForm = deadlines(request.POST or None)
+    judgeForm = newJudge(request.POST or None)
     register = 0
+    judges = 0
+    all_rooms = None
     try:
         club = clubs.objects.get(club_email=request.user.email)
         register = register_table.objects.filter(registered_to=club).count()
+        all_rooms = round_room.objects.all()
     except register_table.DoesNotExist:
         register = 0
-    context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type, 'count':register}
+    context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type, 'count':register, 'roomForm':roomForm,
+               'deadline':deadlineForm, 'all_rooms':all_rooms, 'judgeForm':judgeForm}
     return render(request,'club_dash/case_view.html',context)
 
 
-def publish(request, id, event, type):
+def publish(request, id=None, event=None, type=None):
     round = rounds.objects.get(id=id)
     if round.published:
         round.published = False
+        round.deadline = None
     else:
-        round.published = True
+        if request.POST:
+            round.published = True
+            round.deadline = request.POST['deadline']
     round.save()
     return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
 
@@ -205,6 +217,27 @@ def judge(request, id=None,student_id=None,event=None):
         return HttpResponseRedirect('/user/club_dashboard/judge_list/'+event)
     context = {'form':form}
     return render (request, '', context)
+
+
+def addRoom(request,id,event,type):
+    round = rounds.objects.get(id = id)
+    room = round_room(round = round)
+    room.room = request.POST['room']
+    room.save()
+    return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
+
+
+def addJudge(request,id,event,type):
+    round = rounds.objects.get(id=id)
+    room = round_room.objects.first()
+    judge = room_judge(room=room, round=round)
+    judge.judge_email = request.POST['judge_email']
+    judge.judge_password = request.POST['judge_password']
+    judge.save()
+    user = student.objects.create_user(email=judge.judge_email, password=judge.judge_password, name='', phoneno='')
+    user.judge = True
+    user.save()
+    return HttpResponseRedirect('/user/club_dashboard/caseView/' + event + '/' + type)
 
 #Sub-Event Old
 # def sub_events(request, id = None):

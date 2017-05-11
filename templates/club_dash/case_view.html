@@ -311,28 +311,194 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Event</th>
-                                                    <th>Registered</th>
-                                                    <th>External Judge</th>
-                                                    <th class="text-right">Created</th>
+                                                    <th>Date Created</th>
+                                                    <th>Case Title </th>
+                                                    <th>Created By </th>
+                                                    <th class="text-center">Registered</th>
+                                                    <th class="text-center">Team Size</th>
+                                                    <th class="text-center">Deadline</th>
+                                                    <th class="text-center">Judges</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {% for round in all_rounds %}
                                                 <tr>
+                                                    <td> {{ round.created }}</td>
                                                     <td> {{ round.title }}</td>
-                                                    <td> {{ round.email.name }}</td>
-                                                    <td class="text-left"> {{ count }}</td>
-                                                    <td> {{ round.ext_judge }}</td>
-                                                    <td class="text-right"> {{ round.created }}</td>
+                                                    <td> {{ round.email.email.admin_name }}</td>
+                                                    <td class="text-center"> {{ count }}</td>
+                                                    <td class="text-center"> {{ round.team_size }}</td>
+                                                    <td class="text-center"> {{ round.deadline }}</td>
+                                                    <td class="text-center" data-toggle="modal" data-target="#rooms{{ round.id }}">Manage Rooms and Judges</td>
                                                     <td class="td-actions text-right">
-                                                        <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}">
-                                                        <button type="button" rel="tooltip" class="btn btn-info" title="Publish Case">
+                                                        {% if round.published %}
+                                                            <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}/">
+                                                        <button type="button" rel="tooltip" class="text-center btn btn-error" title="Unpublish Case">
+                                                            <i class="material-icons">block</i>
+                                                        </button>
+                                                            </a>
+                                                        {% else %}
+                                                        <button type="button" rel="tooltip" class="text-center btn btn-success" data-toggle="modal" data-target="#deadline{{ round.id }}" title="Publish Case">
                                                             <i class="material-icons">person</i>
                                                         </button>
-                                                        </a>
+                                                        {% endif %}
+                                                        <div class="modal fade" id="deadline{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                         <div class="modal-dialog">
+                                                           <div class="modal-content">
+                                                             <div class="modal-header">
+                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                 <i class="material-icons">clear</i>
+                                                               </button>
+                                                               <div  style="text-align: center;">
+                                                               <h4 class="modal-title">When Would You Like to Stop Accepting Submissions?</h4>
+                                                               </div>
+                                                             </div>
+                                                             <div class="modal-body">
+                                                             <div  style="text-align: center;">
+                                                             <form method="post" action="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}/">
+                                                                 {% csrf_token %}
+                                                                 <div class="content">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                 <div class="">
+                                                                    <div class="card">
+                                                                        <div class="card-header card-header-icon" data-background-color="rose">
+                                                                            <i class="material-icons">library_books</i>
+                                                                        </div>
+                                                                        <div class="card-content">
+                                                                            <h4 class="card-title">Deadline</h4>
+                                                                            <div class="form-group">
+                                                                                <label class="label-control">Date Picker</label>
+                                                                                <input type="text" name="deadline" class="form-control datepicker" value="YYYY-MM-DD" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                 <div class="pull-center">
+                                                                 <button type="submit" class="btn btn-facebook">Finish</button>
+                                                                 </div>
+                                                                        </div>
+                                                                    </div>
+                                                                 </div>
+                                                             </form>
+                                                                 <br><br>
+                                                             </div>
+                                                            </div>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal fade" id="rooms{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                         <div class="modal-dialog">
+                                                           <div class="modal-content">
+                                                             <div class="modal-header">
+                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                 <i class="material-icons">clear</i>
+                                                               </button>
+                                                               <div  style="text-align: center;">
+                                                               <h4 class="modal-title">Judges and Rooms</h4>
+                                                               </div>
+                                                             </div>
+                                                             <div class="modal-body">
+                                                             <div  style="text-align: center;">
+                                                              <button class="btn btn-facebook" data-toggle="modal" data-target="#addroom{{ round.id }}">Add Room</button>
+                                                              OR
+                                                               <button class="btn btn-facebook" data-toggle="modal" data-target="#allRooms{{ round.id }}">View Rooms</button>
+                                                                 <br><br>
+                                                             </div>
+                                                            </div>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal fade" id="addroom{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                         <div class="modal-dialog">
+                                                           <div class="modal-content">
+                                                             <div class="modal-header">
+                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                 <i class="material-icons">clear</i>
+                                                               </button>
+                                                               <div  style="text-align: center;">
+                                                               <h4 class="modal-title">Add Room</h4>
+                                                               </div>
+                                                             </div>
+                                                             <div class="modal-body">
+                                                             <div  style="text-align: center;">
+                                                                 <form method="post" action="/user/club_dashboard/addRoom/{{ round.id }}/{{ event }}/{{ type }}/">
+                                                                     {% csrf_token %}
+                                                                 {{ roomForm.room }}
+                                                                 <br><br>
+                                                                 <div class="footer text-center">
+                                                                    <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                                </div>
+                                                                 </form>
+                                                             </div>
+                                                            </div>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal fade" id="allRooms{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                         <div class="modal-dialog">
+                                                           <div class="modal-content">
+                                                             <div class="modal-header">
+                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                 <i class="material-icons">clear</i>
+                                                               </button>
+                                                               <div  style="text-align: center;">
+                                                               <h4 class="modal-title">All Room</h4>
+                                                               </div>
+                                                             </div>
+                                                             <div class="modal-body">
+                                                             <div  style="text-align: center;">
+                                                                 {% for room in all_rooms %}
+                                                                     {% if room.round.id == round.id %}
+
+                                                                            <div class="card card-pricing card-raised">
+                                                                                <div class="content">
+                                                                                    <h6 class="category">Room: {{ room.room }}</h6>
+                                                                                    <div class="icon icon-rose">
+                                                                                        <i class="material-icons">contacts</i>
+                                                                                    </div>
+                                                                                    <h3 class="card-title">Judges: Count</h3>
+                                                                                    <br>
+                                                                                    <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#addJudge{{ round.id }}">Create Judge</button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                     {% endif %}
+                                                                 {% endfor %}
+                                                                 <br><br>
+                                                             </div>
+                                                            </div>
+                                                           </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal fade" id="addJudge{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                         <div class="modal-dialog">
+                                                           <div class="modal-content">
+                                                             <div class="modal-header">
+                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                 <i class="material-icons">clear</i>
+                                                               </button>
+                                                               <div  style="text-align: center;">
+                                                               <h4 class="modal-title">Add Judge</h4>
+                                                               </div>
+                                                             </div>
+                                                             <div class="modal-body">
+                                                             <div  style="text-align: center;">
+                                                                 <form method="post" action="/user/club_dashboard/addJudge/{{ round.id }}/{{ event }}/{{ type }}/">
+                                                                     {% csrf_token %}
+                                                                 {{ judgeForm.judge_email }}
+                                                                 {{ judgeForm.judge_password }}
+                                                                 <br><br>
+                                                                 <div class="footer text-center">
+                                                                    <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                                </div>
+                                                                 </form>
+                                                             </div>
+                                                            </div>
+                                                           </div>
+                                                        </div>
+                                                    </div>
                                                         <a href="/user/club_dashboard/judgelist/{{ event }}/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge">
                                                             <i class="material-icons">edit</i>

@@ -21,6 +21,7 @@ def dashboard(request):
                  all_rounds = all_rounds | round
     except event_registered.DoesNotExist:
         registered = None
+        return render(request, 'student_dash/noEvent.html', {'user': current_user})
     except rounds.DoesNotExist:
         round = None
     context = {"rounds":all_rounds, "user":current_user, }
@@ -29,8 +30,12 @@ def dashboard(request):
 
 def clubs_view(request):
     user = request.user
-    college = colleges.objects.get(college_name=user.student_detail.college)
-    my_clubs = clubs.objects.filter(email=college)
+    my_clubs = None
+    try:
+        college = colleges.objects.get(college_name=user.student_detail.college)
+        my_clubs = clubs.objects.filter(email=college)
+    except colleges.DoesNotExist:
+        college = None
     all_clubs = clubs.objects.all()
     context = {"user":user , "my_clubs":my_clubs, "all_clubs":all_clubs}
     return render(request, 'student_dash/clubs_view.html', context)

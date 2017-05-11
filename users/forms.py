@@ -30,7 +30,7 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
 class defaultForm(forms.ModelForm):
     dob = forms.DateField(widget=SelectDateWidget(years=DOY, attrs={'class': 'form-control'}))
     location = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
+    about = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
     profile_picture = forms.ImageField(required=False)
     class Meta:
         model = student

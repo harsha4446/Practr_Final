@@ -1,11 +1,6 @@
-from users.models import events, rounds, round_scores
+from users.models import events, rounds, round_scores, round_room, room_judge
 from django import forms
-
-class openRegistarion(forms.ModelForm):
-    registration = forms.BooleanField()
-    class Meta:
-        model = events
-        fields = ['registration',]
+from django.forms.extras import SelectDateWidget
 
 
 class addEvent(forms.ModelForm):
@@ -77,5 +72,25 @@ class scoreForm(forms.ModelForm):
 
 
 class toggles(forms.Form):
-    live = forms.CheckboxInput(attrs={'class':'togglebutton'})
-    active = forms.CheckboxInput(attrs={'class':'togglebutton'})
+    live = forms.BooleanField(forms.CheckboxInput(attrs={'class':'togglebutton'}))
+    active = forms.BooleanField(forms.CheckboxInput(attrs={'class':'togglebutton'}))
+
+
+class rooms(forms.ModelForm):
+
+    class Meta:
+        model = round_room
+        fields = ['room',]
+
+
+class deadlines(forms.Form):
+    deadline = forms.DateField()
+
+class newJudge(forms.ModelForm):
+    judge_email = forms.CharField(label="", required=True, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Judge Email'}))
+    judge_password = forms.CharField(label="", required=True, widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    class Meta:
+        model = room_judge
+        fields = ['judge_email', 'judge_password']

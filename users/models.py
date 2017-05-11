@@ -5,6 +5,7 @@ import datetime
 
 # Create your models here.
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, name, phoneno):
         if not email:
@@ -115,22 +116,6 @@ class student_detail(models.Model):
 
     def __college(self):
         return self.college
-
-
-class judge_detail(models.Model):
-    email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
-    label = models.CharField(max_length=50, default='')
-    degree = models.CharField(max_length=100, default='')
-    website = models.URLField(default='')
-    designation = models.CharField(max_length=100,default='')
-    industry_exp = models.PositiveSmallIntegerField(default=0)
-    college = models.CharField(max_length=150, default='')
-
-    def __str__(self):
-        return self.label
-
-    def __unicode__(self):
-        return self.label
 
 
 class interests(models.Model):
@@ -246,6 +231,8 @@ class rounds(models.Model):
     type = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
     published = models.BooleanField(default=False)
+    team_size = models.IntegerField(default=1)
+    deadline = models.DateField(default=None, null=True)
 
     def __str__(self):
         return self.title
@@ -339,3 +326,51 @@ class round_scores(models.Model):
     data1 = models.FileField(upload_to=upload_loction, null=True)
     data2 = models.FileField(upload_to=upload_loction, null=True)
     data3 = models.FileField(upload_to=upload_loction, null=True)
+    def __str__(self):
+        return '%s' % self.student.email
+
+    def __unicode__(self):
+        return '%s' % self.student.email
+
+
+class round_room(models.Model):
+    round = models.ForeignKey(rounds,on_delete=models.CASCADE)
+    room = models.SmallIntegerField(default=1)
+
+    def __str__(self):
+        return '%s' % self.round.title
+
+    def __unicode__(self):
+        return '%s' % self.round.title
+
+
+class room_judge(models.Model):
+    round = models.ForeignKey(rounds, on_delete=models.CASCADE, default='')
+    room = models.ForeignKey(round_room, on_delete=models.CASCADE, default='')
+    judge_email = models.CharField(max_length=100, default='')
+    judge_password = models.CharField(max_length=25, default='')
+
+    def __str__(self):
+        return '%s' % self.judge_email
+
+    def __unicode__(self):
+        return '%s' % self.judge_email
+
+
+class judge_detail(models.Model):
+    email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
+    round = models.ForeignKey(rounds, default='')
+    degree = models.CharField(max_length=100, default='')
+    website = models.CharField(default='', max_length=500)
+    designation = models.CharField(max_length=100,default='')
+    industry_exp = models.IntegerField(default=0)
+    college = models.CharField(max_length=150, default='')
+
+    def __str__(self):
+        return self.email.email
+
+    def __unicode__(self):
+        return self.email.email
+
+
+

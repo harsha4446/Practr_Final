@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^members/$', views.members, name='members'),
     url(r'^judgelist/(?P<id>\d+)/(?P<round>\d+)/$', views.judge_list, name='judge'),
     url(r'^judge/(?P<id>\d+)/(?P<student_id>\d+)/(?P<event>\d+)/$', views.judge_list, name='judge'),
+    url(r'^addRoom/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.addRoom, name='addRoom'),
+    url(r'^addJudge/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.addJudge, name='addJudge'),
 ]
