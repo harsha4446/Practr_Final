@@ -325,9 +325,9 @@
                                                     <td> {{ student.current_user.student_detail.college }}</td>
                                                     <td class="text-left"> {{ student.current_user.student_detail.year }}</td>
                                                     <td> {{ student.current_user.student_detail.degree }}</td>
-                                                    <td class="text-right"> {{ student.current_user.experience }} Practr events</td>
+                                                    <td class="text-right"> {{ student.current_user.experience }}-{{ student.current_user.id }} Practr events</td>
                                                     <td class="td-actions text-right">
-                                                        <a href="/user/club_dashboard/judge/{{ round }}/{{ student.id }}">
+                                                        <a href="/user/judge_dashboard/judge/{{ student.current_user.id }}/">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge The Case">
                                                             <i class="material-icons">edit</i>
                                                         </button>

@@ -12,6 +12,8 @@ def dashboard(request):
     if not user.club:
         if user.college:
             return HttpResponseRedirect("/user/college_dashboard/")
+        if user.judge:
+            return HttpResponseRedirect("/user/judge_dashboard/")
         return HttpResponseRedirect("/user/student_dashboard/")
     user = request.user
     club = clubs.objects.get(club_email=user.email)

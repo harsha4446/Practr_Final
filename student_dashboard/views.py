@@ -11,7 +11,7 @@ from .forms import dataForm
 def dashboard(request):
     current_user = request.user
     all_rounds = None
-    form = dataForm(request.POST or None)
+    form = dataForm(request.POST or None, request.FILES or None)
     try:
          register = event_registered.objects.get(current_user = current_user)
          registered = register.registered_to.all()
@@ -88,11 +88,14 @@ def upload_files(request,id):
         scores = round_scores.objects.get(student=user, round=round)
     except round_scores.DoesNotExist:
         scores = round_scores(student=user, round=round)
-
-    scores.data1 = request.POST.get("file1")
+    print("something")
+    if request.FILES.get("file1"):
+        print("we're IN here")
+        scores.data1 = request.FILES.get("file1")
     if request.POST.get("file2"):
-        scores.data2 = request.POST.get("file2")
+        scores.data2 = request.FILES.get("file2")
     if request.POST.get("file3"):
-        scores.data3 = request.POST.get("file3")
+        scores.data3 = request.FILES.get("file3")
+    scores.submitted = True
     scores.save()
     return HttpResponseRedirect("/user/student_dashboard")
