@@ -118,19 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="social text-center">
-                                        <button class="btn btn-just-icon btn-round btn-twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-dribbble">
-                                            <i class="fa fa-dribbble"></i>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-facebook">
-                                            <i class="fa fa-facebook"> </i>
-                                        </button>
-                                        <h4> or be classical </h4>
-                                    </div>
-                                    <form class="form" method="post" action="">
+                                    <form class="form" method="post" action="/home/student/">
                                         {% csrf_token %}
                                         <div class="card-content">
                                             <div class="input-group">
@@ -157,6 +145,16 @@
                                                 </span>
                                                 {{ formst.phoneno }}
                                             </div>
+                                            <div class="input-group">
+                                            <span class="input-group-addon">
+                                                    <i class="material-icons">account_balance</i>
+                                                </span>
+                                          <select name = "college_name" class="form-control">
+                                        {% for college in all_colleges %}
+                                            <option value="{{ college.college_name }}">{{ college.college_name }}</option>
+                                        {% endfor %}
+                                        </select>
+                                      </div>
                                         </div>
                                         <div class="footer text-center">
                                             <button type="submit" class="btn btn-primary btn-round">Get Started</button>
@@ -206,19 +204,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="social text-center">
-                                        <button class="btn btn-just-icon btn-round btn-twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-dribbble">
-                                            <i class="fa fa-dribbble"></i>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-facebook">
-                                            <i class="fa fa-facebook"> </i>
-                                        </button>
-                                        <h4> or be classical </h4>
-                                    </div>
-                                    <form class="form" method="post" action="">
+                                    <form class="form" method="post" action="/home/club/">
                                         {% csrf_token %}
                                         <div class="card-content">
                                             <div class="input-group">
@@ -245,6 +231,16 @@
                                                 </span>
                                                 {{ formcl.phoneno }}
                                             </div>
+                                            <div class="input-group">
+                                            <span class="input-group-addon">
+                                                    <i class="material-icons">account_balance</i>
+                                                </span>
+                                          <select name = "college_name" class="form-control">
+                                        {% for college in all_colleges %}
+                                            <option value="{{ college.college_name }}">{{ college.college_name }}</option>
+                                        {% endfor %}
+                                        </select>
+                                      </div>
                                         </div>
                                         <div class="footer text-center">
                                             <button type="submit" class="btn btn-primary btn-round">Get Started</button>
@@ -294,19 +290,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="social text-center">
-                                        <button class="btn btn-just-icon btn-round btn-twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-dribbble">
-                                            <i class="fa fa-dribbble"></i>
-                                        </button>
-                                        <button class="btn btn-just-icon btn-round btn-facebook">
-                                            <i class="fa fa-facebook"> </i>
-                                        </button>
-                                        <h4> or be classical </h4>
-                                    </div>
-                                    <form class="form" method="post" action="">
+                                    <form class="form" method="post" action="/home/university/">
                                         {% csrf_token %}
                                         <div class="card-content">
                                             <div class="input-group">

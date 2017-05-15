@@ -29,37 +29,49 @@ def register(request):
     formst = RegisterModel(request.POST or None)
     formcl = RegisterModel(request.POST or None)
     formun = RegisterModel(request.POST or None)
-    if formcl.is_valid():
-        print("herecl")
-        username = formcl.cleaned_data.get('email')
-        password = formcl.cleaned_data.get('password')
-        name = formcl.cleaned_data.get('name')
-        phoneno = formcl.cleaned_data.get('phoneno')
-        new_user = student.objects.create_user(username, password, name, phoneno)
-        new_user.club = True
-        new_user.save()
-        return HttpResponseRedirect('/home/')
-    if formun.is_valid():
-        print("hereun")
-        username = formun.cleaned_data.get('email')
-        password = formun.cleaned_data.get('password')
-        name = formun.cleaned_data.get('name')
-        phoneno = formun.cleaned_data.get('phoneno')
-        new_user = student.objects.create_user(username, password, name, phoneno)
-        new_user.college = True
-        new_user.save()
-        return HttpResponseRedirect('/home/')
-    if formst.is_valid():
-        print("herest")
-        username = formst.cleaned_data.get('email')
-        password = formst.cleaned_data.get('password')
-        name = formst.cleaned_data.get('name')
-        phoneno = formst.cleaned_data.get('phoneno')
-        new_user = student.objects.create_user(username, password, name, phoneno)
-        new_user.save()
-        return HttpResponseRedirect('/home/')
-    context = {"formst":formst, "formcl":formcl,"formun":formun}
+    all_colleges = colleges.objects.filter()
+    context = {"formst":formst, "formcl":formcl,"formun":formun,"all_colleges":all_colleges}
     return render(request, 'home/register.html', context)
+
+
+def registerClub(request):
+    username = request.POST.get('email')
+    password = request.POST.get('password')
+    name = request.POST.get('name')
+    phoneno = request.POST.get('phoneno')
+    new_user = student.objects.create_user(username, password, name, phoneno)
+    new_user.club = True
+    new_user.save()
+    club = clubs(club_email=new_user)
+    club.college = request.POST.get("college_name")
+    college = colleges.objects.get(college_name=club.college)
+    club.email = college
+    club.save()
+    return HttpResponseRedirect('/home/')
+
+
+def registerStudent(request):
+    username = request.POST.get('email')
+    password =  request.POST.get('password')
+    name =  request.POST.get('name')
+    phoneno =  request.POST.get('phoneno')
+    new_user = student.objects.create_user(username, password, name, phoneno)
+    new_user.save()
+    user_info = student_detail(email=new_user, )
+    user_info.college = request.POST.get('college_name')
+    user_info.save()
+    return HttpResponseRedirect('/home/')
+
+
+def registerUni(request):
+    username = request.POST.get('email')
+    password = request.POST.get('password')
+    name = request.POST.get('name')
+    phoneno = request.POST.get('phoneno')
+    new_user = student.objects.create_user(username, password, name, phoneno)
+    new_user.college = True
+    new_user.save()
+    return HttpResponseRedirect('/home/')
 
 
 def user_logout(request):
@@ -85,9 +97,8 @@ def new_student(request):
         request.user.about = formDefault.cleaned_data.get("about")
         request.user.activated = True
         request.user.save()
-        user_info = student_detail(email=request.user, )
+        user_info = student_detail.objects.get(email=request.user, )
         user_info.label = request.user.email
-        user_info.college = request.POST.get('college_name')
         user_info.industry_exp = formInfo.cleaned_data.get("industry_exp")
         user_info.degree = formInfo.cleaned_data.get("degree")
         user_info.save()
@@ -165,8 +176,6 @@ def new_college(request):
         new_user.club=True
         new_user.save()
         club.save()
-        #college = colleges(email = club)
-        #college.save()
         return HttpResponseRedirect('/user/college_dashboard/')
     context = {"college":formCollege, "club":formClub,}
     return render (request, 'home/new_college.html', context)
@@ -188,10 +197,8 @@ def new_club(request):
     except clubs.DoesNotExist:
         club = clubs(club_email=user.email)
     if form.is_valid():
-        if club.college == '':
-            name = request.POST.get("college_name")
-            college = colleges.objects.get(college_name=name)
-            club.college = name
+        if not club.verified:
+            college = colleges.objects.get(college_name=club.college)
             club.email = college
             club.name = request.POST.get("name")
             club.admin_name = user.name
@@ -199,6 +206,8 @@ def new_club(request):
         club.video = form.cleaned_data.get("video")
         club.website = form.cleaned_data.get("website")
         club.about = form.cleaned_data.get("about")
+        if form.cleaned_data.get("logo"):
+            club.logo =  form.cleaned_data.get("logo")
         request.user.activated = True
         request.user.save()
         club.save()

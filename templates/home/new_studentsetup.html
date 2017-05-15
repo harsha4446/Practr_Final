@@ -48,7 +48,7 @@
             <!--      Wizard container        -->
             <div class="wizard-container">
 
-                <div class="card wizard-card" data-color="orange" id="wizardProfile">
+                <div class="card wizard-card" data-color="blue" id="wizardProfile">
                     <form action="" method="post" enctype="multipart/form-data">
                 <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
                         {% csrf_token %}
@@ -169,20 +169,11 @@
                                     </div>
                                     <div class="col-sm-7 col-sm-offset-1">
                                          <div class="form-group">
-                                          <select name = "college_name" class="form-control">
-                                        {% for college in all_colleges %}
-                                            <option value="{{ college.college_name }}">{{ college.college_name }}</option>
-                                        {% endfor %}
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                         <div class="form-group">
                                             <label>Course</label>
                                             {{ formInfo.degree }}
                                           </div>
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-7 col-sm-offset-1">
                                          <div class="form-group">
                                             <label>Year</label><br>
                                              {{ formInfo.year }}

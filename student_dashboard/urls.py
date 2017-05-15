@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^events/$', views.event_feed, name='events'),
     url(r'^search/$', views.search, name='seach'),
     url(r'^eventRegister/(?P<id>\d+)/$', views.event_register, name='event_register'),
+    url(r'^upload_files/(?P<id>\d+)/$', views.upload_files, name='upload'),
 
 ]

@@ -19,4 +19,7 @@ urlpatterns = [
     url(r'^student_dashboard/', include('student_dashboard.urls')),
     url(r'^judge_dashboard/', include('judge_dashboard.urls')),
     url(r'^network/', include('networks.urls')),
+    url(r'^student/', views.registerStudent, name='student'),
+    url(r'^club/', views.registerClub, name='club'),
+    url(r'^university/', views.registerUni, name='uni'),
 ]

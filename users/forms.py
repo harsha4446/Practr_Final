@@ -86,4 +86,4 @@ class clubsetup(forms.ModelForm):
     about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = clubs
-        fields = ['video','website','about']
+        fields = ['video','website','about', 'logo']

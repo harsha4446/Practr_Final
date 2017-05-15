@@ -32,6 +32,9 @@ class CustomUserManager(BaseUserManager):
 def upload_loction(object, filename):
     return "%s/%s" %(object.email , filename)
 
+def round_data(object, filename):
+    return "%s/%s" %(object.student.email , filename)
+
 
 class student(AbstractBaseUser):
     email = models.EmailField(max_length=100,unique=True)
@@ -152,7 +155,7 @@ class colleges(models.Model):
 
 class clubs(models.Model):
     email = models.ForeignKey(colleges, on_delete=models.CASCADE,default='')
-    name = models.CharField(max_length=100,default='')
+    name = models.CharField(max_length=100,default='Dummy')
     college = models.CharField(max_length=150, default='')
     admin_name = models.CharField(max_length=100,default='')
     club_email = models.CharField(max_length=100,default='', unique=True)
@@ -308,8 +311,8 @@ class event_registered(models.Model):
 
 #per round scores and data
 class round_scores(models.Model):
-    round = models.ForeignKey(rounds, related_name='round_score', on_delete=models.CASCADE)
-    student = models.OneToOneField(student)
+    round = models.OneToOneField(rounds, related_name='round_score', on_delete=models.CASCADE)
+    student = models.ForeignKey(student)
     question1 = models.IntegerField(default=0, blank=True, null=True)
     question2 = models.IntegerField(default=0, blank=True, null=True)
     question3 = models.IntegerField(default=0, blank=True, null=True)
@@ -321,11 +324,12 @@ class round_scores(models.Model):
     rebuttal = models.IntegerField(default=0, blank=True, null=True)
     communication = models.IntegerField(default=0, blank=True, null=True)
     feasibility = models.IntegerField(default=0, blank=True, null=True)
-    feedback = models.CharField(default='', max_length=1000)
+    feedback = models.CharField(default='Not Available', max_length=1000, null=True)
     submitted = models.BooleanField(default=False)
-    data1 = models.FileField(upload_to=upload_loction, null=True)
-    data2 = models.FileField(upload_to=upload_loction, null=True)
-    data3 = models.FileField(upload_to=upload_loction, null=True)
+    data1 = models.FileField(upload_to=round_data, null=True)
+    data2 = models.FileField(upload_to=round_data, null=True)
+    data3 = models.FileField(upload_to=round_data, null=True)
+
     def __str__(self):
         return '%s' % self.student.email
 

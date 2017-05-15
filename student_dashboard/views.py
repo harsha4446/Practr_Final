@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from users.models import colleges,student_detail, events, follow_table, clubs, register_table, rounds, event_registered,student
+from users.models import colleges,student_detail, events, follow_table, clubs, register_table, rounds, event_registered,student, round_scores
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
+from .forms import dataForm
 
 
 # Create your views here.
@@ -10,6 +11,7 @@ from django.http import HttpResponseRedirect
 def dashboard(request):
     current_user = request.user
     all_rounds = None
+    form = dataForm(request.POST or None)
     try:
          register = event_registered.objects.get(current_user = current_user)
          registered = register.registered_to.all()
@@ -24,7 +26,7 @@ def dashboard(request):
         return render(request, 'student_dash/noEvent.html', {'user': current_user})
     except rounds.DoesNotExist:
         round = None
-    context = {"rounds":all_rounds, "user":current_user, }
+    context = {"rounds":all_rounds, "user":current_user, "form":form }
     return render(request, 'student_dash/dashboard.html', context)
 
 
@@ -77,3 +79,20 @@ def search(request):
     all_users = student.objects.filter(judge=False, college=False, club=False)
     context = {"all_users": all_users, }
     return render(request, 'student_dash/student_list.html', context)
+
+
+def upload_files(request,id):
+    user = request.user
+    round = rounds.objects.get(id = id)
+    try:
+        scores = round_scores.objects.get(student=user, round=round)
+    except round_scores.DoesNotExist:
+        scores = round_scores(student=user, round=round)
+
+    scores.data1 = request.POST.get("file1")
+    if request.POST.get("file2"):
+        scores.data2 = request.POST.get("file2")
+    if request.POST.get("file3"):
+        scores.data3 = request.POST.get("file3")
+    scores.save()
+    return HttpResponseRedirect("/user/student_dashboard")

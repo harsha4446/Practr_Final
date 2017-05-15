@@ -107,7 +107,6 @@ def add_round(request, id=None, operation=None):
         round.resource3 = form.cleaned_data.get("resource3")
         round.resource4 = form.cleaned_data.get("resource4")
         round.resource5 = form.cleaned_data.get("resource5")
-        round.ext_judge = form.cleaned_data.get("ext_judge")
         round.creativity = form.cleaned_data.get("creativity")
         round.content = form.cleaned_data.get("content")
         round.presentation = form.cleaned_data.get("presentation")
