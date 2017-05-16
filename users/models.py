@@ -326,6 +326,7 @@ class round_scores(models.Model):
     feasibility = models.IntegerField(default=0, blank=True, null=True)
     feedback = models.CharField(default='Not Available', max_length=1000, null=True)
     submitted = models.BooleanField(default=False)
+    judged = models.BooleanField(default=False)
     data1 = models.FileField(upload_to=round_data, null=True)
     data2 = models.FileField(upload_to=round_data, null=True)
     data3 = models.FileField(upload_to=round_data, null=True)

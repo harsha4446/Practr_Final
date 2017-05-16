@@ -113,6 +113,8 @@
 			</div>
 		</div>
             <div class="container">
+            <form method="post" action="">
+            {% csrf_token %}
                 <div class="col-md-8 col-md-offset-2">
                 {% if round.question1 != '' %}
                 <div class="title">
@@ -120,85 +122,132 @@
 						<h3>Section One<br/></h3>
 							<h4>{{ round.question1 }}</h4>
                             <br>
-                            <div id="sliderRegular" class="slider">
-
-                            </div>
+                                <div>
+                                    <input type="range" min="1" max="10" id="get1" step="1" onchange="fetch1()"/>
+                                    <input type="text" id="put1" name="question1"/>
+                                </div>
                             <br>
 				</div>
                 {% endif %}
                 {% if round.question2 != '' %}
                 <div class="title">
 						<h3>Section Two<br/></h3>
-							<h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
+							<h4>{{ round.question2 }}</h4>
+                            <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="get2" step="1" onchange="fetch2()"/>
+                                    <input type="text" id="put2"  name="question2"/>
+                                </div>
+                            <br>
 				</div>
                 {% endif %}
                 {% if round.question3 != '' %}
                 <div class="title">
 						<h3>Section Three<br/></h3>
-							<h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
+							<h4>{{ round.question3 }}</h4>
+                            <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="get3" step="1" onchange="fetch3()"/>
+                                    <input type="text" id="put3" name="question3"/>
+                                </div>
+                            <br>
 				</div>
                 {% endif %}
                 {% if round.question4 != '' %}
                 <div class="title">
 						<h3>Section Four<br/></h3>
-							<h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
+							<h4>{{ round.question4 }}</h4>
+                            <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="get4" step="1" onchange="fetch4()"/>
+                                    <input type="text" id="put4" name="question4"/>
+                                </div>
+                            <br>
 				</div>
                 {% endif %}
                 {% if round.question5 != '' %}
                 <div class="title">
 						<h3>Section Five<br/></h3>
-							<h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
+							<h4>{{ round.question5 }}</h4>
+                            <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="get5" step="1" onchange="fetch5()"/>
+                                    <input type="text" id="put5" name="question5"/>
+                                </div>
+                            <br>
 				</div>
                 {%endif%}
                 <div class="title">
                         <h2>Soft Skill Assesment</h2><br>
 						<h3>Section Six<br/></h3>
-							<h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
-                            <h4>How much would you rate...(Description)</h4>
-                            <div id="sliderRegular" class="slider"></div><br>
+                            {% if round.creativity %}
+                                <h4>How much would you rate their Creativity</h4>
+                                <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="sg1" step="1" onchange="creativity()"/>
+                                    <input type="text" name="creativity1" id="sp1"/>
+                                </div>
+                                <br>
+                            {% endif %}
+                            {% if round.content %}
+                                <h4>How much would you rate their Content</h4>
+                                <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="sg2" step="1" onchange="content()"/>
+                                    <input type="text" name="content1" id="sp2"/>
+                                </div>
+                                <br>
+                            {% endif %}
+                            {% if round.presentation %}
+                                <h4>How much would you rate their Presentation</h4>
+                                <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="sg3" step="1" onchange="presentation()"/>
+                                    <input type="text" name="presentation1" id="sp3"/>
+                                </div>
+                                <br>
+                            {% endif %}
+                            {% if round.rebuttal %}
+                                <h4>How much would you rate their Rebuttal</h4>
+                                <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="sg4" step="1" onchange="rebuttal()"/>
+                                    <input type="text" name="rebuttal1" id="sp4"/>
+                                </div>
+                                <br>
+                            {% endif %}
+                            {% if round.communication %}
+                                <h4>How much would you rate their Communication</h4>
+                                <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="sg5" step="1" onchange="communication()"/>
+                                    <input type="text" name="communication1" id="sp5"/>
+                                </div>
+                                <br>
+                            {% endif %}
+                            {% if round.feasibility %}
+                                <h4>How much would you rate their Feasibility</h4>
+                                <br>
+                                <div>
+                                    <input type="range" min="1" max="10" id="sg6" step="1" onchange="feasability()"/>
+                                    <input type="text" name="feasibility1" id="sp6"/>
+                                </div>
+                                <br>
+                            {% endif %}
 				</div>
                 <div class="title">
                         <h2>Overall Comments</h2><br>
 						<h3>Section Seven<br/></h3>
 				        <div>
-							<div class="form-group label-floating">
-								<label class="control-label">Strength</label>
-								<input type="text" class="form-control">
-							</div>
                             <div class="form-group label-floating">
-								<label class="control-label">Weakness</label>
-								<input type="text" class="form-control">
-							</div>
-                            <div class="form-group label-floating">
-								<label class="control-label">Area of Improvement</label>
-								<input type="text" class="form-control">
+								<label class="control-label">Feedback</label>
+								<input type="text" name="feedback" class="form-control">
 							</div>
 						</div>
 				</div>
-
 		        <div id="buttons">
-
 					<div>
-                            <button class="btn btn-primary btn-round">
+                            <button type="submit" class="btn btn-primary btn-round">
 				                Submit
 							</button>
 							<button style="margin-left:20px;" class="btn btn-primary btn-round">
@@ -207,6 +256,11 @@
 						</div>
 					</div>
                 </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -240,4 +294,61 @@
 
 		});
 	</script>
+    <script>
+    function fetch1()
+    {
+        var get1=document.getElementById("get1").value;
+        document.getElementById("put1").value=get1;
+    }
+    function fetch2()
+    {
+        var get2=document.getElementById("get2").value;
+        document.getElementById("put2").value=get2;
+    }
+    function fetch3()
+    {
+        var get3=document.getElementById("get3").value;
+        document.getElementById("put3").value=get3;
+    }
+    function fetch4()
+    {
+        var get4=document.getElementById("get4").value;
+        document.getElementById("put4").value=get4;
+    }
+    function fetch5()
+    {
+        var get5=document.getElementById("get5").value;
+        document.getElementById("put5").value=get5;
+    }
+    function creativity()
+    {
+        var sg1=document.getElementById("sg1").value;
+        document.getElementById("sp1").value=sg1;
+    }
+    function content()
+    {
+        var sg2=document.getElementById("sg2").value;
+        document.getElementById("sp2").value=sg2;
+    }
+    function presentation()
+    {
+        var sg3=document.getElementById("sg3").value;
+        document.getElementById("sp3").value=sg3;
+    }
+    function rebuttal()
+    {
+        var sg4=document.getElementById("sg4").value;
+        document.getElementById("sp4").value=sg4;
+    }
+    function communication()
+    {
+        var sg5=document.getElementById("sg5").value;
+        document.getElementById("sp5").value=sg5;
+    }
+    function feasability()
+    {
+        var sg6=document.getElementById("sg6").value;
+        document.getElementById("sp6").value=sg6;
+    }
+    </script>
 </html>

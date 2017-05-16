@@ -88,14 +88,15 @@ def upload_files(request,id):
         scores = round_scores.objects.get(student=user, round=round)
     except round_scores.DoesNotExist:
         scores = round_scores(student=user, round=round)
-    print("something")
-    if request.FILES.get("file1"):
-        print("we're IN here")
-        scores.data1 = request.FILES.get("file1")
-    if request.POST.get("file2"):
-        scores.data2 = request.FILES.get("file2")
-    if request.POST.get("file3"):
-        scores.data3 = request.FILES.get("file3")
-    scores.submitted = True
-    scores.save()
-    return HttpResponseRedirect("/user/student_dashboard")
+    if request.POST:
+        form = dataForm(request.POST, request.FILES)
+        if form.is_valid():
+            if form.cleaned_data.get("data1") != None:
+                scores.data1 = form.cleaned_data.get("data1")
+            if form.cleaned_data.get("data2") != None:
+                scores.data2 = form.cleaned_data.get("data2")
+            if form.cleaned_data.get("data3") != None:
+                scores.data3 = form.cleaned_data.get("data3")
+            scores.submitted = True
+            scores.save()
+            return HttpResponseRedirect("/user/student_dashboard")
