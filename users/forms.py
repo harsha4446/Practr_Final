@@ -28,17 +28,14 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
 
 
 class defaultForm(forms.ModelForm):
-    dob = forms.DateField(widget=SelectDateWidget(years=DOY, attrs={'class': 'form-control'}))
-    location = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     about = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
     profile_picture = forms.ImageField(required=False)
     class Meta:
         model = student
-        fields = ['profile_picture', 'location', 'dob', 'about', ]
+        fields = ['profile_picture', 'location', 'about', ]
 
 
 class StudentInfo(forms.ModelForm):
-    degree = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student_detail
         fields = ['degree', 'year', 'section']
@@ -62,12 +59,11 @@ class interestModel(forms.ModelForm):
 
 
 class newCollege(forms.ModelForm):
-    college_name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     address = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    phone = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    logo = forms.ImageField(required=False)
     class Meta:
         model = colleges
-        fields = ['college_name','address','phone']
+        fields = ['college_name','address','logo']
 
 class newClub(forms.ModelForm):
     name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -81,9 +77,9 @@ class newClub(forms.ModelForm):
         fields = ['name','admin_name','club_password','club_email', 'phone', 'logo']
 
 class clubsetup(forms.ModelForm):
-    video = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    website = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    about = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    video = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    website = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
     class Meta:
         model = clubs
         fields = ['video','website','about', 'logo']

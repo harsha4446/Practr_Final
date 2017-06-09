@@ -52,7 +52,9 @@ class student(AbstractBaseUser):
     about = models.CharField(max_length=500,default='', blank=True)
     dob = models.DateField(default=datetime.date.today)
     experience = models.PositiveSmallIntegerField(default=0)
-    location = models.CharField(max_length=100, default='', blank=True)
+    location = models.CharField(max_length=100, blank=True, choices=(('Bangalore', 'Bangalore'),
+                                                                     ('Mysore', 'Mysore')),
+                            default='')
     profile_picture = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/new_logo.png')
 
     USERNAME_FIELD = 'email'
@@ -105,7 +107,8 @@ class student_scores(models.Model):
 class student_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
     label = models.CharField(max_length=50,default='')
-    degree = models.CharField(max_length=100, default='')
+    degree = models.CharField(max_length=100, default='', choices=(('B.COM', 'B.COM'),
+                                                        ('BBA', 'BBA')),)
     college = models.CharField(max_length=150, default='')
     year = models.CharField(max_length=10, choices=(('First', 'First'),
                                                     ('Second', 'Second'),
@@ -144,8 +147,18 @@ class interests(models.Model):
 class colleges(models.Model):
     email = models.OneToOneField(student,on_delete=models.CASCADE, primary_key=True,default='')
     address = models.CharField(max_length=350, default='')
-    college_name = models.CharField(max_length=200, default='')
+    college_name = models.CharField(max_length=200,choices=(('Christ University B.COM', 'Christ University B.COM'),
+                                                    ('Christ University D.M.S', 'Christ University D.M.S'),
+                                                    ('Christ University D.P.S', 'Christ University D.P.S'),
+                                                    ('Jain University SCS', 'Jain University SCS'),
+                                                    ('Jain University CMS', 'Jain University CMS'),
+                                                    ('Mount Carmel B.COM', 'Mount Carmel B.COM'),
+                                                    ('Mount Carmel BBA', 'Mount Carmel BBA'),
+                                                    ('St.Josephs B.COM', 'St.Josephs B.COM')),
+
+                            default='')
     phone = models.CharField(max_length=10, default='')
+    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/new_logo.png')
 
 
     def __str__(self):
@@ -238,7 +251,7 @@ class events(models.Model):
     registered61 = models.IntegerField(default=0)
     registered62 = models.IntegerField(default=0)
     registered63 = models.IntegerField(default=0)
-    current = models.BooleanField(default=False)
+    current = models.BooleanField(default=True)
     multiregistration = models.BooleanField(default=False)
 
     def __str__(self):

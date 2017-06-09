@@ -6,7 +6,7 @@ app_name= 'users'
 
 urlpatterns = [
     url(r'^$', views.dashboard,name='clubdash'),
-    url(r'^live/(?P<id>\d+)/$', views.activate,name='openRegistration'),
+    url(r'^live/(?P<id>\d+)/$', views.live,name='openEvent'),
     url(r'^new_event/(?P<access>\d+)/$$', views.add_event,name='newEvent'),
     url(r'^addRound/(?P<id>\d+)/(?P<operation>\d+)/(?P<offline>\d+)/$', views.add_round,name='newRound'),
     url(r'^delEvent/(?P<id>\d+)/$', views.del_event,name='delEvent'),
@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^audience/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.audience, name='audience'),
     url(r'^addSub/(?P<id>\d+)/(?P<type>\d+)/$', views.addSub, name='addSub'),
     url(r'^quotaset/(?P<id>\d+)$', views.quotaset, name='quota'),
+    url(r'^registration/(?P<id>\d+)/$', views.activate_registraion,name='openRegistration'),
+    url(r'^registered_members/(?P<id>\d+)/$', views.registered_members, name='members'),
 ]

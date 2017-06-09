@@ -42,6 +42,8 @@ def dashboard(request):
         count6 = rounds.objects.filter(email=event, type=6).count()
         form.active = event.registration
         form.live = event.live
+        registered = event_registered.objects.filter(registered_to=event).order_by('-id')[:10]
+        print(registered)
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
@@ -56,18 +58,28 @@ def dashboard(request):
             event.registration = False
         event.save()
     context = {"user":user, "event":event, "club":club,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
-               'count5':count5, 'count6':count6, 'form':form}
+               'count5':count5, 'count6':count6, 'form':form,'registered':registered}
     return render(request,'club_dash/dashboard.html',context)
 
 
-def activate(request, id):
+def live(request, id):
+    event = events.objects.get(id=id)
+    if event.live:
+        event.live = False
+        event.current = False
+    else:
+        event.live = True
+        event.current = True
+    event.save()
+    return HttpResponseRedirect("/user/club_dashboard/")
+
+
+def activate_registraion(request, id):
     event = events.objects.get(id=id)
     if event.registration or event.live:
         event.registration = False
-        event.live = False
     else:
         event.registration = True
-        event.live = True
     event.save()
     return HttpResponseRedirect("/user/club_dashboard/")
 
@@ -389,3 +401,11 @@ def quotaset(request,id=None):
     event.quota63 = request.POST.get("quota63",0)
     event.save()
     return HttpResponseRedirect("/user/club_dashboard/")
+
+
+def registered_members(request,id):
+    user = request.user
+    event = events.objects.get(id=id)
+    registered = event_registered.objects.filter(registered_to=event).order_by('current_user__student_detail__year')
+    context = {'user':user,'registered':registered}
+    return render(request, 'club_dash/registeredmembers.html',context)

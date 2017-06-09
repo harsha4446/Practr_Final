@@ -334,7 +334,7 @@
                                             </thead>
                                             <tbody>
                                             {% for round in all_rounds %}
-                                                {% if round.published %}
+                                                {% if round.published and not round.finished %}
                                                 <tr class="success">
                                                 {% elif round.finished %}
                                                 <tr class="info">

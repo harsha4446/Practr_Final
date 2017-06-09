@@ -244,9 +244,9 @@
                         <label>
                             <a href="/user/club_dashboard/live/{{ event.id }}">
                                 {% if not event.live %}
-                                <button class="">Go Live</button>
+                                <button class="btn btn-social btn-fill btn-facebook">Go Live</button>
                                 {% else %}
-                                <button class="">Conclude Event</button>
+                                <button class="btn btn-social btn-fill btn-facebook">Conclude Event</button>
                                 {% endif %}
                             </a>
                         </label>
@@ -261,12 +261,20 @@
                                         <i class="material-icons">keyboard_arrow_down</i>
                                     </a>
                                     <div style="display:inline-block;margin-left: 0%;" class="togglebutton">
-                                        <label>
                                             <div class="col-md-3 col-md-offset-6">
                                                 <h5 class="mb-0">
                                                     <button class="btn btn-raised btn-round btn-info" data-toggle="modal" data-target="#noticeModal">
                                                         Set Quota
-                                                    </button></h5></div>
+                                                    </button>
+                                                <a href="/user/club_dashboard/registration/{{ event.id }}">
+                                                    {% if event.registration %}
+                                                        <button type="button" class="btn btn-raised btn-round btn-info">Disable Registrations</button>
+                                                    {% else %}
+                                                    <button type="button" class="btn btn-raised btn-round btn-info">Enable Registrations</button>
+                                                    {% endif %}
+                                                </a>
+                                                </h5>
+                                            </div>
                                             <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-notice">
                                                     <div class="modal-content">
@@ -342,10 +350,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </label>
                                     </div>
                                 </div>
-
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <div class="row">
@@ -364,21 +370,39 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-5">
+                                                <a href="/user/club_dashboard/registered_members/{{ event.id }}">
                                                     <div class="card">
-                                                        <div class="card-header card-header-icon" data-background-color="red">
-                                                            <i class="material-icons">pie_chart</i>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <h4 class="card-title">Chart</h4>
-                                                        </div>
-                                                        <div id="dailySalesChart" class="ct-chart"></div>
-                                                        <div class="card-footer">
-                                                            <h6>Legend</h6>
-                                                            <i class="fa fa-circle text-info"></i> Apple
-                                                            <i class="fa fa-circle text-warning"></i> Samsung
-                                                            <i class="fa fa-circle text-danger"></i> Windows Phone
-                                                        </div>
-                                                    </div>
+                                <div class="card-header card-header-icon" data-background-color="rose">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <h4 class="card-title">Recent Registrations</h4>
+                            <br><br>
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Username</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                    <th>Year</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for student in registered %}
+                                                <tr>
+                                                    <td> {{ student.current_user.email }}</td>
+                                                    <td> {{ student.current_user.name }}</td>
+                                                    <td class="text-left"> {{ student.current_user.phoneno }}</td>
+                                                    <td> {{ student.current_user.student_detail.year }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -404,6 +428,11 @@
                                     <div class="content">
                                         <a href="/user/club_dashboard/caseView/{{ event.id }}/1">
                                         <h6 class="category">Marketing</h6>
+                                            {% if event.subhead1 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button type="button" class="btn btn-rose btn-round" data-toggle="modal" data-target="#type1">Add Event Head</button>
+                                            {% endif %}
                                         <div class="icon icon-rose">
                                             <i class="material-icons">record_voice_over</i>
                                         </div>
@@ -411,11 +440,6 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/1" class="btn btn-rose btn-round">Create Case</a>
-                                        {% if event.subhead1 %}
-                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
-                                            {% else %}
-                                        <button type="button" class="btn btn-rose btn-round" data-toggle="modal" data-target="#type1">Create Sub-Event Head</button>
-                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -455,6 +479,11 @@
                                     <div class="content">
                                         <a href="/user/club_dashboard/caseView/{{ event.id }}/2">
                                         <h6 class="category">Finance</h6>
+                                            {% if event.subhead2 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type2">Add Event Head</button>
+                                            {% endif %}
                                         <div class="icon icon-rose">
                                             <i class="material-icons">attach_money</i>
                                         </div>
@@ -462,11 +491,6 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/2" class="btn btn-rose btn-round">Create Case</a>
-                                        {% if event.subhead2 %}
-                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
-                                            {% else %}
-                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type2">Create Sub-Event Head</button>
-                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -506,6 +530,11 @@
                                     <div class="content">
                                         <a href="/user/club_dashboard/caseView/{{ event.id }}/3">
                                         <h6 class="category">Public Relations</h6>
+                                             {% if event.subhead3 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type3">Add Event Head</button>
+                                            {% endif %}
                                         <div class="icon icon-rose">
                                             <i class="material-icons">group</i>
                                         </div>
@@ -513,11 +542,6 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/3" class="btn btn-rose btn-round">Create Case</a>
-                                        {% if event.subhead3 %}
-                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
-                                            {% else %}
-                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type3">Create Sub-Event Head</button>
-                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -557,6 +581,11 @@
                                     <div class="content">
                                         <a href="/user/club_dashboard/caseView/{{ event.id }}/4">
                                         <h6 class="category">Human Resource</h6>
+                                             {% if event.subhead4 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type4">Add Event Head</button>
+                                            {% endif %}
                                         <div class="icon icon-rose">
                                             <i class="material-icons">wc</i>
                                         </div>
@@ -564,11 +593,6 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/4" class="btn btn-rose btn-round">Create Case</a>
-                                        {% if event.subhead4 %}
-                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
-                                            {% else %}
-                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type4">Create Sub-Event Head</button>
-                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -608,6 +632,11 @@
                                     <div class="content">
                                         <a href="/user/club_dashboard/caseView/{{ event.id }}/5">
                                         <h6 class="category">Entrepreneur and Development</h6>
+                                            {% if event.subhead5 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type5">Add Event Head</button>
+                                            {% endif %}
                                         <div class="icon icon-rose">
                                             <i class="material-icons">gesture</i>
                                         </div>
@@ -615,11 +644,6 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/5" class="btn btn-rose btn-round">Create Case</a>
-                                        {% if event.subhead5 %}
-                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
-                                            {% else %}
-                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type5">Create Sub-Event Head</button>
-                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -659,6 +683,11 @@
                                     <div class="content">
                                         <a href="/user/club_dashboard/caseView/{{ event.id }}/6">
                                         <h6 class="category">Business Quiz</h6>
+                                            {% if event.subhead6 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type6">Add Event Head</button>
+                                            {% endif %}
                                         <div class="icon icon-rose">
                                             <i class="material-icons">local_library</i>
                                         </div>
@@ -666,11 +695,6 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/6" class="btn btn-rose btn-round">Create Case</a>
-                                        {% if event.subhead6 %}
-                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
-                                            {% else %}
-                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type6">Create Sub-Event Head</button>
-                                            {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -724,14 +748,14 @@
                                    <i class="material-icons">assignment</i>
                                </div>
                                <div class="card-content">
-                                   <h4 class="card-title">Simple Table</h4>
+                                   <h4 class="card-title">Top 10</h4>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-primary">
                                                 <th>Name</th>
-                                                <th>Country</th>
-                                                <th>City</th>
-                                                <th>Salary</th>
+                                                <th>Email</th>
+                                                <th>Year</th>
+                                                <th>Score</th>
                                             </thead>
                                             <tbody>
                                                 <tr>

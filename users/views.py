@@ -89,9 +89,11 @@ def new_student(request):
     interestForm = interestModel(request.POST or None)
     formInfo = StudentInfo(request.POST or None)
     formDefault = defaultForm(request.POST or None, request.FILES or None)
+    print("here1")
     if formInfo.is_valid() and formDefault.is_valid() and interestForm.is_valid():
+        print("here2")
         request.user.location = formDefault.cleaned_data.get("location")
-        request.user.dob = formDefault.cleaned_data.get("dob")
+        request.user.dob = request.POST.get("dob")
         if formDefault.cleaned_data.get("profile_picture"):
             request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
         request.user.about = formDefault.cleaned_data.get("about")
@@ -162,7 +164,9 @@ def new_college(request):
         college = colleges(email=request.user)
         college.college_name = formCollege.cleaned_data.get("college_name")
         college.address = formCollege.cleaned_data.get("address")
-        college.phone = formCollege.cleaned_data.get("phone")
+        if formCollege.cleaned_data.get("logo"):
+            college.logo = formCollege.cleaned_data.get("logo")
+        college.phone = request.user.phoneno
         college.save()
         request.user.activated= True
         request.user.save()
