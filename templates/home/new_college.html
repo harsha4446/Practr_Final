@@ -2,167 +2,235 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-	<meta charset="utf-8" />
-	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets_old/img/apple-icon.png'%}">
-	<link rel="icon" type="image/png" href="{% static 'assets_old/img/favicon.png'%}">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Get Shit Done Bootstrap Wizard by Creative Tim</title>
-
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets_old/img/apple-icon.png'%}" />
+    <link rel="icon" type="image/png" href="{% static 'assets_old/img/favicon.png'%}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Material Dashboard Pro by Creative Tim</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
-	<!--     Fonts and icons     -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
-
-	<!-- CSS Files -->
+    <!-- Bootstrap core CSS     -->
     <link href="{% static 'assets_old/css/bootstrap.min.css'%}" rel="stylesheet" />
-	<link href="{% static 'assets_old/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />
-
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link href="{% static 'assets_old/css/demo.css'%}" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="{% static 'assets_old/css/material-dashboard.css'%}" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{% static 'assets_old/css/demo.css'%}" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
 </head>
 
 <body>
-<div class="image-container set-full-height" style="background-image: url('{% static 'assets_old/img/wizard.jpg'%}')">
-    <!--   Creative Tim Branding   -->
-         <div class="logo-container">
-            <div class="logo">
-                <img src="{% static 'assets_old/img/new_logo.png'%}">
-            </div>
-            <div class="brand">
-                {{ user.name }}
-            </div>
-        </div>
+    <!--<div class="wrapper">-->
+        <div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg'%}')">
 
-	<!--  Made With Get Shit Done Kit  -->
-    <a href="/home/" class="made-with-mk">
-			<div class="brand">PR</div>
-			<div class="made-with">Take me  <strong>Home</strong></div>
-    </a>
-
-
-    <!--   Big container   -->
-    <div class="container">
-        <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-
-            <!--      Wizard container        -->
-            <div class="wizard-container">
-
-                <div class="card wizard-card" data-color="blue" id="wizardProfile">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
-
-                    	<div class="wizard-header">
-                        	<h3>
-                        	   <b>BUILD</b> YOUR PROFILE <br>
-                        	   <small>This information will let us know more about you.</small>
-                        	</h3>
-                    	</div>
-
-						<div class="wizard-navigation">
-							<ul>
-	                            <li><a href="#about" data-toggle="tab">About</a></li>
-	                            <li><a href="#address" data-toggle="tab">Club</a></li>
-	                        </ul>
-
-						</div>
-
-                        <div class="tab-content">
-                            <div class="tab-pane" id="about">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <!--      Wizard container        -->
+                        <div class="wizard-container">
+                            <div class="card wizard-card" data-color="blue" id="wizardProfile">
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                                    <div class="wizard-header">
+                                        <h3 class="wizard-title">
+                                            Build Your Profile
+                                        </h3>
+                                        <h5>This information will let us know more about you.</h5>
+                                    </div>
+                                    <div class="wizard-navigation">
+                                        <ul>
+                                            <li>
+                                                <a href="#about" data-toggle="tab">About</a>
+                                            </li>
+                                            <li>
+                                                <a href="#account" data-toggle="tab">CLUB</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="about">
                               <div class="row">
-                                  <h4 class="info-text"> Let's start with the basic information</h4>
-                                  <div class="col-sm-4 col-sm-offset-1">
-
-                                  </div>
-                                  <div class="col-sm-10 col-sm-offset-1">
-                                      <div class="form-group">
-                                        <label>College Name<small>  (required)</small></label>
-                                        {{ college.college_name }}
+                                  <h4 class="info-text"> Let's start with the basics</h4>
+                                  <div class="col-lg-10 col-lg-offset-1">
+                                      <div class="form-group label-floating">
+                                                            <label class="control-label">College Name
+                                                                <small>(required)</small>
+                                                            </label>
+                                                             {{ college.college_name }}
                                       </div>
-                                      <div class="form-group">
-                                        <label>Address<small> (required)</small></label>
-                                        {{ college.address }}
+                                      <div class="form-group label-floating">
+                                                            <label class="control-label">Address
+                                                                <small>(required)</small>
+                                                            </label>
+                                                           {{ college.address }}
                                       </div>
-                                  </div>
-                                  <div class="col-sm-10 col-sm-offset-1">
-                                      <div class="form-group">
-                                          <label>Phone<small> (required)</small></label>
-                                          {{ college.phone }}
+                                      <div class="form-group label-floating">
+                                                            <label class="control-label">Phone
+                                                                <small>(required)</small>
+                                                            </label>
+                                                             {{ college.phone }}
                                       </div>
                                   </div>
                               </div>
                             </div>
-                            <div class="tab-pane" id="address">
-                                <h4 class="info-text"> Now, let's add a club</h4>
-                                <div class="row">
-
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4 col-sm-offset-1">
-
+                                        <div class="tab-pane" id="account">
+                                            <h4 class="info-text">Now, lets add a club</h4>
+                                             <div class="col-lg-10 col-lg-offset-1">
+                                      <div class="form-group label-floating">
+                                                            <label class="control-label">Club Name
+                                                            </label>
+                                                            {{ club.name }}
+                                      </div>
+                                      <div class="form-group label-floating">
+                                                            <label class="control-label">Admin First Name
+                                                            </label>
+                                                          {{ club.admin_name }}
+                                      </div>
+                                      <div class="form-group label-floating">
+                                                            <label class="control-label">Admin Email
+                                                            </label>
+                                                            {{ club.club_email }}
+                                      </div>
+                                                 <div class="form-group label-floating">
+                                                            <label class="control-label">Password
+                                                            </label>
+                                                            {{ club.club_password }}
+                                      </div>
+                                                 <div class="form-group label-floating">
+                                                            <label class="control-label">Phone
+                                                            </label>
+                                                             {{ club.phone }}
+                                      </div>
                                   </div>
-                                        <div class="col-md-8 col-md-offset-2">
+                                        </div>
+                                        <div class="tab-pane" id="address">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h4 class="info-text"> Tell us about your university </h4>
+                                                </div>
+                                                <div class="col-sm-7 col-sm-offset-1">
+                                         {% comment %}<div class="form-group">
+                                            <label>Course</label>
+                                            {{ formInfo.degree }}
+                                          </div>{% endcomment %}
+                                                    <div class="form-group label-floating">
+                                                            <label class="control-label">Course
+                                                                <small>(required)</small>
+                                                            </label>
+                                                            {{ formInfo.degree }}
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-7 col-sm-offset-1">
                                          <div class="form-group">
-
-
-                                             <label>Club Name</label>
-                                        {{ club.name }}
-                                             <label>Admin First Name</label>
-                                        {{ club.admin_name }}
-                                            <label>Admin Email</label>
-                                        {{ club.club_email }}
-                                             <label>Password</label>
-                                        {{ club.club_password }}
-                                             <label>Phone</label>
-                                        {{ club.phone }}
+                                            <label>Year</label><br>
+                                             {{ formInfo.year }}
                                           </div>
                                     </div>
-
-
-
+                                            </div>
+                                        </div>
                                     </div>
-
-                                </div>
+                                    <div class="wizard-footer">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-rose btn-wd' name='next' value='Next' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' />
+                                        </div>
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-fill btn-rose btn-wd' name='previous' value='Previous' />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="wizard-footer height-wizard">
-                            <div class="pull-right">
-                                <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' />
-                                <button type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm'>Finish </button>
-
-                            </div>
-
-                            <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                    </form>
+                        <!-- wizard container -->
+                    </div>
                 </div>
-            </div> <!-- wizard container -->
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Company
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                    </p>
+                </div>
+            </footer>
         </div>
-        </div><!-- end row -->
-    </div> <!--  big container -->
-
-    <div class="footer">
-
     </div>
-
 </div>
-
 </body>
-
-	<!--   Core JS Files   -->
-	<script src="{% static 'assets_old/js/jquery-2.2.4.min.js'%}" type="text/javascript"></script>
-	<script src="{% static 'assets_old/js/bootstrap.min.js'%}" type="text/javascript"></script>
-	<script src="{% static 'assets_old/js/jquery.bootstrap.wizard.js'%}" type="text/javascript"></script>
-
-	<!--  Plugin for the Wizard -->
-	<script src="{% static 'assets_old/js/gsdk-bootstrap-wizard.js'%}"></script>
-
-	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
-	<script src="{% static 'assets_old/js/jquery.validate.min.js'%}"></script>
+<!--   Core JS Files   -->
+<script src="{% static 'assets_old/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets_old/js/jquery-ui.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets_old/js/bootstrap.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets_old/js/material.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets_old/js/perfect-scrollbar.jquery.min.js'%}" type="text/javascript"></script>
+<!-- Forms Validations Plugin -->
+<script src="{% static 'assets_old/js/jquery.validate.min.js'%}"></script>
+<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+<script src="{% static 'assets_old/js/moment.min.js'%}"></script>
+<!--  Charts Plugin -->
+<script src="{% static 'assets_old/js/chartist.min.js'%}"></script>
+<!--  Plugin for the Wizard -->
+<script src="{% static 'assets_old/js/jquery.bootstrap-wizard.js'%}"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'assets_old/js/bootstrap-notify.js'%}"></script>
+<!-- DateTimePicker Plugin -->
+<script src="{% static 'assets_old/js/bootstrap-datetimepicker.js'%}"></script>
+<!-- Vector Map plugin -->
+<script src="{% static 'assets_old/js/jquery-jvectormap.js'%}"></script>
+<!-- Sliders Plugin -->
+<script src="{% static 'assets_old/js/nouislider.min.js'%}"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- Select Plugin -->
+<script src="{% static 'assets_old/js/jquery.select-bootstrap.js'%}"></script>
+<!--  DataTables.net Plugin    -->
+<script src="{% static 'assets_old/js/jquery.datatables.js'%}"></script>
+<!-- Sweet Alert 2 plugin -->
+<script src="{% static 'assets_old/js/sweetalert2.js'%}"></script>
+<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="{% static 'assets_old/js/jasny-bootstrap.min.js'%}"></script>
+<!--  Full Calendar Plugin    -->
+<script src="{% static 'assets_old/js/fullcalendar.min.js'%}"></script>
+<!-- TagsInput Plugin -->
+<script src="{% static 'assets_old/js/jquery.tagsinput.js'%}"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="{% static 'assets_old/js/material-dashboard.js'%}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{% static 'assets_old/js/demo.js'%}"></script>
+<script type="text/javascript">
+    $().ready(function() {
+        demo.initMaterialWizard();
+    });
+</script>
 
 </html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Practr - Applied Learning Platform</title>
+
+<!-- Fonts Online -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+<!-- Style Sheet -->
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css'%}">
+<link rel="stylesheet" href="{% static 'css/main-style.css'%}">
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+<div id="main-wrapper">
+  <div class="">
+
+    <!-- edn header-navm -->
+  </div>
+
+  <section class="demo-section">
+    <h6 class="demo-section-title container" style="text-align: center">Congratulations on completing the completing {{ round.title }}. Here is your performance review.</h6>
+
+          <!-- end .uou-block-6a -->
+
+        <div class="uou-block-5b" class="col-sm-4" style="margin-top:20px">
+          <div class="uou-block-6a rounded"> <img src="{{ user.profile_picture.url }}" alt="">
+            <h6>{{ user.name }} <span>{{ detail.designation }}</span></h6>
+            <p>Lorem Ipsum dolor sit amet consectetur. Gravid nib velit auctor aquet sollicitudin lorem quis bibendum auctor</p>
+            <ul class="social-icons">
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+          </div>
+          <!-- end .uou-block-6a -->
+        </div>
+
+
+
+          <!-- end .uou-block-6b -->
+
+          <!-- end .uou-block-6b -->
+
+    <!-- end .uou-block-5a -->
+  </section>
+
+
+
+    <!-- endcontainer -->
+
+
+      <!-- end container  -->
+
+    <!-- end service -squeare -->
+
+
+
+    <div class="clearfix">
+      <div class="container">
+        <div class="row"  style="margin-top:25px">
+            {% if round.creativity %}
+          <div class="col-md-2">
+            <div class="round-counter-single">
+              <div class="c100 p{{ creativity }} green"> <span>{{ creativity }}<b>%</b></span>
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <h6>Creativity</h6>
+            </div>
+          </div>
+            {% endif %}
+        {% if round.presentation %}
+          <div class="col-md-2">
+            <div class="round-counter-single">
+              <div class="c100 p{{ presentation }} green"> <span>{{ presentation }}<b>%</b></span>
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <h6>Presentation</h6>
+            </div>
+          </div>
+        {% endif %}
+        {% if round.rebuttal %}
+        <div class="col-md-2">
+            <div class="round-counter-single">
+              <div class="c100 p{{ rebuttal }} green"> <span>{{ rebuttal }}<b>%</b></span>
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <h6>Rebuttal</h6>
+            </div>
+          </div>
+        {% endif %}
+        {% if round.communication %}
+          <div class="col-md-2">
+            <div class="round-counter-single">
+              <div class="c100 p{{ communication }} green"> <span>{{ communication }}<b>%</b></span>
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <h6>Communication</h6>
+            </div>
+          </div>
+        {% endif %}
+        {% if round.content %}
+          <div class="col-md-2">
+            <div class="round-counter-single">
+              <div class="c100 p{{ content }} green"> <span>{{ content }}<b>%</b></span>
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <h6>Content</h6>
+            </div>
+          </div>
+        {% endif %}
+        {% if round.feasibility %}
+          <div class="col-md-2">
+            <div class="round-counter-single">
+              <div class="c100 p{{ feasibility }} green"> <span>{{ feasibility }}<b>%</b></span>
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <h6>Feasibility</h6>
+            </div>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end clerfix -->
+
+   <div class="uou-block-5b" class="uou-block-5b" style="margin:30px">
+      <div class="container">
+        <blockquote class="first active">
+          <p>{{ scores.feedback }} </p>
+        </blockquote>
+
+
+      </div>
+    </div>
+      <!-- end .uou-accordions -->
+
+
+        </div>
+
+
+    <div class="uou-cta primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-7">
+            <p>We have updated your profile with this event. </p>
+          </div>
+          <div class="col-sm-5 text-right">  <a class="btn btn-secondary" href="user-profile(layout-1).html">Show me</a> </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+
+
+<!-- Scripts -->
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="{% static 'js/jquery-2.1.3.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.js'%}"></script>
+<script src="{% static 'js/plugins/superfish.min.js'%}"></script>
+<script src="{% static 'js/jquery.ui.min.js'%}"></script>
+<script src="{% static 'js/plugins/rangeslider.min.js'%}"></script>
+<script src="{% static 'js/plugins/jquery.flexslider-min.js'%}"></script>
+<script src="{% static 'js/uou-accordions.js'%}"></script>
+<script src="{% static 'js/uou-tabs.js'%}"></script>
+<script src="{% static 'js/plugins/select2.min.js'%}"></script>
+<script src="{% static 'js/owl.carousel.min.js'%}"></script>
+<script src="{% static 'js/gmap3.min.js'%}"></script>
+<script src="{% static 'js/scripts.js'%}"></script>
+</body>
+</html>

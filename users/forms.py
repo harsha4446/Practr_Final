@@ -41,7 +41,7 @@ class StudentInfo(forms.ModelForm):
     degree = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = student_detail
-        fields = ['degree', 'year',]
+        fields = ['degree', 'year', 'section']
 
 
 

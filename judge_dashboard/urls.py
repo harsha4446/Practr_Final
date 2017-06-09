@@ -6,4 +6,5 @@ from . import views
 urlpatterns = [
     url(r'^$', views.dashboard, name='judge_dash'),
     url(r'^judge/(?P<pk>\d+)/$', views.assessment, name='assessment'),
+    url(r'^judge_view/$', views.judge_view, name='list'),
 ]

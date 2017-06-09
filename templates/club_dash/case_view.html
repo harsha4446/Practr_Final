@@ -70,36 +70,14 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    {% if user.judge %}
                     <li>
-                        <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="material-icons">image</i>
-                            <p>Pages
-                                <b class="caret"></b>
-                            </p>
+                        <a href="/user/judge_dashboard/judge_view">
+                            <i class="material-icons">dashboard</i>
+                            <p>Judge</p>
                         </a>
-                        <div class="collapse" id="pagesExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="./pages/pricing.html">Pricing</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/timeline.html">Timeline</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/login.html">Login Page</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/register.html">Register Page</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/lock.html">Lock Screen Page</a>
-                                </li>
-                                <li>
-                                    <a href="./pages/user.html">User Profile</a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
+                    {% endif %}
                     <li>
                         <a data-toggle="collapse" href="#componentsExamples">
                             <i class="material-icons">apps</i>
@@ -306,6 +284,38 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <h4 class="card-title">Cases</h4>
+                                <div class="pull-right" style="padding-right: 3%;">
+                                    <button class="btn btn-social btn-fill btn-facebook" data-toggle="modal" data-target="#myModal">
+                                        Add Case
+                                    </button>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event }}/{{ type }}/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event }}/{{ type }}/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <br><br><br>
                                 <div class="card-content">
                                     <div class="table-responsive">
                                         <table class="table">
@@ -314,30 +324,42 @@
                                                     <th>Date Created</th>
                                                     <th>Case Title </th>
                                                     <th>Created By </th>
-                                                    <th class="text-center">Registered</th>
+                                                    <th class="text-center">Audience</th>
                                                     <th class="text-center">Team Size</th>
                                                     <th class="text-center">Deadline</th>
-                                                    <th class="text-center">Judges</th>
+{#                                                    <th class="text-center">Judges</th>#}
+                                                    <th class="text-center">Results</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {% for round in all_rounds %}
+                                                {% if round.published %}
+                                                <tr class="success">
+                                                {% elif round.finished %}
+                                                <tr class="info">
+                                                {% else %}
                                                 <tr>
+                                                {% endif %}
                                                     <td> {{ round.created }}</td>
                                                     <td> {{ round.title }}</td>
-                                                    <td> {{ round.email.email.admin_name }}</td>
-                                                    <td class="text-center"> {{ count }}</td>
-                                                    <td class="text-center"> {{ round.team_size }}</td>
+                                                    <td> {{ round.author }}</td>
+                                                    {% if round.finished %}
+                                                    <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ round.qualified }}</a></td>
+                                                    {% else %}
+                                                    <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ count }}</a></td>
+                                                    {% endif %}
+                                                    <td class="text-center" data-toggle="modal" data-target="#teamsize{{ round.id }}"> {{ round.team_size }}</td>
                                                     <td class="text-center"> {{ round.deadline }}</td>
-                                                    <td class="text-center" data-toggle="modal" data-target="#rooms{{ round.id }}">Manage Rooms and Judges</td>
+{#                                                    <td class="text-center" data-toggle="modal" data-target="#rooms{{ round.id }}">Manage Rooms and Judges</td>#}
+                                                    <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Results</a></td>
                                                     <td class="td-actions text-right">
                                                         {% if round.published %}
-                                                            <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}/">
-                                                        <button type="button" rel="tooltip" class="text-center btn btn-error" title="Unpublish Case">
-                                                            <i class="material-icons">block</i>
-                                                        </button>
-                                                            </a>
+{#                                                            <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}/">#}
+{#                                                        <button type="button" rel="tooltip" class="text-center btn btn-error" title="Unpublish Case">#}
+{#                                                            <i class="material-icons">block</i>#}
+{#                                                        </button>#}
+{#                                                            </a>#}
                                                         {% else %}
                                                         <button type="button" rel="tooltip" class="text-center btn btn-success" data-toggle="modal" data-target="#deadline{{ round.id }}" title="Publish Case">
                                                             <i class="material-icons">person</i>
@@ -388,29 +410,200 @@
                                                            </div>
                                                         </div>
                                                     </div>
+{#                                                    <div class="modal fade" id="rooms{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+{#                                                         <div class="modal-dialog">#}
+{#                                                           <div class="modal-content">#}
+{#                                                             <div class="modal-header">#}
+{#                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">#}
+{#                                                                 <i class="material-icons">clear</i>#}
+{#                                                               </button>#}
+{#                                                               <div  style="text-align: center;">#}
+{#                                                               <h4 class="modal-title">Judges and Rooms</h4>#}
+{#                                                               </div>#}
+{#                                                             </div>#}
+{#                                                             <div class="modal-body">#}
+{#                                                             <div  style="text-align: center;">#}
+{#                                                              <button class="btn btn-facebook" data-toggle="modal" data-target="#addroom{{ round.id }}">Add Room</button>#}
+{#                                                              OR#}
+{#                                                               <button class="btn btn-facebook" data-toggle="modal" data-target="#allRooms{{ round.id }}">View Rooms</button>#}
+{#                                                                 <br><br>#}
+{#                                                             </div>#}
+{#                                                            </div>#}
+{#                                                           </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
                                                     <div class="modal fade" id="rooms{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                         <div class="modal-dialog">
-                                                           <div class="modal-content">
-                                                             <div class="modal-header">
-                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                                 <i class="material-icons">clear</i>
-                                                               </button>
-                                                               <div  style="text-align: center;">
-                                                               <h4 class="modal-title">Judges and Rooms</h4>
-                                                               </div>
-                                                             </div>
-                                                             <div class="modal-body">
-                                                             <div  style="text-align: center;">
-                                                              <button class="btn btn-facebook" data-toggle="modal" data-target="#addroom{{ round.id }}">Add Room</button>
-                                                              OR
-                                                               <button class="btn btn-facebook" data-toggle="modal" data-target="#allRooms{{ round.id }}">View Rooms</button>
-                                                                 <br><br>
-                                                             </div>
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                        <i class="material-icons">clear</i>
+                                                                    </button>
+                                                                    <h4 class="modal-title">Room Setup</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="card-content">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-shopping">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th class="text-right">Number of rooms</th>
+                                                                                    <th class="text-right">Judges per room</th>
+                                                                                    <th class="text-right">Total judges</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td class="td-number">
+                                                                                        <script type="text/javascript">rooms=1;judges=1;</script>
+                                                                                        <div id="room">1</div>
+                                                                                        <div class="btn-group">
+                                                                                            <button class="btn btn-round btn-info btn-xs" onclick="removeroom()"> <i class="material-icons">remove</i> </button>
+                                                                                            <button class="btn btn-round btn-info btn-xs" onclick="addroom()"> <i class="material-icons">add</i> </button>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div id="judge">1</div>
+                                                                                        <div class="btn-group">
+                                                                                            <button class="btn btn-round btn-info btn-xs" onclick="removejudge()"> <i class="material-icons">remove</i> </button>
+                                                                                            <button class="btn btn-round btn-info btn-xs" onclick="addjudge()"> <i class="material-icons">add</i> </button>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div id="total">1</div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger btn-simple" data-toggle="modal" data-target="#judgesetup{{ round.id }}">Judge Setup</button>
+                                                                </div>
                                                             </div>
-                                                           </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal fade" id="addroom{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="judgesetup{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">\
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                                        <i class="material-icons">clear</i>
+                                                                    </button>
+                                                                    <h4 class="modal-title">Judge Set up</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="card-content">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-shopping">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th class="text-left">Room 1</th>
+                                                                                    <th class="text-left">Room 2</th>
+                                                                                    <th class="text-left">Room 3</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                <tr>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 1">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 1">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 1">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 2">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 2">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 2">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 3">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 3">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="td-number">
+                                                                                        <div class="form-group label-floating is-empty">
+                                                                                            <label class="control-label"></label>
+                                                                                            <input type="text" class="form-control" placeholder="Judge 3">
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-simple" data-dismiss="modal">Room Setup</button>
+                                                                    <button type="button" class="btn btn-danger btn-simple">OK</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+{#                                                        <div class="modal fade" id="addroom{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+{#                                                            <div class="modal-dialog">#}
+{#                                                                <div class="modal-content">#}
+{#                                                                    <div class="modal-header">#}
+{#                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">#}
+{#                                                                 <i class="material-icons">clear</i>#}
+{#                                                               </button>#}
+{#                                                               <div  style="text-align: center;">#}
+{#                                                               <h4 class="modal-title">Add Room</h4>#}
+{#                                                               </div>#}
+{#                                                             </div>#}
+{#                                                             <div class="modal-body">#}
+{#                                                             <div  style="text-align: center;">#}
+{#                                                                 <form method="post" action="/user/club_dashboard/addRoom/{{ round.id }}/{{ event }}/{{ type }}/">#}
+{#                                                                     {% csrf_token %}#}
+{#                                                                 {{ roomForm.room }}#}
+{#                                                                 <br><br>#}
+{#                                                                 <div class="footer text-center">#}
+{#                                                                    <button type="submit" class="btn btn-primary btn-round">Add</button>#}
+{#                                                                </div>#}
+{#                                                                 </form>#}
+{#                                                             </div>#}
+{#                                                            </div>#}
+{#                                                           </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+                                                    <div class="modal fade" id="teamsize{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                          <div class="modal-dialog">
                                                            <div class="modal-content">
                                                              <div class="modal-header">
@@ -418,17 +611,17 @@
                                                                  <i class="material-icons">clear</i>
                                                                </button>
                                                                <div  style="text-align: center;">
-                                                               <h4 class="modal-title">Add Room</h4>
+                                                               <h4 class="modal-title">Round Team Size?</h4>
                                                                </div>
                                                              </div>
                                                              <div class="modal-body">
                                                              <div  style="text-align: center;">
-                                                                 <form method="post" action="/user/club_dashboard/addRoom/{{ round.id }}/{{ event }}/{{ type }}/">
+                                                                 <form method="post" action="/user/club_dashboard/teamSize/{{ round.id }}/{{ event }}/{{ type }}/">
                                                                      {% csrf_token %}
-                                                                 {{ roomForm.room }}
+                                                                     <input type="text" name="team_size" class="form-control" value="" />
                                                                  <br><br>
                                                                  <div class="footer text-center">
-                                                                    <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                                    <button type="submit" class="btn btn-primary btn-round">Submit</button>
                                                                 </div>
                                                                  </form>
                                                              </div>
@@ -463,7 +656,6 @@
                                                                                     <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#addJudge{{ round.id }}">Create Judge</button>
                                                                                 </div>
                                                                             </div>
-
                                                                      {% endif %}
                                                                  {% endfor %}
                                                                  <br><br>
@@ -504,9 +696,11 @@
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         </a>
+                                                        <a href="/user/club_dashboard/judgelist/{{ event }}/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-danger" title="Delete Case">
                                                             <i class="material-icons">close</i>
                                                         </button>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -600,12 +794,43 @@
 <script src="{% static 'assets/js/demo.js'%}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
-        demo.initVectorMap();
+        md.initSliders();
+        demo.initFormExtendedDatetimepickers();
     });
 </script>
+
+<script>
+
+         function removeroom() {
+             if(rooms!=1)
+                rooms = rooms - 1;
+             var total = rooms*judges;
+             document.getElementById("room").innerHTML = rooms;
+             document.getElementById("total").innerHTML = total;
+         }
+         function addroom() {
+             if(rooms!=3)
+                 rooms = rooms + 1;
+             var total = rooms*judges;
+             document.getElementById("room").innerHTML = rooms;
+             document.getElementById("total").innerHTML = total;
+         }
+         function removejudge() {
+             if(judges!=1)
+                judges = judges - 1;
+             var total = rooms*judges;
+             document.getElementById("judge").innerHTML = judges;
+             document.getElementById("total").innerHTML = total;
+         }
+         function addjudge() {
+             if(judges!=3)
+                judges = judges + 1;
+             var total = rooms*judges;
+             document.getElementById("judge").innerHTML = judges;
+             document.getElementById("total").innerHTML = total;
+         }
+
+</script>
+
 
 </html>

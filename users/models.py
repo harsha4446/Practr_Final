@@ -32,6 +32,7 @@ class CustomUserManager(BaseUserManager):
 def upload_loction(object, filename):
     return "%s/%s" %(object.email , filename)
 
+
 def round_data(object, filename):
     return "%s/%s" %(object.student.email , filename)
 
@@ -88,7 +89,6 @@ class student_scores(models.Model):
     rebuttal = models.IntegerField(default=0)
     communication = models.IntegerField(default=0)
     feasibility = models.IntegerField(default=0)
-    feedback = models.CharField(max_length=1000, default='')
     question1 = models.IntegerField(default=0)
     question2 = models.IntegerField(default=0, blank=True)
     question3 = models.IntegerField(default=0, blank=True)
@@ -96,10 +96,10 @@ class student_scores(models.Model):
     question5 = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.username.email
 
     def __unicode__(self):
-        return self.username
+        return self.username.email
 
 
 class student_detail(models.Model):
@@ -111,6 +111,8 @@ class student_detail(models.Model):
                                                     ('Second', 'Second'),
                                                     ('Third', 'Third')),
                             default='First')
+    section = models.CharField(default='',max_length=10)
+
     def __str__(self):
         return self.label
 
@@ -162,7 +164,7 @@ class clubs(models.Model):
     phone = models.CharField(max_length=10, default='')
     video = models.CharField(max_length=250, default='')
     website = models.CharField(max_length=250, default='')
-    about = models.CharField(max_length=1000, default='')
+    about = models.CharField(max_length=400, default='')
     logo = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/club_default.jpg')
     verified = models.BooleanField(default=False)
 
@@ -178,23 +180,66 @@ class events(models.Model):
     name = models.CharField(max_length=150, default='')
     live = models.BooleanField(default=False)
     registration = models.BooleanField(default=False)
-    about = models.CharField(max_length=1000, default='')
+    about = models.CharField(max_length=400, default='')
     website = models.CharField(max_length=250, default='')
     logo = models.ImageField(upload_to=upload_loction,null=True,blank=True,default='default/club_default.jpg')
     inter_type = models.BooleanField(default=False)
     marketing = models.BooleanField(default=False)
     team_size1 = models.IntegerField(default=1)
+    subhead1 = models.BooleanField(default=False)
+    quota11 = models.IntegerField(default=400)
+    quota12 = models.IntegerField(default=400)
+    quota13 = models.IntegerField(default=400)
+    registered11 = models.IntegerField(default=0)
+    registered12 = models.IntegerField(default=0)
+    registered13 = models.IntegerField(default=0)
     finance = models.BooleanField(default=False)
+    subhead2 = models.BooleanField(default=False)
     team_size2 = models.IntegerField(default=1)
+    quota21 = models.IntegerField(default=400)
+    quota22 = models.IntegerField(default=400)
+    quota23 = models.IntegerField(default=400)
+    registered21 = models.IntegerField(default=0)
+    registered22 = models.IntegerField(default=0)
+    registered23 = models.IntegerField(default=0)
     public_relations = models.BooleanField(default=False)
+    subhead3 = models.BooleanField(default=False)
     team_size3 = models.IntegerField(default=1)
+    quota31 = models.IntegerField(default=400)
+    quota32 = models.IntegerField(default=400)
+    quota33 = models.IntegerField(default=400)
+    registered31 = models.IntegerField(default=0)
+    registered32 = models.IntegerField(default=0)
+    registered33 = models.IntegerField(default=0)
     human_resources = models.BooleanField(default=False)
+    subhead4 = models.BooleanField(default=False)
     team_size4 = models.IntegerField(default=1)
+    quota41 = models.IntegerField(default=400)
+    quota42 = models.IntegerField(default=400)
+    quota43 = models.IntegerField(default=400)
+    registered41 = models.IntegerField(default=0)
+    registered42 = models.IntegerField(default=0)
+    registered43 = models.IntegerField(default=0)
     ent_dev = models.BooleanField(default=False)
+    subhead5 = models.BooleanField(default=False)
     team_size5 = models.IntegerField(default=1)
+    quota51 = models.IntegerField(default=400)
+    quota52 = models.IntegerField(default=400)
+    quota53 = models.IntegerField(default=400)
+    registered51 = models.IntegerField(default=0)
+    registered52 = models.IntegerField(default=0)
+    registered53 = models.IntegerField(default=0)
     best_manager = models.BooleanField(default=False)
+    subhead6 = models.BooleanField(default=False)
     team_size6 = models.IntegerField(default=1)
+    quota61 = models.IntegerField(default=400)
+    quota62 = models.IntegerField(default=400)
+    quota63 = models.IntegerField(default=400)
+    registered61 = models.IntegerField(default=0)
+    registered62 = models.IntegerField(default=0)
+    registered63 = models.IntegerField(default=0)
     current = models.BooleanField(default=False)
+    multiregistration = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -204,11 +249,12 @@ class events(models.Model):
 
 
 class rounds(models.Model):
-    email = models.ForeignKey(events, on_delete=models.CASCADE, default='')
+    email = models.ForeignKey(events, default='')
+    club = models.ForeignKey(clubs, default='')
     ext_judge = models.BooleanField(default=False)
     title = models.CharField(max_length=150, default='')
     sub_title = models.CharField(max_length=150, default='')
-    about = models.CharField(max_length=1000, default='')
+    about = models.CharField(max_length=400, default='')
     task1 = models.CharField(max_length=150, default='')
     task2 = models.CharField(max_length=150, default='', blank=True)
     tast3 = models.CharField(max_length=150, default='', blank=True)
@@ -227,15 +273,37 @@ class rounds(models.Model):
     feasibility = models.BooleanField(default=False)
     feedback = models.BooleanField(default=False)
     question1 = models.CharField(max_length=150, default='')
+    core1 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
     question2 = models.CharField(max_length=150, default='', blank=True)
+    core2 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
     question3 = models.CharField(max_length=150, default='', blank=True)
+    core3 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
     question4 = models.CharField(max_length=150, default='', blank=True)
+    core4 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
     question5 = models.CharField(max_length=150, default='', blank=True)
+    core5 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
     type = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
     published = models.BooleanField(default=False)
     team_size = models.IntegerField(default=1)
     deadline = models.DateField(default=None, null=True)
+    creativityvalue = models.IntegerField(default=0)
+    contentvalue = models.IntegerField(default=0)
+    presentationvalue = models.IntegerField(default=0)
+    rebuttalvalue = models.IntegerField(default=0)
+    communicationvalue = models.IntegerField(default=0)
+    feasibilityvalue = models.IntegerField(default=0)
+    qualified = models.IntegerField(default=2)
+    weight = models.FloatField(default=1.0)
+    finished = models.BooleanField(default=False)
+    enddate = models.DateField(default=None, null=True)
+    author = models.CharField(max_length=100, default=0)
+    offline = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -309,9 +377,31 @@ class event_registered(models.Model):
         return '%s' % self.registered_to.name
 
 
+class event_registered_details(models.Model):
+    student = models.ForeignKey(student,on_delete=models.CASCADE)
+    event = models.ForeignKey(events,on_delete=models.CASCADE)
+    marketing = models.BooleanField(default=0)
+    finance = models.BooleanField(default=0)
+    public_relations = models.BooleanField(default=0)
+    best_manager = models.BooleanField(default=0)
+    ent_dev = models.BooleanField(default=0)
+    human_resources = models.BooleanField(default=0)
+    teammate1 = models.CharField(default='', blank=True, max_length=150)
+    teammate2 = models.CharField(default='', blank=True, max_length=150)
+    teammate3 = models.CharField(default='', blank=True, max_length=150)
+
+
+    def __str__(self):
+        return '%s' % self.student.email
+
+
+    def __unicode__(self):
+        return '%s' % self.student.email
+
+
 #per round scores and data
 class round_scores(models.Model):
-    round = models.OneToOneField(rounds, related_name='round_score', on_delete=models.CASCADE)
+    round = models.ForeignKey(rounds, related_name='round_score', on_delete=models.CASCADE)
     student = models.ForeignKey(student)
     question1 = models.IntegerField(default=0, blank=True, null=True)
     question2 = models.IntegerField(default=0, blank=True, null=True)
@@ -324,12 +414,14 @@ class round_scores(models.Model):
     rebuttal = models.IntegerField(default=0, blank=True, null=True)
     communication = models.IntegerField(default=0, blank=True, null=True)
     feasibility = models.IntegerField(default=0, blank=True, null=True)
-    feedback = models.CharField(default='Not Available', max_length=1000, null=True)
+    feedback = models.CharField(default='Not Available', max_length=600, null=True)
     submitted = models.BooleanField(default=False)
     judged = models.BooleanField(default=False)
     data1 = models.FileField(upload_to=round_data, null=True)
     data2 = models.FileField(upload_to=round_data, null=True)
     data3 = models.FileField(upload_to=round_data, null=True)
+    total = models.IntegerField(default=0)
+    qualified = models.BooleanField(default=False)
 
     def __str__(self):
         return '%s' % self.student.email
@@ -364,7 +456,8 @@ class room_judge(models.Model):
 
 class judge_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
-    round = models.ForeignKey(rounds, default='')
+    club = models.ForeignKey(clubs,default='')
+    type = models.IntegerField(default=0)
     degree = models.CharField(max_length=100, default='')
     website = models.CharField(default='', max_length=500)
     designation = models.CharField(max_length=100,default='')
@@ -376,6 +469,18 @@ class judge_detail(models.Model):
 
     def __unicode__(self):
         return self.email.email
+
+
+class sub_head(models.Model):
+    student = models.OneToOneField(student)
+    type = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.student.email
+
+    def __unicode__(self):
+        return self.student.email
+
 
 
 

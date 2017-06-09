@@ -64,11 +64,11 @@
 						<div class="wizard-navigation">
 							<ul>
 	                            <li><a href="#about" data-toggle="tab">About</a></li>
+                                <li><a href="#registration" data-toggle="tab">Registration Type</a></li>
+                                <li><a href="#teams" data-toggle="tab">Teams</a></li>
                                 <li><a href="#account" data-toggle="tab">Sub Events</a></li>
 	                        </ul>
-
 						</div>
-
                         <div class="tab-content">
                             <div class="tab-pane" id="about">
                               <div class="row">
@@ -100,12 +100,63 @@
                                   </div>
                               </div>
                             </div>
+                            <div class="tab-pane" id="teams">
+                                <h4 class="info-text">Will You Allow Teams?</h4>
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Default Solo Event?">
+                                                <input type="radio" name="solo" value="Solo">
+                                                <div class="icon">
+                                                    <i class="fa fa-male"></i>
+                                                </div>
+                                                <h6>Solo</h6>
+                                            </div>
+                            </div>
+                             <div class="col-sm-4">
+                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Team Event?">
+                                <a href="#default" data-toggle="modal">
+                                                <input type="radio" name="team" value="">
+                                                <div class="icon">
+                                                    <i class="fa fa-group"></i>
+                                                </div>
+                                                <h6>Team</h6>
+                                </a>
+                            </div>
+                             </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="registration">
+                                <h4 class="info-text">Registration Type?</h4>
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Single Registation?">
+                                                <input type="radio" name="single" value="Single Registation">
+                                                <div class="icon">
+                                                    <i class="fa fa-male"></i>
+                                                </div>
+                                                <h6>Single</h6>
+                                            </div>
+                            </div>
+                             <div class="col-sm-4">
+                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Multiple Registration?">
+                                                <input type="radio" name="multi" value="Multiple Registration">
+                                                <div class="icon">
+                                                    <i class="fa fa-group"></i>
+                                                </div>
+                                                <h6>Multiple</h6>
+                            </div>
+                             </div>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="tab-pane" id="account">
                                 <h4 class="info-text"> What are your Sub Events </h4>
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="col-sm-4">
-                                            <a href="#marketing" data-toggle="modal">
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.marketing }}
                                                 <div class="icon">
@@ -113,10 +164,8 @@
                                                 </div>
                                                 <h6>Marketing</h6>
                                             </div>
-                                            </a>
                                         </div>
                                         <div class="col-sm-4">
-                                            <a href="#finance" data-toggle="modal">
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.finance }}
                                                 <div class="icon">
@@ -124,10 +173,8 @@
                                                 </div>
                                                 <h6>Finance</h6>
                                             </div>
-                                            </a>
                                         </div>
                                         <div class="col-sm-4">
-                                            <a href="#pr" data-toggle="modal">
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.public_relations }}
                                                 <div class="icon">
@@ -135,10 +182,8 @@
                                                 </div>
                                                 <h6>Public Relations</h6>
                                             </div>
-                                            </a>
                                         </div>
                                         <div class="col-sm-4">
-                                            <a href="#hr" data-toggle="modal">
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.human_resources }}
                                                 <div class="icon">
@@ -146,10 +191,8 @@
                                                 </div>
                                                 <h6>Human Resources</h6>
                                             </div>
-                                            </a>
                                         </div>
                                         <div class="col-sm-4">
-                                            <a href="#ed" data-toggle="modal">
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.ent_dev }}
                                                 <div class="icon">
@@ -157,10 +200,8 @@
                                                 </div>
                                                 <h6>Entrepreneurship Development</h6>
                                             </div>
-                                            </a>
                                         </div>
                                         <div class="col-sm-4">
-                                            <a href="#bm" data-toggle="modal">
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.best_manager }}
                                                 <div class="icon">
@@ -168,150 +209,30 @@
                                                 </div>
                                                 <h6>Best Manager</h6>
                                             </div>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </div>
-                         <div class="modal fade" id="marketing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-dialog">
-                               <div class="modal-content">
-                                 <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                     <i class="material-icons">clear</i>
-                                   </button>
-                                   <div  style="text-align: center;">
-                                   <h4 class="modal-title">Default Team Size?</h4>
-                                   </div>
-                                 </div>
-                                 <div class="modal-body">
-                                 <div  style="text-align: center;">
-                                   {{ form.team_size1 }}
-                                     <br><br>
-                                     <div class="modal-footer" style="text-align: center;">
-                                         <button type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" data-dismiss="modal">Done</button>
-                                     </div>
-                                 </div>
+                        <div class="modal fade" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            <i class="material-icons">clear</i>
+                                        </button>
+                                        <div  style="text-align: center;">
+                                            <h4 class="modal-title">Team Size Upto?</h4>
+                                            <input type="number" name="team" value="">
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+
+                                            <br><br>
+                                        </div>
+                                    </div>
                                 </div>
-                               </div>
                             </div>
-                        </div>
-                        <div class="modal fade" id="finance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-dialog">
-                               <div class="modal-content">
-                                 <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                     <i class="material-icons">clear</i>
-                                   </button>
-                                   <div  style="text-align: center;">
-                                   <h4 class="modal-title">Default Team Size?</h4>
-                                   </div>
-                                 </div>
-                                 <div class="modal-body">
-                                 <div  style="text-align: center;">
-                                   {{ form.team_size2 }}
-                                     <br><br>
-                                     <div class="modal-footer" style="text-align: center;">
-                                         <button type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" data-dismiss="modal">Done</button>
-                                     </div>
-                                 </div>
-                                </div>
-                               </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="pr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-dialog">
-                               <div class="modal-content">
-                                 <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                     <i class="material-icons">clear</i>
-                                   </button>
-                                   <div  style="text-align: center;">
-                                   <h4 class="modal-title">Default Team Size?</h4>
-                                   </div>
-                                 </div>
-                                 <div class="modal-body">
-                                 <div  style="text-align: center;">
-                                   {{ form.team_size3 }}
-                                     <br><br>
-                                     <div class="modal-footer" style="text-align: center;">
-                                         <button type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" data-dismiss="modal">Done</button>
-                                     </div>
-                                 </div>
-                                </div>
-                               </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="hr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-dialog">
-                               <div class="modal-content">
-                                 <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                     <i class="material-icons">clear</i>
-                                   </button>
-                                   <div  style="text-align: center;">
-                                   <h4 class="modal-title">Default Team Size?</h4>
-                                   </div>
-                                 </div>
-                                 <div class="modal-body">
-                                 <div  style="text-align: center;">
-                                   {{ form.team_size4 }}
-                                     <br><br>
-                                     <div class="modal-footer" style="text-align: center;">
-                                         <button type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" data-dismiss="modal">Done</button>
-                                     </div>
-                                 </div>
-                                </div>
-                               </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="ed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-dialog">
-                               <div class="modal-content">
-                                 <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                     <i class="material-icons">clear</i>
-                                   </button>
-                                   <div  style="text-align: center;">
-                                   <h4 class="modal-title">Default Team Size?</h4>
-                                   </div>
-                                 </div>
-                                 <div class="modal-body">
-                                 <div  style="text-align: center;">
-                                   {{ form.team_size5 }}
-                                     <br><br>
-                                     <div class="modal-footer" style="text-align: center;">
-                                         <button type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" data-dismiss="modal">Done</button>
-                                     </div>
-                                 </div>
-                                </div>
-                               </div>
-                            </div>
-                        </div>
-                        <div class="modal fade" id="bm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                             <div class="modal-dialog">
-                               <div class="modal-content">
-                                 <div class="modal-header">
-                                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                     <i class="material-icons">clear</i>
-                                   </button>
-                                   <div  style="text-align: center;">
-                                   <h4 class="modal-title">Default Team Size?</h4>
-                                   </div>
-                                 </div>
-                                 <div class="modal-body">
-                                 <div  style="text-align: center;">
-                                   {{ form.team_size6 }}
-                                     <br><br>
-                                     <div class="modal-footer" style="text-align: center;">
-                                         <button type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" data-dismiss="modal">Done</button>
-                                     </div>
-                                 </div>
-                                </div>
-                               </div>
-                            </div>
-                        </div>
                         <div class="wizard-footer height-wizard">
                             <div class="pull-right">
                                 <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' />

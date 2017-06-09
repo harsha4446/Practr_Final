@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import student,student_scores,colleges,clubs,interests, student_detail,judge_detail,\
-    events,rounds,follow_table, register_table, event_registered, round_room, room_judge, round_scores
+    events,rounds,follow_table, register_table, event_registered, round_room, room_judge, round_scores, event_registered_details,\
+    sub_head
 from django.contrib.auth.models import Group
 # Register your models here.
 
@@ -20,3 +21,5 @@ admin.site.register(event_registered)
 admin.site.register(round_room)
 admin.site.register(room_judge)
 admin.site.register(round_scores)
+admin.site.register(event_registered_details)
+admin.site.register(sub_head)

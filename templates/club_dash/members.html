@@ -41,7 +41,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-{#                        <img src="{{ user.profile_picture.url }}" />#}
+                        <img src={{ user.profile_picture }} />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -57,24 +57,105 @@
                                     <a href="#">Edit Profile</a>
                                 </li>
                                 <li>
-                                     <a href="/home/logout">Log Out</a>
+                                    <a href="/home/logout">Log Out</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <ul class="nav">
-                    <li>
-                        <a href="/user/student_dashboard/">
+                    <li class="active">
+                        <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="/user/club_dashboard/members">
-                            <i class="material-icons">apps</i>
-                            <p>Members</p>
+                    <li>
+                        <a data-toggle="collapse" href="#pagesExamples">
+                            <i class="material-icons">image</i>
+                            <p>Pages
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse" id="pagesExamples">
+                            <ul class="nav">
+                                <li>
+                                    <a href="./pages/pricing.html">Pricing</a>
+                                </li>
+                                <li>
+                                    <a href="./pages/timeline.html">Timeline</a>
+                                </li>
+                                <li>
+                                    <a href="./pages/login.html">Login Page</a>
+                                </li>
+                                <li>
+                                    <a href="./pages/register.html">Register Page</a>
+                                </li>
+                                <li>
+                                    <a href="./pages/lock.html">Lock Screen Page</a>
+                                </li>
+                                <li>
+                                    <a href="./pages/user.html">User Profile</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#componentsExamples">
+                            <i class="material-icons">apps</i>
+                            <p>Components
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="componentsExamples">
+                            <ul class="nav">
+                                <li>
+                                    <a href="./components/buttons.html">Buttons</a>
+                                </li>
+                                <li>
+                                    <a href="./components/grid.html">Grid System</a>
+                                </li>
+                                <li>
+                                    <a href="./components/panels.html">Panels</a>
+                                </li>
+                                <li>
+                                    <a href="./components/sweet-alert.html">Sweet Alert</a>
+                                </li>
+                                <li>
+                                    <a href="./components/notifications.html">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="./components/icons.html">Icons</a>
+                                </li>
+                                <li>
+                                    <a href="./components/typography.html">Typography</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#formsExamples">
+                            <i class="material-icons">content_paste</i>
+                            <p>Forms
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="formsExamples">
+                            <ul class="nav">
+                                <li>
+                                    <a href="./forms/regular.html">Regular Forms</a>
+                                </li>
+                                <li>
+                                    <a href="./forms/extended.html">Extended Forms</a>
+                                </li>
+                                <li>
+                                    <a href="./forms/validation.html">Validation Forms</a>
+                                </li>
+                                <li>
+                                    <a href="./forms/wizard.html">Wizard</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a data-toggle="collapse" href="#tablesExamples">
@@ -215,120 +296,39 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="orange">
-                                    <i class="material-icons">weekend</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Bookings</p>
-                                    <h3 class="card-title">184</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="#pablo">Get More Space...</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="rose">
-                                    <i class="material-icons">equalizer</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Website Visits</p>
-                                    <h3 class="card-title">75.521</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">local_offer</i> Tracked from Google Analytics
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="green">
-                                    <i class="material-icons">store</i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Revenue</p>
-                                    <h3 class="card-title">Rs.34,245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">date_range</i> Last 24 Hours
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-header" data-background-color="blue">
-                                    <i class="fa fa-twitter"></i>
-                                </div>
-                                <div class="card-content">
-                                    <p class="category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">update</i> Just Updated
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3>Available Events</h3>
+                    <h3>Results</h3>
                     <br>
-                    <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-icon" data-background-color="rose">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Following</h4>
+                                <h4 class="card-title">Cases</h4>
+                            <br><br><br><br>
                                 <div class="card-content">
                                     <div class="table-responsive">
-                                        <table class="table table-shopping">
+                                        <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center"></th>
+                                                    <th>Username</th>
                                                     <th>Name</th>
-                                                    <th class="th-description">Degree</th>
-                                                    <th class="text-right">Location</th>
-                                                    <th class="text-right">Amount</th>
-                                                    <th></th>
+                                                    <th>Phone</th>
+                                                    <th>Score</th>
+                                                    <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {% for student in students %}
+                                            {% for student in audience %}
                                                 <tr>
-                                                    <td>
-                                                        <div class="img-container">
-{#                                                            <img src="{{ student.profile_picture.url }}" alt="...">#}
-                                                        </div>
-                                                    </td>
-                                                    <td class="td-name">
-                                                        <a href="#jacket">{{ student.name }}</a>
-                                                        <br />
-                                                        <small>{{ student.student_detail.college }}</small>
-                                                    </td>
-                                                    <td>
-                                                        {{ student.student_detail.degree }}
-                                                    </td>
-                                                    <td class="td-number text-right">
-                                                        {{ student.location }}
-                                                    </td>
-                                                    <td class="td-number">
-                                                        <small>&euro;</small>549
-                                                    </td>
-                                                    <td class="td-actions">
-                                                        <a href = "/user/network/unfollow/{{ student.id }}/">
-                                                        <button type="button" rel="tooltip" data-placement="left" title="Remove item" class="btn btn-simple">
-                                                            <i class="material-icons">close</i>
+                                                    <td> {{ student.student.email }}</td>
+                                                    <td> {{ student.student.name }}</td>
+                                                    <td class="text-left"> {{ student.student.phoneno }}</td>
+                                                    <td> {{ student.total }}</td>
+                                                    <td class="td-actions text-right">
+                                                        <a href="">
+                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Performance Review">
+                                                            <i class="material-icons">edit</i>
                                                         </button>
                                                         </a>
                                                     </td>
@@ -336,93 +336,6 @@
                                             {% endfor %}
                                             </tbody>
                                         </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <br>
-                <h3>Stats</h3>
-                    <br>
-                <div class="row">
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="rose" data-header-animation="true">
-                                    <div class="ct-chart" id="websiteViewsChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Website Views</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="green" data-header-animation="true">
-                                    <div class="ct-chart" id="dailySalesChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Daily Sales</h4>
-                                    <p class="category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card card-chart">
-                                <div class="card-header" data-background-color="blue" data-header-animation="true">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-info btn-simple" rel="tooltip" data-placement="bottom" title="Refresh">
-                                            <i class="material-icons">refresh</i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="Change Date">
-                                            <i class="material-icons">edit</i>
-                                        </button>
-                                    </div>
-                                    <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="category">Last Campaign Performance</p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
                                     </div>
                                 </div>
                             </div>

@@ -97,10 +97,11 @@ def new_student(request):
         request.user.about = formDefault.cleaned_data.get("about")
         request.user.activated = True
         request.user.save()
-        user_info = student_detail.objects.get(email=request.user, )
+        user_info,created = student_detail.objects.get_or_create(email=request.user, )
         user_info.label = request.user.email
         user_info.industry_exp = formInfo.cleaned_data.get("industry_exp")
         user_info.degree = formInfo.cleaned_data.get("degree")
+        user_info.section = formInfo.cleaned_data.get("section")
         user_info.save()
         user_interest = interests(email=request.user, )
         user_interest.label = request.user.email
@@ -133,17 +134,16 @@ def new_judge(request):
         request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
         request.user.activated = True
         request.user.save()
-        user_info = judge_detail(email=request.user, )
+        user_info,created = judge_detail.objects.get_or_create(email=request.user, )
         user_info.degree = formInfo.cleaned_data.get("degree")
         user_info.website = formInfo.cleaned_data.get("website")
         user_info.industry_exp = formInfo.cleaned_data.get("industry_exp")
         user_info.college = formInfo.cleaned_data.get("college")
         user_info.designation = formInfo.cleaned_data.get("designation")
-        room = room_judge.objects.get(judge_email=request.user.email)
-        round = rounds.objects.get(id = room.round.id)
-        user_info.round = round
+        # room = room_judge.objects.get(judge_email=request.user.email)
+        # round = rounds.objects.get(id = room.round.id)
         user_info.save()
-        return HttpResponseRedirect('/users/judge_dashboard/')
+        return HttpResponseRedirect('/user/judge_dashboard/')
     context = {"formInfo": formInfo, "default": formDefault, "user":request.user,}
     return render(request, 'home/new_judge.html', context)
 

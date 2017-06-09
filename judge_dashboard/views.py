@@ -1,27 +1,58 @@
 from django.shortcuts import render
-from users.models import event_registered, judge_detail, rounds, events, round_scores, student
+from users.models import event_registered, judge_detail, rounds, events, round_scores, student, clubs,event_registered_details,register_table
 from django.http import HttpResponseRedirect
 
 # Create your views here.
 def dashboard(request):
     user = request.user
-    context = {'user':user,}
     details = judge_detail.objects.get(email=user)
-    round = rounds.objects.get(id = details.round.id)
-    event = events.objects.get(id = round.email.id)
+    event = events.objects.get(email=details.club)
+    all_rounds = rounds.objects.filter(email=event, type=details.type)
+    register = 0
+    try:
+        club = clubs.objects.get(id=details.club.id)
+        if type == '1':
+            register = event_registered_details.objects.filter(event=event, marketing=True).count()
+        elif type == '2':
+            register = event_registered_details.objects.filter(event=event, finance=True).count()
+        elif type == '3':
+            register = event_registered_details.objects.filter(event=event, public_relations=True).count()
+        elif type == '4':
+            register = event_registered_details.objects.filter(event=event, human_resources=True).count()
+        elif type == '5':
+            register = event_registered_details.objects.filter(event=event, ent_dev=True).count()
+        elif type == '6':
+            register = event_registered_details.objects.filter(event=event, best_manager=True).count()
+    except register_table.DoesNotExist:
+        register = 0
+    context = {'all_rounds': all_rounds, 'user': request.user, 'event': event.id, 'type': details.type, 'count': register}
+    return render(request, 'club_dash/case_view.html', context)
+
+def judge_view(request):
+    user = request.user
+    context = {'user': user, }
+    details = judge_detail.objects.get(email=user)
+    club = clubs.objects.get(id= details.club.id)
+    event = events.objects.get(email=club,current=True)
+    round = rounds.objects.filter(email=event,type=details.type, published=True, finished=False)
     registered = None
     try:
-        registered = event_registered.objects.filter(registered_to=event)
+        for case in round:
+            if registered == None:
+                registered = round_scores.objects.filter(round=case)
+            else:
+                registered = registered | round_scores.objects.filter(round=case)
     except event_registered.DoesNotExist:
         registered = None
-    context ={'user':user,'registered':registered, 'event':event, 'round':round}
-    return render(request,'judge_dash/dashboard.html',context)
+    context = {'user': user, 'registered': registered, 'round': round}
+    return render(request, 'judge_dash/dashboard.html', context)
 
 def assessment(request,pk=None):
     user = request.user
+    detail = judge_detail.objects.get(email=user)
     judging = student.objects.get(id=pk)
-    scores = round_scores.objects.get(student=judging)
-    round = rounds.objects.get(id=scores.round.id)
+    round = rounds.objects.get(id=detail.round.id)
+    scores = round_scores.objects.get(student=judging,round=round)
     if request.POST:
         scores.question1 = request.POST.get("question1")
         scores.question2 = request.POST.get("question2",0)
@@ -36,6 +67,7 @@ def assessment(request,pk=None):
         scores.presentation = request.POST.get("presentation1",0)
         scores.feedback = request.POST.get("feedback",'')
         scores.judged = True
+        scores.total = int (scores.question1)+int(scores.question2)+int(scores.question3)+int(scores.question4)+int(scores.question5)+int(scores.creativity)+int(scores.feasibility)+int(scores.content)+int(scores.communication)+int(scores.rebuttal)+int(scores.presentation)
         scores.save()
         return HttpResponseRedirect("/user/judge_dashboard")
     context = {'user':user,'round':round,'scores':scores}

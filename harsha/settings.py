@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'college_dashboard.apps.CollegeDashboardConfig',
     'judgelist.apps.JudgelistConfig',
     'student_dashboard.apps.StudentDashboardConfig',
+    'judge_dashboard.apps.JudgeDashboardConfig',
 ]
 
 

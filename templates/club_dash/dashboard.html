@@ -237,14 +237,18 @@
                     </div>
                 </div>
             </nav>
-        <form action="" method="POST">
-        {% csrf_token %}
             <div class="content">
                 <div class="card">
                     <div  type="submit" class="togglebutton" style="text-align: center;" >
-                        <h2 >{{ event.name }} is now a Live Event</h2>
+                        <h2 >{{ event.name }} is now a Live!</h2>
                         <label>
-                            {{ form.live }}
+                            <a href="/user/club_dashboard/live/{{ event.id }}">
+                                {% if not event.live %}
+                                <button class="">Go Live</button>
+                                {% else %}
+                                <button class="">Conclude Event</button>
+                                {% endif %}
+                            </a>
                         </label>
                     </div>
                     <div class="card-content">
@@ -253,15 +257,95 @@
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         <h3 style="display:inline-block;"><b>Registrations: </b></h3>
-                                        <h4 style="display:inline-block;">You are not taking any registrations</h4>
+                                        <h4 style="display:inline-block;"></h4>
                                         <i class="material-icons">keyboard_arrow_down</i>
                                     </a>
                                     <div style="display:inline-block;margin-left: 0%;" class="togglebutton">
-                                        <label >
-                                            {{ form.active }}
+                                        <label>
+                                            <div class="col-md-3 col-md-offset-6">
+                                                <h5 class="mb-0">
+                                                    <button class="btn btn-raised btn-round btn-info" data-toggle="modal" data-target="#noticeModal">
+                                                        Set Quota
+                                                    </button></h5></div>
+                                            <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-notice">
+                                                    <div class="modal-content">
+                                                        <form method="post" action="/user/club_dashboard/quotaset/{{ event.id }}">
+                                                                {% csrf_token %}
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                                                            <h5 class="modal-title" id="myModalLabel">Maximum allowed registerations for every core event</h5>
+                                                        </div>
+                                                        <div class="card-content">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">#</th>
+                                                                        {% if event.marketing %}
+                                                                        <th>Marketing</th>
+                                                                        {% endif %}
+                                                                        {% if event.finance %}
+                                                                        <th>Finance</th>
+                                                                        {% endif %}
+                                                                        {% if event.public_relations %}
+                                                                        <th>P.R</th>
+                                                                        {% endif %}
+                                                                        {% if event.human_resources %}
+                                                                        <th>H.R</th>
+                                                                        {% endif %}
+                                                                        {% if event.ent_dev %}
+                                                                        <th>E.D</th>
+                                                                        {% endif %}
+                                                                        {% if event.best_manager %}
+                                                                        <th>B.M</th>
+                                                                        {% endif %}
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td class="text-center">1st Years'</td>
+                                                                        {% if event.marketing %}<td><input name = "quota11" type="number" min="0" max="400" value="{{ event.quota11 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota21" type="number" min="0" max="400" value="{{ event.quota21 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota31" type="number" min="0" max="400" value="{{ event.quota31 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota41" type="number" min="0" max="400" value="{{ event.quota41 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota51" type="number" min="0" max="400" value="{{ event.quota51 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota61" type="number" min="0" max="400" value="{{ event.quota61 }}"></td>{% endif %}
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-center">2nd Years'</td>
+                                                                        {% if event.marketing %}<td><input name = "quota12" type="number" min="0" max="400" value="{{ event.quota12 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota22" type="number" min="0" max="400" value="{{ event.quota22 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota32" type="number" min="0" max="400" value="{{ event.quota32 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota42" type="number" min="0" max="400" value="{{ event.quota42 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota52" type="number" min="0" max="400" value="{{ event.quota52 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota62" type="number" min="0" max="400" value="{{ event.quota62 }}"></td>{% endif %}
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-center">3rd Years'</td>
+                                                                        {% if event.marketing %}<td><input name = "quota13" type="number" min="0" max="400" value="{{ event.quota13 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota23" type="number" min="0" max="400" value="{{ event.quota23 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota33" type="number" min="0" max="400" value="{{ event.quota33 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota43" type="number" min="0" max="400" value="{{ event.quota43 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota53" type="number" min="0" max="400" value="{{ event.quota53 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota63" type="number" min="0" max="400" value="{{ event.quota63 }}"></td>{% endif %}
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer text-center">
+                                                            <h6>Quota can be increased later</h6>
+                                                            <button type="submit" class="btn btn-info btn-round">Sounds good!</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
+
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <div class="row">
@@ -327,6 +411,40 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/1" class="btn btn-rose btn-round">Create Case</a>
+                                        {% if event.subhead1 %}
+                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
+                                            {% else %}
+                                        <button type="button" class="btn btn-rose btn-round" data-toggle="modal" data-target="#type1">Create Sub-Event Head</button>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="type1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/1/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -344,6 +462,40 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/2" class="btn btn-rose btn-round">Create Case</a>
+                                        {% if event.subhead2 %}
+                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type2">Create Sub-Event Head</button>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/2/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -361,6 +513,40 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/3" class="btn btn-rose btn-round">Create Case</a>
+                                        {% if event.subhead3 %}
+                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type3">Create Sub-Event Head</button>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/3/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -378,6 +564,40 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/4" class="btn btn-rose btn-round">Create Case</a>
+                                        {% if event.subhead4 %}
+                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type4">Create Sub-Event Head</button>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/4/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -395,6 +615,40 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/5" class="btn btn-rose btn-round">Create Case</a>
+                                        {% if event.subhead5 %}
+                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type5">Create Sub-Event Head</button>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/5/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -412,6 +666,40 @@
                                         <br>
                                         </a>
                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/6" class="btn btn-rose btn-round">Create Case</a>
+                                        {% if event.subhead6 %}
+                                            <button type="button" class="btn btn-rose btn-round">Sub-Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type6">Create Sub-Event Head</button>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/6/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -553,7 +841,6 @@
          </div>
        </div>
       </div>
-        </form>
      </div>
      </div>
 </body>

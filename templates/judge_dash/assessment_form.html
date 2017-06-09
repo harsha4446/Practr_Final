@@ -184,7 +184,7 @@
                                 <h4>How much would you rate their Creativity</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="10" id="sg1" step="1" onchange="creativity()"/>
+                                    <input type="range" min="1" max="{{ round.creativityvalue}}" id="sg1" step="1" onchange="creativity()"/>
                                     <input type="text" name="creativity1" id="sp1"/>
                                 </div>
                                 <br>
@@ -193,7 +193,7 @@
                                 <h4>How much would you rate their Content</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="10" id="sg2" step="1" onchange="content()"/>
+                                    <input type="range" min="1" max="{{ round.contentvalue}}" id="sg2" step="1" onchange="content()"/>
                                     <input type="text" name="content1" id="sp2"/>
                                 </div>
                                 <br>
@@ -202,7 +202,7 @@
                                 <h4>How much would you rate their Presentation</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="10" id="sg3" step="1" onchange="presentation()"/>
+                                    <input type="range" min="1" max="{{ round.presentationvalue}}" id="sg3" step="1" onchange="presentation()"/>
                                     <input type="text" name="presentation1" id="sp3"/>
                                 </div>
                                 <br>
@@ -211,7 +211,7 @@
                                 <h4>How much would you rate their Rebuttal</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="10" id="sg4" step="1" onchange="rebuttal()"/>
+                                    <input type="range" min="0" max="{{ round.rebuttalvalue}}" id="sg4" step="1" onchange="rebuttal()"/>
                                     <input type="text" name="rebuttal1" id="sp4"/>
                                 </div>
                                 <br>
@@ -220,7 +220,7 @@
                                 <h4>How much would you rate their Communication</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="10" id="sg5" step="1" onchange="communication()"/>
+                                    <input type="range" min="1" max="{{ round.communicationvalue}}" id="sg5" step="1" onchange="communication()"/>
                                     <input type="text" name="communication1" id="sp5"/>
                                 </div>
                                 <br>
@@ -229,7 +229,7 @@
                                 <h4>How much would you rate their Feasibility</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="10" id="sg6" step="1" onchange="feasability()"/>
+                                    <input type="range" min="1" max="{{ round.feasibilityvalue}}" id="sg6" step="1" onchange="feasability()"/>
                                     <input type="text" name="feasibility1" id="sp6"/>
                                 </div>
                                 <br>
