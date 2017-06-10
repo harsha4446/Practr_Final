@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from users.models import clubs,colleges
+from users.models import clubs,colleges, student_detail, rounds, events
 from django.http import HttpResponseRedirect
 from users.forms import newClub
 from users.models import student,clubs,colleges
@@ -14,7 +14,12 @@ def dashboard(request):
             return HttpResponseRedirect("/user/student_dashboard/")
     college = colleges.objects.get(email = user)
     unverified_clubs = clubs.objects.filter(email = college, verified=False)
-    context = {"user":user, "college":college, "unver_clubs":unverified_clubs}
+    club = clubs.objects.filter(email=college).count()
+    student = student_detail.objects.filter(college=college.college_name).count()
+    round = rounds.objects.filter(club__email=college,finished=True).count()
+    event = events.objects.filter(email__email=college,current=False).count()
+    context = {"user":user, "college":college, "unver_clubs":unverified_clubs, "club":club,
+               "student":student,"round":round,"event":event}
     return render(request,'college_dash/dashboard.html',context)
 
 def verified_clubs(request):
@@ -26,7 +31,12 @@ def verified_clubs(request):
             return HttpResponseRedirect("/user/student_dashboard/")
     college = colleges.objects.get(email=user)
     verified_clubs = clubs.objects.filter(email=college, verified=True)
-    context = {"user": user, "college": college, "ver_clubs": verified_clubs}
+    club = clubs.objects.filter(email=college).count()
+    student = student_detail.objects.filter(college=college.college_name).count()
+    round = rounds.objects.filter(club__email=college, finished=True).count()
+    event = events.objects.filter(email__email=college, current=False).count()
+    context = {"user": user, "college": college, "ver_clubs": verified_clubs, "club":club,
+               "student": student, "round": round, "event": event}
     return render(request, 'college_dash/verified_clubs.html', context)
 
 def add_club(request):

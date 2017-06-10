@@ -28,7 +28,7 @@ DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
 
 
 class defaultForm(forms.ModelForm):
-    about = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
+    about = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':4}))
     profile_picture = forms.ImageField(required=False)
     class Meta:
         model = student
@@ -55,7 +55,7 @@ class JudgeInfo(forms.ModelForm):
 class interestModel(forms.ModelForm):
     class Meta:
         model = interests
-        fields = ['marketing', 'finance', 'public_relations', 'human_resources', 'ent_dev', 'business_quiz']
+        fields = ['marketing', 'finance', 'public_relations', 'human_resources', 'ent_dev', 'best_manager']
 
 
 class newCollege(forms.ModelForm):
@@ -79,7 +79,7 @@ class newClub(forms.ModelForm):
 class clubsetup(forms.ModelForm):
     video = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     website = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':6}))
+    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows':4}))
     class Meta:
         model = clubs
         fields = ['video','website','about', 'logo']

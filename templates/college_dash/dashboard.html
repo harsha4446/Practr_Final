@@ -41,7 +41,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="{{ user.profile_picture.url }}" />
+                        <img src="{{ college.logo.url }}" />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -155,15 +155,15 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                    <div class="row">
+                <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="orange">
                                     <i class="material-icons">weekend</i>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category">Bookings</p>
-                                    <h3 class="card-title">184</h3>
+                                    <p class="category">Events Completed</p>
+                                    <h3 class="card-title">{{ event }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -179,8 +179,8 @@
                                     <i class="material-icons">equalizer</i>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category">Website Visits</p>
-                                    <h3 class="card-title">75.521</h3>
+                                    <p class="category">Total Clubs</p>
+                                    <h3 class="card-title">{{ club }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -195,8 +195,8 @@
                                     <i class="material-icons">store</i>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category">Revenue</p>
-                                    <h3 class="card-title">Rs.34,245</h3>
+                                    <p class="category">Total Rounds Completed</p>
+                                    <h3 class="card-title">{{ round }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -211,8 +211,8 @@
                                     <i class="fa fa-twitter"></i>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category">Followers</p>
-                                    <h3 class="card-title">+245</h3>
+                                    <p class="category">Students</p>
+                                    <h3 class="card-title">{{ student }}</h3>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -225,51 +225,35 @@
                 <h3>Unverified Clubs
                     </h3>
                     <br>
-                    <div class="row">
+                    {% if not unver_clubs  %}
+                        <div class="row" style="text-align: center; margin-top: 8%">
+                       <button class="btn btn-social btn-fill btn-facebook">
+                           You Currently Have No Clubs Awaiting Verification
+                       </button>
+                        </div>
+                        {% else %}
+                        <div class="row">
                         {% for club in unver_clubs %}
                         <div class="col-md-4">
-                            <div class="card card-product">
-                                <div class="card-image" data-header-animation="true">
-                                    <a href="#pablo">
-                                        <img class="img" src="{{ club.logo.url }}" style="height: 220px;width: 100%">
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-actions">
-                                        <button type="button" class="btn btn-danger btn-simple fix-broken-card">
-                                            <i class="material-icons">build</i> Fix Header!
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title="View">
-                                            <i class="material-icons">art_track</i>
-                                        </button>
-                                        <a href = '/user/college_dashboard/verify/{{ club.id }}' >
-                                        <button type="button" class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title="Verify">
-                                            <i class="material-icons">edit</i>
-                                        </button>
+                            <div class="card card-profile">
+                                    <div class="card-avatar">
+                                        <a href="#pablo">
+                                            <img class="img" src="{{ club.logo.url }}" style="height: 100%"/>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title="Remove">
-                                            <i class="material-icons">close</i>
-                                        </button>
                                     </div>
-                                    <h4 class="card-title">
-                                        <a href="#pablo">{{ club.name }}</a>
-                                    </h4>
-                                    <div class="card-description">
-                                        {{ club.about }}
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="price">
-                                        <h4>{{ club.admin_name }}</h4>
-                                    </div>
-                                    <div class="stats pull-right">
-                                        <p class="category"><i class="material-icons"></i> {{ club.phone }}</p>
+                                    <div class="card-content">
+                                        <h6 class="category text-gray">{{ club.admin_name }}</h6>
+                                        <h4 class="card-title">{{ club.name }}</h4>
+                                        <p class="description">
+                                            {{ club.about|slice:":100" }}...
+                                        </p>
+                                        <a href="/user/college_dashboard/verify/{{ club.id }}" class="btn btn-rose btn-round">Verify</a>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         {% endfor %}
                     </div>
+                {% endif %}
                 </div>
             </div>
             <footer class="footer">

@@ -32,21 +32,22 @@ def judge_view(request,id):
     user = request.user
     context = {'user': user, }
     details = judge_detail.objects.get(email=user)
-    round = rounds.objects.filter(id=id)
+    round = rounds.objects.get(id=id)
     registered = None
     try:
         registered = round_scores.objects.filter(round=round,submitted=True)
     except event_registered.DoesNotExist:
         registered = None
-    context = {'user': user, 'registered': registered, 'round': round}
+    context = {'user': user, 'registered': registered, 'round': round.id}
     return render(request, 'judge_dash/dashboard.html', context)
 
 def assessment(request,pk=None,id=None):
     user = request.user
-    detail = judge_detail.objects.get(email=user)
-    judging = student.objects.get(id=pk)
-    round = rounds.objects.get(id=detail.round.id)
-    scores = round_scores.objects.get(student=judging,round=round)
+    round = rounds.objects.get(id=id)
+    scores = None
+    if pk != '0':
+        judging = student.objects.get(id=pk)
+        scores = round_scores.objects.get(student=judging,round=round)
     if request.POST:
         scores.question1 = request.POST.get("question1")
         scores.question2 = request.POST.get("question2",0)

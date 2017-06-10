@@ -110,7 +110,7 @@ def new_student(request):
         user_interest.public_relations = interestForm.cleaned_data.get("public_relations")
         user_interest.human_resources = interestForm.cleaned_data.get("human_resources")
         user_interest.ent_dev = interestForm.cleaned_data.get("ent_dev")
-        user_interest.business_quiz = interestForm.cleaned_data.get("business_quiz")
+        user_interest.business_quiz = interestForm.cleaned_data.get("best_manager")
         user_interest.save()
         return HttpResponseRedirect('/user/student_dashboard')
     all_colleges = colleges.objects.filter()
@@ -157,8 +157,7 @@ def new_college(request):
         else:
             return HttpResponseRedirect('/home/newstudent_info/')
     formCollege = newCollege(request.POST or None)
-    formClub = newClub(request.POST or None)
-    if formCollege.is_valid() and formClub.is_valid():
+    if formCollege.is_valid():
         college = colleges(email=request.user)
         college.college_name = formCollege.cleaned_data.get("college_name")
         college.address = formCollege.cleaned_data.get("address")
@@ -168,18 +167,8 @@ def new_college(request):
         college.save()
         request.user.activated= True
         request.user.save()
-        club = clubs(email=college)
-        club.name = formClub.cleaned_data.get("name")
-        club.admin_name = formClub.cleaned_data.get("admin_name")
-        club_password = formClub.cleaned_data.get("club_password")
-        club.phone = formClub.cleaned_data.get("phone")
-        club.club_email = formClub.cleaned_data.get("club_email")
-        new_user = student.objects.create_user(club.club_email, club_password, club.admin_name, club.phone)
-        new_user.club=True
-        new_user.save()
-        club.save()
         return HttpResponseRedirect('/user/college_dashboard/')
-    context = {"college":formCollege, "club":formClub,}
+    context = {"college":formCollege,}
     return render (request, 'home/new_college.html', context)
 
 

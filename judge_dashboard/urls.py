@@ -5,6 +5,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.dashboard, name='judge_dash'),
-    url(r'^judge/(?P<pk>\d+)/$', views.assessment, name='assessment'),
+    url(r'^judge/(?P<pk>\d+)/(?P<id>\d+)/$', views.assessment, name='assessment'),
     url(r'^judge_view/(?P<id>\d+)/$', views.judge_view, name='list'),
 ]

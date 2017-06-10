@@ -186,7 +186,11 @@
                                                     {% if event.registration %}
                                                         <button type="button" class="btn btn-raised btn-round btn-info" style="margin-right: auto">Close Registrations</button>
                                                     {% else %}
+                                                        {% if event.live %}
                                                     <button type="button" class="btn btn-raised btn-round btn-info">Open Registrations</button>
+                                                            {% else %}
+                                                            <button type="button" class="btn btn-raised btn-round btn-info" disabled title="Cannot Open Registrations Until Event Goes Live!">Open Registrations</button>
+                                                            {% endif %}
                                                     {% endif %}
                                                 </a>
                                                 </h5>
@@ -230,34 +234,34 @@
                                                                     {% if event.firstyear %}
                                                                     <tr>
                                                                         <td class="text-center">1st Years'</td>
-                                                                        {% if event.marketing %}<td><input name = "quota11" type="number" min="0" max="1000" value="{{ event.quota11 }}"></td>{% endif %}
-                                                                        {% if event.finance %}<td><input name = "quota21" type="number" min="0" max="1000" value="{{ event.quota21 }}"></td>{% endif %}
-                                                                        {% if event.public_relations %}<td><input name = "quota31" type="number" min="0" max="1000" value="{{ event.quota31 }}"></td>{% endif %}
-                                                                        {% if event.human_resources %}<td><input name = "quota41" type="number" min="0" max="1000" value="{{ event.quota41 }}"></td>{% endif %}
-                                                                        {% if event.ent_dev %}<td><input name = "quota51" type="number" min="0" max="1000" value="{{ event.quota51 }}"></td>{% endif %}
-                                                                        {% if event.best_manager %}<td><input name = "quota61" type="number" min="0" max="1000" value="{{ event.quota61 }}"></td>{% endif %}
+                                                                        {% if event.marketing %}<td><input name = "quota11" type="number" min="0" max="400" value="{{ event.quota11 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota21" type="number" min="0" max="400" value="{{ event.quota21 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota31" type="number" min="0" max="400" value="{{ event.quota31 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota41" type="number" min="0" max="400" value="{{ event.quota41 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota51" type="number" min="0" max="400" value="{{ event.quota51 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota61" type="number" min="0" max="400" value="{{ event.quota61 }}"></td>{% endif %}
                                                                     </tr>
                                                                     {% endif %}
                                                                     {% if event.secondyear %}
                                                                     <tr>
                                                                         <td class="text-center">2nd Years'</td>
-                                                                        {% if event.marketing %}<td><input name = "quota12" type="number" min="0" max="1000" value="{{ event.quota12 }}"></td>{% endif %}
-                                                                        {% if event.finance %}<td><input name = "quota22" type="number" min="0" max="1000" value="{{ event.quota22 }}"></td>{% endif %}
-                                                                        {% if event.public_relations %}<td><input name = "quota32" type="number" min="0" max="1000" value="{{ event.quota32 }}"></td>{% endif %}
-                                                                        {% if event.human_resources %}<td><input name = "quota42" type="number" min="0" max="1000" value="{{ event.quota42 }}"></td>{% endif %}
-                                                                        {% if event.ent_dev %}<td><input name = "quota52" type="number" min="0" max="1000" value="{{ event.quota52 }}"></td>{% endif %}
-                                                                        {% if event.best_manager %}<td><input name = "quota62" type="number" min="0" max="1000" value="{{ event.quota62 }}"></td>{% endif %}
+                                                                        {% if event.marketing %}<td><input name = "quota12" type="number" min="0" max="400" value="{{ event.quota12 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota22" type="number" min="0" max="400" value="{{ event.quota22 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota32" type="number" min="0" max="400" value="{{ event.quota32 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota42" type="number" min="0" max="400" value="{{ event.quota42 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota52" type="number" min="0" max="400" value="{{ event.quota52 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota62" type="number" min="0" max="400" value="{{ event.quota62 }}"></td>{% endif %}
                                                                     </tr>
                                                                     {% endif %}
                                                                     {% if event.thirdyear %}
                                                                     <tr>
                                                                         <td class="text-center">3rd Years'</td>
-                                                                        {% if event.marketing %}<td><input name = "quota13" type="number" min="0" max="1000" value="{{ event.quota13 }}"></td>{% endif %}
-                                                                        {% if event.finance %}<td><input name = "quota23" type="number" min="0" max="1000" value="{{ event.quota23 }}"></td>{% endif %}
-                                                                        {% if event.public_relations %}<td><input name = "quota33" type="number" min="0" max="1000" value="{{ event.quota33 }}"></td>{% endif %}
-                                                                        {% if event.human_resources %}<td><input name = "quota43" type="number" min="0" max="1000" value="{{ event.quota43 }}"></td>{% endif %}
-                                                                        {% if event.ent_dev %}<td><input name = "quota53" type="number" min="0" max="1000" value="{{ event.quota53 }}"></td>{% endif %}
-                                                                        {% if event.best_manager %}<td><input name = "quota63" type="number" min="0" max="1000" value="{{ event.quota63 }}"></td>{% endif %}
+                                                                        {% if event.marketing %}<td><input name = "quota13" type="number" min="0" max="400" value="{{ event.quota13 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota23" type="number" min="0" max="400" value="{{ event.quota23 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota33" type="number" min="0" max="400" value="{{ event.quota33 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota43" type="number" min="0" max="400" value="{{ event.quota43 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota53" type="number" min="0" max="400" value="{{ event.quota53 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota63" type="number" min="0" max="400" value="{{ event.quota63 }}"></td>{% endif %}
                                                                     </tr>
                                                                     {% endif %}
                                                                     </tbody>
@@ -274,15 +278,7 @@
                                             </div>
                                             <div class="col-md-7">
                                                 <div class="card">
-                                                    <div class="card-header card-header-icon" data-background-color="blue">
-                                                        <i class="material-icons">timeline</i>
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <h4 class="card-title">Coloured Bars Chart
-                                                            <small> - Rounded</small>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="websiteViewsChart" class="ct-chart"></div>
+                                                    <div id="piebhai" class="ct-chart"></div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -871,5 +867,25 @@
         demo.initVectorMap();
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
 
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+
+        demo.initVectorMap();
+    });
+</script>
+<script>
+var dataPreferences = {
+            labels: ['Management','Marketing','Finance'],
+            series: [33, 40, 27]
+        };
+
+        var optionsPreferences = {
+            height: '230px'
+        };
+
+        Chartist.Pie('#piebhai', dataPreferences, optionsPreferences);
+</script>
 </html>
