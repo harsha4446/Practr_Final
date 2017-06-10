@@ -70,96 +70,6 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-{#                   <li>#}
-{#                        <a href="/user/club_dashboard/members">#}
-{#                            <i class="material-icons">apps</i>#}
-{#                            <p>Members</p>#}
-{#                        </a>#}
-{#                    </li>#}
-                    <li>
-                        <a data-toggle="collapse" href="#formsExamples">
-                            <i class="material-icons">content_paste</i>
-                            <p>Forms
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="formsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="./forms/regular.html">Regular Forms</a>
-                                </li>
-                                <li>
-                                    <a href="./forms/extended.html">Extended Forms</a>
-                                </li>
-                                <li>
-                                    <a href="./forms/validation.html">Validation Forms</a>
-                                </li>
-                                <li>
-                                    <a href="./forms/wizard.html">Wizard</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#tablesExamples">
-                            <i class="material-icons">grid_on</i>
-                            <p>Tables
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="tablesExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="./tables/regular.html">Regular Tables</a>
-                                </li>
-                                <li>
-                                    <a href="./tables/extended.html">Extended Tables</a>
-                                </li>
-                                <li>
-                                    <a href="./tables/datatables.net.html">DataTables.net</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a data-toggle="collapse" href="#mapsExamples">
-                            <i class="material-icons">place</i>
-                            <p>Maps
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="mapsExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="./maps/google.html">Google Maps</a>
-                                </li>
-                                <li>
-                                    <a href="./maps/fullscreen.html">Full Screen Map</a>
-                                </li>
-                                <li>
-                                    <a href="./maps/vector.html">Vector Map</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="./widgets.html">
-                            <i class="material-icons">widgets</i>
-                            <p>Widgets</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./charts.html">
-                            <i class="material-icons">timeline</i>
-                            <p>Charts</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./calendar.html">
-                            <i class="material-icons">date_range</i>
-                            <p>Calendar</p>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -240,7 +150,11 @@
             <div class="content">
                 <div class="card">
                     <div  type="submit" class="togglebutton" style="text-align: center;" >
-                        <h2 >{{ event.name }} is now a Live!</h2>
+                        {% if event.live %}
+                        <h2 >{{ event.name }} is now Live!</h2>
+                        {% else %}
+                        <h2 >{{ event.name }} is Under Construction!</h2>
+                        {% endif %}
                         <label>
                             <a href="/user/club_dashboard/live/{{ event.id }}">
                                 {% if not event.live %}
@@ -255,26 +169,28 @@
                         <div  class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <h3 style="display:inline-block;"><b>Registrations: </b></h3>
-                                        <h4 style="display:inline-block;"></h4>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <h3><b>Registrations: </b>
                                         <i class="material-icons">keyboard_arrow_down</i>
+                                        </h3>
                                     </a>
-                                    <div style="display:inline-block;margin-left: 0%;" class="togglebutton">
-                                            <div class="col-md-3 col-md-offset-6">
-                                                <h5 class="mb-0">
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                                <h5 style="text-align: center;">
                                                     <button class="btn btn-raised btn-round btn-info" data-toggle="modal" data-target="#noticeModal">
                                                         Set Quota
                                                     </button>
                                                 <a href="/user/club_dashboard/registration/{{ event.id }}">
                                                     {% if event.registration %}
-                                                        <button type="button" class="btn btn-raised btn-round btn-info">Disable Registrations</button>
+                                                        <button type="button" class="btn btn-raised btn-round btn-info" style="margin-right: auto">Close Registrations</button>
                                                     {% else %}
-                                                    <button type="button" class="btn btn-raised btn-round btn-info">Enable Registrations</button>
+                                                    <button type="button" class="btn btn-raised btn-round btn-info">Open Registrations</button>
                                                     {% endif %}
                                                 </a>
                                                 </h5>
-                                            </div>
+                                        <br><br>
                                             <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-notice">
                                                     <div class="modal-content">
@@ -311,33 +227,39 @@
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                    {% if event.firstyear %}
                                                                     <tr>
                                                                         <td class="text-center">1st Years'</td>
-                                                                        {% if event.marketing %}<td><input name = "quota11" type="number" min="0" max="400" value="{{ event.quota11 }}"></td>{% endif %}
-                                                                        {% if event.finance %}<td><input name = "quota21" type="number" min="0" max="400" value="{{ event.quota21 }}"></td>{% endif %}
-                                                                        {% if event.public_relations %}<td><input name = "quota31" type="number" min="0" max="400" value="{{ event.quota31 }}"></td>{% endif %}
-                                                                        {% if event.human_resources %}<td><input name = "quota41" type="number" min="0" max="400" value="{{ event.quota41 }}"></td>{% endif %}
-                                                                        {% if event.ent_dev %}<td><input name = "quota51" type="number" min="0" max="400" value="{{ event.quota51 }}"></td>{% endif %}
-                                                                        {% if event.best_manager %}<td><input name = "quota61" type="number" min="0" max="400" value="{{ event.quota61 }}"></td>{% endif %}
+                                                                        {% if event.marketing %}<td><input name = "quota11" type="number" min="0" max="1000" value="{{ event.quota11 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota21" type="number" min="0" max="1000" value="{{ event.quota21 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota31" type="number" min="0" max="1000" value="{{ event.quota31 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota41" type="number" min="0" max="1000" value="{{ event.quota41 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota51" type="number" min="0" max="1000" value="{{ event.quota51 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota61" type="number" min="0" max="1000" value="{{ event.quota61 }}"></td>{% endif %}
                                                                     </tr>
+                                                                    {% endif %}
+                                                                    {% if event.secondyear %}
                                                                     <tr>
                                                                         <td class="text-center">2nd Years'</td>
-                                                                        {% if event.marketing %}<td><input name = "quota12" type="number" min="0" max="400" value="{{ event.quota12 }}"></td>{% endif %}
-                                                                        {% if event.finance %}<td><input name = "quota22" type="number" min="0" max="400" value="{{ event.quota22 }}"></td>{% endif %}
-                                                                        {% if event.public_relations %}<td><input name = "quota32" type="number" min="0" max="400" value="{{ event.quota32 }}"></td>{% endif %}
-                                                                        {% if event.human_resources %}<td><input name = "quota42" type="number" min="0" max="400" value="{{ event.quota42 }}"></td>{% endif %}
-                                                                        {% if event.ent_dev %}<td><input name = "quota52" type="number" min="0" max="400" value="{{ event.quota52 }}"></td>{% endif %}
-                                                                        {% if event.best_manager %}<td><input name = "quota62" type="number" min="0" max="400" value="{{ event.quota62 }}"></td>{% endif %}
+                                                                        {% if event.marketing %}<td><input name = "quota12" type="number" min="0" max="1000" value="{{ event.quota12 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota22" type="number" min="0" max="1000" value="{{ event.quota22 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota32" type="number" min="0" max="1000" value="{{ event.quota32 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota42" type="number" min="0" max="1000" value="{{ event.quota42 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota52" type="number" min="0" max="1000" value="{{ event.quota52 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota62" type="number" min="0" max="1000" value="{{ event.quota62 }}"></td>{% endif %}
                                                                     </tr>
+                                                                    {% endif %}
+                                                                    {% if event.thirdyear %}
                                                                     <tr>
                                                                         <td class="text-center">3rd Years'</td>
-                                                                        {% if event.marketing %}<td><input name = "quota13" type="number" min="0" max="400" value="{{ event.quota13 }}"></td>{% endif %}
-                                                                        {% if event.finance %}<td><input name = "quota23" type="number" min="0" max="400" value="{{ event.quota23 }}"></td>{% endif %}
-                                                                        {% if event.public_relations %}<td><input name = "quota33" type="number" min="0" max="400" value="{{ event.quota33 }}"></td>{% endif %}
-                                                                        {% if event.human_resources %}<td><input name = "quota43" type="number" min="0" max="400" value="{{ event.quota43 }}"></td>{% endif %}
-                                                                        {% if event.ent_dev %}<td><input name = "quota53" type="number" min="0" max="400" value="{{ event.quota53 }}"></td>{% endif %}
-                                                                        {% if event.best_manager %}<td><input name = "quota63" type="number" min="0" max="400" value="{{ event.quota63 }}"></td>{% endif %}
+                                                                        {% if event.marketing %}<td><input name = "quota13" type="number" min="0" max="1000" value="{{ event.quota13 }}"></td>{% endif %}
+                                                                        {% if event.finance %}<td><input name = "quota23" type="number" min="0" max="1000" value="{{ event.quota23 }}"></td>{% endif %}
+                                                                        {% if event.public_relations %}<td><input name = "quota33" type="number" min="0" max="1000" value="{{ event.quota33 }}"></td>{% endif %}
+                                                                        {% if event.human_resources %}<td><input name = "quota43" type="number" min="0" max="1000" value="{{ event.quota43 }}"></td>{% endif %}
+                                                                        {% if event.ent_dev %}<td><input name = "quota53" type="number" min="0" max="1000" value="{{ event.quota53 }}"></td>{% endif %}
+                                                                        {% if event.best_manager %}<td><input name = "quota63" type="number" min="0" max="1000" value="{{ event.quota63 }}"></td>{% endif %}
                                                                     </tr>
+                                                                    {% endif %}
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -350,11 +272,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                    <div class="panel-body">
-                                        <div class="row">
                                             <div class="col-md-7">
                                                 <div class="card">
                                                     <div class="card-header card-header-icon" data-background-color="blue">
@@ -382,19 +299,21 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Username</th>
+                                                    <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Phone</th>
                                                     <th>Year</th>
+                                                    <th>Core Events</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {% for student in registered %}
                                                 <tr>
-                                                    <td> {{ student.current_user.email }}</td>
+                                                    <td> {{ student.id }}</td>
                                                     <td> {{ student.current_user.name }}</td>
                                                     <td class="text-left"> {{ student.current_user.phoneno }}</td>
                                                     <td> {{ student.current_user.student_detail.year }}</td>
+                                                    <td>Marketing</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -426,20 +345,21 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/1">
+
                                         <h6 class="category">Marketing</h6>
                                             {% if event.subhead1 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
                                         <button type="button" class="btn btn-rose btn-round" data-toggle="modal" data-target="#type1">Add Event Head</button>
                                             {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">
                                         <div class="icon icon-rose">
                                             <i class="material-icons">record_voice_over</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count1 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1" class="btn btn-rose btn-round">Create Case</a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1/0" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
@@ -477,20 +397,20 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/2">
                                         <h6 class="category">Finance</h6>
                                             {% if event.subhead2 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
                                         <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type2">Add Event Head</button>
                                             {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">
                                         <div class="icon icon-rose">
                                             <i class="material-icons">attach_money</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count2 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/2" class="btn btn-rose btn-round">Create Case</a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/2/0" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
@@ -528,20 +448,20 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/3">
                                         <h6 class="category">Public Relations</h6>
                                              {% if event.subhead3 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
                                         <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type3">Add Event Head</button>
                                             {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">
                                         <div class="icon icon-rose">
                                             <i class="material-icons">group</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count3 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/3" class="btn btn-rose btn-round">Create Case</a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/3/0" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
@@ -579,20 +499,20 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/4">
                                         <h6 class="category">Human Resource</h6>
                                              {% if event.subhead4 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
                                         <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type4">Add Event Head</button>
                                             {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">
                                         <div class="icon icon-rose">
                                             <i class="material-icons">wc</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count4 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/4" class="btn btn-rose btn-round">Create Case</a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/4/0" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
@@ -630,20 +550,20 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/5">
-                                        <h6 class="category">Entrepreneur and Development</h6>
+                                        <h6 class="category">Entrepreneurship Development</h6>
                                             {% if event.subhead5 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
                                         <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type5">Add Event Head</button>
                                             {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">
                                         <div class="icon icon-rose">
                                             <i class="material-icons">gesture</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count5 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/5" class="btn btn-rose btn-round">Create Case</a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/5/0" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
@@ -681,20 +601,20 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <a href="/user/club_dashboard/caseView/{{ event.id }}/6">
-                                        <h6 class="category">Business Quiz</h6>
+                                        <h6 class="category">Best Manager</h6>
                                             {% if event.subhead6 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
                                         <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type6">Add Event Head</button>
                                             {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">
                                         <div class="icon icon-rose">
                                             <i class="material-icons">local_library</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count6 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/6" class="btn btn-rose btn-round">Create Case</a>
+                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/6/0" class="btn btn-rose btn-round">Create Case</a>
                                     </div>
                                 </div>
                             </div>
@@ -749,54 +669,71 @@
                                </div>
                                <div class="card-content">
                                    <h4 class="card-title">Top 10</h4>
+                                   <div style="text-align: right">
+                                                    <div class="dropdown">
+                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">Select Core Event
+                                                            <b class="caret"></b>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-left">
+                                                            <li class="dropdown-header">Core Event</li>
+                                                            {% if event.marketing %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/1/{{ core2 }}">Marketing</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.finance %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/2/{{ core2 }}">Finance</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.public_relations %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/3/{{ core2 }}">Public Relations</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.human_resources %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/4/{{ core2 }}">Human Resources</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.ent_dev %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/5/{{ core2 }}">Entrepreneurship Development</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.best_manager %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/6/{{ core2 }}">Best Manager</a>
+                                                            </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                   <br><br>
+                               <a href="/user/club_dashboard/masterTable/{{ core1 }}">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-primary">
+                                                <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Year</th>
                                                 <th>Score</th>
                                             </thead>
                                             <tbody>
+                                            {% for object in table1 %}
                                                 <tr>
-                                                    <td>Dakota Rice</td>
-                                                    <td>Niger</td>
-                                                    <td>Oud-Turnhout</td>
-                                                    <td class="text-primary">$36,738</td>
+                                                    <td>{{ object.student.id }}</td>
+                                                    <td>{{ object.student.name }}</td>
+                                                    <td>{{ object.student.email }}</td>
+                                                    <td>{{ object.student.student_detail.year }}</td>
+                                                    <td class="text-primary">{{ object.total }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Minerva Hooper</td>
-                                                    <td>Curaçao</td>
-                                                    <td>Sinaai-Waas</td>
-                                                    <td class="text-primary">$23,789</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Sage Rodriguez</td>
-                                                    <td>Netherlands</td>
-                                                    <td>Baileux</td>
-                                                    <td class="text-primary">$56,142</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Philip Chaney</td>
-                                                    <td>Korea, South</td>
-                                                    <td>Overland Park</td>
-                                                    <td class="text-primary">$38,735</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Doris Greene</td>
-                                                    <td>Malawi</td>
-                                                    <td>Feldkirchen in Kärnten</td>
-                                                    <td class="text-primary">$63,542</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mason Porter</td>
-                                                    <td>Chile</td>
-                                                    <td>Gloucester</td>
-                                                    <td class="text-primary">$78,615</td>
-                                                </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
+                               </a>
                                 </div>
                             </div>
                           </div>
@@ -806,55 +743,72 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">Simple Table</h4>
+                                    <h4 class="card-title">Top 10</h4>
+                                    <div style="text-align: right">
+                                                    <div class="dropdown">
+                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">Select Core Event
+                                                            <b class="caret"></b>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-left">
+                                                            <li class="dropdown-header">Core Event</li>
+                                                            {% if event.marketing %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/1">Marketing</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.finance %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/2">Finance</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.public_relations %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/3">Public Relations</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.human_resources %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/4">Human Resources</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.ent_dev %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/5">Entrepreneurship Development</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.best_manager %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/6">Best Manager</a>
+                                                            </li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                   <br><br>
+                                <a href="/user/club_dashboard/masterTable/{{ core2 }}">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="text-primary">
+                                                <th>ID</th>
                                                 <th>Name</th>
-                                                <th>Country</th>
-                                                <th>City</th>
-                                                <th>Salary</th>
+                                                <th>Email</th>
+                                                <th>Year</th>
+                                                <th>Score</th>
                                             </thead>
                                             <tbody>
+                                            {% for object in table2 %}
                                                 <tr>
-                                                    <td>Dakota Rice</td>
-                                                    <td>Niger</td>
-                                                    <td>Oud-Turnhout</td>
-                                                    <td class="text-primary">$36,738</td>
+                                                    <td>{{ object.student.id }}</td>
+                                                    <td>{{ object.student.name }}</td>
+                                                    <td>{{ object.student.email }}</td>
+                                                    <td>{{ object.student.student_detail.year }}</td>
+                                                    <td class="text-primary">{{ object.total }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Minerva Hooper</td>
-                                                    <td>Curaçao</td>
-                                                    <td>Sinaai-Waas</td>
-                                                    <td class="text-primary">$23,789</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Sage Rodriguez</td>
-                                                    <td>Netherlands</td>
-                                                    <td>Baileux</td>
-                                                    <td class="text-primary">$56,142</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Philip Chaney</td>
-                                                    <td>Korea, South</td>
-                                                    <td>Overland Park</td>
-                                                    <td class="text-primary">$38,735</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Doris Greene</td>
-                                                    <td>Malawi</td>
-                                                    <td>Feldkirchen in Kärnten</td>
-                                                    <td class="text-primary">$63,542</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mason Porter</td>
-                                                    <td>Chile</td>
-                                                    <td>Gloucester</td>
-                                                    <td class="text-primary">$78,615</td>
-                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
+                                </a>
                                 </div>
                             </div>
                         </div>

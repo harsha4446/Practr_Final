@@ -64,8 +64,8 @@
 						<div class="wizard-navigation">
 							<ul>
 	                            <li><a href="#about" data-toggle="tab">About</a></li>
-                                <li><a href="#registration" data-toggle="tab">Registration Type</a></li>
-                                <li><a href="#teams" data-toggle="tab">Teams</a></li>
+                                <li><a href="#registration" data-toggle="tab">Setup</a></li>
+                                <li><a href="#teams" data-toggle="tab">Format</a></li>
                                 <li><a href="#account" data-toggle="tab">Sub Events</a></li>
 	                        </ul>
 						</div>
@@ -101,7 +101,7 @@
                               </div>
                             </div>
                             <div class="tab-pane" id="teams">
-                                <h4 class="info-text">Will You Allow Teams?</h4>
+                                <h4 class="info-text">What Format Are You Accpeting Registrations?</h4>
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="col-sm-4 col-sm-offset-2">
@@ -128,7 +128,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="registration">
-                                <h4 class="info-text">Registration Type?</h4>
+                                <h4 class="info-text">Allow Student To Register for Multiple Events?</h4>
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="col-sm-4 col-sm-offset-2">
@@ -137,19 +137,26 @@
                                                 <div class="icon">
                                                     <i class="fa fa-male"></i>
                                                 </div>
-                                                <h6>Single</h6>
+                                                <h6>Yes</h6>
                                             </div>
                             </div>
                              <div class="col-sm-4">
-                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Multiple Registration?">
+                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Allow Multiple Registrations">
                                                 <input type="radio" name="multi" value="Multiple Registration">
                                                 <div class="icon">
                                                     <i class="fa fa-group"></i>
                                                 </div>
-                                                <h6>Multiple</h6>
+                                                <h6>No</h6>
                             </div>
                              </div>
                                     </div>
+                                </div>
+                                <br><br>
+                                <h4 class="info-text">Accepting Students From</h4>
+                                <div class="info-text">
+                                    <input style="margin: 10px" type="checkbox" name="first" value="True">First Year
+                                    <input style="margin: 10px" type="checkbox" name="second" value="True">Second Year
+                                    <input style="margin: 10px" type="checkbox" name="third" value="True">Third year
                                 </div>
                             </div>
                         <div class="tab-pane" id="account">

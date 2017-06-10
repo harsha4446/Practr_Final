@@ -6,10 +6,11 @@ app_name= 'users'
 
 urlpatterns = [
     url(r'^$', views.dashboard,name='clubdash'),
+    url(r'^(?P<core1>\d+)/(?P<core2>\d+)/$', views.dashboard, name='clubdash'),
     url(r'^live/(?P<id>\d+)/$', views.live,name='openEvent'),
     url(r'^new_event/(?P<access>\d+)/$$', views.add_event,name='newEvent'),
     url(r'^addRound/(?P<id>\d+)/(?P<operation>\d+)/(?P<offline>\d+)/$', views.add_round,name='newRound'),
-    url(r'^delEvent/(?P<id>\d+)/$', views.del_event,name='delEvent'),
+    url(r'^delRound/(?P<id>\d+)/$', views.del_round,name='delRound'),
     #url(r'^subEvents/(?P<id>\d+)/$', views.sub_events,name='subevent'),
     url(r'^caseView/(?P<id>\d+)/(?P<type>\d+)/$', views.case_view,name='caseview'),
     url(r'^publish/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.publish,name='publish'),
@@ -23,4 +24,5 @@ urlpatterns = [
     url(r'^quotaset/(?P<id>\d+)$', views.quotaset, name='quota'),
     url(r'^registration/(?P<id>\d+)/$', views.activate_registraion,name='openRegistration'),
     url(r'^registered_members/(?P<id>\d+)/$', views.registered_members, name='members'),
+    url(r'^masterTable/(?P<type>\d+)/$', views.master_table, name='master'),
 ]

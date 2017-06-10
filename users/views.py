@@ -89,9 +89,7 @@ def new_student(request):
     interestForm = interestModel(request.POST or None)
     formInfo = StudentInfo(request.POST or None)
     formDefault = defaultForm(request.POST or None, request.FILES or None)
-    print("here1")
     if formInfo.is_valid() and formDefault.is_valid() and interestForm.is_valid():
-        print("here2")
         request.user.location = formDefault.cleaned_data.get("location")
         request.user.dob = request.POST.get("dob")
         if formDefault.cleaned_data.get("profile_picture"):
@@ -132,7 +130,7 @@ def new_judge(request):
     formDefault = defaultForm(request.POST or None, request.FILES or None)
     if formDefault.is_valid() and formInfo.is_valid():
         request.user.location = formDefault.cleaned_data.get("location")
-        request.user.dob = formDefault.cleaned_data.get("dob")
+        request.user.dob = request.POST.get("dob")
         request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
         request.user.activated = True
         request.user.save()

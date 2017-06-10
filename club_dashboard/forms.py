@@ -92,6 +92,7 @@ class rooms(forms.ModelForm):
 class deadlines(forms.Form):
     deadline = forms.DateField()
 
+
 class newJudge(forms.ModelForm):
     judge_email = forms.CharField(label="", required=True, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Judge Email'}))

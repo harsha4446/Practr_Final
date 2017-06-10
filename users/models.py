@@ -253,6 +253,9 @@ class events(models.Model):
     registered63 = models.IntegerField(default=0)
     current = models.BooleanField(default=True)
     multiregistration = models.BooleanField(default=False)
+    firstyear = models.BooleanField(default=True)
+    secondyear = models.BooleanField(default=True)
+    thirdyear = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

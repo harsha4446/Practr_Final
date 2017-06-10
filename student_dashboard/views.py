@@ -134,14 +134,16 @@ def event_feed(request):
     current_user = request.user
     all_events = None
     try:
-        register = register_table.objects.get(current_user=current_user)
-        clubs = register.registered_to.all()
-        for x in clubs:
-            y = events.objects.filter(email = x)
-            if all_events is None:
-                all_events = y
-            else:
-                all_events = all_events | y
+        all_events = events.objects.filter(current=True, registration=True)
+        #For when we need to register to club first(works, KEEP THIS CODE)
+        # register = register_table.objects.get(current_user=current_user)
+        # clubs = register.registered_to.all()
+        # for x in clubs:
+        #     y = events.objects.filter(email = x, current=True, live=True, registration=True)
+        #     if all_events is None:
+        #         all_events = y
+        #     else:
+        #         all_events = all_events | y
     except register_table.DoesNotExist:
         all_events = None
     context = { "user": current_user, "events": all_events}

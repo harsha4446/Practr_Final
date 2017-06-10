@@ -80,16 +80,18 @@
                                       </div>
                                      <div class="form-group label-floating">
                                                             <label class="control-label">Subtitle
-                                                                <small>(required)</small>
+                                                                <small>(Optional)</small>
                                                             </label>
                                                             {{ form.sub_title }}
                                       </div>
-                                       <div class="clearBoth"></div>
+                                       <br><br>
                                        <label>Weightage</label><br>
-                                       <input style="margin: 10px" type="radio" name="low" value="Low">Low
-                                       <input style="margin: 10px" type="radio" name="medium" value="Medium">Medium
-                                       <input style="margin: 10px" type="radio" name="high" value="High">High
-                                       <div class="clearBoth"></div>
+                                       <input style="margin: 10px" type="radio" name="low" value="True">Low
+                                       <input style="margin: 10px" type="radio" name="medium" value="True">Medium
+                                       <input style="margin: 10px" type="radio" name="high" value="True">High
+                                      <br><br>
+                                      <label>Max Score</label><br>
+                                      <input style="margin: 5px" id="max" type="number" name="low" value="100" onchange="maxscore()">
                                   </div>
                               </div>
                             </div>
@@ -191,7 +193,7 @@
                                     <br>
                                 <label>
 									{{ form.communication }}
-									Communicationnnn
+									Communication
 								</label>
                                     <input id="communicationval" type="number" name="communicationvalue" value=0 onchange="fetch()" disabled>
                                     <br>
@@ -398,6 +400,10 @@
         var rebuttal=document.getElementById("rebuttalval").value;
         var progress = parseInt(creativity)+parseInt(feasibility)+parseInt(communication)+parseInt(content)+parseInt(presentation)+parseInt(rebuttal);
         document.getElementById("total").value=progress;
+    }
+    function maxscore() {
+        var max = document.getElementById("max").value;
+        var bar = document.getElementById("total").max=max;
     }
 
     </script>

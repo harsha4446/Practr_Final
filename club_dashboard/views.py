@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail
-from . forms import addEvent, addRound, toggles, rooms, deadlines, newJudge
+from . forms import addEvent, addRound, rooms, deadlines, newJudge
 from django.http import HttpResponseRedirect
 import datetime
 
@@ -21,9 +21,8 @@ def updateScores(scores):
         studentscore.save()
 
 
-def dashboard(request):
+def dashboard(request,core1='1',core2='2'):
     user = request.user
-    form = toggles(request.POST or None)
     if not user.club or user.judge:
         if user.college:
             return HttpResponseRedirect("/user/college_dashboard/")
@@ -40,25 +39,43 @@ def dashboard(request):
         count4 = rounds.objects.filter(email=event, type=4).count()
         count5 = rounds.objects.filter(email=event, type=5).count()
         count6 = rounds.objects.filter(email=event, type=6).count()
-        form.active = event.registration
-        form.live = event.live
         registered = event_registered.objects.filter(registered_to=event).order_by('-id')[:10]
         print(registered)
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
-    if request.POST:
-        if request.POST.get('live'):
-            event.live = True
-        else:
-            event.live = False
-        if request.POST.get('active'):
-            event.registration = True
-        else:
-            event.registration = False
-        event.save()
+    table1 = round_scores.objects.filter(round__email=event, round__type=1)
+    table2 = round_scores.objects.filter(round__email=event, round__type=2)
+
+    if core1 != '1' or core2 != '2':
+        if core1 == '1':
+            table1 = round_scores.objects.filter(round__email=event, round__type=1)
+        if core1 == '2':
+            table1 = round_scores.objects.filter(round__email=event, round__type=2)
+        if core1 == '3':
+            table1 = round_scores.objects.filter(round__email=event, round__type=3)
+        if core1 == '4':
+            table1 = round_scores.objects.filter(round__email=event, round__type=4)
+        if core1 == '5':
+            table1 = round_scores.objects.filter(round__email=event, round__type=5)
+        if core1 == '6':
+            table1 = round_scores.objects.filter(round__email=event, round__type=6)
+        if core2 == '1':
+            table2 = round_scores.objects.filter(round__email=event, round__type=1)
+        if core2 == '2':
+            table2 = round_scores.objects.filter(round__email=event, round__type=2)
+        if core2 == '3':
+            table2 = round_scores.objects.filter(round__email=event, round__type=3)
+        if core2 == '4':
+            table2 = round_scores.objects.filter(round__email=event, round__type=4)
+        if core2 == '5':
+            table2 = round_scores.objects.filter(round__email=event, round__type=5)
+        if core2 == '6':
+            table2 = round_scores.objects.filter(round__email=event, round__type=6)
+
     context = {"user":user, "event":event, "club":club,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
-               'count5':count5, 'count6':count6, 'form':form,'registered':registered}
+               'count5':count5, 'count6':count6,'registered':registered,'table1':table1,'table2':table2,
+               'core1':core1,'core2':core2}
     return render(request,'club_dash/dashboard.html',context)
 
 
@@ -76,7 +93,7 @@ def live(request, id):
 
 def activate_registraion(request, id):
     event = events.objects.get(id=id)
-    if event.registration or event.live:
+    if event.registration:
         event.registration = False
     else:
         event.registration = True
@@ -102,6 +119,30 @@ def add_event(request,access = None):
         event.human_resources = form.cleaned_data.get("human_resources")
         event.ent_dev = form.cleaned_data.get("ent_dev")
         event.best_manager = form.cleaned_data.get("best_manager")
+        event.firstyear = request.POST.get("first",False)
+        event.secondyear = request.POST.get("second",False)
+        event.thirdyear = request.POST.get("third",False)
+        if not event.firstyear:
+            event.quota11 = 0
+            event.quota21 = 0
+            event.quota31 = 0
+            event.quota41 = 0
+            event.quota51 = 0
+            event.quota61 = 0
+        if not event.secondyear:
+            event.quota12 = 0
+            event.quota22 = 0
+            event.quota32 = 0
+            event.quota42 = 0
+            event.quota52 = 0
+            event.quota62 = 0
+        if not event.thirdyear:
+            event.quota13 = 0
+            event.quota23 = 0
+            event.quota33 = 0
+            event.quota43 = 0
+            event.quota53 = 0
+            event.quota63 = 0
         if request.POST.get("solo") != None:
             event.team_size1 = event.team_size2 = event.team_size3 = event.team_size4 = event.team_size5 = event.team_size6 = 1
         else:
@@ -178,9 +219,9 @@ def add_round(request, id=None, operation=None, offline=None):
     return render (request,'club_dash/add_round.html',context)
 
 
-def del_event(request, id = None):
-    event = events.objects.get(id = id)
-    event.delete()
+def del_round(request, id = None):
+    round = rounds.objects.get(id=id)
+    round.delete()
     return HttpResponseRedirect("/user/club_dashboard")
 
 
@@ -191,10 +232,8 @@ def case_view(request, id, type):
     deadlineForm = deadlines(request.POST or None)
     judgeForm = newJudge(request.POST or None)
     register = 0
-    judges = 0
     all_rooms = None
     try:
-        club = clubs.objects.get(club_email=request.user.email)
         if type == '1':
             register = event_registered_details.objects.filter(event=event,marketing=True).count()
         elif type == '2':
@@ -409,3 +448,14 @@ def registered_members(request,id):
     registered = event_registered.objects.filter(registered_to=event).order_by('current_user__student_detail__year')
     context = {'user':user,'registered':registered}
     return render(request, 'club_dash/registeredmembers.html',context)
+
+
+def master_table(request, type):
+    user = request.user
+    club = clubs.objects.get(club_email=user.email)
+    event = events.objects.get(email=club, current=True)
+    type = int (type)
+    registered = round_scores.objects.filter(round__email=event, round__type=type)
+    total = registered.count()
+    context ={'user':user,'registered':registered,'max':total}
+    return render(request,'club_dash/audience_master.html',context)

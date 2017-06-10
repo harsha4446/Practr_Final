@@ -321,14 +321,19 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Date Created</th>
+                                                    <th>ID</th>
                                                     <th>Case Title </th>
-                                                    <th>Created By </th>
+                                                    <th>Type </th>
+                                                    <th>Date Created</th>
+                                                    <th class="text-center">Author</th>
                                                     <th class="text-center">Audience</th>
-                                                    <th class="text-center">Team Size</th>
+                                                    <th class="text-center">Format</th>
                                                     <th class="text-center">Deadline</th>
+                                                    <th class="text-center">Submissions</th>
 {#                                                    <th class="text-center">Judges</th>#}
+                                                    {% if not user.judge %}
                                                     <th class="text-center">Results</th>
+                                                    {% endif %}
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -339,20 +344,25 @@
                                                 {% elif round.finished %}
                                                 <tr class="info">
                                                 {% else %}
-                                                <tr>
+                                                <tr class="danger">
                                                 {% endif %}
-                                                    <td> {{ round.created }}</td>
+                                                    <td> {{ round.id }}</td>
                                                     <td> {{ round.title }}</td>
+                                                    <td>{% if round.offline %}Offline{% else %}Online{% endif %}</td>
+                                                    <td> {{ round.created }}</td>
                                                     <td> {{ round.author }}</td>
                                                     {% if round.finished %}
                                                     <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ round.qualified }}</a></td>
                                                     {% else %}
                                                     <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ count }}</a></td>
                                                     {% endif %}
-                                                    <td class="text-center" data-toggle="modal" data-target="#teamsize{{ round.id }}"> {{ round.team_size }}</td>
+                                                    <td class="text-center" data-toggle="modal" data-target="#teamsize{{ round.id }}">{% if round.team_size == 1 %}Solo{% else %}Team{% endif %}</td>
                                                     <td class="text-center"> {{ round.deadline }}</td>
 {#                                                    <td class="text-center" data-toggle="modal" data-target="#rooms{{ round.id }}">Manage Rooms and Judges</td>#}
+                                                    <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Submissions</a></td>
+                                                    {% if not user.judge %}
                                                     <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Results</a></td>
+                                                    {% endif %}
                                                     <td class="td-actions text-right">
                                                         {% if round.published %}
 {#                                                            <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}/">#}
@@ -691,12 +701,14 @@
                                                            </div>
                                                         </div>
                                                     </div>
-                                                        <a href="/user/club_dashboard/judgelist/{{ event }}/{{ round.id }}">
+                                                    {% if user.judge %}
+                                                        <a href="/user/judge_dashboard/judge_view/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge">
                                                             <i class="material-icons">edit</i>
                                                         </button>
                                                         </a>
-                                                        <a href="/user/club_dashboard/judgelist/{{ event }}/{{ round.id }}">
+                                                    {% endif %}
+                                                        <a href="/user/club_dashboard/delRound/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-danger" title="Delete Case">
                                                             <i class="material-icons">close</i>
                                                         </button>

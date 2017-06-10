@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 def dashboard(request):
     user = request.user
     details = judge_detail.objects.get(email=user)
-    event = events.objects.get(email=details.club)
+    event = events.objects.get(email=details.club, current=True)
     all_rounds = rounds.objects.filter(email=event, type=details.type)
     register = 0
     try:
@@ -28,26 +28,20 @@ def dashboard(request):
     context = {'all_rounds': all_rounds, 'user': request.user, 'event': event.id, 'type': details.type, 'count': register}
     return render(request, 'club_dash/case_view.html', context)
 
-def judge_view(request):
+def judge_view(request,id):
     user = request.user
     context = {'user': user, }
     details = judge_detail.objects.get(email=user)
-    club = clubs.objects.get(id= details.club.id)
-    event = events.objects.get(email=club,current=True)
-    round = rounds.objects.filter(email=event,type=details.type, published=True, finished=False)
+    round = rounds.objects.filter(id=id)
     registered = None
     try:
-        for case in round:
-            if registered == None:
-                registered = round_scores.objects.filter(round=case)
-            else:
-                registered = registered | round_scores.objects.filter(round=case)
+        registered = round_scores.objects.filter(round=round,submitted=True)
     except event_registered.DoesNotExist:
         registered = None
     context = {'user': user, 'registered': registered, 'round': round}
     return render(request, 'judge_dash/dashboard.html', context)
 
-def assessment(request,pk=None):
+def assessment(request,pk=None,id=None):
     user = request.user
     detail = judge_detail.objects.get(email=user)
     judging = student.objects.get(id=pk)
