@@ -219,8 +219,10 @@
                            <form id="mc-form" method="post" action="http://uipasta.us14.list-manage.com/subscribe/post?u=854825d502cdc101233c08a21&amp;id=86e84d44b7">
 
 						  <div class="subscribe-form margin-top-20">
+                              {% if not user.club %}
 							  <input id="mc-email" type="email" class="text-input">
                               <button class="submit-btn" type="submit" data-toggle="modal" data-target="#myModal">Upload</button>
+                              {% endif %}
 								</div>
 
 							  </form>

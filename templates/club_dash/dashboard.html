@@ -156,13 +156,11 @@
                         <h2 >{{ event.name }} is Under Construction!</h2>
                         {% endif %}
                         <label>
-                            <a href="/user/club_dashboard/live/{{ event.id }}">
                                 {% if not event.live %}
-                                <button class="btn btn-social btn-fill btn-facebook">Go Live</button>
+                                <button class="btn btn-social btn-fill btn-facebook" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/live/{{ event.id }}')">Go Live</button>
                                 {% else %}
-                                <button class="btn btn-social btn-fill btn-facebook">Conclude Event</button>
+                                <button class="btn btn-social btn-fill btn-facebook" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/live/{{ event.id }}')">Conclude Event</button>
                                 {% endif %}
-                            </a>
                         </label>
                     </div>
                     <div class="card-content">
@@ -182,17 +180,15 @@
                                                     <button class="btn btn-raised btn-round btn-info" data-toggle="modal" data-target="#noticeModal">
                                                         Set Quota
                                                     </button>
-                                                <a href="/user/club_dashboard/registration/{{ event.id }}">
                                                     {% if event.registration %}
-                                                        <button type="button" class="btn btn-raised btn-round btn-info" style="margin-right: auto">Close Registrations</button>
+                                                        <button type="button" class="btn btn-raised btn-round btn-info" style="margin-right: auto" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Close Registrations</button>
                                                     {% else %}
                                                         {% if event.live %}
-                                                    <button type="button" class="btn btn-raised btn-round btn-info">Open Registrations</button>
+                                                    <button type="button" class="btn btn-raised btn-round btn-info" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Open Registrations</button>
                                                             {% else %}
                                                             <button type="button" class="btn btn-raised btn-round btn-info" disabled title="Cannot Open Registrations Until Event Goes Live!">Open Registrations</button>
                                                             {% endif %}
                                                     {% endif %}
-                                                </a>
                                                 </h5>
                                         <br><br>
                                             <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
