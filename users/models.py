@@ -281,6 +281,11 @@ class rounds(models.Model):
     resource3 = models.CharField(max_length=150, default='', blank=True)
     resource4 = models.CharField(max_length=150, default='', blank=True)
     resource5 = models.CharField(max_length=150, default='', blank=True)
+    resource1data = models.FileField(upload_to=round_data, null=True)
+    resource2data = models.FileField(upload_to=round_data, null=True)
+    resource3data = models.FileField(upload_to=round_data, null=True)
+    resource4data = models.FileField(upload_to=round_data, null=True)
+    resource5data = models.FileField(upload_to=round_data, null=True)
     creativity = models.BooleanField(default=False)
     content = models.BooleanField(default=False)
     presentation = models.BooleanField(default=False)
@@ -402,9 +407,6 @@ class event_registered_details(models.Model):
     best_manager = models.BooleanField(default=0)
     ent_dev = models.BooleanField(default=0)
     human_resources = models.BooleanField(default=0)
-    teammate1 = models.CharField(default='', blank=True, max_length=150)
-    teammate2 = models.CharField(default='', blank=True, max_length=150)
-    teammate3 = models.CharField(default='', blank=True, max_length=150)
 
 
     def __str__(self):
@@ -414,6 +416,21 @@ class event_registered_details(models.Model):
     def __unicode__(self):
         return '%s' % self.student.email
 
+
+class teams(models.Model):
+    event = models.ForeignKey(events)
+    type = models.IntegerField(default=0)
+    member1 = models.ForeignKey(student, related_name='member1')
+    member2 =  models.ForeignKey(student,related_name='member2')
+    member3 =  models.ForeignKey(student, related_name='member3')
+
+
+    def __str__(self):
+        return '%s' % self.event.name
+
+
+    def __unicode__(self):
+        return '%s' % self.event.name
 
 #per round scores and data
 class round_scores(models.Model):

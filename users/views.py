@@ -5,7 +5,7 @@ from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, \
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from .models import student
-
+from student_dashboard.forms import dataForm
 
 # Create your views here.
 
@@ -92,7 +92,7 @@ def new_student(request):
     if formInfo.is_valid() and formDefault.is_valid() and interestForm.is_valid():
         request.user.location = formDefault.cleaned_data.get("location")
         request.user.dob = request.POST.get("dob")
-        if formDefault.cleaned_data.get("profile_picture"):
+        if formDefault.cleaned_data.get("profile_picture",False):
             request.user.profile_picture = formDefault.cleaned_data.get("profile_picture")
         request.user.about = formDefault.cleaned_data.get("about")
         request.user.activated = True
@@ -161,8 +161,8 @@ def new_college(request):
         college = colleges(email=request.user)
         college.college_name = formCollege.cleaned_data.get("college_name")
         college.address = formCollege.cleaned_data.get("address")
-        if formCollege.cleaned_data.get("logo"):
-            college.logo = formCollege.cleaned_data.get("logo")
+        if request.POST.get("logo"):
+            college.logo = request.POST.get("logo")
         college.phone = request.user.phoneno
         college.save()
         request.user.activated= True
@@ -197,7 +197,7 @@ def new_club(request):
         club.video = form.cleaned_data.get("video")
         club.website = form.cleaned_data.get("website")
         club.about = form.cleaned_data.get("about")
-        if form.cleaned_data.get("logo"):
+        if form.cleaned_data.get("logo", False):
             club.logo =  form.cleaned_data.get("logo")
         request.user.activated = True
         request.user.save()
@@ -205,3 +205,9 @@ def new_club(request):
         return HttpResponseRedirect('/user/club_dashboard/')
     context = {"form": form, "user": user, 'all_colleges':all_colleges, 'club':club}
     return render(request, 'home/new_club.html', context)
+
+def case_view(request,id):
+    round = rounds.objects.get(id=id)
+    form = dataForm(request.POST or None, request.FILES or None)
+    context = {'user':request.user,'round':round,'form':form}
+    return render (request,'profile_page/case_details.html',context)

@@ -150,7 +150,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                    <h3>My Cases</h3>
+                    <h3>{{ corename }} Cases</h3>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
@@ -158,8 +158,11 @@
                                 <div class="card-header card-header-icon" data-background-color="rose">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Cases</h4>
+                                <h4 class="card-title">All Cases</h4>
                                 <div class="pull-right" style="padding-right: 3%;">
+                                    <button class="btn btn-social btn-fill btn-facebook" data-toggle="modal" data-target="#format">
+                                        Format
+                                    </button>
                                     <button class="btn btn-social btn-fill btn-facebook" data-toggle="modal" data-target="#myModal">
                                         Add Case
                                     </button>
@@ -189,6 +192,32 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="modal fade" id="format" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">The Size of the Teams?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/teams/{{ event }}/{{ type }}/2">
+                                                            <button class="btn btn-facebook">Team of 2</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/teams/{{ event }}/{{ type }}/3">
+                                                            <button class="btn btn-facebook">Team of 3</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             <br><br><br>
                                 <div class="card-content">
@@ -206,9 +235,9 @@
                                                     <th class="text-center">Deadline</th>
                                                     <th class="text-center">Submissions</th>
 {#                                                    <th class="text-center">Judges</th>#}
-                                                    {% if not user.judge %}
-                                                    <th class="text-center">Results</th>
-                                                    {% endif %}
+{#                                                    {% if not user.judge %}#}
+{#                                                    <th class="text-center">Results</th>#}
+{#                                                    {% endif %}#}
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -232,12 +261,12 @@
                                                     <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ count }}</a></td>
                                                     {% endif %}
                                                     <td class="text-center" data-toggle="modal" data-target="#teamsize{{ round.id }}">{% if round.team_size == 1 %}Solo{% else %}Team{% endif %}</td>
-                                                    <td class="text-center"> {{ round.deadline }}</td>
+                                                    <td class="text-center"> {% if round.deadline %}{{ round.deadline }}{% else %}Not Set{% endif %}</td>
 {#                                                    <td class="text-center" data-toggle="modal" data-target="#rooms{{ round.id }}">Manage Rooms and Judges</td>#}
                                                     <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Submissions</a></td>
-                                                    {% if not user.judge %}
-                                                    <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Results</a></td>
-                                                    {% endif %}
+{#                                                    {% if not user.judge %}#}
+{#                                                    <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Results</a></td>#}
+{#                                                    {% endif %}#}
                                                     <td class="td-actions text-right">
                                                         {% if round.published %}
 {#                                                            <a href="/user/club_dashboard/publish/{{ round.id }}/{{ event }}/{{ type }}/">#}
@@ -247,12 +276,12 @@
 {#                                                            </a>#}
                                                         {% else %}
                                                         <button type="button" rel="tooltip" class="text-center btn btn-success" data-toggle="modal" data-target="#deadline{{ round.id }}" title="Publish Case">
-                                                            <i class="material-icons">person</i>
+                                                            <i class="material-icons">done</i>
                                                         </button>
                                                         {% endif %}
                                                         <a href="/user/judge_dashboard/judge/0/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="text-center btn btn-success" title="View Assessment Form">
-                                                            <i class="material-icons">person</i>
+                                                            <i class="material-icons">edit</i>
                                                         </button>
                                                         </a>
                                                         <div class="modal fade" id="deadline{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -584,15 +613,17 @@
                                                     {% if user.judge %}
                                                         <a href="/user/judge_dashboard/judge_view/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge">
-                                                            <i class="material-icons">edit</i>
+                                                            <i class="material-icons">send</i>
                                                         </button>
                                                         </a>
                                                     {% endif %}
+                                                    {% if not round.published %}
                                                         <a href="/user/club_dashboard/delRound/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-danger" title="Delete Case">
                                                             <i class="material-icons">close</i>
                                                         </button>
                                                         </a>
+                                                    {% endif %}
                                                     </td>
                                                 </tr>
                                             {% endfor %}

@@ -51,7 +51,7 @@ class addRound(forms.ModelForm):
         fields = ['title','sub_title', 'about','task1','task2','task4','tast3','task5','resource1'
                   ,'resource2','resource3','resource4','resource5','question1','question2','question3'
                   ,'question4','question5','creativity','content','communication','presentation','feasibility'
-                  ,'rebuttal', 'feedback', 'core1','core2','core3','core4','core5']
+                  ,'rebuttal', 'feedback', 'core1','core2','core3','core4','core5', 'resource1data']
 
 
 class scoreForm(forms.ModelForm):

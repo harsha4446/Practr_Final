@@ -214,15 +214,17 @@ def add_round(request, id=None, operation=None, offline=None):
         round.author = request.user.name
         round.offline = offline
         round.save()
-        return HttpResponseRedirect("/user/club_dashboard/")
+        return HttpResponseRedirect("/user/club_dashboard/caseView/"+id+"/"+operation)
     context = {"form":form, "offline":offline}
     return render (request,'club_dash/add_round.html',context)
 
 
 def del_round(request, id = None):
     round = rounds.objects.get(id=id)
+    event = str (round.email.id)
+    type = str (round.type)
     round.delete()
-    return HttpResponseRedirect("/user/club_dashboard")
+    return HttpResponseRedirect("/user/club_dashboard/caseView/"+event+"/"+type)
 
 
 def case_view(request, id, type):
@@ -233,24 +235,31 @@ def case_view(request, id, type):
     judgeForm = newJudge(request.POST or None)
     register = 0
     all_rooms = None
+    corename=''
     try:
         if type == '1':
             register = event_registered_details.objects.filter(event=event,marketing=True).count()
+            corename = 'Marketing'
         elif type == '2':
             register = event_registered_details.objects.filter(event=event, finance=True).count()
+            corename = 'Finance'
         elif type == '3':
             register = event_registered_details.objects.filter(event=event, public_relations=True).count()
+            corename = 'Public Relations'
         elif type == '4':
             register = event_registered_details.objects.filter(event=event, human_resources=True).count()
+            corename = 'Human Resources'
         elif type == '5':
             register = event_registered_details.objects.filter(event=event, ent_dev=True).count()
+            corename = 'Entrepreneurship Development'
         elif type == '6':
             register = event_registered_details.objects.filter(event=event, best_manager=True).count()
+            corename = 'Best Manager'
         all_rooms = round_room.objects.all()
     except register_table.DoesNotExist:
         register = 0
     context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type, 'count':register, 'roomForm':roomForm,
-               'deadline':deadlineForm, 'all_rooms':all_rooms, 'judgeForm':judgeForm}
+               'deadline':deadlineForm, 'all_rooms':all_rooms, 'judgeForm':judgeForm,'corename':corename}
     return render(request,'club_dash/case_view.html',context)
 
 
@@ -459,3 +468,20 @@ def master_table(request, type):
     total = registered.count()
     context ={'user':user,'registered':registered,'max':total}
     return render(request,'club_dash/audience_master.html',context)
+
+
+def teamCreate(request, id, type, size):
+    event = events.objects.get(id=id)
+    if type == '1':
+        registered = event_registered_details.objects.filter(event=event,marketing=True)
+    if type == '2':
+        registered = event_registered_details.objects.filter(event=event,finance=True)
+    if type == '3':
+        registered = event_registered_details.objects.filter(event=event,public_relations=True)
+    if type == '4':
+        registered = event_registered_details.objects.filter(event=event,human_resources=True)
+    if type == '5':
+        registered = event_registered_details.objects.filter(event=event,ent_dev=True)
+    if type == '6':
+        registered = event_registered_details.objects.filter(event=event,best_manager=True)
+

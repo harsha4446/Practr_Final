@@ -200,24 +200,25 @@ def event_register(request, id = None):
     except follow_table.DoesNotExist:
         network = None
     form = detailFrom(request.POST or None)
-    if event.multiregistration:
-        if form.is_valid():
-            event_registered.register(current_user, event)
-            details , created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-            details.human_resources =  form.cleaned_data.get("human_resources", False)
-            details.marketing = form.cleaned_data.get("marketing", False)
-            details.finance = form.cleaned_data.get("finance", False)
-            details.public_relations = form.cleaned_data.get("public_relations", False)
-            details.best_manager = form.cleaned_data.get("best_manager", False)
-            details.ent_dev = form.cleaned_data.get("ent_dev", False)
-            details.save()
-            compute(details.id, event.id)
-            return HttpResponseRedirect("/user/student_dashboard/events")
-    else:
+    if form.is_valid() or request.POST:
+        if event.multiregistration:
+            if form.is_valid():
+                event_registered.register(current_user, event)
+                details , created = event_registered_details.objects.get_or_create(event=event, student=current_user)
+                details.human_resources = form.cleaned_data.get("human_resources", False)
+                details.marketing = form.cleaned_data.get("marketing", False)
+                details.finance = form.cleaned_data.get("finance", False)
+                details.public_relations = form.cleaned_data.get("public_relations", False)
+                details.best_manager = form.cleaned_data.get("best_manager", False)
+                details.ent_dev = form.cleaned_data.get("ent_dev", False)
+                details.save()
+                compute(details.id, event.id)
+                return HttpResponseRedirect("/user/student_dashboard/events")
+        else:
             if request.POST:
                 event_registered.register(current_user, event)
                 details, created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-                print(details)
+                print(request.POST.get("marketing2"))
                 details.human_resources = request.POST.get("human_resources2",False)
                 details.marketing = request.POST.get("marketing2",False)
                 details.finance = request.POST.get("finance2",False)

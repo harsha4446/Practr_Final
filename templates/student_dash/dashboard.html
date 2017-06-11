@@ -181,27 +181,27 @@
                             <h5 class="description">From Events: {% for event in registered %} {{ event.name }}{% endfor %}</h5>
                                 <ul class="nav nav-pills nav-pills-warning col-md-12 col-md-offset-3">
                                         <li class="active">
-                                            <a href="#pill1" data-toggle="tab">Due</a>
+                                            <a href="#due" data-toggle="tab">Due</a>
                                         </li>
                                         <li>
-                                            <a href="#pill2" data-toggle="tab">Live</a>
+                                            <a href="#live" data-toggle="tab">Live</a>
                                         </li>
                                         <li>
-                                            <a href="#pill3" data-toggle="tab">Completed</a>
+                                            <a href="#completed" data-toggle="tab">Completed</a>
                                         </li>
                                     </ul>
 
                         </div>
                     <div class="card-content col-md-12">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="pill1">
+                            <div class="tab-pane active" id="due">
                             <br><br><br><br>
                         {% for round in rounds %}
                             {% if not round.finished %}
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
-                                    <a href="/user/student_dashboard/case_content/{{ round.id }}/">
+                                    <a href="/user/caseView/{{ round.id }}/">
                                         <img class="img" style="height: 220px; width: 100%" src="{{ round.email.logo.url }}">
                                     </a>
                                 </div>
@@ -278,14 +278,14 @@
                             {% endif %}
                         {% endfor %}
                             </div>
-                        <div class="tab-pane" id="pill2">
+                        <div class="tab-pane" id="live">
                         <br><br><br><br>
                         {% for round in rounds %}
                             {% if not round.finished %}
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
-                                    <a href="/user/student_dashboard/case_content/{{ round.id }}/">
+                                    <a href="/user/caseView/{{ round.id }}/">
                                         <img class="img" style="height: 220px; width: 100%" src="{{ round.email.logo.url }}">
                                     </a>
                                 </div>
@@ -362,14 +362,14 @@
                             {% endif %}
                         {% endfor %}
                             </div>
-                        <div class="tab-pane" id="pill3">
+                        <div class="tab-pane" id="completed">
                         <br><br><br><br>
                         {% for round in rounds %}
                             {% if round.finished %}
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
-                                    <a href="/user/student_dashboard/case_content/{{ round.id }}/">
+                                    <a href="/user/caseView/{{ round.id }}/">
                                         <img class="img" style="height: 220px; width: 100%" src="{{ round.email.logo.url }}">
                                     </a>
                                 </div>

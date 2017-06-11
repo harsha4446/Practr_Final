@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^$', views.index,name='index'),
     url(r'^register$', views.register, name='register'),
     url(r'^logout$', views.user_logout, name='logout'),
+    url(r'^caseView/(?P<id>\d+)/$', views.case_view, name='case'),
     url(r'^student_details/', include('profile_page.urls')),
     url(r'^newstudent_info', views.new_student, name='newstudent'),
     url(r'^newjudge_info', views.new_judge, name='newjudge'),

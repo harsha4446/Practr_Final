@@ -283,10 +283,7 @@
                                 <button class="btn btn-rose">Handover</button>
                                 <ul class="nav nav-pills nav-pills-warning col-md-12 col-md-offset-3">
                                         <li class="active">
-                                            <a href="#due" data-toggle="tab">Due</a>
-                                        </li>
-                                        <li>
-                                            <a href="#done" data-toggle="tab">Completed</a>
+                                            <a href="#due" data-toggle="tab">Judge</a>
                                         </li>
                                     </ul>
                                 <div class="modal fade" id="addJudge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -342,6 +339,9 @@
                                             {% for student in registered %}
                                                 {% if not student.judged %}
                                                 <tr>
+                                                {% else %}
+                                                <tr class="success">
+                                                {% endif %}
                                                     <td> {{ student.student.email }}</td>
                                                     <td> {{ student.student.student_detail.college }}</td>
                                                     <td class="text-left"> {{ student.student.student_detail.year }}</td>
@@ -355,56 +355,12 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                {% endif %}
                                             {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                         </div>
-                                    <div class="tab-pane" id="done">
-                                        <div class="card-header card-header-icon" data-background-color="rose">
-                                    <i class="material-icons">assignment</i>
-                                </div>
-                                <h4 class="card-title">Submissions</h4>
-                                    <br><br>
-                                <div class="card-content">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Username</th>
-                                                    <th>College</th>
-                                                    <th>Year</th>
-                                                    <th>Degree</th>
-                                                    <th class="text-right">Experience</th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for student in registered %}
-                                                {% if student.judged %}
-                                                <tr>
-                                                    <td> {{ student.student.email }}</td>
-                                                    <td> {{ student.student.student_detail.college }}</td>
-                                                    <td class="text-left"> {{ student.student.student_detail.year }}</td>
-                                                    <td> {{ student.student.student_detail.degree }}</td>
-                                                    <td class="text-right"> {{ student.student.experience }} Practr events</td>
-                                                    <td class="td-actions text-right">
-                                                        <a href="/user/judge_dashboard/judge/{{ student.student.id }}/">
-                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Judge Case">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                    </div>
                             </div>
                         </div>
                     </div>

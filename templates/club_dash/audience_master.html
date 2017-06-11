@@ -179,7 +179,6 @@
                                                     <th>Year</th>
                                                     <th>Section</th>
                                                     <th>Score</th>
-                                                    <th class="disabled-sorting text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -193,7 +192,6 @@
                                                     <th>Year</th>
                                                     <th>Section</th>
                                                     <th>Score</th>
-                                                    <th class="text-right">Actions</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
@@ -208,11 +206,6 @@
                                                     <td>{{ student.student.student_detail.year }}</td>
                                                     <td>{{ student.student.student_detail.section }}</td>
                                                     <td>{{ student.total }}</td>
-                                                    <td class="text-right">
-                                                        <a href="#" class="btn btn-simple btn-info btn-icon like"><i class="material-icons">favorite</i></a>
-                                                        <a href="#" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
-                                                        <a href="#" class="btn btn-simple btn-danger btn-icon remove"><i class="material-icons">close</i></a>
-                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
