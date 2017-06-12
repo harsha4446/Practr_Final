@@ -25,6 +25,7 @@ demo = {
 
     initFormExtendedDatetimepickers: function(){
         $('.datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD H:mm',
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",
@@ -40,7 +41,7 @@ demo = {
          });
 
          $('.datepicker').datetimepicker({
-            format: 'MM/DD/YYYY',
+            format: 'YYYY-MM-DD',
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",
@@ -56,8 +57,8 @@ demo = {
          });
 
          $('.timepicker').datetimepicker({
-//          format: 'H:mm',    // use this format if you want the 24hours timepicker
-            format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+         format: 'H:mm',    // use this format if you want the 24hours timepicker
+            // format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",
@@ -569,7 +570,7 @@ demo = {
 
     },
 
-    showSwal: function(type,variable){
+    showSwal: function(type){
 
         if(type == 'basic'){
         	swal({
@@ -608,7 +609,7 @@ demo = {
                 }).then(function() {
                   swal({
                     title: 'Deleted!',
-                    text: 'Your object was deleted.',
+                    text: 'Your file has been deleted.',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
@@ -617,7 +618,7 @@ demo = {
     	}else if(type == 'warning-message-and-cancel'){
             swal({
                     title: 'Are you sure?',
-                    text: 'You will not be able to undo this!',
+                    text: 'You will not be able to recover this imaginary file!',
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
@@ -628,19 +629,17 @@ demo = {
                 }).then(function() {
                   swal({
                     title: 'Deleted!',
-                    text: 'Successfully Deleted',
+                    text: 'Your imaginary file has been deleted.',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
-                    }).then(function () {
-                        window.location.href = variable;
-                  })
+                    })
                 }, function(dismiss) {
                   // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
                   if (dismiss === 'cancel') {
                     swal({
                       title: 'Cancelled',
-                      text: 'Safe, we did not delete it.',
+                      text: 'Your imaginary file is safe :)',
                       type: 'error',
                       confirmButtonClass: "btn btn-info",
                       buttonsStyling: false

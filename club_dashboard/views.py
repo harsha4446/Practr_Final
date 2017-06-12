@@ -271,6 +271,7 @@ def publish(request, id=None, event=None, type=None):
     else:
         if request.POST:
             round.published = True
+            temp = request.POST['deadline']
             round.deadline = request.POST['deadline']
     round.save()
     return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
@@ -338,7 +339,8 @@ def teamSize(request, id, event,type):
     return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
 
 
-def audience(request, id, event,type):
+def audience(request, event,type):
+    id = request.POST.get("case_id")
     round = rounds.objects.get(id=id)
     #round.enddate = str (datetime.date.today)
     round.finished = True
@@ -466,7 +468,8 @@ def master_table(request, type):
     type = int (type)
     registered = round_scores.objects.filter(round__email=event, round__type=type)
     total = registered.count()
-    context ={'user':user,'registered':registered,'max':total}
+    cases = rounds.objects.filter(email=event,type=type,published=True,finished=False)
+    context ={'user':user,'registered':registered,'max':total,'cases':cases,'event':event,'type':type}
     return render(request,'club_dash/audience_master.html',context)
 
 

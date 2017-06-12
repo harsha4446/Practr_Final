@@ -230,13 +230,14 @@
                                             </div>
                                         </div>
                                         <div class="modal-body">
-                                            <h4 class="modal-title">Use database from</h4>
-                                            <form method="post" action="/user/club_dashboard/audience/{{ round.id }}/{{ event }}/{{ type }}/">
+                                            <h4 class="modal-title">Finish Round</h4>
+                                            <form method="post" action="/user/club_dashboard/audience/{{ event.id }}/{{ type }}/">
                                                 {% csrf_token %}
-                                            <select class="selectpicker" data-style="btn btn-primary btn-round" title="Single Select" data-size="7">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round" name="case_id" title="Single Select" data-size="7">
                                                 <option disabled selected>Choose</option>
-                                                <option value="2">Qualify</option>
-                                                <option value="3">Eliminate</option>
+                                                {% for case in cases %}
+                                                    <option value="{{ case.id }}">{{ case.title }}</option>
+                                                {% endfor %}
                                             </select>
                                             <br><br>
                                             <h4 class="modal-title">Audience Moving Forward?</h4>

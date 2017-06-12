@@ -276,7 +276,7 @@
 {#                                                            </a>#}
                                                         {% else %}
                                                         <button type="button" rel="tooltip" class="text-center btn btn-success" data-toggle="modal" data-target="#deadline{{ round.id }}" title="Publish Case">
-                                                            <i class="material-icons">done</i>
+                                                            <i class="material-icons">publish</i>
                                                         </button>
                                                         {% endif %}
                                                         <a href="/user/judge_dashboard/judge/0/{{ round.id }}">
@@ -308,11 +308,16 @@
                                                                             <i class="material-icons">library_books</i>
                                                                         </div>
                                                                         <div class="card-content">
-                                                                            <h4 class="card-title">Deadline</h4>
+                                                                            <h4 class="card-title">Datetime Picker</h4>
                                                                             <div class="form-group">
-                                                                                <label class="label-control">Date Picker</label>
-                                                                                <input type="text" name="deadline" class="form-control datepicker" value="YYYY-MM-DD" />
+                                                                                <label class="label-control">Datetime Picker</label>
+                                                                                <input type="text" name="deadline" id = "datetime1" class="form-control datetimepicker" value="10/10/2016" />
                                                                             </div>
+                                                                            <div class="col-md-6" style="display:none">
+                                                                                    <legend>Sliders</legend>
+                                                                                    <div id="sliderRegular" class="slider"></div>
+                                                                                    <div id="sliderDouble" class="slider slider-info"></div>
+                                                                                </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -752,6 +757,4 @@
          }
 
 </script>
-
-
 </html>

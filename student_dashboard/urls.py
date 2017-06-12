@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^eventRegister/(?P<id>\d+)/$', views.event_register, name='event_register'),
     url(r'^upload_files/(?P<id>\d+)/$', views.upload_files, name='upload'),
     url(r'^case_content/(?P<id>\d+)/$', views.case_content, name='context'),
-    url(r'^review/$', views.review, name='review'),
+    url(r'^review/(?P<id>\d+)/$', views.review, name='review'),
 
 ]

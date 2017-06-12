@@ -312,7 +312,7 @@ class rounds(models.Model):
     created = models.DateField(default=datetime.date.today)
     published = models.BooleanField(default=False)
     team_size = models.IntegerField(default=1)
-    deadline = models.DateField(default=None, null=True)
+    deadline = models.DateTimeField(default=None, null=True,)
     creativityvalue = models.IntegerField(default=0)
     contentvalue = models.IntegerField(default=0)
     presentationvalue = models.IntegerField(default=0)
