@@ -184,7 +184,7 @@
                                                         <button type="button" class="btn btn-raised btn-round btn-info" style="margin-right: auto" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Close Registrations</button>
                                                     {% else %}
                                                         {% if event.live %}
-                                                    <button type="button" class="btn btn-raised btn-round btn-info" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Open Registrations</button>
+                                                    <button type="button" class="btn btn-raised btn-round btn-info"  onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Open Registrations</button>
                                                             {% else %}
                                                             <button type="button" class="btn btn-raised btn-round btn-info" disabled title="Cannot Open Registrations Until Event Goes Live!">Open Registrations</button>
                                                             {% endif %}
@@ -266,6 +266,10 @@
                                                         </div>
                                                         <div class="modal-footer text-center">
                                                             <h6>Quota can be increased later</h6>
+                                                            <div class="col-xs-3 col-md-offset-4">
+                                                                <input type="text" name="prefix" maxlength="4" class="form-control" value="{{ event.prefix }}">
+                                                            </div>
+                                                            <br><br><br><br>
                                                             <button type="submit" class="btn btn-info btn-round">Sounds good!</button>
                                                         </div>
                                                         </form>
@@ -275,6 +279,7 @@
                                             <div class="col-md-7">
                                                 <div class="card">
                                                     <div id="piebhai" class="ct-chart"></div>
+
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -301,10 +306,10 @@
                                             <tbody>
                                             {% for student in registered %}
                                                 <tr>
-                                                    <td> {{ student.id }}</td>
-                                                    <td> {{ student.current_user.name }}</td>
-                                                    <td class="text-left"> {{ student.current_user.phoneno }}</td>
-                                                    <td> {{ student.current_user.student_detail.year }}</td>
+                                                    <td>{{ student.rcode }}</td>
+                                                    <td> {{ student.student.name }}</td>
+                                                    <td class="text-left"> {{ student.student.phoneno }}</td>
+                                                    <td> {{ student.student.student_detail.year }}</td>
                                                     <td>Marketing</td>
                                                 </tr>
                                             {% endfor %}
@@ -868,18 +873,18 @@
 
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
-
         demo.initVectorMap();
     });
 </script>
 <script>
 var dataPreferences = {
-            labels: ['Management','Marketing','Finance'],
-            series: [33, 40, 27]
+            labels: [{% if event.marketing and marketingcount != 0 %}'{{ marketingcount }}%',{% endif %}{% if event.finance and financecount != 0%}'{{ financecount }}%',{% endif %}{% if event.public_relations and prcount != 0 %}'{{ prcount }}%',{% endif %}
+                {% if event.human_resources and hrcount != 0 %}'{{ hrcount }}%',{% endif %}{% if event.ent_dev and edcount != 0 %}'{{ edcount }}%',{% endif %}{% if event.best_manager and bmcount != 0 %}'{{ bmcount }}%'{% endif %}],
+            series: [{% if event.marketing and marketingcount != 0 %}{{ marketingcount }},{% endif %}{% if event.finance and financecount != 0 %} {{ financecount }},{% endif %}{% if event.public_relations and prcount != 0%} {{ prcount }},{% endif %}
+                {% if event.human_resources and hrcount != 0 %}{{ hrcount }},{% endif %}{% if event.ent_dev and edcount != 0 %}{{ edcount }},{% endif %}{% if event.best_manager and bmcount != 0 %}{{ bmcount }}{% endif %}]
         };
-
         var optionsPreferences = {
-            height: '230px'
+            height: '280px'
         };
 
         Chartist.Pie('#piebhai', dataPreferences, optionsPreferences);

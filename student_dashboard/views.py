@@ -199,37 +199,49 @@ def event_register(request, id = None):
         network = network.connected_to.all()
     except follow_table.DoesNotExist:
         network = None
-    form = detailFrom(request.POST or None)
-    if form.is_valid() or request.POST:
+    if request.POST:
         if event.multiregistration:
-            if form.is_valid():
-                event_registered.register(current_user, event)
-                details , created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-                details.human_resources = form.cleaned_data.get("human_resources", False)
-                details.marketing = form.cleaned_data.get("marketing", False)
-                details.finance = form.cleaned_data.get("finance", False)
-                details.public_relations = form.cleaned_data.get("public_relations", False)
-                details.best_manager = form.cleaned_data.get("best_manager", False)
-                details.ent_dev = None
-                details.save()
-                compute(details.id, event.id)
-                return HttpResponseRedirect("/user/student_dashboard/events")
+            event_registered.register(current_user, event)
+            details , created = event_registered_details.objects.get_or_create(event=event, student=current_user)
+            details.human_resources = request.POST.get("human_resources", False)
+            details.marketing = request.POST.get("marketing", False)
+            details.finance = request.POST.get("finance", False)
+            details.public_relations = request.POST.get("public_relations", False)
+            details.best_manager = request.POST.get("best_manager", False)
+            details.ent_dev = request.POST.get("ent_dev", False)
+            if details.rcode == '':
+                code_id = str(event_registered_details.objects.filter(event=event).count())
+                if (len(code_id) == 1):
+                    details.rcode = event.prefix + '00' + code_id
+                if (len(code_id) == 2):
+                    details.rcode = event.prefix + '0' + code_id
+            details.save()
+            compute(details.id, event.id)
+            return HttpResponseRedirect("/user/student_dashboard/events")
         else:
             event_registered.register(current_user, event)
             details, created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-            print(request.POST.get("marketing2"))
             details.human_resources = request.POST.get("human_resources2",False)
             details.marketing = request.POST.get("marketing2",False)
             details.finance = request.POST.get("finance2",False)
             details.public_relations = request.POST.get("public_relations2",False)
             details.best_manager = request.POST.get("best_manager2",False)
             details.ent_dev = request.POST.get("ent_dev2",False)
+            if details.rcode == '':
+                code_id = str (event_registered_details.objects.filter(event=event).count())
+                if (len(code_id)==1):
+                    details.rcode = event.prefix+'00'+code_id
+                if (len(code_id)==2):
+                    details.rcode = event.prefix+'0'+code_id
             details.save()
             compute(details.id, event.id)
             return HttpResponseRedirect("/user/student_dashboard/events")
-    context = {'event':event, "form":form, "network":network, "flag1":flag1,"flag2":flag2,"flag3":flag3,
+    context = {'event':event, "network":network, "flag1":flag1,"flag2":flag2,"flag3":flag3,
                "flag4":flag4,"flag5":flag5,"flag6":flag6}
-    return render(request,'student_dash/register_details.html',context)
+    if event.multiregistration:
+        return render(request,'student_dash/register_details.html',context)
+    else:
+        return render(request, 'student_dash/solo_registration.html', context)
 
 
 def search(request):
@@ -241,10 +253,11 @@ def search(request):
 def upload_files(request,id):
     user = request.user
     round = rounds.objects.get(id = id)
+    details = event_registered_details.objects.get(event=round.email,student=user)
     try:
         scores = round_scores.objects.get(student=user, round=round)
     except round_scores.DoesNotExist:
-        scores = round_scores(student=user, round=round)
+        scores = round_scores(student=user, round=round, rcode=details.rcode)
     if request.POST:
         form = dataForm(request.POST, request.FILES)
         if form.is_valid():
@@ -254,6 +267,7 @@ def upload_files(request,id):
                 scores.data2 = form.cleaned_data.get("data2")
             if form.cleaned_data.get("data3") != None:
                 scores.data3 = form.cleaned_data.get("data3")
+            scores.rcode = details.rcode
             scores.submitted = True
             scores.save()
             return HttpResponseRedirect("/user/student_dashboard")
@@ -274,6 +288,7 @@ def review(request,id):
     if round.creativity:
         creativity = int((scores.creativity/round.creativityvalue)*100)
         creativity = str(creativity)
+        print("here")
     if round.communication:
         communication = int ((scores.communication/round.communicationvalue)*100)
         communication = str(communication)
@@ -289,6 +304,7 @@ def review(request,id):
     if round.feasibility:
         feasibility = int ((scores.feasibility/round.feasibilityvalue)*100)
         feasibility = str (feasibility)
+    print(creativity)
     context = {'user':request.user,'scores':scores, 'round':round,'creativity':creativity,'communication':communication,'content':content,
                'presentation':presentation,'rebuttal':rebuttal,'feasibility':feasibility,}
     return render(request,'student_dash/performance_review.html',context)

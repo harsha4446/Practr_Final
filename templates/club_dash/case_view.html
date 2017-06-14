@@ -281,7 +281,7 @@
                                                         {% endif %}
                                                         <a href="/user/judge_dashboard/judge/0/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="text-center btn btn-success" title="View Assessment Form">
-                                                            <i class="material-icons">edit</i>
+                                                            <i class="material-icons">border_color</i>
                                                         </button>
                                                         </a>
                                                         <div class="modal fade" id="deadline{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -615,13 +615,16 @@
                                                            </div>
                                                         </div>
                                                     </div>
-                                                    {% if user.judge %}
+                                                    {% if user.judge and round.published %}
                                                         <a href="/user/judge_dashboard/judge_view/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge">
                                                             <i class="material-icons">send</i>
                                                         </button>
                                                         </a>
                                                     {% endif %}
+                                                    <button type="button" rel="tooltip" class="btn btn-success" title="Edit Case">
+                                                            <i class="material-icons">edit</i>
+                                                        </button>
                                                     {% if not round.published %}
                                                         <button type="button" rel="tooltip" class="btn btn-danger" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/delRound/{{ round.id }}')"  title="Delete Case">
                                                             <i class="material-icons">close</i>

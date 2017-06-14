@@ -189,13 +189,13 @@
                                             <tbody>
                                             {% for student in registered %}
                                                 <tr>
-                                                    <td>{{ student.id }}</td>
-                                                    <td>{{ student.current_user.name }}</td>
-                                                    <td>{{ student.current_user.email }}</td>
-                                                    <td>{{ student.current_user.phoneno }}</td>
-                                                    <td>{{ student.current_user.student_detail.degree }}</td>
-                                                    <td>{{ student.current_user.student_detail.year }}</td>
-                                                    <td>{{ student.current_user.student_detail.section }}</td>
+                                                    <td>{{ student.rcode }}</td>
+                                                    <td>{{ student.student.name }}</td>
+                                                    <td>{{ student.student.email }}</td>
+                                                    <td>{{ student.student.phoneno }}</td>
+                                                    <td>{{ student.student.student_detail.degree }}</td>
+                                                    <td>{{ student.student.student_detail.year }}</td>
+                                                    <td>{{ student.student.student_detail.section }}</td>
                                                     <td>Marketing</td>
                                                 </tr>
                                             {% endfor %}

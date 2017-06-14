@@ -10,6 +10,7 @@ class dataForm(forms.ModelForm):
         fields = ['data1','data2','data3']
 
 class detailFrom(forms.ModelForm):
+
     class Meta:
         model = event_registered_details
         fields = ['marketing','best_manager','finance','ent_dev','public_relations',

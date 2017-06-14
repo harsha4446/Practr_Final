@@ -74,7 +74,7 @@
 			</div>
 		</div>
             <div class="container">
-            <form method="post" action="">
+            <form method="post" action="/user/judge_dashboard/judge_view/{{ round.id }}/">
             <input type="range" min="1" max="100" id="total" step="1" disabled/>
             {% csrf_token %}
                 <div class="col-md-8 col-md-offset-2">
@@ -144,7 +144,7 @@
                                 <h4>How much would you rate their Feasibility</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="{{ round.feasibilityvalue}}" id="sg6" step="1" onchange="feasability()"/>
+                                    <input type="range" min="1" max="{{ round.feasibilityvalue}}" id="sg6" step="1" onchange="feasability(1)"/>
                                     <div class="pull-right">
                                         {{ round.feasibilityvalue }}
                                     </div>
@@ -354,6 +354,7 @@
         else {
             var sp1 = document.getElementById("sp1").value;
             document.getElementById("sg1").value = sp1;
+            total();
         }
     }
     function content(flag)

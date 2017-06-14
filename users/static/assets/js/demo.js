@@ -570,7 +570,7 @@ demo = {
 
     },
 
-    showSwal: function(type){
+    showSwal: function(type,variable){
 
         if(type == 'basic'){
         	swal({
@@ -599,47 +599,51 @@ demo = {
     	}else if(type == 'warning-message-and-confirmation'){
             swal({
                     title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    text: "",
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success',
                     cancelButtonClass: 'btn btn-danger',
-                    confirmButtonText: 'Yes, delete it!',
+                    confirmButtonText: 'Yes!',
                     buttonsStyling: false
                 }).then(function() {
                   swal({
-                    title: 'Deleted!',
-                    text: 'Your file has been deleted.',
+                    title: 'Done!',
+                    text: '',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
-                    })
+                    }).then (function () {
+                       window.location.href=variable;
+                  })
                 });
     	}else if(type == 'warning-message-and-cancel'){
             swal({
                     title: 'Are you sure?',
-                    text: 'You will not be able to recover this imaginary file!',
+                    text: '',
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, keep it',
+                    confirmButtonText: 'Yes!',
+                    cancelButtonText: 'No',
                     confirmButtonClass: "btn btn-success",
                     cancelButtonClass: "btn btn-danger",
                     buttonsStyling: false
                 }).then(function() {
                   swal({
-                    title: 'Deleted!',
-                    text: 'Your imaginary file has been deleted.',
+                    title: 'Done!',
+                    text: '',
                     type: 'success',
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
-                    })
+                    }).then(function () {
+                        window.location.href = variable;
+                  })
                 }, function(dismiss) {
                   // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
                   if (dismiss === 'cancel') {
                     swal({
                       title: 'Cancelled',
-                      text: 'Your imaginary file is safe :)',
+                      text: '',
                       type: 'error',
                       confirmButtonClass: "btn btn-info",
                       buttonsStyling: false

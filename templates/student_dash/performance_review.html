@@ -37,14 +37,9 @@
           <!-- end .uou-block-6a -->
 
         <div class="uou-block-5b" class="col-sm-4" style="margin-top:20px">
-          <div class="uou-block-6a rounded"> <img src="{{ user.profile_picture.url }}" alt="">
-            <h6>{{ user.name }} <span>{{ user.student_details.college }}</span></h6>
-            <p>{{ user.about }}</p>
-            <ul class="social-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            </ul>
+          <div class="uou-block-6a rounded"> <img src="{{ round.email.logo.url }}" alt="" style="height: 180px;width: 180px;">
+            <h6>{{ round.title }} <span>{{ round.sub_title }}</span></h6>
+            <p>{{ round.about }}</p>
           </div>
           <!-- end .uou-block-6a -->
         </div>
@@ -71,9 +66,9 @@
 
     <div class="clearfix">
       <div class="container">
-        <div class="row"  style="margin-top:25px">
+        <div class="row" style="margin-top: 30px">
             {% if round.creativity %}
-          <div class="col-md-2">
+          <div class="col-xs-3">
             <div class="round-counter-single">
               <div class="c100 p{{ creativity }} green"> <span>{{ creativity }}<b>%</b></span>
                 <div class="slice">
@@ -86,7 +81,7 @@
           </div>
             {% endif %}
         {% if round.presentation %}
-          <div class="col-md-2">
+          <div class="col-xs-3">
             <div class="round-counter-single">
               <div class="c100 p{{ presentation }} green"> <span>{{ presentation }}<b>%</b></span>
                 <div class="slice">
@@ -99,7 +94,7 @@
           </div>
         {% endif %}
         {% if round.rebuttal %}
-        <div class="col-md-2">
+        <div class="col-sm-3">
             <div class="round-counter-single">
               <div class="c100 p{{ rebuttal }} green"> <span>{{ rebuttal }}<b>%</b></span>
                 <div class="slice">
@@ -112,7 +107,7 @@
           </div>
         {% endif %}
         {% if round.communication %}
-          <div class="col-md-2">
+          <div class="col-xs-3">
             <div class="round-counter-single">
               <div class="c100 p{{ communication }} green"> <span>{{ communication }}<b>%</b></span>
                 <div class="slice">
@@ -125,7 +120,7 @@
           </div>
         {% endif %}
         {% if round.content %}
-          <div class="col-md-2">
+          <div class="col-xs-3">
             <div class="round-counter-single">
               <div class="c100 p{{ content }} green"> <span>{{ content }}<b>%</b></span>
                 <div class="slice">
@@ -138,7 +133,7 @@
           </div>
         {% endif %}
         {% if round.feasibility %}
-          <div class="col-md-2">
+          <div class="col-xs-3">
             <div class="round-counter-single">
               <div class="c100 p{{ feasibility }} green"> <span>{{ feasibility }}<b>%</b></span>
                 <div class="slice">
@@ -150,7 +145,7 @@
             </div>
           </div>
         {% endif %}
-        </div>
+      </div>
       </div>
       <!-- end container -->
     </div>
@@ -177,7 +172,7 @@
           <div class="col-sm-7">
             <p>We have updated your profile with this event. </p>
           </div>
-          <div class="col-sm-5 text-right">  <a class="btn btn-secondary" href="user-profile(layout-1).html">Show me</a> </div>
+          <div class="col-sm-5 text-right">  <a class="btn btn-secondary" href="/profile_page/student/{{ user.id }}/">Show me</a> </div>
         </div>
       </div>
     </div>

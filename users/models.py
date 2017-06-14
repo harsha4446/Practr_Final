@@ -256,6 +256,7 @@ class events(models.Model):
     firstyear = models.BooleanField(default=True)
     secondyear = models.BooleanField(default=True)
     thirdyear = models.BooleanField(default=True)
+    prefix = models.CharField(max_length=4,default='',null=True,blank=True)
 
     def __str__(self):
         return self.name
@@ -281,11 +282,11 @@ class rounds(models.Model):
     resource3 = models.CharField(max_length=150, default='', blank=True)
     resource4 = models.CharField(max_length=150, default='', blank=True)
     resource5 = models.CharField(max_length=150, default='', blank=True)
-    resource1data = models.FileField(upload_to=round_data, null=True)
-    resource2data = models.FileField(upload_to=round_data, null=True)
-    resource3data = models.FileField(upload_to=round_data, null=True)
-    resource4data = models.FileField(upload_to=round_data, null=True)
-    resource5data = models.FileField(upload_to=round_data, null=True)
+    resource1data = models.FileField(upload_to=round_data, null=True, blank=True)
+    resource2data = models.FileField(upload_to=round_data, null=True, blank=True)
+    resource3data = models.FileField(upload_to=round_data, null=True, blank=True)
+    resource4data = models.FileField(upload_to=round_data, null=True, blank=True)
+    resource5data = models.FileField(upload_to=round_data, null=True, blank=True)
     creativity = models.BooleanField(default=False)
     content = models.BooleanField(default=False)
     presentation = models.BooleanField(default=False)
@@ -399,7 +400,7 @@ class event_registered(models.Model):
 
 
 class event_registered_details(models.Model):
-    student = models.ForeignKey(student,on_delete=models.CASCADE)
+    student = models.ForeignKey(student)
     event = models.ForeignKey(events,on_delete=models.CASCADE)
     marketing = models.BooleanField(default=0)
     finance = models.BooleanField(default=0)
@@ -407,7 +408,7 @@ class event_registered_details(models.Model):
     best_manager = models.BooleanField(default=0)
     ent_dev = models.BooleanField(default=0)
     human_resources = models.BooleanField(default=0)
-
+    rcode = models.CharField(default='',max_length=10)
 
     def __str__(self):
         return '%s' % self.student.email
@@ -422,7 +423,8 @@ class teams(models.Model):
     type = models.IntegerField(default=0)
     member1 = models.ForeignKey(student, related_name='member1')
     member2 =  models.ForeignKey(student,related_name='member2')
-    member3 =  models.ForeignKey(student, related_name='member3')
+    member3 =  models.ForeignKey(student, related_name='member3', null=True,blank=True)
+    rcode = models.CharField(default='', max_length=10)
 
 
     def __str__(self):
@@ -455,6 +457,7 @@ class round_scores(models.Model):
     data3 = models.FileField(upload_to=round_data, null=True)
     total = models.IntegerField(default=0)
     qualified = models.BooleanField(default=False)
+    rcode = models.CharField(default='',max_length=10)
 
     def __str__(self):
         return '%s' % self.student.email

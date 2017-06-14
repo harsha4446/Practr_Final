@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail
+from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail,teams
 from . forms import addEvent, addRound, rooms, deadlines, newJudge
 from django.http import HttpResponseRedirect
-import datetime
 
 # Create your views here.
 
@@ -19,6 +18,13 @@ def updateScores(scores):
         studentscore.communication = studentscore.communication + (multiplier * object.communication)
         studentscore.feasibility = studentscore.feasibility + (multiplier * object.feasibility)
         studentscore.save()
+
+
+def percentage(x,total):
+    if x != 0:
+        return int((x/total)*100)
+    else:
+        return 0
 
 
 def dashboard(request,core1='1',core2='2'):
@@ -39,8 +45,21 @@ def dashboard(request,core1='1',core2='2'):
         count4 = rounds.objects.filter(email=event, type=4).count()
         count5 = rounds.objects.filter(email=event, type=5).count()
         count6 = rounds.objects.filter(email=event, type=6).count()
-        registered = event_registered.objects.filter(registered_to=event).order_by('-id')[:10]
-        print(registered)
+        registered = event_registered_details.objects.filter(event=event).order_by('-id')[:10]
+        marketingcount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__marketing=True).count()
+        financecount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__finance=True).count()
+        prcount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__public_relations=True).count()
+        hrcount = event_registered.objects.filter(registered_to=event,registered_to__event_registered_details__human_resources=True).count()
+        edcount = event_registered.objects.filter(registered_to=event,registered_to__event_registered_details__ent_dev=True).count()
+        bmcount = event_registered.objects.filter(registered_to=event,registered_to__event_registered_details__best_manager=True).count()
+        total =  marketingcount+financecount+prcount+hrcount+edcount+bmcount
+        marketingcount = percentage(marketingcount,total)
+        financecount = percentage(financecount, total)
+        prcount = percentage(prcount, total)
+        hrcount = percentage(hrcount, total)
+        edcount = percentage(edcount, total)
+        bmcount = percentage(bmcount, total)
+        print(total)
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
@@ -75,7 +94,8 @@ def dashboard(request,core1='1',core2='2'):
 
     context = {"user":user, "event":event, "club":club,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
                'count5':count5, 'count6':count6,'registered':registered,'table1':table1,'table2':table2,
-               'core1':core1,'core2':core2}
+               'core1':core1,'core2':core2,'marketingcount':marketingcount,'financecount':financecount,
+               'prcount':prcount,'hrcount':hrcount,'edcount':edcount,'bmcount':bmcount}
     return render(request,'club_dash/dashboard.html',context)
 
 
@@ -84,10 +104,11 @@ def live(request, id):
     if event.live:
         event.live = False
         event.current = False
+        event.delete()
     else:
         event.live = True
         event.current = True
-    event.save()
+        event.save()
     return HttpResponseRedirect("/user/club_dashboard/")
 
 
@@ -143,7 +164,7 @@ def add_event(request,access = None):
             event.quota43 = 0
             event.quota53 = 0
             event.quota63 = 0
-        if request.POST.get("solo") != None:
+        if request.POST.get("solo",False) != None:
             event.team_size1 = event.team_size2 = event.team_size3 = event.team_size4 = event.team_size5 = event.team_size6 = 1
         else:
             event.team_size1 = event.team_size2 = event.team_size3 = event.team_size4 = event.team_size5 = event.team_size6 = request.POST.get("team")
@@ -449,6 +470,8 @@ def quotaset(request,id=None):
     event.quota43 = request.POST.get("quota43",0)
     event.quota53 = request.POST.get("quota53",0)
     event.quota63 = request.POST.get("quota63",0)
+    event.prefix = request.POST.get("prefix",'')
+    event.prefix = event.prefix.upper()
     event.save()
     return HttpResponseRedirect("/user/club_dashboard/")
 
@@ -456,7 +479,7 @@ def quotaset(request,id=None):
 def registered_members(request,id):
     user = request.user
     event = events.objects.get(id=id)
-    registered = event_registered.objects.filter(registered_to=event).order_by('current_user__student_detail__year')
+    registered = event_registered_details.objects.filter(event=event).order_by('-id')
     context = {'user':user,'registered':registered}
     return render(request, 'club_dash/registeredmembers.html',context)
 
@@ -475,16 +498,65 @@ def master_table(request, type):
 
 def teamCreate(request, id, type, size):
     event = events.objects.get(id=id)
-    if type == '1':
+    type = int (type)
+    registered = None
+    if type == 1:
         registered = event_registered_details.objects.filter(event=event,marketing=True)
-    if type == '2':
+    if type == 2:
         registered = event_registered_details.objects.filter(event=event,finance=True)
-    if type == '3':
+    if type == 3:
         registered = event_registered_details.objects.filter(event=event,public_relations=True)
-    if type == '4':
+    if type == 4:
         registered = event_registered_details.objects.filter(event=event,human_resources=True)
-    if type == '5':
+    if type == 5:
         registered = event_registered_details.objects.filter(event=event,ent_dev=True)
-    if type == '6':
+    if type == 6:
         registered = event_registered_details.objects.filter(event=event,best_manager=True)
+    firstmember = None
+    secondmember = None
+    thirdmember = None
+    for student in registered:
+        if student.student.student_detail.year == 'First':
+            if firstmember == None:
+                firstmember = student
+            else:
+                firstmember = firstmember | student
+        elif student.student.student_detail.year == 'Second':
+            if secondmember == None:
+                secondmember = student
+            else:
+                secondmember = secondmember | student
+        elif student.student.student_detail.year == 'Third':
+            if thirdmember == None:
+                thirdmember = student
+            else:
+                thirdmember = thirdmember | student
+    while 1:
+        if len(firstmember) > len(secondmember):
+            temp = firstmember
+            firstmember = secondmember
+            secondmember = temp
+        if len(secondmember) > len(thirdmember):
+            temp = secondmember
+            secondmember = thirdmember
+            thirdmember = temp
+        if len(firstmember) >= len(secondmember) >= len(thirdmember):
+            break
 
+    for first in firstmember:
+        team = teams(event=event,type=type)
+        team.member1 = first
+        for second in secondmember:
+            team.member2 = second
+            #if thirdmember is none, skip and make member 3 = object from member2
+            for third in thirdmember:
+                team.member3 = third
+                if third in thirdmember:
+                    thirdmember.remove(third)
+                break
+            if second in secondmember:
+                thirdmember.remove(second)
+            break
+        if first in firstmember:
+            firstmember.remove(first)
+        break

@@ -197,6 +197,8 @@ def new_club(request):
         club.video = form.cleaned_data.get("video")
         club.website = form.cleaned_data.get("website")
         club.about = form.cleaned_data.get("about")
+        if (len(club.about)<1000):
+            club.about = club.about + '.                                                                                                     .'
         if form.cleaned_data.get("logo", False):
             club.logo =  form.cleaned_data.get("logo")
         request.user.activated = True
