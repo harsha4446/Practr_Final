@@ -9,23 +9,21 @@ def dashboard(request):
     event = events.objects.get(email=details.club, current=True)
     all_rounds = rounds.objects.filter(email=event, type=details.type)
     register = 0
-    try:
-        club = clubs.objects.get(id=details.club.id)
-        if type == '1':
-            register = event_registered_details.objects.filter(event=event, marketing=True).count()
-        elif type == '2':
-            register = event_registered_details.objects.filter(event=event, finance=True).count()
-        elif type == '3':
-            register = event_registered_details.objects.filter(event=event, public_relations=True).count()
-        elif type == '4':
-            register = event_registered_details.objects.filter(event=event, human_resources=True).count()
-        elif type == '5':
-            register = event_registered_details.objects.filter(event=event, ent_dev=True).count()
-        elif type == '6':
-            register = event_registered_details.objects.filter(event=event, best_manager=True).count()
-    except register_table.DoesNotExist:
-        register = 0
-    context = {'all_rounds': all_rounds, 'user': request.user, 'event': event.id, 'type': details.type, 'count': register}
+    corename = None
+    if details.type == 1:
+        corename = 'Marketing'
+    elif details.type == 2:
+        corename = 'Finance'
+    elif details.type == 3:
+        corename = 'Public Relations'
+    elif details.type == 5:
+        corename = 'Human Resource'
+    elif details.type == 1:
+        corename = 'Entrepreneurship Development'
+    elif details.type == 6:
+        corename = 'Best Manager'
+    context = {'all_rounds': all_rounds, 'user': request.user, 'event': event.id, 'type': details.type, 'count': register,
+               'corename':corename}
     return render(request, 'club_dash/case_view.html', context)
 
 def judge_view(request,id):
@@ -49,7 +47,8 @@ def assessment(request,pk=None,id=None):
         judging = student.objects.get(id=pk)
         scores = round_scores.objects.get(student=judging,round=round)
     if request.POST:
-        scores.question1 = request.POST.get("question1")
+        scores.judged = True
+        scores.question1 = request.POST.get("question1",0)
         scores.question2 = request.POST.get("question2",0)
         scores.question3 = request.POST.get("question3",0)
         scores.question4 = request.POST.get("question4",0)
@@ -61,9 +60,8 @@ def assessment(request,pk=None,id=None):
         scores.rebuttal = request.POST.get("rebuttal1",0)
         scores.presentation = request.POST.get("presentation1",0)
         scores.feedback = request.POST.get("feedback",'')
-        scores.judged = True
         scores.total = int (scores.question1)+int(scores.question2)+int(scores.question3)+int(scores.question4)+int(scores.question5)+int(scores.creativity)+int(scores.feasibility)+int(scores.content)+int(scores.communication)+int(scores.rebuttal)+int(scores.presentation)
         scores.save()
-        return HttpResponseRedirect("/user/judge_dashboard")
+        return HttpResponseRedirect("/user/judge_dashboard/judge_view/"+id)
     context = {'user':user,'round':round,'scores':scores}
     return render(request,'judge_dash/assessment_form.html',context)

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Practr - Applied Learning Platform</title>
+<title>Performance Review</title>
 
 <!-- Fonts Online -->
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
@@ -32,14 +32,14 @@
   </div>
 
   <section class="demo-section">
-    <h6 class="demo-section-title container" style="text-align: center">Congratulations on completing the completing {{ round.title }}. Here is your performance review.</h6>
+    <h6 class="demo-section-title container" style="text-align: center">Congratulations {{ scores.student.name }} on completing the completing {{ round.title }}. Here is your performance review.</h6>
 
           <!-- end .uou-block-6a -->
 
         <div class="uou-block-5b" class="col-sm-4" style="margin-top:20px">
           <div class="uou-block-6a rounded"> <img src="{{ round.email.logo.url }}" alt="" style="height: 180px;width: 180px;">
             <h6>{{ round.title }} <span>{{ round.sub_title }}</span></h6>
-            <p>{{ round.about }}</p>
+              <div id="about" >{{ round.about }} </div>
           </div>
           <!-- end .uou-block-6a -->
         </div>
@@ -193,5 +193,12 @@
 <script src="{% static 'js/owl.carousel.min.js'%}"></script>
 <script src="{% static 'js/gmap3.min.js'%}"></script>
 <script src="{% static 'js/scripts.js'%}"></script>
+<script>
+        $('#about').each(function(){
+            var $this = $(this);
+            var t = $this.text();
+            $this.html(t.replace('&lt','<').replace('&gt', '>'));
+});
+    </script>
 </body>
 </html>

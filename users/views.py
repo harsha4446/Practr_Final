@@ -208,6 +208,7 @@ def new_club(request):
     context = {"form": form, "user": user, 'all_colleges':all_colleges, 'club':club}
     return render(request, 'home/new_club.html', context)
 
+
 def case_view(request,id):
     round = rounds.objects.get(id=id)
     form = dataForm(request.POST or None, request.FILES or None)

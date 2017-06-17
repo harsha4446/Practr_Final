@@ -8,15 +8,15 @@ from django.http import HttpResponseRedirect
 
 def updateScores(scores):
     for object in scores:
-        studentscore, created = student_scores.objects.get_or_create(username=object.student)
+        studentscore = student_scores.objects.get(username=object.student)
         multiplier = rounds.objects.get(id=object.round.id)
         multiplier = multiplier.weight
-        studentscore.creativity = studentscore.creativity +  (multiplier*object.creativity)
-        studentscore.content = studentscore.content +(multiplier * object.content)
-        studentscore.presentation =studentscore.presentation + (multiplier * object.presentation)
-        studentscore.rebuttal = studentscore.rebuttal + (multiplier * object.rebuttal)
-        studentscore.communication = studentscore.communication + (multiplier * object.communication)
-        studentscore.feasibility = studentscore.feasibility + (multiplier * object.feasibility)
+        studentscore.creativity = int (studentscore.creativity +  (multiplier*object.creativity))
+        studentscore.content = int (studentscore.content +(multiplier * object.content))
+        studentscore.presentation = int (studentscore.presentation + (multiplier * object.presentation))
+        studentscore.rebuttal = int (studentscore.rebuttal + (multiplier * object.rebuttal))
+        studentscore.communication = int (studentscore.communication + (multiplier * object.communication))
+        studentscore.feasibility = int (studentscore.feasibility + (multiplier * object.feasibility))
         studentscore.save()
 
 
@@ -59,7 +59,6 @@ def dashboard(request,core1='1',core2='2'):
         hrcount = percentage(hrcount, total)
         edcount = percentage(edcount, total)
         bmcount = percentage(bmcount, total)
-        print(total)
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
@@ -143,6 +142,8 @@ def add_event(request,access = None):
         event.firstyear = request.POST.get("first",False)
         event.secondyear = request.POST.get("second",False)
         event.thirdyear = request.POST.get("third",False)
+        event.prefix = request.POST.get("prefix")
+        event.prefix = event.prefix.upper()
         if not event.firstyear:
             event.quota11 = 0
             event.quota21 = 0
@@ -365,9 +366,10 @@ def audience(request, event,type):
     round = rounds.objects.get(id=id)
     #round.enddate = str (datetime.date.today)
     round.finished = True
-    if round.qualified == 0:
-        parameter = round_scores.objects.filter(round=round)
-        updateScores(parameter)
+    #if round.qualified == 0:
+    parameter = round_scores.objects.filter(round=round)
+    updateScores(parameter)
+    #if block section end
     round.qualified = request.POST.get("qualified")
     round.save()
     mainevent = events.objects.get(id=event)
@@ -377,7 +379,6 @@ def audience(request, event,type):
         userr.qualified = False
         userr.save()
     qualified = round_scores.objects.filter(round=round).order_by('-total')[:qualify]
-    print(qualified)
     for userq in qualified:
         userq.qualified = True
         userq.save()
@@ -426,6 +427,7 @@ def addSub(request,id,type):
     head = student.objects.create_user(email=username,password=password,phoneno=phone,name=name)
     head.club = True
     head.judge = True
+    head.activated = True
     head.save()
     set_type = judge_detail(email=head)
     set_type.type = type
@@ -447,6 +449,8 @@ def addSub(request,id,type):
     if type == '6':
         event.subhead6 = True
     event.save()
+    judge_setup = judge_detail(email=head,club=club,type=type)
+    judge_setup.save()
     return HttpResponseRedirect("/user/club_dashboard/")
 
 
@@ -471,7 +475,6 @@ def quotaset(request,id=None):
     event.quota53 = request.POST.get("quota53",0)
     event.quota63 = request.POST.get("quota63",0)
     event.prefix = request.POST.get("prefix",'')
-    event.prefix = event.prefix.upper()
     event.save()
     return HttpResponseRedirect("/user/club_dashboard/")
 
@@ -548,15 +551,20 @@ def teamCreate(request, id, type, size):
         team.member1 = first
         for second in secondmember:
             team.member2 = second
-            #if thirdmember is none, skip and make member 3 = object from member2
-            for third in thirdmember:
-                team.member3 = third
-                if third in thirdmember:
-                    thirdmember.remove(third)
-                break
+            if thirdmember == None:
+                if second in secondmember:
+                    secondmember.remove(second)
+                    for second in secondmember:
+                        team.member3 = second
+            else:
+                for third in thirdmember:
+                    team.member3 = third
+                    if third in thirdmember:
+                        thirdmember.remove(third)
+                        break
             if second in secondmember:
                 thirdmember.remove(second)
-            break
+                break
         if first in firstmember:
             firstmember.remove(first)
-        break
+            team.save()

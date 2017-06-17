@@ -3,10 +3,10 @@
 {% load staticfiles %}
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png'%}" />
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png'%}" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Practr Student Dashboard</title>
+    <title>Cases</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -29,13 +29,13 @@
         Tip 3: you can change the color of the sidebar with data-background-color="white | black"
     -->
             <div class="logo">
-                <a href="http://www.practr.in" class="simple-text">
+                <a href="/home" class="simple-text">
                     Practr
                 </a>
             </div>
             <div class="logo logo-mini">
-                <a href="http://www.practr.in" class="simple-text">
-                    Ct
+                <a href="/home" class="simple-text">
+                    PR
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -70,6 +70,38 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                    {% if not user.judge %}
+                        <li>
+                        <a data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
+                            <i class="material-icons">image</i>
+                            <p>Core Events
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse in" id="pagesExamples">
+                            <ul class="nav">
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/1">Marketing</a>
+                                </li>
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/2">Finance</a>
+                                </li>
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
+                                </li>
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
+                                </li>
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
+                                </li>
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -260,7 +292,7 @@
                                                     {% else %}
                                                     <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ count }}</a></td>
                                                     {% endif %}
-                                                    <td class="text-center" data-toggle="modal" data-target="#teamsize{{ round.id }}">{% if round.team_size == 1 %}Solo{% else %}Team{% endif %}</td>
+                                                    <td class="text-center">{% if round.team_size == 1 %}Solo{% else %}Team{% endif %}</td>
                                                     <td class="text-center"> {% if round.deadline %}{{ round.deadline }}{% else %}Not Set{% endif %}</td>
 {#                                                    <td class="text-center" data-toggle="modal" data-target="#rooms{{ round.id }}">Manage Rooms and Judges</td>#}
                                                     <td class="text-center"><a href="/user/club_dashboard/result/{{ round.id }}/">Submissions</a></td>
@@ -527,32 +559,6 @@
 {#                                                           </div>#}
 {#                                                        </div>#}
 {#                                                    </div>#}
-                                                    <div class="modal fade" id="teamsize{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                         <div class="modal-dialog">
-                                                           <div class="modal-content">
-                                                             <div class="modal-header">
-                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                                 <i class="material-icons">clear</i>
-                                                               </button>
-                                                               <div  style="text-align: center;">
-                                                               <h4 class="modal-title">Round Team Size?</h4>
-                                                               </div>
-                                                             </div>
-                                                             <div class="modal-body">
-                                                             <div  style="text-align: center;">
-                                                                 <form method="post" action="/user/club_dashboard/teamSize/{{ round.id }}/{{ event }}/{{ type }}/">
-                                                                     {% csrf_token %}
-                                                                     <input type="text" name="team_size" class="form-control" value="" />
-                                                                 <br><br>
-                                                                 <div class="footer text-center">
-                                                                    <button type="submit" class="btn btn-primary btn-round">Submit</button>
-                                                                </div>
-                                                                 </form>
-                                                             </div>
-                                                            </div>
-                                                           </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="modal fade" id="allRooms{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                          <div class="modal-dialog">
                                                            <div class="modal-content">
@@ -622,9 +628,11 @@
                                                         </button>
                                                         </a>
                                                     {% endif %}
+                                                    {% if not round.published %}
                                                     <button type="button" rel="tooltip" class="btn btn-success" title="Edit Case">
                                                             <i class="material-icons">edit</i>
                                                         </button>
+                                                    {% endif %}
                                                     {% if not round.published %}
                                                         <button type="button" rel="tooltip" class="btn btn-danger" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/delRound/{{ round.id }}')"  title="Delete Case">
                                                             <i class="material-icons">close</i>
@@ -653,17 +661,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
+                                <a href="https://www.facebook.com/practr/?fref=nf">
                                     Blog
                                 </a>
                             </li>
@@ -674,7 +672,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        <a href="/home">Practr</a>, made for you
                     </p>
                 </div>
             </footer>
@@ -758,6 +756,7 @@
              document.getElementById("judge").innerHTML = judges;
              document.getElementById("total").innerHTML = total;
          }
+
 
 </script>
 </html>

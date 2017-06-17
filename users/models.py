@@ -30,11 +30,11 @@ class CustomUserManager(BaseUserManager):
 
 
 def upload_loction(object, filename):
-    return "%s/%s" %(object.email , filename)
+    return "%s/%s" %(object.name , filename)
 
 
 def round_data(object, filename):
-    return "%s/%s" %(object.student.email , filename)
+    return "%s/%s" %(object.student.name , filename)
 
 
 class student(AbstractBaseUser):
@@ -91,7 +91,7 @@ class student_scores(models.Model):
     rebuttal = models.IntegerField(default=0)
     communication = models.IntegerField(default=0)
     feasibility = models.IntegerField(default=0)
-    question1 = models.IntegerField(default=0)
+    question1 = models.IntegerField(default=0, blank=True)
     question2 = models.IntegerField(default=0, blank=True)
     question3 = models.IntegerField(default=0, blank=True)
     question4 = models.IntegerField(default=0, blank=True)
@@ -270,14 +270,14 @@ class rounds(models.Model):
     club = models.ForeignKey(clubs, default='')
     ext_judge = models.BooleanField(default=False)
     title = models.CharField(max_length=150, default='')
-    sub_title = models.CharField(max_length=150, default='')
-    about = models.CharField(max_length=400, default='')
-    task1 = models.CharField(max_length=150, default='')
+    sub_title = models.CharField(max_length=150, default='',blank=True)
+    about = models.CharField(max_length=400, default='',blank=True)
+    task1 = models.CharField(max_length=150, default='',blank=True)
     task2 = models.CharField(max_length=150, default='', blank=True)
     tast3 = models.CharField(max_length=150, default='', blank=True)
     task4 = models.CharField(max_length=150, default='', blank=True)
     task5 = models.CharField(max_length=150, default='', blank=True)
-    resource1 = models.CharField(max_length=150, default='')
+    resource1 = models.CharField(max_length=150, default='',blank=True)
     resource2 = models.CharField(max_length=150, default='', blank=True)
     resource3 = models.CharField(max_length=150, default='', blank=True)
     resource4 = models.CharField(max_length=150, default='', blank=True)
@@ -294,21 +294,21 @@ class rounds(models.Model):
     communication = models.BooleanField(default=False)
     feasibility = models.BooleanField(default=False)
     feedback = models.BooleanField(default=False)
-    question1 = models.CharField(max_length=150, default='')
+    question1 = models.CharField(max_length=150, default='',blank=True)
     core1 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
     question2 = models.CharField(max_length=150, default='', blank=True)
     core2 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
     question3 = models.CharField(max_length=150, default='', blank=True)
     core3 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
     question4 = models.CharField(max_length=150, default='', blank=True)
     core4 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
     question5 = models.CharField(max_length=150, default='', blank=True)
     core5 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=8)
+                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
     type = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
     published = models.BooleanField(default=False)
@@ -494,11 +494,11 @@ class judge_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
     club = models.ForeignKey(clubs,default='')
     type = models.IntegerField(default=0)
-    degree = models.CharField(max_length=100, default='')
-    website = models.CharField(default='', max_length=500)
-    designation = models.CharField(max_length=100,default='')
+    degree = models.CharField(max_length=100, default='',blank=True,null=True)
+    website = models.CharField(default='', max_length=500,blank=True,null=True)
+    designation = models.CharField(max_length=100,default='',blank=True,null=True)
     industry_exp = models.IntegerField(default=0)
-    college = models.CharField(max_length=150, default='')
+    college = models.CharField(max_length=150, default='',blank=True,null=True)
 
     def __str__(self):
         return self.email.email

@@ -3,11 +3,11 @@
 {% load staticfiles %}
 <head>
 	<meta charset="utf-8" />
-	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets_old/img/apple-icon.png'%}">
-	<link rel="icon" type="image/png" href="{% static 'assets_old/img/favicon.png'%}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets_old/img/practr_small.png'%}">
+	<link rel="icon" type="image/png" href="{% static 'assets_old/img/practr_small.png'%}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="stylesheet" href="{% static 'assets/css/style.css'%}">
-	<title>Material Kit by Creative Tim</title>
+	<title>Assessment Form</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -68,13 +68,13 @@
                         {{ scores.data1 }}
                         {{ scores.data2 }}
                         {{ scores.data3 }}
-
+ u
 					</div>
 				</div>
 			</div>
 		</div>
             <div class="container">
-            <form method="post" action="/user/judge_dashboard/judge_view/{{ round.id }}/">
+            <form method="post" action="/user/judge_dashboard/judge/{{ scores.student.id }}/{{ round.id }}/">
             <input type="range" min="1" max="100" id="total" step="1" disabled/>
             {% csrf_token %}
                 <div class="col-md-8 col-md-offset-2">
@@ -84,11 +84,11 @@
                                 <h4>How much would you rate their Creativity</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="{{ round.creativityvalue}}" id="sg1" step="1" onchange="creativity(1)"/>
+                                    <input type="range" min="1" max="{{ round.creativityvalue}}" id="sg1" step="1" value="0" onchange="creativity(1)"/>
                                     <div class="pull-right">
                                         {{ round.creativityvalue }}
                                     </div>
-                                    <input type="text" name="creativity1" id="sp1" onchange="creativity(2)"/>
+                                    <input type="text" name="creativity1" id="sp1" value="0" onchange="creativity(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -96,11 +96,11 @@
                                 <h4>How much would you rate their Content</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="{{ round.contentvalue}}" id="sg2" step="1" onchange="content(1)"/>
+                                    <input type="range" min="1" max="{{ round.contentvalue}}" id="sg2" step="1" value="0" onchange="content(1)"/>
                                     <div class="pull-right">
                                         {{ round.contentvalue }}
                                     </div>
-                                    <input type="text" name="content1" id="sp2" onchange="content(2)"/>
+                                    <input type="text" name="content1" id="sp2" value="0" onchange="content(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -108,11 +108,11 @@
                                 <h4>How much would you rate their Presentation</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="{{ round.presentationvalue}}" id="sg3" step="1" onchange="presentation(1)"/>
+                                    <input type="range" min="1" max="{{ round.presentationvalue}}" id="sg3" step="1" value="0" onchange="presentation(1)"/>
                                     <div class="pull-right">
                                         {{ round.presentationvalue }}
                                     </div>
-                                    <input type="text" name="presentation1" id="sp3" onchange="presentation(2)"/>
+                                    <input type="text" name="presentation1" id="sp3" value="0" onchange="presentation(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -120,11 +120,11 @@
                                 <h4>How much would you rate their Rebuttal</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="0" max="{{ round.rebuttalvalue}}" id="sg4" step="1" onchange="rebuttal(1)"/>
+                                    <input type="range" min="0" max="{{ round.rebuttalvalue}}" id="sg4" step="1" value="0" onchange="rebuttal(1)"/>
                                     <div class="pull-right">
                                         {{ round.rebuttalvalue }}
                                     </div>
-                                    <input type="text" name="rebuttal1" id="sp4" onchange="rebuttal(2)"/>
+                                    <input type="text" name="rebuttal1" id="sp4" value="0" onchange="rebuttal(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -132,11 +132,11 @@
                                 <h4>How much would you rate their Communication</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="{{ round.communicationvalue}}" id="sg5" step="1" onchange="communication(1)"/>
+                                    <input type="range" min="1" max="{{ round.communicationvalue}}" id="sg5" step="1" value="0" onchange="communication(1)"/>
                                     <div class="pull-right">
                                         {{ round.communicationvalue }}
                                     </div>
-                                    <input type="text" name="communication1" id="sp5" onchange="communication(2)"/>
+                                    <input type="text" name="communication1" id="sp5" value="0" onchange="communication(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -144,11 +144,11 @@
                                 <h4>How much would you rate their Feasibility</h4>
                                 <br>
                                 <div>
-                                    <input type="range" min="1" max="{{ round.feasibilityvalue}}" id="sg6" step="1" onchange="feasability(1)"/>
+                                    <input type="range" min="1" max="{{ round.feasibilityvalue}}" id="sg6" step="1" value="0" onchange="feasability(1)"/>
                                     <div class="pull-right">
                                         {{ round.feasibilityvalue }}
                                     </div>
-                                    <input type="text" name="feasibility1" id="sp6"  onchange="feasability(2)"/>
+                                    <input type="text" name="feasibility1" id="sp6" value="0"  onchange="feasability(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -160,11 +160,11 @@
 							<h4>{{ round.question1 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get1" step="1" onchange="fetch1(1)"/>
+                                    <input type="range" min="1" max="7" id="get1" step="1" value="0" onchange="fetch1(1)"/>
                                     <div class="pull-right">
                                         7
                                     </div>
-                                    <input type="text" id="put1" name="question1" onchange="fetch1(2)"/>
+                                    <input type="text" id="put1" name="question1" value="0" onchange="fetch1(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -175,11 +175,11 @@
 							<h4>{{ round.question2 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get2" step="1" onchange="fetch2(1)"/>
+                                    <input type="range" min="1" max="7" id="get2" step="1" value="0" onchange="fetch2(1)"/>
                                     <div class="pull-right">
                                         7
                                     </div>
-                                    <input type="text" id="put2"  name="question2" onchange="fetch2(2)"/>
+                                    <input type="text" id="put2"  name="question2" value="0" onchange="fetch2(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -190,11 +190,11 @@
 							<h4>{{ round.question3 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get3" step="1" onchange="fetch3(1)"/>
+                                    <input type="range" min="1" max="7" id="get3" step="1" value="0" onchange="fetch3(1)"/>
                                     <div class="pull-right">
                                         7
                                     </div>
-                                    <input type="text" id="put3" name="question3" onchange="fetch3(2)"/>
+                                    <input type="text" id="put3" name="question3" value="0" onchange="fetch3(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -205,11 +205,11 @@
 							<h4>{{ round.question4 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get4" step="1" onchange="fetch4(1)"/>
+                                    <input type="range" min="1" max="7" id="get4" step="1" value="0" onchange="fetch4(1)"/>
                                     <div class="pull-right">
                                         7
                                     </div>
-                                    <input type="text" id="put4" name="question4" onchange="fetch4(2)"/>
+                                    <input type="text" id="put4" name="question4" value="0" onchange="fetch4(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -220,18 +220,17 @@
 							<h4>{{ round.question5 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get5" step="1" onchange="fetch5(1)"/>
+                                    <input type="range" min="1" max="7" id="get5" step="1" value="0" onchange="fetch5(1)"/>
                                     <div class="pull-right">
                                         7
                                     </div>
-                                    <input type="text" id="put5" name="question5" onchange="fetch5(2)"/>
+                                    <input type="text" id="put5" name="question5" value="0" onchange="fetch5(2)"/>
                                 </div>
                             <br>
 				</div>
                 {%endif%}
                 <div class="title">
                         <h2>Overall Comments</h2><br>
-						<h3>Section Seven<br/></h3>
 				        <div>
                             <div class="form-group label-floating">
 								<label class="control-label">Feedback</label>
@@ -241,12 +240,14 @@
 				</div>
 		        <div id="buttons">
 					<div>
+                            {% if user.judge %}
                             <button type="submit" class="btn btn-primary btn-round">
 				                Submit
 							</button>
-							<button style="margin-left:20px;" class="btn btn-primary btn-round">
-								<i class="material-icons">favorite</i> Endorse and Submit.
-							</button>
+{#							<button style="margin-left:20px;" class="btn btn-primary btn-round">#}
+{#								<i class="material-icons">favorite</i> Endorse and Submit.#}
+{#							</button>#}
+                            {% endif %}
 						</div>
 					</div>
                 </div>

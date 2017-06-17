@@ -221,8 +221,9 @@ def event_register(request, id = None):
         else:
             event_registered.register(current_user, event)
             details, created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-            details.human_resources = request.POST.get("human_resources2",False)
+            print(request.POST.get("marketing2",False))
             details.marketing = request.POST.get("marketing2",False)
+            details.human_resources = request.POST.get("human_resources2",False)
             details.finance = request.POST.get("finance2",False)
             details.public_relations = request.POST.get("public_relations2",False)
             details.best_manager = request.POST.get("best_manager2",False)

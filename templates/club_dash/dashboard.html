@@ -3,10 +3,10 @@
 {% load staticfiles %}
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png'%}" />
-    <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png'%}" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Practr Student Dashboard</title>
+    <title>Club Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -29,13 +29,13 @@
         Tip 3: you can change the color of the sidebar with data-background-color="white | black"
     -->
             <div class="logo">
-                <a href="http://www.practr.in" class="simple-text">
+                <a href="/home" class="simple-text">
                     Practr
                 </a>
             </div>
             <div class="logo logo-mini">
-                <a href="http://www.practr.in" class="simple-text">
-                    Ct
+                <a href="/home" class="simple-text">
+                    PR
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -69,6 +69,48 @@
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#coreevents" aria-expanded="false">
+                            <i class="material-icons">image</i>
+                            <p>Core Events
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse in" id="coreevents">
+                            <ul class="nav">
+                                {% if event.marketing %}
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/1">Marketing</a>
+                                </li>
+                                {% endif %}
+                                {% if event.finance %}
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/2">Finance</a>
+                                </li>
+                                {% endif %}
+                                {% if event.public_relations %}
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
+                                </li>
+                                {% endif %}
+                                {% if event.human_resources %}
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
+                                </li>
+                                {% endif %}
+                                {% if event.ent_dev %}
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
+                                </li>
+                                {% endif %}
+                                {% if event.best_manager %}
+                                <li>
+                                    <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -168,7 +210,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <h3><b>Registrations: </b>
+                                        <h3><b>Registrations </b>
                                         <i class="material-icons">keyboard_arrow_down</i>
                                         </h3>
                                     </a>
@@ -266,10 +308,7 @@
                                                         </div>
                                                         <div class="modal-footer text-center">
                                                             <h6>Quota can be increased later</h6>
-                                                            <div class="col-xs-3 col-md-offset-4">
-                                                                <input type="text" name="prefix" maxlength="4" class="form-control" value="{{ event.prefix }}">
-                                                            </div>
-                                                            <br><br><br><br>
+                                                            <br><br>
                                                             <button type="submit" class="btn btn-info btn-round">Sounds good!</button>
                                                         </div>
                                                         </form>
@@ -279,7 +318,6 @@
                                             <div class="col-md-7">
                                                 <div class="card">
                                                     <div id="piebhai" class="ct-chart"></div>
-
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -290,6 +328,7 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <h4 class="card-title">Recent Registrations</h4>
+                                 <small>view all</small>
                             <br><br>
                                 <div class="card-content">
                                     <div class="table-responsive">
@@ -310,7 +349,9 @@
                                                     <td> {{ student.student.name }}</td>
                                                     <td class="text-left"> {{ student.student.phoneno }}</td>
                                                     <td> {{ student.student.student_detail.year }}</td>
-                                                    <td>Marketing</td>
+                                                    <td>{% if student.marketing %}MKT {% endif %}{% if student.finance %} FIN {% endif %}
+                                                    {% if student.public_relations %} PR {% endif %}{% if student.human_resources %} HR {% endif %}
+                                                    {% if student.ent_dev %} ED {% endif %}{% if student.best_manager %} BM{% endif %}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -329,7 +370,7 @@
               <div class="panel-heading" role="tab" id="headingTwo">
                 <a crole="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                   <h3>
-                    <b>Events:</b>
+                    <b>Events</b>
                     <i class="material-icons">keyboard_arrow_down</i>
                    </h3>
                 </a>
@@ -356,7 +397,33 @@
                                         <h3 class="card-title">Cases: {{ count1 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1/0" class="btn btn-rose btn-round">Create Case</a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#mkt">Create Case</button>
+                                    <div class="modal fade" id="mkt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -407,7 +474,33 @@
                                         <h3 class="card-title">Cases: {{ count2 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/2/0" class="btn btn-rose btn-round">Create Case</a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#fin">Create Case</button>
+                                    <div class="modal fade" id="fin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/2/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/2/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -458,7 +551,33 @@
                                         <h3 class="card-title">Cases: {{ count3 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/3/0" class="btn btn-rose btn-round">Create Case</a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#pr">Create Case</button>
+                                    <div class="modal fade" id="pr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/3/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/3/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -504,12 +623,38 @@
                                             {% endif %}
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/4">
                                         <div class="icon icon-rose">
-                                            <i class="material-icons">wc</i>
+                                            <i class="material-icons">supervisor_account</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count4 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/4/0" class="btn btn-rose btn-round">Create Case</a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#hr">Create Case</button>
+                                    <div class="modal fade" id="hr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/4/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/4/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -555,12 +700,38 @@
                                             {% endif %}
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/5">
                                         <div class="icon icon-rose">
-                                            <i class="material-icons">gesture</i>
+                                            <i class="material-icons">rowing</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count5 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/5/0" class="btn btn-rose btn-round">Create Case</a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#ed">Create Case</button>
+                                    <div class="modal fade" id="ed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/5/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/5/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -606,12 +777,38 @@
                                             {% endif %}
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/6">
                                         <div class="icon icon-rose">
-                                            <i class="material-icons">local_library</i>
+                                            <i class="material-icons">visibility</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count6 }}</h3>
                                         <br>
                                         </a>
-                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/6/0" class="btn btn-rose btn-round">Create Case</a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#bm">Create Case</button>
+                                    <div class="modal fade" id="bm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Where shall we look?</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/6/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/6/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -652,7 +849,7 @@
                <div class="panel-heading" role="tab" id="headingThree">
                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                        <h3>
-                           <b>Performance:</b>
+                           <b>Performance</b>
                            <i class="material-icons">keyboard_arrow_down</i>
                        </h3>
                    </a>
@@ -668,7 +865,8 @@
                                    <h4 class="card-title">Top 10</h4>
                                    <div style="text-align: right">
                                                     <div class="dropdown">
-                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">Select Core Event
+                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core1 == '1' %}Marketing{% elif core1 == '2' %}Finance{% elif core1 == '3' %}Public Relations
+                                                            {% elif core1 == '4'%}Human Resource{% elif core1 == '5' %}Entrepreneurship Development{% else %}Best Manager{% endif %}
                                                             <b class="caret"></b>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-left">
@@ -743,7 +941,8 @@
                                     <h4 class="card-title">Top 10</h4>
                                     <div style="text-align: right">
                                                     <div class="dropdown">
-                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">Select Core Event
+                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core2 == '1' %}Marketing{% elif core2 == '2' %}Finance{% elif core2 == '3' %}Public Relations
+                                                            {% elif core2 == '4'%}Human Resource{% elif core2 == '5' %}Entrepreneurship Development{% else %}Best Manager{% endif %}
                                                             <b class="caret"></b>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-left">

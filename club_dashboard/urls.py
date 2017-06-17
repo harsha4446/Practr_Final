@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^registration/(?P<id>\d+)/$', views.activate_registraion,name='openRegistration'),
     url(r'^registered_members/(?P<id>\d+)/$', views.registered_members, name='members'),
     url(r'^masterTable/(?P<type>\d+)/$', views.master_table, name='master'),
+    url(r'^teams/(?P<id>\d+)/(?P<type>\d+)/(?P<size>\d+)/$', views.teamCreate, name='teamcreate'),
 ]

@@ -3,10 +3,10 @@
 {% load staticfiles %}
 <head>
 	<meta charset="utf-8" />
-	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets_old/img/apple-icon.png'%}">
-	<link rel="icon" type="image/png" href="{% static 'assets_old/img/favicon.png'%}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}">
+	<link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Get Shit Done Bootstrap Wizard by Creative Tim</title>
+	<title>Create Event</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -15,30 +15,19 @@
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
 
 	<!-- CSS Files -->
-    <link href="{% static 'assets_old/css/bootstrap.min.css'%}" rel="stylesheet" />
-	<link href="{% static 'assets_old/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+	<link href="{% static 'assets/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link href="{%static 'assets_old/css/demo.css'%}" rel="stylesheet" />
+	<link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
 </head>
 <body>
-<div class="image-container set-full-height" style="background-image: url('{% static 'assets_old/img/wizard.jpg'%}')">
-    <!--   Creative Tim Branding   -->
-    <a href="http://creative-tim.com">
-         <div class="logo-container">
-            <div class="logo">
-                <img src="{% static 'assets_old/img/new_logo.png'%}">
-            </div>
-            <div class="brand">
-                {{ user.name }}
-            </div>
-        </div>
-    </a>
+<div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg'%}')">
 
 	<!--  Made With Get Shit Done Kit  -->
-		<a href="http://demos.creative-tim.com/get-shit-done/index.html?ref=get-shit-done-bootstrap-wizard" class="made-with-mk">
-			<div class="brand">GK</div>
-			<div class="made-with">Made with <strong>GSDK</strong></div>
+		<a href="/user/club_dashboard" class="made-with-mk">
+			<div class="brand">PR</div>
+			<div class="made-with">Made with <strong>Love</strong></div>
 		</a>
 
     <!--   Big container   -->
@@ -65,7 +54,7 @@
 							<ul>
 	                            <li><a href="#about" data-toggle="tab">About</a></li>
                                 <li><a href="#registration" data-toggle="tab">Setup</a></li>
-                                <li><a href="#teams" data-toggle="tab">Format</a></li>
+{#                                <li><a href="#teams" data-toggle="tab">Format</a></li>#}
                                 <li><a href="#account" data-toggle="tab">Sub Events</a></li>
 	                        </ul>
 						</div>
@@ -76,7 +65,7 @@
                                   <div class="col-sm-4 col-sm-offset-1">
                                      <div class="picture-container">
                                           <div class="picture">
-                                              <img src="{% static 'assets_old/img/default-avatar.png'%}" class="picture-src" id="wizardPicturePreview" title=""/>
+                                              <img src="{% static 'assets/img/default-avatar.png'%}" class="picture-src" id="wizardPicturePreview" title=""/>
                                               {{ form.logo }}
                                           </div>
                                           <h6>Choose Picture</h6>
@@ -100,35 +89,36 @@
                                   </div>
                               </div>
                             </div>
-                            <div class="tab-pane" id="teams">
-                                <h4 class="info-text">What Format Are You Accpeting Registrations?</h4>
-                                <div class="row">
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4 col-sm-offset-2">
-                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Default Solo Event?">
-                                                <input type="radio" name="solo" value="Solo">
-                                                <div class="icon">
-                                                    <i class="fa fa-male"></i>
-                                                </div>
-                                                <h6>Solo</h6>
-                                            </div>
-                            </div>
-                             <div class="col-sm-4">
-                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Team Event?">
-                                <a href="#default" data-toggle="modal">
-                                                <input type="radio" name="team" value="">
-                                                <div class="icon">
-                                                    <i class="fa fa-group"></i>
-                                                </div>
-                                                <h6>Team</h6>
-                                </a>
-                            </div>
-                             </div>
-                                    </div>
-                                </div>
-                            </div>
+{#                            <div class="tab-pane" id="teams">#}
+{#                                <h4 class="info-text">What Format Are You Accepting Registrations?</h4>#}
+{#                                <h5 class="info-text">You can change the format later</h5>#}
+{#                                <div class="row">#}
+{#                                    <div class="col-sm-10 col-sm-offset-1">#}
+{#                                        <div class="col-sm-4 col-sm-offset-2">#}
+{#                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Default Solo Event?">#}
+{#                                                <input type="radio" name="solo" value="Solo">#}
+{#                                                <div class="icon">#}
+{#                                                    <i class="fa fa-male"></i>#}
+{#                                                </div>#}
+{#                                                <h6>Solo</h6>#}
+{#                                            </div>#}
+{#                            </div>#}
+{#                             <div class="col-sm-4">#}
+{#                            <div class="choice" data-toggle="wizard-radio" disabled='True' rel="tooltip" title="Team Registrations Coming Soon!">#}
+{#                                <a href="#default" data-toggle="modal">#}
+{#                                                <input type="radio" name="team" value="" disabled>#}
+{#                                                <div class="icon">#}
+{#                                                    <i class="fa fa-group"></i>#}
+{#                                                </div>#}
+{#                                                <h6>Team</h6>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                             </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
                             <div class="tab-pane" id="registration">
-                                <h4 class="info-text">Allow Student To Register for Multiple Events?</h4>
+                                <h4 class="info-text">Allow Students To Register for Multiple Events?</h4>
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="col-sm-4 col-sm-offset-2">
@@ -152,12 +142,16 @@
                                     </div>
                                 </div>
                                 <br><br>
-                                <h4 class="info-text">Accepting Students From</h4>
+                                <h4 class="info-text">Accepting Registrations From</h4>
                                 <div class="info-text">
                                     <input style="margin: 10px" type="checkbox" name="first" value="True">First Year
                                     <input style="margin: 10px" type="checkbox" name="second" value="True">Second Year
                                     <input style="margin: 10px" type="checkbox" name="third" value="True">Third year
                                 </div>
+                                <div class="col-sm-3 col-sm-offset-4">
+                                    <input type="text" required name="prefix" minlength="3" maxlength="4" class="form-control" value="{{ event.prefix }}" placeholder="Prefix">
+                                </div>
+                                <br><br><br><br><br>
                             </div>
                         <div class="tab-pane" id="account">
                                 <h4 class="info-text"> What are your Sub Events </h4>
@@ -176,7 +170,7 @@
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.finance }}
                                                 <div class="icon">
-                                                    <i class="fa fa-terminal"></i>
+                                                    <i class="fa fa-pencil"></i>
                                                 </div>
                                                 <h6>Finance</h6>
                                             </div>
@@ -185,7 +179,7 @@
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.public_relations }}
                                                 <div class="icon">
-                                                    <i class="fa fa-laptop"></i>
+                                                    <i class="fa fa-pencil"></i>
                                                 </div>
                                                 <h6>Public Relations</h6>
                                             </div>
@@ -194,7 +188,7 @@
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.human_resources }}
                                                 <div class="icon">
-                                                    <i class="fa fa-laptop"></i>
+                                                    <i class="fa fa-pencil"></i>
                                                 </div>
                                                 <h6>Human Resources</h6>
                                             </div>
@@ -203,7 +197,7 @@
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.ent_dev }}
                                                 <div class="icon">
-                                                    <i class="fa fa-laptop"></i>
+                                                    <i class="fa fa-pencil"></i>
                                                 </div>
                                                 <h6>Entrepreneurship Development</h6>
                                             </div>
@@ -212,7 +206,7 @@
                                             <div class="choice" data-toggle="wizard-checkbox">
                                                 {{ form.best_manager }}
                                                 <div class="icon">
-                                                    <i class="fa fa-laptop"></i>
+                                                    <i class="fa fa-pencil"></i>
                                                 </div>
                                                 <h6>Best Manager</h6>
                                             </div>
@@ -268,14 +262,14 @@
 </body>
 
 	<!--   Core JS Files   -->
-	<script src="{% static 'assets_old/js/jquery-2.2.4.min.js'%}" type="text/javascript"></script>
-	<script src="{% static 'assets_old/js/bootstrap.min.js'%}" type="text/javascript"></script>
-	<script src="{% static 'assets_old/js/jquery.bootstrap.wizard.js'%}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery-2.2.4.min.js'%}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery.bootstrap.wizard.js'%}" type="text/javascript"></script>
 
 	<!--  Plugin for the Wizard -->
-	<script src="{% static 'assets_old/js/gsdk-bootstrap-wizard.js'%}"></script>
+	<script src="{% static 'assets/js/gsdk-bootstrap-wizard.js'%}"></script>
 
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
-	<script src="{% static 'assets_old/js/jquery.validate.min.js'%}"></script>
+	<script src="{% static 'assets/js/jquery.validate.min.js'%}"></script>
 
 </html>

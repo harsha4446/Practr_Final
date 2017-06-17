@@ -1,7 +1,7 @@
 from django import forms
 from . models import student, interests, student_detail,judge_detail,colleges,clubs
 from django.contrib.auth import (authenticate,login,logout,get_user_model)
-from django.forms.extras import SelectDateWidget
+
 
 user = get_user_model()
 
@@ -18,6 +18,16 @@ class RegisterModel(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', }))
     password = forms.CharField(label='',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
+    def clean(self):
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise forms.ValidationError("Incorrent Username or Password")
+            if not user.check_password(password):
+                raise forms.ValidationError("Incorrent Password")
 
 
 DOY = ('1980', '1981', '1982', '1983', '1984', '1985', '1986', '1987',
