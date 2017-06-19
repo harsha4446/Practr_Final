@@ -122,8 +122,8 @@
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="col-sm-4 col-sm-offset-2">
-                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Allow Multiple Registrations">
-                                                <input type="radio" name="multi" value="Multiple Registration">
+                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Allow Multiple Registrations" onclick="test('multi')">
+                                                <input type="checkbox" name="multi" value="Multiple Registration" id="multi">
                                                 <div class="icon">
                                                     <i class="fa fa-group"></i>
                                                 </div>
@@ -131,8 +131,8 @@
                             </div>
                             </div>
                              <div class="col-sm-4">
-                                 <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Single Registation?">
-                                                <input type="radio" name="single" value="Single Registation">
+                                 <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Single Registation?" onclick="test('single')">
+                                                <input type="checkbox" name="single" value="Single Registation" id="single">
                                                 <div class="icon">
                                                     <i class="fa fa-male"></i>
                                                 </div>
@@ -271,5 +271,12 @@
 
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 	<script src="{% static 'assets/js/jquery.validate.min.js'%}"></script>
+    <script>
+        function test(variable) {
+            document.getElementById('single').checked = false;
+            document.getElementById('multi').checked = false;
+            document.getElementById(variable).checked = true;
+        }
+    </script>
 
 </html>

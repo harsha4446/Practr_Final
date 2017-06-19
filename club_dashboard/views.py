@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 
 def updateScores(scores):
     for object in scores:
-        studentscore = student_scores.objects.get(username=object.student)
+        studentscore,create = student_scores.objects.get_or_create(username=object.student)
         multiplier = rounds.objects.get(id=object.round.id)
         multiplier = multiplier.weight
         studentscore.creativity = int (studentscore.creativity +  (multiplier*object.creativity))

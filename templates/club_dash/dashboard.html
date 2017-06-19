@@ -318,6 +318,16 @@
                                             <div class="col-md-7">
                                                 <div class="card">
                                                     <div id="piebhai" class="ct-chart"></div>
+                                                    <div class="" style="text-align: center;">
+                                                        <h3>Legend:</h3>
+                                                        {% if event.marketing and marketingcount != 0 %}Marketing: {{ marketingcount }}%<br>{% endif %}
+                                                        {% if event.finance and financecount != 0%}Finance: {{ financecount }}%<br>{% endif %}
+                                                        {% if event.public_relations and prcount != 0 %}Public Relations: {{ prcount }}%<br>{% endif %}
+                                                        {% if event.human_resources and hrcount != 0 %}Human Resources: {{ hrcount }}%<br>{% endif %}
+                                                        {% if event.ent_dev and edcount != 0 %}Entrepreneurship Development: {{ edcount }}%<br>{% endif %}
+                                                        {% if event.best_manager and bmcount != 0 %}Best Manager: {{ bmcount }}%<br>{% endif %}
+                                                        <br>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">

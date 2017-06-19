@@ -57,13 +57,14 @@
 						</div>
                         <div class="tab-content">
                             <div class="tab-pane" id="core">
-                                <h4 class="info-text"> Which Core Events would you like to register for? </h4>
+                                <h4 class="info-text"> Which Core Event would you like to register for? </h4>
                                 <div class="row">
+                                <div class="form-group">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         {% if event.marketing and flag1 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio">
-                                                <input type="radio" name="marketing2" value="True">
+                                            <div class="choice" data-toggle="wizard-radio" onclick="test('mkt')">
+                                                <input type="checkbox" name="marketing" value="True" id="mkt">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
                                                 </div>
@@ -73,8 +74,8 @@
                                         {% endif %}
                                         {% if event.finance and flag2 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio">
-                                                <input type="radio" name="finance2" value="True">
+                                            <div class="choice" data-toggle="wizard-radio" onclick="test('fin')">
+                                                <input type="checkbox" name="finance" value="True" id="fin">
                                                 <div class="icon">
                                                     <i class="fa fa-terminal"></i>
                                                 </div>
@@ -84,8 +85,8 @@
                                         {% endif %}
                                         {% if event.public_relations and flag3 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio">
-                                                <input type="radio" name="public_relations2" value="True">
+                                            <div class="choice" data-toggle="wizard-radio"onclick="test('pr')">
+                                                <input type="checkbox" name="public_relations" value="True" id="pr">
                                                 <div class="icon">
                                                     <i class="fa fa-laptop"></i>
                                                 </div>
@@ -95,8 +96,8 @@
                                         {% endif %}
                                         {% if event.human_resources and flag4 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio">
-                                                <input type="radio" name="human_resources2" value="True">
+                                            <div class="choice" data-toggle="wizard-radio" onclick="test('hr')">
+                                                <input type="checkbox" name="human_resources" value="True" id="hr">
                                                 <div class="icon">
                                                     <i class="fa fa-laptop"></i>
                                                 </div>
@@ -106,8 +107,8 @@
                                         {% endif %}
                                         {% if event.ent_dev and flag5 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio">
-                                                <input type="radio" name="ent_dev2" value="True">
+                                            <div class="choice" data-toggle="wizard-radio" onclick="test('ed')">
+                                                <input type="checkbox" name="ent_dev" value="True" id="ed">
                                                 <div class="icon">
                                                     <i class="fa fa-laptop"></i>
                                                 </div>
@@ -117,8 +118,8 @@
                                         {% endif %}
                                         {% if event.best_manager and flag6 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio">
-                                                <input type="radio" name="best_manager2" value="True">
+                                            <div class="choice" data-toggle="wizard-radio" onclick="test('bm')">
+                                                <input type="checkbox" name="best_manager" value="True" id="bm">
                                                 <div class="icon">
                                                     <i class="fa fa-laptop"></i>
                                                 </div>
@@ -126,6 +127,7 @@
                                             </div>
                                         </div>
                                         {% endif %}
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -164,5 +166,17 @@
 
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 	<script src="{% static 'assets_old/js/jquery.validate.min.js'%}"></script>
+    <script>
+        function test(variable){
+            document.getElementById('mkt').checked = false;
+            document.getElementById('fin').checked = false;
+            document.getElementById('pr').checked = false;
+            document.getElementById('hr').checked = false;
+            document.getElementById('ed').checked = false;
+            document.getElementById('bm').checked = false;
+            var x = document.getElementById(variable);
+            x.checked = true;
+        }
+    </script>
 
 </html>

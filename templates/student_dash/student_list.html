@@ -176,27 +176,27 @@
                     <h3>All Students</h3>
                     <br>
                     <div class="row">
-                        {% for user in all_users %}
-                             <a href = '/profile_page/student/{{ user.id }}/'>
+                        {% for student in all_users %}
+                             <a href = '/profile_page/student/{{ student.id }}/'>
                         <div class="col-md-4">
                             <div class="card card-product">
                                 <div class="card-image" data-header-animation="true">
-                                        <img class="img" style="height: 220px; width: 350px" src="{{ user.profile_picture.url }}">
+                                        <img class="img" style="height: 220px; width: 350px" src="{{ student.profile_picture.url }}">
                                 </div>
                                 <div class="card-content">
                                     <h4 class="card-title">
-                                        <a href="#pablo">{{ user.name }}</a>
+                                        <a href="#pablo">{{ student.name }}</a>
                                     </h4>
                                     <div class="card-description">
-                                        {{ user.about }}
+                                        {{ student.about }}
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <div class="price">
-                                        <h4>{{ user.student_detail.college }}</h4>
+                                        <h4>{{ student.student_detail.college }}</h4>
                                     </div>
                                     <div class="stats pull-right">
-                                        <p class="category"><i class="material-icons">place</i> {{ user.location}}</p>
+                                        <p class="category"><i class="material-icons">place</i> {{ student.location}}</p>
                                     </div>
                                 </div>
                             </div>

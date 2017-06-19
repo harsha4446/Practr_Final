@@ -202,40 +202,39 @@ def event_register(request, id = None):
     if request.POST:
         if event.multiregistration:
             event_registered.register(current_user, event)
-            details , created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-            details.human_resources = request.POST.get("human_resources", False)
-            details.marketing = request.POST.get("marketing", False)
-            details.finance = request.POST.get("finance", False)
-            details.public_relations = request.POST.get("public_relations", False)
-            details.best_manager = request.POST.get("best_manager", False)
-            details.ent_dev = request.POST.get("ent_dev", False)
-            if details.rcode == '':
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=current_user)
+            regdetails.human_resources = request.POST.get("human_resources", False)
+            regdetails.marketing = request.POST.get("marketing", False)
+            regdetails.finance = request.POST.get("finance", False)
+            regdetails.public_relations = request.POST.get("public_relations", False)
+            regdetails.best_manager = request.POST.get("best_manager", False)
+            regdetails.ent_dev = request.POST.get("ent_dev", False)
+            if regdetails.rcode == '':
                 code_id = str(event_registered_details.objects.filter(event=event).count())
                 if (len(code_id) == 1):
-                    details.rcode = event.prefix + '00' + code_id
+                    regdetails.rcode = event.prefix + '00' + code_id
                 if (len(code_id) == 2):
-                    details.rcode = event.prefix + '0' + code_id
-            details.save()
-            compute(details.id, event.id)
+                    regdetails.rcode = event.prefix + '0' + code_id
+            regdetails.save()
+            compute(regdetails.id, event.id)
             return HttpResponseRedirect("/user/student_dashboard/events")
         else:
             event_registered.register(current_user, event)
-            details, created = event_registered_details.objects.get_or_create(event=event, student=current_user)
-            print(request.POST.get("marketing2",False))
-            details.marketing = request.POST.get("marketing2",False)
-            details.human_resources = request.POST.get("human_resources2",False)
-            details.finance = request.POST.get("finance2",False)
-            details.public_relations = request.POST.get("public_relations2",False)
-            details.best_manager = request.POST.get("best_manager2",False)
-            details.ent_dev = request.POST.get("ent_dev2",False)
-            if details.rcode == '':
+            regdetails, created = event_registered_details.objects.get_or_create(event=event, student=current_user)
+            regdetails.marketing = request.POST.get("marketing",False)
+            regdetails.human_resources = request.POST.get("human_resources",False)
+            regdetails.finance = request.POST.get("finance",False)
+            regdetails.public_relations = request.POST.get("public_relations",False)
+            regdetails.best_manager = request.POST.get("best_manager",False)
+            regdetails.ent_dev = request.POST.get("ent_dev",False)
+            if regdetails.rcode == '':
                 code_id = str (event_registered_details.objects.filter(event=event).count())
                 if (len(code_id)==1):
-                    details.rcode = event.prefix+'00'+code_id
+                    regdetails.rcode = event.prefix+'00'+code_id
                 if (len(code_id)==2):
-                    details.rcode = event.prefix+'0'+code_id
-            details.save()
-            compute(details.id, event.id)
+                    regdetails.rcode = event.prefix+'0'+code_id
+            regdetails.save()
+            compute(regdetails.id, event.id)
             return HttpResponseRedirect("/user/student_dashboard/events")
     context = {'event':event, "network":network, "flag1":flag1,"flag2":flag2,"flag3":flag3,
                "flag4":flag4,"flag5":flag5,"flag6":flag6}

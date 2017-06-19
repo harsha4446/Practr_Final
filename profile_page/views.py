@@ -41,6 +41,7 @@ def getlevel(score):
 
 
 def studentprofile(request, id=None):
+    id = int (id)
     user = student.objects.get(id=id)
     try:
         scores = student_scores.objects.get(username=user)
