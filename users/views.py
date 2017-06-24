@@ -156,13 +156,16 @@ def new_college(request):
             return HttpResponseRedirect('/home/newjudge_info/')
         else:
             return HttpResponseRedirect('/home/newstudent_info/')
-    formCollege = newCollege(request.POST or None)
+    user = request.user
+    formCollege = newCollege(request.POST or None, request.FILES or None)
     if formCollege.is_valid():
         college = colleges(email=request.user)
         college.college_name = formCollege.cleaned_data.get("college_name")
         college.address = formCollege.cleaned_data.get("address")
         if request.POST.get("logo"):
             college.logo = request.POST.get("logo")
+            user.profile_picture = college.logo
+            user.save()
         college.phone = request.user.phoneno
         college.save()
         request.user.activated= True
@@ -180,7 +183,7 @@ def new_club(request):
             return HttpResponseRedirect('/home/newjudge_info/')
         else:
             return HttpResponseRedirect('/home/newstudent_info/')
-    form = clubsetup(request.POST or None)
+    form = clubsetup(request.POST or None, request.FILES or None)
     user = request.user
     all_colleges = colleges.objects.filter()
     try:
@@ -197,10 +200,10 @@ def new_club(request):
         club.video = form.cleaned_data.get("video")
         club.website = form.cleaned_data.get("website")
         club.about = form.cleaned_data.get("about")
-        if (len(club.about)<1000):
-            club.about = club.about + '.                                                                                                     .'
+        print(form.cleaned_data.get("logo", False))
         if form.cleaned_data.get("logo", False):
             club.logo =  form.cleaned_data.get("logo")
+            request.user.profile_picture = form.cleaned_data.get("logo")
         request.user.activated = True
         request.user.save()
         club.save()

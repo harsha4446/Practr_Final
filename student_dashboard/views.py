@@ -3,6 +3,7 @@ from users.models import colleges,student_detail, events, follow_table, clubs, r
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from .forms import dataForm,detailFrom
+from django.contrib import auth
 
 # Create your views here.
 
@@ -108,6 +109,7 @@ def dashboard(request):
         round = None
     context = {"rounds":all_rounds, "user":current_user, "form":form,'registered':registered }
     return render(request, 'student_dash/dashboard.html', context)
+    #return render(request, 'judge_list/judge_list.html', context)
 
 
 def clubs_view(request):
@@ -133,8 +135,9 @@ def club_register(request, id = None):
 def event_feed(request):
     current_user = request.user
     all_events = None
+    details = student_detail.objects.get(email=current_user)
     try:
-        all_events = events.objects.filter(current=True, registration=True)
+        all_events = events.objects.filter(current=True, registration=True, email__college=details.college)
         #For when we need to register to club first(works, KEEP THIS CODE)
         # register = register_table.objects.get(current_user=current_user)
         # clubs = register.registered_to.all()
@@ -228,11 +231,11 @@ def event_register(request, id = None):
             regdetails.best_manager = request.POST.get("best_manager",False)
             regdetails.ent_dev = request.POST.get("ent_dev",False)
             if regdetails.rcode == '':
-                code_id = str (event_registered_details.objects.filter(event=event).count())
-                if (len(code_id)==1):
-                    regdetails.rcode = event.prefix+'00'+code_id
-                if (len(code_id)==2):
-                    regdetails.rcode = event.prefix+'0'+code_id
+                code_id = str(event_registered_details.objects.filter(event=event).count())
+                if (len(code_id) == 1):
+                    regdetails.rcode = event.prefix + '00' + code_id
+                if (len(code_id) == 2):
+                    regdetails.rcode = event.prefix + '0' + code_id
             regdetails.save()
             compute(regdetails.id, event.id)
             return HttpResponseRedirect("/user/student_dashboard/events")
@@ -308,3 +311,29 @@ def review(request,id):
     context = {'user':request.user,'scores':scores, 'round':round,'creativity':creativity,'communication':communication,'content':content,
                'presentation':presentation,'rebuttal':rebuttal,'feasibility':feasibility,}
     return render(request,'student_dash/performance_review.html',context)
+
+
+def edit_profile(request):
+    user = request.user
+    details = student_detail.objects.get(email=user)
+    flag = 0
+    if request.POST:
+        user.name = request.POST.get("name")
+        details.section = request.POST.get("section")
+        user.phoneno = request.POST.get("phone")
+        user.about = request.POST.get("about")
+        if request.POST.get("old_password") != '' and request.POST.get("new_password") != '':
+            old = request.POST.get("old_password")
+            new = request.POST.get("new_password")
+            if auth.authenticate(email=user.email, password=old):
+                user.set_password(new)
+                flag = 1
+                user.save()
+                details.save()
+                auth.login(request, user)
+            else:
+                flag = 2
+        user.save()
+        details.save()
+    context = {'user':user,'details':details,'flag':flag}
+    return render(request,'student_dash/edit_profile.html',context)

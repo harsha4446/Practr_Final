@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail,teams
+from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail
 from . forms import addEvent, addRound, rooms, deadlines, newJudge
 from django.http import HttpResponseRedirect
-
+import time
+from django.contrib import auth
 # Create your views here.
 
 
@@ -121,11 +122,17 @@ def activate_registraion(request, id):
     return HttpResponseRedirect("/user/club_dashboard/")
 
 
-def add_event(request,access = None):
+def add_event(request,access = None, id=None):
     club = clubs.objects.get(club_email=request.user.email)
+    exiting = None
+    if id != None:
+        exiting = events.objects.get(id=id)
     form = addEvent(request.POST or None, request.FILES or None)
     if form.is_valid():
-        event = events(email=club)
+        if id != None:
+            event = events.objects.get(id=id)
+        else:
+            event = events(email=club)
         event.name = form.cleaned_data.get("name")
         event.about = form.cleaned_data.get("about")
         event.website = form.cleaned_data.get("website")
@@ -144,6 +151,8 @@ def add_event(request,access = None):
         event.thirdyear = request.POST.get("third",False)
         event.prefix = request.POST.get("prefix")
         event.prefix = event.prefix.upper()
+        event.tprefix = request.POST.get("tprefix")
+        event.tprefix = event.tprefix.upper()
         if not event.firstyear:
             event.quota11 = 0
             event.quota21 = 0
@@ -174,22 +183,26 @@ def add_event(request,access = None):
         event.current = True
         event.save()
         return HttpResponseRedirect("/user/club_dashboard")
-    context = {"form":form, "user":request.user}
+    context = {"form":form, "user":request.user, 'existing':exiting}
     return render(request,'club_dash/add_event.html',context)
 
 
-def add_round(request, id=None, operation=None, offline=None):
+def add_round(request, id=None, operation=None, offline=None,existing=None):
     if request.user.judge:
         details = judge_detail.objects.get(email=request.user)
         club = clubs.objects.get(id=details.club.id)
     else:
         club = clubs.objects.get(club_email = request.user.email)
     event = events.objects.get(id=id)
-    round = rounds(email = event)
+    if existing == None:
+        round = rounds(email = event)
+    else:
+        round = rounds.objects.get(id=existing)
+        existing = round
     form = addRound(request.POST or None)
     if form.is_valid():
-        round.title = form.cleaned_data.get("title")
-        round.sub_title = form.cleaned_data.get("sub_title")
+        round.title = form.cleaned_data.get("title","")
+        round.sub_title = form.cleaned_data.get("sub_title","")
         if request.POST.get("low"):
             round.weight = 0.33
         if request.POST.get("medium"):
@@ -197,35 +210,35 @@ def add_round(request, id=None, operation=None, offline=None):
         if request.POST.get("high"):
             round.weight = 1.0
         round.club = club
-        round.about = form.cleaned_data.get("about")
-        round.task1 = form.cleaned_data.get("task1")
-        round.task2 = form.cleaned_data.get("task2")
-        round.task3 = form.cleaned_data.get("task3")
-        round.task4 = form.cleaned_data.get("task4")
-        round.task5 = form.cleaned_data.get("task5")
-        round.resource1 = form.cleaned_data.get("resource1")
-        round.resource2 = form.cleaned_data.get("resource2")
-        round.resource3 = form.cleaned_data.get("resource3")
-        round.resource4 = form.cleaned_data.get("resource4")
-        round.resource5 = form.cleaned_data.get("resource5")
-        round.creativity = form.cleaned_data.get("creativity")
+        round.about = form.cleaned_data.get("about","")
+        round.task1 = form.cleaned_data.get("task1","")
+        round.task2 = form.cleaned_data.get("task2","")
+        round.task3 = form.cleaned_data.get("task3","")
+        round.task4 = form.cleaned_data.get("task4","")
+        round.task5 = form.cleaned_data.get("task5","")
+        round.resource1 = form.cleaned_data.get("resource1","")
+        round.resource2 = form.cleaned_data.get("resource2","")
+        round.resource3 = form.cleaned_data.get("resource3","")
+        round.resource4 = form.cleaned_data.get("resource4","")
+        round.resource5 = form.cleaned_data.get("resource5","")
+        round.creativity = form.cleaned_data.get("creativity","")
         round.content = form.cleaned_data.get("content")
         round.presentation = form.cleaned_data.get("presentation")
         round.rebuttal = form.cleaned_data.get("rebuttal")
         round.communication = form.cleaned_data.get("communication")
         round.feasibility = form.cleaned_data.get("feasibility")
         round.feedback = form.cleaned_data.get("feedback")
-        round.question1 = form.cleaned_data.get("question1")
-        round.question2 = form.cleaned_data.get("question2")
-        round.question3 = form.cleaned_data.get("question3")
-        round.question4 = form.cleaned_data.get("question4")
-        round.question5 = form.cleaned_data.get("question5")
-        round.core1 = form.cleaned_data.get("core1")
-        round.core2 = form.cleaned_data.get("core2")
-        round.core3 = form.cleaned_data.get("core3")
-        round.core4 = form.cleaned_data.get("core4")
-        round.core5 = form.cleaned_data.get("core5")
-        round.core6 = form.cleaned_data.get("core6")
+        round.question1 = form.cleaned_data.get("question1","")
+        round.question2 = form.cleaned_data.get("question2","")
+        round.question3 = form.cleaned_data.get("question3","")
+        round.question4 = form.cleaned_data.get("question4","")
+        round.question5 = form.cleaned_data.get("question5","")
+        round.core1 = form.cleaned_data.get("core1",0)
+        round.core2 = form.cleaned_data.get("core2",0)
+        round.core3 = form.cleaned_data.get("core3",0)
+        round.core4 = form.cleaned_data.get("core4",0)
+        round.core5 = form.cleaned_data.get("core5",0)
+        round.core6 = form.cleaned_data.get("core6",0)
         round.creativityvalue = request.POST.get("creativityvalue",0)
         round.contentvalue = request.POST.get("contentvalue",0)
         round.presentationvalue = request.POST.get("presentationvalue",0)
@@ -237,7 +250,7 @@ def add_round(request, id=None, operation=None, offline=None):
         round.offline = offline
         round.save()
         return HttpResponseRedirect("/user/club_dashboard/caseView/"+id+"/"+operation)
-    context = {"form":form, "offline":offline}
+    context = {"form":form, "offline":offline,'existing':existing}
     return render (request,'club_dash/add_round.html',context)
 
 
@@ -280,7 +293,7 @@ def case_view(request, id, type):
         all_rooms = round_room.objects.all()
     except register_table.DoesNotExist:
         register = 0
-    context = {'all_rounds':all_rounds, 'user':request.user, 'event':id, 'type':type, 'count':register, 'roomForm':roomForm,
+    context = {'all_rounds':all_rounds, 'user':request.user, 'event':event, 'type':type, 'count':register, 'roomForm':roomForm,
                'deadline':deadlineForm, 'all_rooms':all_rooms, 'judgeForm':judgeForm,'corename':corename}
     return render(request,'club_dash/case_view.html',context)
 
@@ -476,6 +489,7 @@ def quotaset(request,id=None):
     event.quota63 = request.POST.get("quota63",0)
     event.prefix = request.POST.get("prefix",'')
     event.save()
+    time.sleep(2)
     return HttpResponseRedirect("/user/club_dashboard/")
 
 
@@ -568,3 +582,33 @@ def teamCreate(request, id, type, size):
         if first in firstmember:
             firstmember.remove(first)
             team.save()
+
+
+def edit_profile(request):
+    user = request.user
+    club = clubs.objects.get(club_email=user.email)
+    flag = 0
+    event = events.objects.get(email=club,current=True)
+    if request.POST:
+        club.name = request.POST.get("club_name")
+        club.website = request.POST.get("website",'')
+        club.phone = request.POST.get("phone")
+        club.video = request.POST.get("video", '')
+        club.about = request.POST.get("about")
+        club.admin_name = request.POST.get("admin_name")
+        club.save()
+        user.phoneno = club.phone
+        if request.POST.get("old_password") != '' and request.POST.get("new_password") != '':
+            old = request.POST.get("old_password")
+            new = request.POST.get("new_password")
+            if auth.authenticate(email=user.email, password=old):
+                user.set_password(new)
+                flag = 1
+                user.save()
+                auth.login(request, user)
+            else:
+                flag = 2
+        user.name = club.admin_name
+        user.save()
+    context = {'user':user,'club':club,'flag':flag,'event':event}
+    return render(request,'club_dash/edit_profile.html',context)

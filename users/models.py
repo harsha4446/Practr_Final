@@ -33,8 +33,16 @@ def upload_loction(object, filename):
     return "%s/%s" %(object.name , filename)
 
 
+def upload_loction_college(object, filename):
+    return "%s/%s" %(object.college_name , filename)
+
+
 def round_data(object, filename):
     return "%s/%s" %(object.student.name , filename)
+
+
+def case_data(object, filename):
+    return "%s/%s" %(object.title , filename)
 
 
 class student(AbstractBaseUser):
@@ -85,12 +93,12 @@ class student(AbstractBaseUser):
 
 class student_scores(models.Model):
     username=models.OneToOneField(student,on_delete=models.CASCADE)
-    creativity = models.IntegerField(default=0)
-    content = models.IntegerField(default=0)
-    presentation = models.IntegerField(default=0)
-    rebuttal = models.IntegerField(default=0)
-    communication = models.IntegerField(default=0)
-    feasibility = models.IntegerField(default=0)
+    creativity = models.IntegerField(default=1)
+    content = models.IntegerField(default=1)
+    presentation = models.IntegerField(default=1)
+    rebuttal = models.IntegerField(default=1)
+    communication = models.IntegerField(default=1)
+    feasibility = models.IntegerField(default=1)
     question1 = models.IntegerField(default=0, blank=True)
     question2 = models.IntegerField(default=0, blank=True)
     question3 = models.IntegerField(default=0, blank=True)
@@ -136,7 +144,6 @@ class interests(models.Model):
     ent_dev = models.BooleanField(default=False)
     best_manager = models.BooleanField(default=False)
 
-
     def __str__(self):
         return self.label
 
@@ -158,7 +165,7 @@ class colleges(models.Model):
 
                             default='')
     phone = models.CharField(max_length=10, default='')
-    logo = models.ImageField(upload_to=upload_loction,null=True,blank=True, default='default/new_logo.png')
+    logo = models.ImageField(upload_to=upload_loction_college,null=True,blank=True, default='default/new_logo.png')
 
 
     def __str__(self):
@@ -170,7 +177,7 @@ class colleges(models.Model):
 
 class clubs(models.Model):
     email = models.ForeignKey(colleges, on_delete=models.CASCADE,default='')
-    name = models.CharField(max_length=100,default='Dummy')
+    name = models.CharField(max_length=100,default='')
     college = models.CharField(max_length=150, default='')
     admin_name = models.CharField(max_length=100,default='')
     club_email = models.CharField(max_length=100,default='', unique=True)
@@ -257,6 +264,7 @@ class events(models.Model):
     secondyear = models.BooleanField(default=True)
     thirdyear = models.BooleanField(default=True)
     prefix = models.CharField(max_length=4,default='',null=True,blank=True)
+    tprefix = models.CharField(max_length=4,default='',null=True,blank=True)
 
     def __str__(self):
         return self.name
@@ -271,7 +279,7 @@ class rounds(models.Model):
     ext_judge = models.BooleanField(default=False)
     title = models.CharField(max_length=150, default='')
     sub_title = models.CharField(max_length=150, default='',blank=True)
-    about = models.CharField(max_length=400, default='',blank=True)
+    about = models.CharField(max_length=30000, default='', blank=True)
     task1 = models.CharField(max_length=150, default='',blank=True)
     task2 = models.CharField(max_length=150, default='', blank=True)
     tast3 = models.CharField(max_length=150, default='', blank=True)
@@ -282,11 +290,11 @@ class rounds(models.Model):
     resource3 = models.CharField(max_length=150, default='', blank=True)
     resource4 = models.CharField(max_length=150, default='', blank=True)
     resource5 = models.CharField(max_length=150, default='', blank=True)
-    resource1data = models.FileField(upload_to=round_data, null=True, blank=True)
-    resource2data = models.FileField(upload_to=round_data, null=True, blank=True)
-    resource3data = models.FileField(upload_to=round_data, null=True, blank=True)
-    resource4data = models.FileField(upload_to=round_data, null=True, blank=True)
-    resource5data = models.FileField(upload_to=round_data, null=True, blank=True)
+    resource1data = models.FileField(upload_to=case_data, null=True, blank=True)
+    resource2data = models.FileField(upload_to=case_data, null=True, blank=True)
+    resource3data = models.FileField(upload_to=case_data, null=True, blank=True)
+    resource4data = models.FileField(upload_to=case_data, null=True, blank=True)
+    resource5data = models.FileField(upload_to=case_data, null=True, blank=True)
     creativity = models.BooleanField(default=False)
     content = models.BooleanField(default=False)
     presentation = models.BooleanField(default=False)
@@ -295,20 +303,17 @@ class rounds(models.Model):
     feasibility = models.BooleanField(default=False)
     feedback = models.BooleanField(default=False)
     question1 = models.CharField(max_length=150, default='',blank=True)
-    core1 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
+    core1 = models.IntegerField(default=0)
     question2 = models.CharField(max_length=150, default='', blank=True)
-    core2 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
+    core2 = models.IntegerField(default=0)
     question3 = models.CharField(max_length=150, default='', blank=True)
-    core3 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
+    core3 = models.IntegerField(default=0)
     question4 = models.CharField(max_length=150, default='', blank=True)
-    core4 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
+    core4 = models.IntegerField(default=0)
     question5 = models.CharField(max_length=150, default='', blank=True)
-    core5 = models.IntegerField(choices=((1, 'Marketing'),(2, 'Finance'),(3, 'Public Relations'),
-                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
+    core5 = models.IntegerField(default=0)
+    # core1 = models.IntegerField(choices=((1, 'Marketing'), (2, 'Finance'), (3, 'Public Relations'),
+    #                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
     type = models.IntegerField(default=0)
     created = models.DateField(default=datetime.date.today)
     published = models.BooleanField(default=False)

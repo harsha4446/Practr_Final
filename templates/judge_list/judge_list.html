@@ -1,240 +1,524 @@
 <!doctype html>
 <html lang="en">
+{% load staticfiles %}
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<title>Practr - Applied Learning Platform</title>
-
-    {% load staticfiles %}
-
-
-<!-- Fonts Online -->
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-
-<!-- Style Sheet -->
-<link rel="stylesheet" href="{%  static 'css/owl.carousel.css'%}">
-<link rel="stylesheet" href="{%  static 'css/main-style.css'%}">
-<link rel="stylesheet" href="{%  static 'css/style.css'%}">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Student Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{% static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{%  static 'case_card/css/style.css'%}">
 </head>
+
 <body>
-<div id="main-wrapper">
-
-  <!-- Top Toolbar -->
-  <div class="toolbar">
-    <div class="uou-block-1a blog">
-      <div class="container">
-        <div class="search"> <a href="#" class="toggle fa fa-search"></a>
-          <form action="#">
-            <input type="text" class="search-input" placeholder="Search ...">
-            <input type="submit" value="">
-          </form>
-        </div>
-        <ul class="social">
-          <li><a href="#" class="fa fa-facebook"></a></li>
-          <li><a href="#" class="fa fa-twitter"></a></li>
-          <li><a href="#" class="fa fa-google-plus"></a></li>
-        </ul>
-        <ul class="authentication">
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Register</a></li>
-        </ul>
-        <div class="language"> <a href="#" class="toggle"><img src="{%  static 'images/flags/32/US.png'%}" alt=""> ENG</a>
-          <ul>
-            <li><a href="#"><img src="{%  static 'images/flags/32/PT.png'%}" alt=""> PT</a></li>
-            <li><a href="#"><img src="{%  static 'images/flags/32/FR.png'%}" alt=""> FR</a></li>
-            <li><a href="#"><img src="{%  static 'images/flags/32/ES.png'%}" alt=""> ES</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <!-- end .uou-block-1a -->
-  </div>
-  <!-- end toolbar -->
-
-   <div class="box-shadow-for-ui">
-    <div class="uou-block-2b">
-      <div class="container"> <a href="#" class="logo"><img src="{%  static 'images/logo.png'%}" alt=""></a> <a href="#" class="mobile-sidebar-button mobile-sidebar-toggle"><span></span></a>
-        <nav class="nav">
-          <ul class="sf-menu">
-            <li class="active"><a href="index.html"><i class="fa  fa-home"></i></a></li>
-            <li> <a href="listing-filter.html">List</a> </li>
-            <li><a href="listing-filter-students.html">Students</a></li>
-                <li><a href="profile_company.html">Club</a></li>
-                <li><a href="user-profile(layout-2).html">Judge</a></li>
-                <li><a href="Performance%20Review.html">Performance Review</a></li>
-                <li><a href="user-dashboard(connections)(hotkeys-disabled).html">Network </a></li>
-            <li> <a href="user-profile(layout-1).html">User </a></li>
-            <li> <a href="user-profile(layout-2).html">Judge </a></li>
-            <li> <a href="profile_company.html">Club</a></li>
-            <li><a href="blog.html">Courses</a></li>
-            <li><a href="profile_placement.html">Placement</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-    <!-- end .uou-block-2b -->
-  </div>
-
-  <!-- SUB Banner -->
-  <div class="profile-bnr sub-bnr user-profile-bnr">
-    <div class="position-center-center">
-      <div class="container">
-        <h2>Search Judges</h2>
-      </div>
-    </div>
-  </div>
-
-  <!-- search -->
-  <div class="search-pro">
-    <div class="map-search">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="map-toggleButton"> <i class="fa fa-bars"></i> </div>
-            <div class="map-search-fields">
-                <form method="post" action="">
-                    {% csrf_token %}
-              <div class="field">
-                {{ search.name}}
-              </div>
-              <div class="field">
-                {{ search.email }}
-              </div>
-              <div class="field">
-                {{ search.interest }}
-              </div>
-              <div class="search-button">
-                <button type="submit">Search</button>
-              </div>
-                </form>
+    <div class="wrapper">
+        <div class="sidebar" data-active-color="blue" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
+            <!--
+        Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
+        Tip 2: you can also add an image using data-image tag
+        Tip 3: you can change the color of the sidebar with data-background-color="white | black"
+    -->
+            <div class="logo">
+                <a href="/home" class="simple-text">
+                    Practr
+                </a>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Members -->
-  <section class="pro-mem">
-    <div class="container pb30">
-      <h3>Judges</h3>
-        {% for user in all_users %}
-            <div class="column">
-                <div class="col-sm-3">
-                    <div class="uou-block-6a"> <img src="{{ user.profile_picture.url }}"  alt="">
-                        <h6>{{ user.name }}<span>{{ user.degree }}</span></h6>
-                        <p><i class="fa fa-map-marker"></i>{{ user.location }}</p>
+            <div class="logo logo-mini">
+                <a href="/home" class="simple-text">
+                    PR
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <div class="user">
+                    <div class="photo">
+                        <img src="{{ user.profile_picture.url }}" style="height: 100%"/>
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                            {{ user.name }}
+                            <b class="caret"></b>
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#">My Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">Edit Profile</a>
+                                </li>
+                                <li>
+                                     <a href="/home/logout">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-        {% endfor %}
+                <ul class="nav">
+                    <li class="active">
+                        <a href="/user/student_dashboard/">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/student_dashboard/clubs">
+                            <i class="material-icons">apps</i>
+                            <p>Clubs</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/student_dashboard/events">
+                            <i class="material-icons">apps</i>
+                            <p>Events</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/network">
+                            <i class="material-icons">apps</i>
+                            <p>Network</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/student_dashboard/search">
+                            <i class="material-icons">apps</i>
+                            <p>Find Students</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"> Dashboard </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">dashboard</i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">notifications</i>
+                                    <span class="notification">5</span>
+                                    <p class="hidden-lg hidden-md">
+                                        Notifications
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Mike John responded to your email</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">You have 5 new tasks</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">You're now friend with Andrew</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Another Notification</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Another One</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">person</i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a>
+                            </li>
+                            <li class="separator hidden-lg hidden-md"></li>
+                        </ul>
+                        <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group form-search is-empty">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span class="material-input"></span>
+                            </div>
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                <div class="container-fluid">
+                    <br>
+                    <div class="row">
+                    <div class="card">
+                            <div class="col-md-6 col-md-offset-3 text-center">
+                            <h2 class="title">Available Cases</h2>
+                            <h5 class="description">From Events: {% for event in registered %}{{ event.name }}{% endfor %}</h5>
+                                <ul class="nav nav-pills nav-pills-warning col-md-12 col-md-offset-3">
+                                        <li class="active">
+                                            <a href="#due" data-toggle="tab">Due</a>
+                                        </li>
+                                        <li>
+                                            <a href="#live" data-toggle="tab">Live</a>
+                                        </li>
+                                        <li>
+                                            <a href="#completed" data-toggle="tab">Completed</a>
+                                        </li>
+                                    </ul>
+
+                        </div>
+                    <div class="card-content col-md-12">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="due">
+                            <br><br><br><br>
+                            <div class="row active-with-click">
+                        {% for round in rounds %}
+                            {% if not round.finished %}
+                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <article class="material-card Red">
+                                        <h2>
+                                            <span>{{ round.title }}</span>
+                                            <strong>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                {% if round.type == 1 %}
+                                                        Marketing
+                                                {% endif %}
+                                                {% if round.type == 2 %}
+                                                        Finance
+                                                    {% endif %}
+                                                {% if round.type == 3 %}
+                                                        Public Relations
+                                                    {% endif %}
+                                                {% if round.type == 4 %}
+                                                        Human Resources
+                                                    {% endif %}
+                                                {% if round.type == 5 %}
+                                                        Entreprenuer Development
+                                                    {% endif %}
+                                                {% if round.type == 6 %}
+                                                        Best Manager
+                                                    {% endif %}
+                                                    </strong>
+                                                </h2>
+                                        <div class="mc-content">
+                                            <div class="img-container">
+                                                <img class="img-responsive" src="{{ round.email.logo.url }}" style="height: inherit;width: inherit;">
+                                            </div>
+                                            <a href="/user/caseView/{{ round.id }}/">
+                                            <div class="mc-description" id="about">
+                                                {{ round.about|slice:":100" }}
+                                            </div>
+                                            </a>
+                                        </div>
+                                        <a class="mc-btn-action">
+                                            <i class="fa fa-bars"></i>
+                                        </a>
+                                        <div class="mc-footer">
+                                            <h4>
+                                                Read More
+                                            </h4>
+                                            <a class="fa fa-fw fa-upload"  data-toggle="modal" data-target="#myModal{{ round.id }}"></a>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="modal fade" id="myModal{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                   <div class="modal-content">
+                                     <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                         <i class="material-icons">clear</i>
+                                       </button>
+                                       <div  style="text-align: center;">
+                                       <h4 class="modal-title">Upload My Files</h4>
+                                       </div>
+                                     </div>
+                                     <div class="modal-body">
+                                     <div  style="text-align: center;">
+                                         <form method="post" enctype="multipart/form-data" action="/user/student_dashboard/upload_files/{{ round.id }}/">
+                                             {% csrf_token %}
+                                              <div  style="text-align: center;">
+                                                {{ form.data1 }}
+                                                  <br>
+                                                  {{ form.data2 }}
+                                                  <br>
+                                                  {{ form.data3 }}
+                                              </div>
+                                             <div class="footer text-center">
+                                                <button type="submit" class="btn btn-primary btn-round">Upload and Submit</button>
+                                            </div>
+                                         </form>
+                                         <br><br>
+                                     </div>
+                                    </div>
+                                   </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                            </div>
+                            </div>
+                        <div class="tab-pane" id="live">
+                        <br><br><br><br>
+                        {% for round in rounds %}
+                            {% if not round.finished %}
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <article class="material-card Red">
+                                        <h2>
+                                            <span>{{ round.title }}</span>
+                                            <strong>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                {% if round.type == 1 %}
+                                                        Marketing
+                                                {% endif %}
+                                                {% if round.type == 2 %}
+                                                        Finance
+                                                    {% endif %}
+                                                {% if round.type == 3 %}
+                                                        Public Relations
+                                                    {% endif %}
+                                                {% if round.type == 4 %}
+                                                        Human Resources
+                                                    {% endif %}
+                                                {% if round.type == 5 %}
+                                                        Entreprenuer Development
+                                                    {% endif %}
+                                                {% if round.type == 6 %}
+                                                        Best Manager
+                                                    {% endif %}
+                                                    </strong>
+                                                </h2>
+                                        <div class="mc-content">
+                                            <div class="img-container">
+                                                <img class="img-responsive" src="{{ round.email.logo.url }}" style="height: inherit;width: inherit;">
+                                            </div>
+                                            <a href="/user/caseView/{{ round.id }}/">
+                                            <div class="mc-description" id="about">
+                                                {{ round.about|slice:":100" }}
+                                            </div>
+                                            </a>
+                                        </div>
+                                        <a class="mc-btn-action">
+                                            <i class="fa fa-bars"></i>
+                                        </a>
+                                        <div class="mc-footer">
+                                            <h4>
+                                                Read More
+                                            </h4>
+                                            <a class="fa fa-fw fa-upload"  data-toggle="modal" data-target="#myModal{{ round.id }}"></a>
+                                        </div>
+                                    </article>
+                                </div>
+                                <div class="modal fade" id="myModal{{ round.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                   <div class="modal-content">
+                                     <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                         <i class="material-icons">clear</i>
+                                       </button>
+                                       <div  style="text-align: center;">
+                                       <h4 class="modal-title">Upload My Files</h4>
+                                       </div>
+                                     </div>
+                                     <div class="modal-body">
+                                     <div  style="text-align: center;">
+                                         <form method="post" enctype="multipart/form-data" action="/user/student_dashboard/upload_files/{{ round.id }}/">
+                                             {% csrf_token %}
+                                              <div  style="text-align: center;">
+                                                {{ form.data1 }}
+                                                  <br>
+                                                  {{ form.data2 }}
+                                                  <br>
+                                                  {{ form.data3 }}
+                                              </div>
+                                             <div class="footer text-center">
+                                                <button type="submit" class="btn btn-primary btn-round">Upload and Submit</button>
+                                            </div>
+                                         </form>
+                                         <br><br>
+                                     </div>
+                                    </div>
+                                   </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                            </div>
+                        <div class="tab-pane" id="completed">
+                        <br><br><br><br>
+                        {% for round in rounds %}
+                            {% if round.finished %}
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                                    <article class="material-card Red">
+                                        <h2>
+                                            <span>{{ round.title }}</span>
+                                            <strong>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                {% if round.type == 1 %}
+                                                        Marketing
+                                                {% endif %}
+                                                {% if round.type == 2 %}
+                                                        Finance
+                                                    {% endif %}
+                                                {% if round.type == 3 %}
+                                                        Public Relations
+                                                    {% endif %}
+                                                {% if round.type == 4 %}
+                                                        Human Resources
+                                                    {% endif %}
+                                                {% if round.type == 5 %}
+                                                        Entreprenuer Development
+                                                    {% endif %}
+                                                {% if round.type == 6 %}
+                                                        Best Manager
+                                                    {% endif %}
+                                                    </strong>
+                                                </h2>
+                                        <div class="mc-content">
+                                            <div class="img-container">
+                                                <img class="img-responsive" src="{{ round.email.logo.url }}" style="height: inherit;width: inherit;">
+                                            </div>
+                                            <a href="/user/caseView/{{ round.id }}/">
+                                            <div class="mc-description" id="about">
+                                                {{ round.about|slice:":100" }}
+                                            </div>
+                                            </a>
+                                        </div>
+                                        <a class="mc-btn-action">
+                                            <i class="fa fa-bars"></i>
+                                        </a>
+                                        <div class="mc-footer">
+                                            <h4>
+                                                Read More
+                                            </h4>
+                                            <a href="/user/student_dashboard/review/{{ round.id }}" class="fa fa-fw fa-briefcase"></a>
+                                        </div>
+                                    </article>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                            </div>
+
+                    </div>
+                <br>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/practr/?fref=nf">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="/home">Practr</a>, made for you.
+                    </p>
+                </div>
+            </footer>
+        </div>
+                    </div>
+                    </div>
     </div>
-  </section>
-</div>
-
-<!-- Footer -->
-<div class="uou-block-4e">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-sm-6"> <a href="#" class="logo"><img src="{%  static 'images/logo.png'%}" alt=""></a>
-        <ul class="contact-info has-bg-image contain" data-bg-image="images/footer-map-bg.png">
-          <li> <i class="fa fa-map-marker"></i>
-            <address>
-            795 Folsom Ave, Suite 600, San Francisco, CA 94107
-            </address>
-          </li>
-          <li> <i class="fa fa-phone"></i> <a href="tel:#">(123) 456-7890</a> </li>
-          <li> <i class="fa fa-envelope"></i> <a href="mailto:#">first.last@example.com</a> </li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Twitter Feed</h5>
-        <ul class="twitter-feed">
-          <li> RT <a href="#">@no1son</a>: Now this <a href="#">http://t.co/TSfMW1qMAW</a> is one hell of a stunning site!!! Awesome work guys <a href="#">@AIRNAUTS</a> <a href="#" class="time">May 25</a> </li>
-          <li> Check out the wordpress version of Tucson - <a href="#">http://t.co/sBlU3GbapT</a> <a href="#" class="time">May 22</a> </li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Photostream</h5>
-        <ul class="photos-list">
-          <li><img src="{%  static 'images/photostream4.jpg'%}" alt=""></li>
-          <li><img src="{%  static 'images/photostream6.jpg'%}" alt=""></li>
-          <li><img src="{%  static 'images/photostream3.jpg'%}" alt=""></li>
-          <li><img src="{%  static 'images/photostream2.jpg'%}" alt=""></li>
-          <li><img src="{%  static 'images/photostream1.jpg'%}" alt=""></li>
-          <li><img src="{%  static 'images/photostream.jpg'%}" alt=""></li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-6">
-        <h5>Newsletter</h5>
-        <p>Subscribe to our newsletter to receive our latest news and updates. We do not spam.</p>
-        <form class="newsletter-form" action="#">
-          <input type="email" placeholder="Enter your email address">
-          <input type="submit" class="btn btn-primary" value="Subscribe">
-        </form>
-      </div>
     </div>
-  </div>
-</div>
-<!-- end .uou-block-4e -->
-
-<div class="uou-block-4a secondary dark">
-  <div class="container">
-    <ul class="links">
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms &amp; Conditions</a></li>
-    </ul>
-    <p>Copyright &copy; 2015 <a href="#">UOUAPPS</a>. All Rights reserved.</p>
-  </div>
-</div>
-<!-- end .uou-block-4a -->
-
-<div class="uou-block-11a">
-  <h5 class="title">Menu</h5>
-  <a href="#" class="mobile-sidebar-close">&times;</a>
-  <nav class="main-nav">
-    <ul>
-      <li><a href="index.html">Index</a></li>
-      <li class="active"><a href="listing-filter.html">Professionals</a> </li>
-      <li><a href="profile_company.html">Profile Company</a></li>
-      <li><a href="profile_company-no-tabs.html">Profile Company No Tabs</a></li>
-      <li><a href="user-dashboard(connections)(hotkeys-disabled).html">User Dashboard 1</a></li>
-      <li><a href="user-dashboard(connections)(hotkeys-enabled).html">User Dashboard 2</a></li>
-      <li><a href="user-dashboard(followers).html">User Dashboard 3</a></li>
-      <li><a href="user-dashboard(following).html">User Dashboard 4</a></li>
-      <li><a href="blog-post.html">Blog Post</a></li>
-      <li> <a href="user-profile(layout-1).html">User Profile</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="gui-kit.html">GUI KIT</a></li>
-    </ul>
-  </nav>
-  <hr>
-</div>
-
-<!-- Scripts -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<script src="{%  static 'js/jquery-2.1.3.min.js'%}"></script>
-<script src="{%  static 'js/bootstrap.js'%}"></script>
-<script src="{%  static 'js/plugins/superfish.min.js'%}"></script>
-<script src="{%  static 'js/jquery.ui.min.js'%}"></script>
-<script src="{%  static 'js/plugins/rangeslider.min.js'%}"></script>
-<script src="{%  static 'js/plugins/jquery.flexslider-min.js'%}"></script>
-<script src="{%  static 'js/uou-accordions.js'%}"></script>
-<script src="{%  static 'js/uou-tabs.js'%}"></script>
-<script src="{%  static 'js/plugins/select2.min.js'%}"></script>
-<script src="{%  static 'js/owl.carousel.min.js'%}"></script>
-<script src="{%  static 'js/gmap3.min.js'%}"></script>
-<script src="{%  static 'js/scripts.js'%}"></script>
 </body>
+<!--   Core JS Files   -->
+<script src="{% static 'assets/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/jquery-ui.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/material.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/perfect-scrollbar.jquery.min.js'%}" type="text/javascript"></script>
+<!-- Forms Validations Plugin -->
+<script src="{% static 'assets/js/jquery.validate.min.js'%}"></script>
+<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+<script src="{% static 'assets/js/moment.min.js'%}"></script>
+<!--  Charts Plugin -->
+<script src="{% static 'assets/js/chartist.min.js'%}"></script>
+<!--  Plugin for the Wizard -->
+<script src="{% static 'assets/js/jquery.bootstrap-wizard.js'%}"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'assets/js/bootstrap-notify.js'%}"></script>
+<!-- DateTimePicker Plugin -->
+<script src="{% static 'assets/js/bootstrap-datetimepicker.js'%}"></script>
+<!-- Vector Map plugin -->
+<script src="{% static 'assets/js/jquery-jvectormap.js'%}"></script>
+<!-- Sliders Plugin -->
+<script src="{% static 'assets/js/nouislider.min.js'%}"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- Select Plugin -->
+<script src="{% static 'assets/js/jquery.select-bootstrap.js'%}"></script>
+<!--  DataTables.net Plugin    -->
+<script src="{% static 'assets/js/jquery.datatables.js'%}"></script>
+<!-- Sweet Alert 2 plugin -->
+<script src="{% static 'assets/js/sweetalert2.js'%}"></script>
+<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="{% static 'assets/js/jasny-bootstrap.min.js'%}"></script>
+<!--  Full Calendar Plugin    -->
+<script src="{% static 'assets/js/fullcalendar.min.js'%}"></script>
+<!-- TagsInput Plugin -->
+<script src="{% static 'assets/js/jquery.tagsinput.js'%}"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="{% static 'assets/js/material-dashboard.js'%}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{% static 'assets/js/demo.js'%}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+
+        demo.initVectorMap();
+    });
+</script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="{% static 'case_card/js/index.js'%}"></script>
+    <script>
+            $('#about').each(function(){
+                var $this = $(this);
+                var t = $this.text();
+                $this.html(t.replace('&lt','<').replace('&gt', '>'));
+    });
+        </script>
+
 </html>

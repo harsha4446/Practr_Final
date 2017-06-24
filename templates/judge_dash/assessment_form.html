@@ -155,14 +155,13 @@
 				</div>
                 {% if round.question1 != '' %}
                 <div class="title">
-                        <h2>Core Skill Assesment</h2><br>
-						<h3>Question Type<br/></h3>
+                        <h2>Custom Skill Assesment</h2><br>
 							<h4>{{ round.question1 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get1" step="1" value="0" onchange="fetch1(1)"/>
+                                    <input type="range" min="1" max="{{ round.core1 }}" id="get1" step="1" value="0" onchange="fetch1(1)"/>
                                     <div class="pull-right">
-                                        7
+                                        {{ round.core1 }}
                                     </div>
                                     <input type="text" id="put1" name="question1" value="0" onchange="fetch1(2)"/>
                                 </div>
@@ -171,13 +170,12 @@
                 {% endif %}
                 {% if round.question2 != '' %}
                 <div class="title">
-						<h3>Section Two<br/></h3>
 							<h4>{{ round.question2 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get2" step="1" value="0" onchange="fetch2(1)"/>
+                                    <input type="range" min="1" max="{{ round.core2 }}" id="get2" step="1" value="0" onchange="fetch2(1)"/>
                                     <div class="pull-right">
-                                        7
+                                        {{ round.core2 }}
                                     </div>
                                     <input type="text" id="put2"  name="question2" value="0" onchange="fetch2(2)"/>
                                 </div>
@@ -186,13 +184,12 @@
                 {% endif %}
                 {% if round.question3 != '' %}
                 <div class="title">
-						<h3>Section Three<br/></h3>
 							<h4>{{ round.question3 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get3" step="1" value="0" onchange="fetch3(1)"/>
+                                    <input type="range" min="1" max="{{ round.core3 }}" id="get3" step="1" value="0" onchange="fetch3(1)"/>
                                     <div class="pull-right">
-                                        7
+                                        {{ round.core3 }}
                                     </div>
                                     <input type="text" id="put3" name="question3" value="0" onchange="fetch3(2)"/>
                                 </div>
@@ -201,13 +198,12 @@
                 {% endif %}
                 {% if round.question4 != '' %}
                 <div class="title">
-						<h3>Section Four<br/></h3>
 							<h4>{{ round.question4 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get4" step="1" value="0" onchange="fetch4(1)"/>
+                                    <input type="range" min="1" max="{{ round.core4 }}" id="get4" step="1" value="0" onchange="fetch4(1)"/>
                                     <div class="pull-right">
-                                        7
+                                        {{ round.core4 }}
                                     </div>
                                     <input type="text" id="put4" name="question4" value="0" onchange="fetch4(2)"/>
                                 </div>
@@ -216,13 +212,12 @@
                 {% endif %}
                 {% if round.question5 != '' %}
                 <div class="title">
-						<h3>Section Five<br/></h3>
 							<h4>{{ round.question5 }}</h4>
                             <br>
                                 <div>
-                                    <input type="range" min="1" max="7" id="get5" step="1" value="0" onchange="fetch5(1)"/>
+                                    <input type="range" min="1" max="{{ round.core5 }}" id="get5" step="1" value="0" onchange="fetch5(1)"/>
                                     <div class="pull-right">
-                                        7
+                                        {{ round.core5 }}
                                     </div>
                                     <input type="text" id="put5" name="question5" value="0" onchange="fetch5(2)"/>
                                 </div>
@@ -234,7 +229,11 @@
 				        <div>
                             <div class="form-group label-floating">
 								<label class="control-label">Feedback</label>
-								<input type="text" name="feedback" class="form-control">
+                                {% if round.feedback %}
+                                    <textarea class="form-control" rows="3" required name="feedback"></textarea>
+                                {% else %}
+                                    <textarea class="form-control" rows="3" name="feedback"></textarea>
+                                {% endif %}
 							</div>
 						</div>
 				</div>

@@ -7,28 +7,18 @@
 	<link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<title>Create Event</title>
-
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
-	<!--     Fonts and icons     -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
-
-	<!-- CSS Files -->
-    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
-	<link href="{% static 'assets/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />
-
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets_old/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets_old/css/material-dashboard.css'%}" rel="stylesheet" />
+     <link href="{% static 'assets_old/css/button.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets_old/css/demo.css'%}" rel="stylesheet" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
 </head>
 <body>
 <div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg'%}')">
 
-	<!--  Made With Get Shit Done Kit  -->
-		<a href="/user/club_dashboard" class="made-with-mk">
-			<div class="brand">PR</div>
-			<div class="made-with">Made with <strong>Love</strong></div>
-		</a>
 
     <!--   Big container   -->
     <div class="container">
@@ -65,7 +55,7 @@
                                   <div class="col-sm-4 col-sm-offset-1">
                                      <div class="picture-container">
                                           <div class="picture">
-                                              <img src="{% static 'assets/img/default-avatar.png'%}" class="picture-src" id="wizardPicturePreview" title=""/>
+                                              <img src="{{ existing.logo.url }}" class="picture-src" id="wizardPicturePreview" style="width: inherit;height: inherit"/>
                                               {{ form.logo }}
                                           </div>
                                           <h6>Choose Picture</h6>
@@ -77,7 +67,7 @@
                                         {{ form.name }}
                                       </div>
                                       <div class="form-group">
-                                        <label>Website <small>(required)</small></label>
+                                        <label>Website <small>(optional)</small></label>
                                         {{ form.website }}
                                       </div>
                                   </div>
@@ -148,10 +138,11 @@
                                     <input style="margin: 10px" type="checkbox" name="second" value="True">Second Year
                                     <input style="margin: 10px" type="checkbox" name="third" value="True">Third year
                                 </div>
-                                <div class="col-sm-3 col-sm-offset-4">
-                                    <input type="text" required name="prefix" minlength="3" maxlength="4" class="form-control" value="{{ event.prefix }}" placeholder="Prefix">
+                                <h4 class="info-text">Event ID Prefix</h4>
+                                <div class="info-text" style="text-align: center">
+                                    <input style="width: 125px;margin-left: 40%" type="text" required name="prefix" minlength="3" maxlength="4" class="form-control" value="{{ existing.prefix }}" placeholder="Solo Prefix">
+                                    <input style="width: 125px;margin-left: 40%" type="text" required name="tprefix" minlength="3" maxlength="4" class="form-control" value="{{ existing.tprefix }}" placeholder="Team Prefix">
                                 </div>
-                                <br><br><br><br><br>
                             </div>
                         <div class="tab-pane" id="account">
                                 <h4 class="info-text"> What are your Sub Events </h4>
@@ -236,11 +227,11 @@
                             </div>
                         <div class="wizard-footer height-wizard">
                             <div class="pull-right">
-                                <input type='button' class='btn btn-next btn-fill btn-warning btn-wd btn-sm' name='next' value='Next' />
-                                <button type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm'>Finish </button>
+                                <input type='button' class='btn btn-next btn-fill btn-rose btn-wd' name='next' value='Next' />
+                                <button type='submit' class='btn btn-finish btn-fill btn-rose btn-wd'>Finish </button>
                             </div>
                             <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
+                                <input type='button' class='btn btn-previous btn-fill btn-rose btn-wd' name='previous' value='Previous' />
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -277,6 +268,13 @@
             document.getElementById('multi').checked = false;
             document.getElementById(variable).checked = true;
         }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            document.getElementById('name').value = "{{ existing.name }}";
+            document.getElementById('about2').value = "{{ existing.about }}";
+            document.getElementById('website').value = "{{ existing.website }}";
+        });
     </script>
 
 </html>

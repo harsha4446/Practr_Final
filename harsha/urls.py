@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^judge_list/', include('judgelist.urls')),
     url(r'^lock/', include('lock.urls')),
 
+
 ]
 
 if settings.DEBUG:

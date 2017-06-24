@@ -10,15 +10,13 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ofcynuu46egfihego9sep30f5whg38rp0ytvx8o7m3y2d3ly"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ofcynuu46egfihego9sep30f5whg38rp0ytvx8o7m3y2d3ly"></script>
     <script>tinymce.init({ selector:'textarea' });</script>
-    <!-- Bootstrap core CSS     -->
     <link href="{% static 'assets_old/css/bootstrap.min.css'%}" rel="stylesheet" />
-    <!--  Material Dashboard CSS    -->
     <link href="{% static 'assets_old/css/material-dashboard.css'%}" rel="stylesheet" />
      <link href="{% static 'assets_old/css/button.css'%}" rel="stylesheet" />
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{% static 'assets_old/css/demo.css'%}" rel="stylesheet" />
-    <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
 </head>
@@ -73,13 +71,13 @@
 
                                   <div class="col-lg-10 col-lg-offset-1">
                                       <div class="form-group label-floating">
-                                                            <label class="control-label">Title
+                                                            <label>Title
                                                                 <small>(required)</small>
                                                             </label>
                                                             {{ form.title }}
                                       </div>
                                      <div class="form-group label-floating">
-                                                            <label class="control-label">Subtitle
+                                                            <label>Subtitle
                                                                 <small>(Optional)</small>
                                                             </label>
                                                             {{ form.sub_title }}
@@ -87,9 +85,9 @@
                                        <br><br>
                                        <label>Weightage</label><br>
                                       <div>
-                                       <input style="margin: 10px" type="radio" id="low" name="low" value="True">Low(x0.3)
-                                       <input style="margin: 10px" type="radio" id="med" name="medium" value="True">Medium(x0.6)
-                                       <input style="margin: 10px" type="radio" id="high"  name="high" value="True" checked>High(x1.0)
+                                       <input style="margin: 10px" type="checkbox" id="low" name="low" value="True" onchange="test(1)">Low(x0.3)
+                                       <input style="margin: 10px" type="checkbox" id="med" name="medium" value="True" onchange="test(2)">Medium(x0.6)
+                                       <input style="margin: 10px" type="checkbox" id="high"  name="high" value="True" checked onchange="test(3)">High(x1.0)
                                        </div>
                                       <br><br>
                                       <label>Max Score</label><br>
@@ -222,38 +220,37 @@
                             </div>
 
                         </div>
+                                </div><br>
+                                    <div style="margin-left: 20%" class="col-lg-8">
+                                        {{ form.question1 }}
+                                        {{ form.core1 }}
+                                        <br>
+                                    </div>
+                                            <button type="button" id ="question1but" class="button button-action button-circle" style="display: block ; margin-top: 55%; margin-left: 84%"onclick=question('question2','question1but','question2but')><i class="fa fa-plus"></i></button>
+                                   <div style="margin-left: 20%" class="col-lg-8">
+                                        {{ form.question2 }}
+                                        {{ form.core2 }}
+                                       <br>
+                                   </div>
+                                            <button type="button" id ="question2but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question3','question2but','question3but')><i class="fa fa-plus"></i></button>
+                                    <div style="margin-left: 20%" class="col-lg-8">
+                                        {{ form.question3 }}
+                                        {{ form.core3 }}
+                                        <br>
+                                    </div>
+                                            <button type="button" id ="question3but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question4','question3but','question4but')><i class="fa fa-plus"></i></button>
+                                      <div style="margin-left: 20%" class="col-lg-8">
+                                                {{ form.question4 }}
+                                                {{ form.core4 }}
+                                            <br>
+                                      </div>
+                                                    <button type="button" id ="question4but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question5','question4but','question5but')><i class="fa fa-plus"></i></button>
+                                       <div style="margin-left: 20%" class="col-lg-8">
+                                                {{ form.question5 }}
+                                                {{ form.core5 }}
+                                           <br>
+                                       </div>
                                 </div>
-{#                                    <div style="margin-left: 20%" class="col-lg-8">#}
-{#                                        {{ form.question1 }}#}
-{#                                        {{ form.core1 }}#}
-{#                                        <br>#}
-{#                                    </div>#}
-{#                                            <button type="button" id ="question1but" class="button button-action button-circle" style="display: block ; margin-top: 55%; margin-left: 84%"onclick=question('question2','question1but','question2but')><i class="fa fa-plus"></i></button>#}
-{#                                   <div style="margin-left: 20%" class="col-lg-8">#}
-{#                                        {{ form.question2 }}#}
-{#                                        {{ form.core2 }}#}
-{#                                       <br>#}
-{#                                   </div>#}
-{#                                            <button type="button" id ="question2but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question3','question2but','question3but')><i class="fa fa-plus"></i></button>#}
-{#                                    <div style="margin-left: 20%" class="col-lg-8">#}
-{#                                        {{ form.question3 }}#}
-{#                                        {{ form.core3 }}#}
-{#                                        <br>#}
-{#                                    </div>#}
-{#                                            <button type="button" id ="question3but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question4','question3but','question4but')><i class="fa fa-plus"></i></button>#}
-{#                                      <div style="margin-left: 20%" class="col-lg-8">#}
-{#                                                {{ form.question4 }}#}
-{#                                                {{ form.core4 }}#}
-{#                                            <br>#}
-{#                                      </div>#}
-{#                                                    <button type="button" id ="question4but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question5','question4but','question5but')><i class="fa fa-plus"></i></button>#}
-{#                                       <div style="margin-left: 20%" class="col-lg-8">#}
-{#                                                {{ form.question5 }}#}
-{#                                                {{ form.core5 }}#}
-{#                                           <br>#}
-{#                                       </div>#}
-                                </div>
-
                                                 </div>
 
                                             </div>
@@ -397,12 +394,25 @@
         var content=document.getElementById("contentval").value;
         var presentation=document.getElementById("presentationval").value;
         var rebuttal=document.getElementById("rebuttalval").value;
+        var c1 = document.getElementById("core1").value;
+        var c2 = document.getElementById("core2").value;
+        var c3 = document.getElementById("core3").value;
+        var c4 = document.getElementById("core4").value;
+        var c5 = document.getElementById("core5").value;
         var progress = parseInt(creativity)+parseInt(feasibility)+parseInt(communication)+parseInt(content)+parseInt(presentation)+parseInt(rebuttal);
-        document.getElementById("total").value=progress;
-        document.getElementById("totalbox").value=progress;
-        if (progress>maxscore()){
-            alert("Oops, Exceeded maximum")
+        progress = progress+parseInt(c1)+parseInt(c2)+parseInt(c3)+parseInt(c4)+parseInt(c5);
+        if (progress > maxscore()){
+            alert("Oops, Exceeded Maximum");
+            return;
         }
+        else {
+            document.getElementById("total").value = progress;
+            document.getElementById("totalbox").value = progress;
+        }
+        if (progress==maxscore())
+            document.getElementById('finish').disabled = false;
+        else
+            document.getElementById('finish').disabled = true;
     }
     function maxscore() {
         var maxi = document.getElementById("max").value;
@@ -412,6 +422,65 @@
         return maxi;
     }
 
+    function test(variable) {
+        document.getElementById("low").checked = false;
+        document.getElementById("med").checked = false;
+        document.getElementById("high").checked = false;
+        if (variable == 1){
+            document.getElementById("low").checked = true;
+        }
+        else if(variable == 2){
+            document.getElementById("med").checked = true;
+        }
+        else{
+            document.getElementById("high").checked = true;
+        }
+    }
     </script>
+    <script type="text/javascript">
+            $(document).ready(function() {
+                document.getElementById('title').value="{{ existing.title }}";
+                document.getElementById('subtitle').value="{{ existing.subtitle }}";
+                document.getElementById('task1').value="{{ existing.task1 }}";
+                document.getElementById('task2').value="{{ existing.task2 }}";
+                document.getElementById('task3').value="{{ existing.task3 }}";
+                document.getElementById('task4').value="{{ existing.task4 }}";
+                document.getElementById('task5').value="{{ existing.task5 }}";
+                document.getElementById('resource1').value="{{ existing.resource1 }}";
+                document.getElementById('resource2').value="{{ existing.resource2 }}";
+                document.getElementById('resource3').value="{{ existing.resource3 }}";
+                document.getElementById('resource4').value="{{ existing.resource4 }}";
+                document.getElementById('resource5').value="{{ existing.resource5 }}";
+                document.getElementById('question1').value="{{ existing.question1 }}";
+                document.getElementById('question2').value="{{ existing.question2 }}";
+                document.getElementById('question3').value="{{ existing.question3 }}";
+                document.getElementById('question4').value="{{ existing.question4 }}";
+                document.getElementById('question5').value="{{ existing.question5 }}";
+                document.getElementById('creativityval').value = {{ existing.creativityvalue }};
+                document.getElementById('presentationval').value = {{ existing.presentationvalue }};
+                document.getElementById('contentval').value = {{ existing.contentvalue }};
+                document.getElementById('rebuttalval').value = {{ existing.rebuttalvalue }};
+                document.getElementById('feasibilityval').value = {{ existing.feasibilityvalue }};
+                document.getElementById('communicationval').value = {{ existing.communicationvalue }};
+                document.getElementById('core1').value = {{ existing.core1 }};
+                document.getElementById('core2').value = {{ existing.core2 }};
+                document.getElementById('core3').value = {{ existing.core3 }};
+                document.getElementById('core4').value = {{ existing.core4 }};
+                document.getElementById('core5').value = {{ existing.core5 }};
+                if({{ existing.creativity }})
+                    document.getElementById('creativityval').disabled = !this.checked;
+                if({{ existing.content }})
+                    document.getElementById('content').checked = true;
+                if({{ existing.content }})
+                    document.getElementById('content').checked = true;
+                if({{ existing.content }})
+                    document.getElementById('content').checked = true;
+                if({{ existing.content }})
+                    document.getElementById('content').checked = true;
+                if({{ existing.content }})
+                    document.getElementById('content').checked = true;
+            });
+        </script>
 
 </html>
+

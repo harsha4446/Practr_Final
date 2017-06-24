@@ -4,9 +4,9 @@ from django.forms.extras import SelectDateWidget
 
 
 class addEvent(forms.ModelForm):
-    name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}))
-    website = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'id':'name','class': 'form-control','value':'Trying'}))
+    about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'id':'about2','class': 'form-control', 'rows': 3}))
+    website = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'website','class': 'form-control'}))
     logo = forms.ImageField(required=False)
     team_size1 = forms.IntegerField(required=False)
     team_size2 = forms.IntegerField(required=False)
@@ -22,8 +22,8 @@ class addEvent(forms.ModelForm):
 
 
 class addRound(forms.ModelForm):
-    title = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    sub_title = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    title = forms.CharField(required=True, widget=forms.TextInput(attrs={'id':'title','class': 'form-control'}))
+    sub_title = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'subtitle','class': 'form-control'}))
     task1 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'task1','style':'display:block','class': 'form-control','placeholder':'Task 1 (Required)'}))
     task2 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'task2','style':'display:none','class': 'form-control','placeholder':'Task 2 (Optional)'}))
     task3 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'task3','style':'display:none','class': 'form-control','placeholder':'Task 3 (Optional)'}))
@@ -34,24 +34,33 @@ class addRound(forms.ModelForm):
     resource3 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'resource3','style':'display:none','class': 'form-control','placeholder':'Resource 3(Optional)'}))
     resource4 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'resource4','style':'display:none','class': 'form-control','placeholder':'Resource 4(Optional)'}))
     resource5 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'resource5','style':'display:none','class': 'form-control','placeholder':'Resource 5(Optional)'}))
-    question1 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question1','style':'display:block','class': 'form-control','placeholder':'Question 1 (Required)'}))
-    question2 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question2','style':'display:none','class': 'form-control','placeholder':'Question 2(Optional)'}))
-    question3 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question3','style':'display:none','class': 'form-control','placeholder':'Question 3(Optional)'}))
-    question4 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question4','style':'display:none','class': 'form-control','placeholder':'Question 4(Optional)'}))
-    question5 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question5','style':'display:none','class': 'form-control','placeholder':'Question 5(Optional)'}))
-    about = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control','rows':9,}))
+    question1 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question1','style':'display:block','style':'width:130px','class': 'form-control','placeholder':'Custom 1 (Optional)'}))
+    question2 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question2','style':'display:none','style':'width:130px','class': 'form-control','placeholder':'Custom 2(Optional)'}))
+    question3 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question3','style':'display:none','style':'width:130px','class': 'form-control','placeholder':'Custom 3(Optional)'}))
+    question4 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question4','style':'display:none','style':'width:130px','class': 'form-control','placeholder':'Custom 4(Optional)'}))
+    question5 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'question5','style':'display:none','style':'width:130px','class': 'form-control','placeholder':'Custom 5(Optional)'}))
+    about = forms.CharField(label="", required=False, widget=forms.Textarea(attrs={'id':'mce','class': 'form-control','rows':9,'maxlength':30000}))
     creativity=forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'id':'creativity'}))
     presentation = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'id': 'presentation'}))
     content = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'id': 'content'}))
     rebuttal = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'id': 'rebuttal'}))
     communication = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'id': 'communication'}))
     feasibility = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'id': 'feasibility'}))
+    core1 = forms.IntegerField(label="", required=False, widget=forms.NumberInput(attrs={'id':'core1','style':'width:100px','class': 'form-control', 'value':'0','onchange':'fetch()'}))
+    core2 = forms.IntegerField(label="", required=False, widget=forms.NumberInput(
+        attrs={'id': 'core2', 'style': 'width:100px', 'class': 'form-control', 'value':'0','onchange':'fetch()'}))
+    core3 = forms.IntegerField(label="", required=False, widget=forms.NumberInput(
+        attrs={'id': 'core3', 'style': 'width:100px', 'class': 'form-control', 'value':'0','onchange':'fetch()'}))
+    core4 = forms.IntegerField(label="", required=False, widget=forms.NumberInput(
+        attrs={'id': 'core4', 'style': 'width:100px', 'class': 'form-control', 'value':'0','onchange':'fetch()'}))
+    core5 = forms.IntegerField(label="", required=False, widget=forms.NumberInput(
+        attrs={'id': 'core5', 'style': 'width:100px', 'class': 'form-control', 'value':'0','onchange':'fetch()'}))
     class Meta:
         model = rounds
         fields = ['title','sub_title', 'about','task1','task2','task4','tast3','task5','resource1'
                   ,'resource2','resource3','resource4','resource5','question1','question2','question3'
                   ,'question4','question5','creativity','content','communication','presentation','feasibility'
-                  ,'rebuttal', 'feedback', ]  #'core1','core2','core3','core4','core5',
+                  ,'rebuttal', 'feedback', 'core1','core2','core3','core4','core5',]
 
 
 class scoreForm(forms.ModelForm):

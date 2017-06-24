@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^live/(?P<id>\d+)/$', views.live,name='openEvent'),
     url(r'^new_event/(?P<access>\d+)/$$', views.add_event,name='newEvent'),
     url(r'^addRound/(?P<id>\d+)/(?P<operation>\d+)/(?P<offline>\d+)/$', views.add_round,name='newRound'),
+    url(r'^addRound/(?P<id>\d+)/(?P<operation>\d+)/(?P<offline>\d+)/(?P<existing>\d+)/$', views.add_round, name='editRound'),
     url(r'^delRound/(?P<id>\d+)/$', views.del_round,name='delRound'),
     #url(r'^subEvents/(?P<id>\d+)/$', views.sub_events,name='subevent'),
     url(r'^caseView/(?P<id>\d+)/(?P<type>\d+)/$', views.case_view,name='caseview'),
@@ -26,4 +27,6 @@ urlpatterns = [
     url(r'^registered_members/(?P<id>\d+)/$', views.registered_members, name='members'),
     url(r'^masterTable/(?P<type>\d+)/$', views.master_table, name='master'),
     url(r'^teams/(?P<id>\d+)/(?P<type>\d+)/(?P<size>\d+)/$', views.teamCreate, name='teamcreate'),
+    url(r'^edit/$', views.edit_profile, name='edit'),
+    url(r'^editEvent/(?P<access>\d+)/(?P<id>\d+)/$', views.add_event, name='editEvent'),
 ]

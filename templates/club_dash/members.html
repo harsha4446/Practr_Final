@@ -41,7 +41,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src={{ user.profile_picture }} />
+                        <img src="{{ user.profile_picture.url }}" style="height: 100%"/>
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -54,7 +54,7 @@
                                     <a href="#">My Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#">Edit Profile</a>
+                                    <a href="/user/club_dashboard/edit">Edit Profile</a>
                                 </li>
                                 <li>
                                     <a href="/home/logout">Log Out</a>
@@ -70,6 +70,50 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
+                {% if not user.judge %}
+                <li>
+                        <a data-toggle="collapse" href="#cases">
+                            <i class="material-icons">image</i>
+                            <p>Core Events
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="cases">
+                            <ul class="nav">
+                                {% if event.marketing %}
+                                <li>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">Marketing</a>
+                                </li>
+                                {% endif %}
+                                {% if event.finance %}
+                                <li>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">Finance</a>
+                                </li>
+                                {% endif %}
+                                {% if event.public_relations %}
+                                <li>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">Public Relations</a>
+                                </li>
+                                {% endif %}
+                                {% if event.human_resources %}
+                                <li>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">Human Resources</a>
+                                </li>
+                                {% endif %}
+                                {% if event.ent_dev %}
+                                <li>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">Entrepreneurship Development</a>
+                                </li>
+                                {% endif %}
+                                {% if event.best_manager %}
+                                <li>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">Best Manager</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
                     {% if not user.judge %}
                     <li>
                         <a data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
@@ -126,7 +170,7 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="/user/club_dashboard" class="dropdown-toggle">
                                     <i class="material-icons">dashboard</i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
@@ -159,23 +203,23 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="/user/club_dashboard/edit" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
                             </li>
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group form-search is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
+{#                        <form class="navbar-form navbar-right" role="search">#}
+{#                            <div class="form-group form-search is-empty">#}
+{#                                <input type="text" class="form-control" placeholder="Search">#}
+{#                                <span class="material-input"></span>#}
+{#                            </div>#}
+{#                            <button type="submit" class="btn btn-white btn-round btn-just-icon">#}
+{#                                <i class="material-icons">search</i>#}
+{#                                <div class="ripple-container"></div>#}
+{#                            </button>#}
+{#                        </form>#}
                     </div>
                 </div>
             </nav>

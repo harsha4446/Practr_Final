@@ -22,7 +22,7 @@ def dashboard(request):
         corename = 'Entrepreneurship Development'
     elif details.type == 6:
         corename = 'Best Manager'
-    context = {'all_rounds': all_rounds, 'user': request.user, 'event': event.id, 'type': details.type, 'count': register,
+    context = {'all_rounds': all_rounds, 'user': request.user, 'event': event, 'type': details.type, 'count': register,
                'corename':corename}
     return render(request, 'club_dash/case_view.html', context)
 
