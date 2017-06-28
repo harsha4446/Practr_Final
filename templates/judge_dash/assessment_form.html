@@ -36,8 +36,6 @@
 	        	<span class="icon-bar"></span>
 	        	<span class="icon-bar"></span>
 	    	</button>
-	    	<a href="http://www.creative-tim.com">
-	      	</a>
 	    </div>
 	</div>
 </nav>
@@ -60,22 +58,51 @@
 
 	<div class="main main-raised">
 		<div class="section section-basic">
-	    	<div class="section" id="carousel">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
-
-                        {{ scores.data1 }}
-                        {{ scores.data2 }}
-                        {{ scores.data3 }}
- u
-					</div>
-				</div>
-			</div>
-		</div>
+{#	    	<div class="section" id="carousel">#}
+{#			<div class="container">#}
+{#				<div class="row">#}
+{#					<div class="col-md-8 col-md-offset-2">#}
+{#                        <a href="user/club_dashboard/download/{{ scores.data1 }}">Download 1</a>#}
+{#                        {{ scores.data2 }}#}
+{#                        {{ scores.data3 }}#}
+{#					</div>#}
+{#				</div>#}
+{#			</div>#}
+{#		</div>#}
+        <br><br><br>
             <div class="container">
+            <div style="margin-left: 40%">
+                {% if scores.data1.url != '' %}
+                    <a href="/user/club_dashboard/download/{{ scores.id }}/1">
+                        <button type="button" rel="tooltip" class="btn btn-primary btn-lg" title="Download file 1">
+                            <i class="material-icons">vertical_align_bottom</i>
+                        </button>
+                    </a>
+                {% endif %}
+                {% if scores.data2.url != '' %}
+                    <a href="/user/club_dashboard/download/{{ scores.id }}/2">
+                        <button type="button" rel="tooltip" class="btn btn-primary btn-lg" title="Download file 2">
+                            <i class="material-icons">vertical_align_bottom</i>
+                        </button>
+                    </a>
+                {% endif %}
+                {% if scores.data3.url != '' %}
+                    <a href="/user/club_dashboard/download/{{ scores.id }}/3">
+                        <button type="button" rel="tooltip" class="btn btn-primary btn-lg" title="Download file 3">
+                            <i class="material-icons">vertical_align_bottom</i>
+                        </button>
+                    </a>
+                {% endif %}
+            <br><br>
+            </div>
             <form method="post" action="/user/judge_dashboard/judge/{{ scores.student.id }}/{{ round.id }}/">
-            <input type="range" min="1" max="100" id="total" step="1" disabled/>
+{#            <input type="range" min="1" max="{{ round.max_score }}" id="pbar" step="1" value="0" disabled/>#}
+{#             <div class="pull-left">#}
+{#                0#}
+{#            </div>#}
+{#             <div class="pull-right">#}
+{#                {{ round.max_score }}#}
+{#            </div>#}
             {% csrf_token %}
                 <div class="col-md-8 col-md-offset-2">
                 <div class="title">
@@ -88,7 +115,7 @@
                                     <div class="pull-right">
                                         {{ round.creativityvalue }}
                                     </div>
-                                    <input type="text" name="creativity1" id="sp1" value="0" onchange="creativity(2)"/>
+                                    <input type="text" name="creativity1" id="sp1" value="1" min="1" max="{{ round.creativityvalue}}" onchange="creativity(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -100,7 +127,7 @@
                                     <div class="pull-right">
                                         {{ round.contentvalue }}
                                     </div>
-                                    <input type="text" name="content1" id="sp2" value="0" onchange="content(2)"/>
+                                    <input type="text" name="content1" id="sp2" value="1" min="1" max="{{ round.contentvalue}}" onchange="content(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -112,7 +139,7 @@
                                     <div class="pull-right">
                                         {{ round.presentationvalue }}
                                     </div>
-                                    <input type="text" name="presentation1" id="sp3" value="0" onchange="presentation(2)"/>
+                                    <input type="text" name="presentation1" id="sp3" value="1" min="1" max="{{ round.presentationvalue}}" onchange="presentation(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -124,7 +151,7 @@
                                     <div class="pull-right">
                                         {{ round.rebuttalvalue }}
                                     </div>
-                                    <input type="text" name="rebuttal1" id="sp4" value="0" onchange="rebuttal(2)"/>
+                                    <input type="text" name="rebuttal1" id="sp4" value="1" min="1" max="{{ round.rebuttalvalue}}" onchange="rebuttal(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -136,7 +163,7 @@
                                     <div class="pull-right">
                                         {{ round.communicationvalue }}
                                     </div>
-                                    <input type="text" name="communication1" id="sp5" value="0" onchange="communication(2)"/>
+                                    <input type="text" name="communication1" id="sp5" value="1" min="1" max="{{ round.communicationvalue}}" onchange="communication(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -148,7 +175,7 @@
                                     <div class="pull-right">
                                         {{ round.feasibilityvalue }}
                                     </div>
-                                    <input type="text" name="feasibility1" id="sp6" value="0"  onchange="feasability(2)"/>
+                                    <input type="text" name="feasibility1" id="sp6" value="1" min="1" max="{{ round.feasibilityvalue}}"  onchange="feasability(2)"/>
                                 </div>
                                 <br>
                             {% endif %}
@@ -163,7 +190,7 @@
                                     <div class="pull-right">
                                         {{ round.core1 }}
                                     </div>
-                                    <input type="text" id="put1" name="question1" value="0" onchange="fetch1(2)"/>
+                                    <input type="text" id="put1" name="question1" value="1" min="1" max="{{ round.core1}}" onchange="fetch1(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -177,7 +204,7 @@
                                     <div class="pull-right">
                                         {{ round.core2 }}
                                     </div>
-                                    <input type="text" id="put2"  name="question2" value="0" onchange="fetch2(2)"/>
+                                    <input type="text" id="put2"  name="question2" value="1" min="1" max="{{ round.core2}}" onchange="fetch2(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -191,7 +218,7 @@
                                     <div class="pull-right">
                                         {{ round.core3 }}
                                     </div>
-                                    <input type="text" id="put3" name="question3" value="0" onchange="fetch3(2)"/>
+                                    <input type="text" id="put3" name="question3" value="1" min="1" max="{{ round.core3 }}" onchange="fetch3(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -205,7 +232,7 @@
                                     <div class="pull-right">
                                         {{ round.core4 }}
                                     </div>
-                                    <input type="text" id="put4" name="question4" value="0" onchange="fetch4(2)"/>
+                                    <input type="text" id="put4" name="question4" value="1" min="1" max="{{ round.core4 }}" onchange="fetch4(2)"/>
                                 </div>
                             <br>
 				</div>
@@ -219,11 +246,12 @@
                                     <div class="pull-right">
                                         {{ round.core5 }}
                                     </div>
-                                    <input type="text" id="put5" name="question5" value="0" onchange="fetch5(2)"/>
+                                    <input type="text" id="put5" name="question5" value="1" min="1" max="{{ round.core5}}" onchange="fetch5(2)"/>
                                 </div>
                             <br>
 				</div>
                 {%endif%}
+                {% if round.offline != '2' %}
                 <div class="title">
                         <h2>Overall Comments</h2><br>
 				        <div>
@@ -237,6 +265,7 @@
 							</div>
 						</div>
 				</div>
+                {% endif %}
 		        <div id="buttons">
 					<div>
                             {% if user.judge %}
@@ -349,13 +378,13 @@
         if (flag==1) {
             var sg1 = document.getElementById("sg1").value;
             document.getElementById("sp1").value = sg1;
-            total();
         }
         else {
             var sp1 = document.getElementById("sp1").value;
             document.getElementById("sg1").value = sp1;
             total();
         }
+        total();
     }
     function content(flag)
     {
@@ -367,6 +396,7 @@
             var sp2 = document.getElementById("sp2").value;
             document.getElementById("sg2").value = sp2;
         }
+        total();
     }
     function presentation(flag)
     {
@@ -378,6 +408,7 @@
             var sp3 = document.getElementById("sp3").value;
             document.getElementById("sg3").value = sp3;
         }
+        total();
     }
     function rebuttal(flag)
     {
@@ -389,6 +420,7 @@
             var sp4 = document.getElementById("sp4").value;
             document.getElementById("sg4").value = sp4;
         }
+        total();
     }
     function communication(flag)
     {
@@ -400,6 +432,7 @@
             var sp5 = document.getElementById("sp5").value;
             document.getElementById("sg5").value = sp5;
         }
+        total();
     }
     function feasability(flag)
     {
@@ -412,18 +445,39 @@
             var sp6 = document.getElementById("sp6").value;
             document.getElementById("sg6").value = sp6;
         }
+        total();
     }
-    function total()
-    {
-        var creativity=document.getElementById("sg1").value;
-        var feasibility=document.getElementById("sg2").value;
-        var communication=document.getElementById("sg3").value;
-        var content=document.getElementById("sg4").value;
-        var presentation=document.getElementById("sg5").value;
-        var rebuttal=document.getElementById("sg6").value;
-        var progress = parseInt(creativity)+parseInt(feasibility)+parseInt(communication)+parseInt(content)+parseInt(presentation)+parseInt(rebuttal);
-        document.getElementById("total").value=progress;
-    }
+{#    function total()#}
+{#    {#}
+{#        if (!progress)#}
+{#            var progress = 0;#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var creativity = document.getElementById("sp1").value;#}
+{#            progress = progress + creativity;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var feasibility = document.getElementById("sp2").value;#}
+{#            progress = progress + feasibility;#}
+{##}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var communication = document.getElementById("sp3").value;#}
+{#            progress = progress + communication;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var content = document.getElementById("sp4").value;#}
+{#            progress = progress + content;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var presentation=document.getElementById("sp5").value;#}
+{#            progress = progress + presentation;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var rebuttal=document.getElementById("sp6").value;#}
+{#            progress = progress + rebuttal;#}
+{#        }#}
+{#        document.getElementById("pbar").value=progress;#}
+{#    }#}
     </script>
 <script src="{% static 'assets/js/index.js'%}"></script>
 </html>

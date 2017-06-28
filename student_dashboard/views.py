@@ -62,9 +62,11 @@ def dashboard(request):
     form = dataForm(request.POST or None, request.FILES or None)
     round = None
     registered = None
+    ping = 0
     try:
          register = event_registered.objects.get(current_user = current_user)
          registered = register.registered_to.all()
+         ping = registered.count()
          for x in registered:
              detail = event_registered_details.objects.get(student=current_user, event=x)
              if detail.marketing:
@@ -107,7 +109,10 @@ def dashboard(request):
         return render(request, 'student_dash/noEvent.html', {'user': current_user})
     except rounds.DoesNotExist:
         round = None
-    context = {"rounds":all_rounds, "user":current_user, "form":form,'registered':registered }
+    rcodes = event_registered_details.objects.filter(student=current_user)
+    context = {"rounds":all_rounds, "user":current_user, "form":form,'registered':registered,'rcode':rcodes }
+    if ping == 0:
+        return render(request, 'student_dash/noEvent.html', {'user': current_user})
     return render(request, 'student_dash/dashboard.html', context)
     #return render(request, 'judge_list/judge_list.html', context)
 
@@ -291,7 +296,6 @@ def review(request,id):
     if round.creativity:
         creativity = int((scores.creativity/round.creativityvalue)*100)
         creativity = str(creativity)
-        print("here")
     if round.communication:
         communication = int ((scores.communication/round.communicationvalue)*100)
         communication = str(communication)
@@ -310,7 +314,7 @@ def review(request,id):
     print(creativity)
     context = {'user':request.user,'scores':scores, 'round':round,'creativity':creativity,'communication':communication,'content':content,
                'presentation':presentation,'rebuttal':rebuttal,'feasibility':feasibility,}
-    return render(request,'student_dash/performance_review.html',context)
+    return render(request, 'student_dash/performance_review.html', context)
 
 
 def edit_profile(request):
@@ -322,6 +326,9 @@ def edit_profile(request):
         details.section = request.POST.get("section")
         user.phoneno = request.POST.get("phone")
         user.about = request.POST.get("about")
+        if request.POST.get("profile_picture",False):
+            user.profile_picture = request.POST.get("profile_picture")
+            print("Done")
         if request.POST.get("old_password") != '' and request.POST.get("new_password") != '':
             old = request.POST.get("old_password")
             new = request.POST.get("new_password")

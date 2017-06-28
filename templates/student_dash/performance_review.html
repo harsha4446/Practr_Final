@@ -2,203 +2,241 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Performance Review</title>
-
-<!-- Fonts Online -->
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
-<!-- Style Sheet -->
-<link rel="stylesheet" href="{% static 'css/owl.carousel.css'%}">
-<link rel="stylesheet" href="{% static 'css/main-style.css'%}">
-<link rel="stylesheet" href="{% static 'css/style.css'%}">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Performance Review</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{% static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
 </head>
+
 <body>
-<div id="main-wrapper">
-  <div class="">
-
-    <!-- edn header-navm -->
-  </div>
-
-  <section class="demo-section">
-    <h6 class="demo-section-title container" style="text-align: center">Congratulations {{ scores.student.name }} on completing the completing {{ round.title }}. Here is your performance review.</h6>
-
-          <!-- end .uou-block-6a -->
-
-        <div class="uou-block-5b" class="col-sm-4" style="margin-top:20px">
-          <div class="uou-block-6a rounded"> <img src="{{ round.email.logo.url }}" alt="" style="height: 180px;width: 180px;">
-            <h6>{{ round.title }} <span>{{ round.sub_title }}</span></h6>
-              <div id="about" >{{ round.about }} </div>
-          </div>
-          <!-- end .uou-block-6a -->
+    <nav class="navbar navbar-primary navbar-transparent navbar-absolute">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/user/student_dashboard">Practr</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/user/student_dashboard">
+                            <i class="material-icons">dashboard</i> Dashboard
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
         </div>
-
-
-
-          <!-- end .uou-block-6b -->
-
-          <!-- end .uou-block-6b -->
-
-    <!-- end .uou-block-5a -->
-  </section>
-
-
-
-    <!-- endcontainer -->
-
-
-      <!-- end container  -->
-
-    <!-- end service -squeare -->
-
-
-
-    <div class="clearfix">
-      <div class="container">
-        <div class="row" style="margin-top: 30px">
-            {% if round.creativity %}
-          <div class="col-xs-3">
-            <div class="round-counter-single">
-              <div class="c100 p{{ creativity }} green"> <span>{{ creativity }}<b>%</b></span>
-                <div class="slice">
-                  <div class="bar"></div>
-                  <div class="fill"></div>
+    </nav>
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page pricing-page" data-image="{% static 'assets/img/bg-pricing.jpeg'%}">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <h2 class="title">Congratulations {{ scores.student.name }}!</h2>
+                            <h5 class="description">You have succesfully completed the case {{ scores.round.title }} conducted by {{ scores.round.club.name }}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if round.creativity %}
+                        <div class="col-md-2">
+                            <div class="card card-pricing card-plain">
+                                <div class="card-content">
+                                    <h6 class="category">Creativity</h6>
+                                    <div class="icon">
+                                        <i class="material-icons">wb_incandescent</i>
+                                    </div>
+                                    <h3 class="card-title">{{ creativity }}%</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if round.presentation %}
+                        <div class="col-md-2">
+                            <div class="card card-pricing card-plain">
+                                <div class="card-content">
+                                    <h6 class="category">Presentation</h6>
+                                    <div class="icon icon-rose">
+                                        <i class="material-icons">brush</i>
+                                    </div>
+                                    <h3 class="card-title">{{ presentation }}%</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if round.content %}
+                        <div class="col-md-2">
+                            <div class="card card-pricing card-plain">
+                                <div class="card-content">
+                                    <h6 class="category">Content</h6>
+                                    <div class="icon">
+                                        <i class="material-icons">library_books</i>
+                                    </div>
+                                    <h3 class="card-title">{{ content }}%</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if round.rebuttal %}
+                        <div class="col-md-2">
+                            <div class="card card-pricing card-plain">
+                                <div class="card-content">
+                                    <h6 class="category">Rebuttal</h6>
+                                    <div class="icon">
+                                        <i class="material-icons">question_answer</i>
+                                    </div>
+                                    <h3 class="card-title">{{ rebuttal }}%</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if round.communication %}
+                        <div class="col-md-2">
+                            <div class="card card-pricing card-plain">
+                                <div class="card-content">
+                                    <h6 class="category">Communication</h6>
+                                    <div class="icon">
+                                        <i class="material-icons">record_voice_over</i>
+                                    </div>
+                                    <h3 class="card-title">{{ communication }}%</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if round.feasibility %}
+                        <div class="col-md-2">
+                            <div class="card card-pricing card-plain">
+                                <div class="card-content">
+                                    <h6 class="category">Feasibility</h6>
+                                    <div class="icon">
+                                        <i class="material-icons">build</i>
+                                    </div>
+                                    <h3 class="card-title">{{ feasibility }}%</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="col-md-12 text-center">
+                                        <div class="col-md-12">
+                                <div class="card card-testimonial">
+                                    <div class="icon">
+                                        <i class="material-icons">format_quote</i>
+                                    </div>
+                                    <div class="card-content" id="feedback">
+                                        <h5 class="card-description">
+                                            {{ scores.feedback }}
+                                        </h5>
+                                    </div>
+                                    <div class="footer">
+                                        <h4 class="card-title">{{ scores.round.club.name }}</h4>
+                                        <div class="card-avatar">
+                                            <a href="">
+                                                <img class="img" src="{{ scores.round.club.logo.url }}" style="height: 180px;width: 180px;" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                            <br>
+                                            <div class="alert alert-info alert-with-icon" data-notify="container">
+                                        <i class="material-icons" data-notify="icon">notifications</i>
+                                        <a href="/profile_page/student/{{ user.id }}/">
+                                            <span data-notify="message">We have updated your profile with these scores. Click here to view!</span>
+                                        </a>
+                                      </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <h6>Creativity</h6>
             </div>
-          </div>
-            {% endif %}
-        {% if round.presentation %}
-          <div class="col-xs-3">
-            <div class="round-counter-single">
-              <div class="c100 p{{ presentation }} green"> <span>{{ presentation }}<b>%</b></span>
-                <div class="slice">
-                  <div class="bar"></div>
-                  <div class="fill"></div>
+            <footer class="footer">
+                <div class="container">
+                    <nav class="pull-left">
+                        
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        <a href="/home">Practr</a>, made for you.
+                    </p>
                 </div>
-              </div>
-              <h6>Presentation</h6>
-            </div>
-          </div>
-        {% endif %}
-        {% if round.rebuttal %}
-        <div class="col-sm-3">
-            <div class="round-counter-single">
-              <div class="c100 p{{ rebuttal }} green"> <span>{{ rebuttal }}<b>%</b></span>
-                <div class="slice">
-                  <div class="bar"></div>
-                  <div class="fill"></div>
-                </div>
-              </div>
-              <h6>Rebuttal</h6>
-            </div>
-          </div>
-        {% endif %}
-        {% if round.communication %}
-          <div class="col-xs-3">
-            <div class="round-counter-single">
-              <div class="c100 p{{ communication }} green"> <span>{{ communication }}<b>%</b></span>
-                <div class="slice">
-                  <div class="bar"></div>
-                  <div class="fill"></div>
-                </div>
-              </div>
-              <h6>Communication</h6>
-            </div>
-          </div>
-        {% endif %}
-        {% if round.content %}
-          <div class="col-xs-3">
-            <div class="round-counter-single">
-              <div class="c100 p{{ content }} green"> <span>{{ content }}<b>%</b></span>
-                <div class="slice">
-                  <div class="bar"></div>
-                  <div class="fill"></div>
-                </div>
-              </div>
-              <h6>Content</h6>
-            </div>
-          </div>
-        {% endif %}
-        {% if round.feasibility %}
-          <div class="col-xs-3">
-            <div class="round-counter-single">
-              <div class="c100 p{{ feasibility }} green"> <span>{{ feasibility }}<b>%</b></span>
-                <div class="slice">
-                  <div class="bar"></div>
-                  <div class="fill"></div>
-                </div>
-              </div>
-              <h6>Feasibility</h6>
-            </div>
-          </div>
-        {% endif %}
-      </div>
-      </div>
-      <!-- end container -->
-    </div>
-    <!-- end clerfix -->
-
-   <div class="uou-block-5b" class="uou-block-5b" style="margin:30px">
-      <div class="container">
-        <blockquote class="first active">
-          <p>{{ scores.feedback }} </p>
-        </blockquote>
-
-
-      </div>
-    </div>
-      <!-- end .uou-accordions -->
-
-
+            </footer>
         </div>
-
-
-    <div class="uou-cta primary">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-7">
-            <p>We have updated your profile with this event. </p>
-          </div>
-          <div class="col-sm-5 text-right">  <a class="btn btn-secondary" href="/profile_page/student/{{ user.id }}/">Show me</a> </div>
-        </div>
-      </div>
     </div>
-    <!-- end row -->
+</body>
+<!--   Core JS Files   -->
+<script src="{% static 'assets/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/jquery-ui.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/material.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/perfect-scrollbar.jquery.min.js'%}" type="text/javascript"></script>
+<!-- Forms Validations Plugin -->
+<script src="{% static 'assets/js/jquery.validate.min.js'%}"></script>
+<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+<script src="{% static 'assets/js/moment.min.js'%}"></script>
+<!--  Charts Plugin -->
+<script src="{% static 'assets/js/chartist.min.js'%}"></script>
+<!--  Plugin for the Wizard -->
+<script src="{% static 'assets/js/jquery.bootstrap-wizard.js'%}"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'assets/js/bootstrap-notify.js'%}"></script>
+<!-- DateTimePicker Plugin -->
+<script src="{% static 'assets/js/bootstrap-datetimepicker.js'%}"></script>
+<!-- Vector Map plugin -->
+<script src="{% static 'assets/js/jquery-jvectormap.js'%}"></script>
+<!-- Sliders Plugin -->
+<script src="{% static 'assets/js/nouislider.min.js'%}"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js'%}"></script>
+<!-- Select Plugin -->
+<script src="{% static 'assets/js/jquery.select-bootstrap.js'%}"></script>
+<!--  DataTables.net Plugin    -->
+<script src="{% static 'assets/js/jquery.datatables.js'%}"></script>
+<!-- Sweet Alert 2 plugin -->
+<script src="{% static 'assets/js/sweetalert2.js'%}"></script>
+<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="{% static 'assets/js/jasny-bootstrap.min.js'%}"></script>
+<!--  Full Calendar Plugin    -->
+<script src="{% static 'assets/js/fullcalendar.min.js'%}"></script>
+<!-- TagsInput Plugin -->
+<script src="{% static 'assets/js/jquery.tagsinput.js'%}"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="{% static 'assets/js/material-dashboard.js'%}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="{% static 'assets/js/demo.js'%}"></script>
+<script type="text/javascript">
+    $().ready(function() {
+        demo.checkFullPageBackgroundImage();
 
-
-<!-- Scripts -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<script src="{% static 'js/jquery-2.1.3.min.js'%}"></script>
-<script src="{% static 'js/bootstrap.js'%}"></script>
-<script src="{% static 'js/plugins/superfish.min.js'%}"></script>
-<script src="{% static 'js/jquery.ui.min.js'%}"></script>
-<script src="{% static 'js/plugins/rangeslider.min.js'%}"></script>
-<script src="{% static 'js/plugins/jquery.flexslider-min.js'%}"></script>
-<script src="{% static 'js/uou-accordions.js'%}"></script>
-<script src="{% static 'js/uou-tabs.js'%}"></script>
-<script src="{% static 'js/plugins/select2.min.js'%}"></script>
-<script src="{% static 'js/owl.carousel.min.js'%}"></script>
-<script src="{% static 'js/gmap3.min.js'%}"></script>
-<script src="{% static 'js/scripts.js'%}"></script>
-<script>
-        $('#about').each(function(){
+        setTimeout(function() {
+            // after 1000 ms we add the class animated to the login/register card
+            $('.card').removeClass('card-hidden');
+        }, 700)
+    });
+    $('#feedback').each(function(){
             var $this = $(this);
             var t = $this.text();
             $this.html(t.replace('&lt','<').replace('&gt', '>'));
 });
-    </script>
-</body>
+</script>
+
 </html>

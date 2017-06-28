@@ -54,14 +54,16 @@
                                             <li>
                                                 <a href="#about" data-toggle="tab">Basic</a>
                                             </li>
-                                            {% if offline != '1' %}
+                                            {% if offline == '0' %}
                                             <li>
                                                 <a href="#account" data-toggle="tab">Content</a>
                                             </li>
                                             {% endif %}
+                                        {% if offline != '2' %}
                                             <li>
                                                 <a href="#address" data-toggle="tab">Assessment Form</a>
                                             </li>
+                                        {% endif %}
                                         </ul>
                                     </div>
                                     <div class="tab-content">
@@ -91,11 +93,11 @@
                                        </div>
                                       <br><br>
                                       <label>Max Score</label><br>
-                                      <input style="margin: 5px" id="max" type="number" name="low" value="100" onchange="maxscore()">
+                                      <input style="margin: 5px" id="max" type="number" name="max_score" value="100" onchange="maxscore()">
                                   </div>
                               </div>
                             </div>
-                              {% if offline != '1' %}
+                              {% if offline == '0' %}
 
                                         <div class="tab-pane" id="account">
                                              <div class="row">
@@ -154,6 +156,7 @@
 
                                         </div>
                                         {% endif %}
+                                    {% if offline != '2' %}
                                         <div class="tab-pane" id="address">
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -168,97 +171,160 @@
                                         </div>
                                       <div class="form-group">
                                           <label>Soft Skills to Judge</label>
-                                <div class="checkbox">
-								<label>
-									{{ form.creativity }}
-									Creativity
-								</label>
-                                     <input id="creativityval" type="number" name="creativityvalue" value=0 onchange="fetch()" disabled>
-                                    <br>
-                                <label>
-									{{ form.presentation }}
-									Presentation
-								</label>
-                                    <input id="presentationval" type="number" name="presentationvalue" value=0 onchange="fetch()" disabled>
-                                    <br>
-                                <label>
-									{{ form.content }}
-									Content
-								</label>
-                                    <input id="contentval" type="number" name="contentvalue" value=0 onchange="fetch()" disabled>
-                                    <br>
-                                <label>
-									{{ form.rebuttal }}
-									Rebuttal
-								</label>
-                                    <!--style="display:none"-->
-                                    <input id="rebuttalval" type="number" name="rebuttalvalue" value=0 onchange="fetch()" disabled>
-                                    <br>
-                                <label>
-									{{ form.communication }}
-									Communication
-								</label>
-                                    <input id="communicationval" type="number" name="communicationvalue" value=0 onchange="fetch()" disabled>
-                                    <br>
-                                <label>
-									{{ form.feasibility }}
-									Feasibility
-								</label>
-                                    <input id="feasibilityval" type="number" name="feasibilityvalue" value=0 onchange="fetch()" disabled>
-                                    <br>
-							</div>
-                                      </div>
-                                </div>
-                                    <div class="col-md-8 col-md-offset-2">
-                                      <div class="form-group">
-                                          <label>Require Judge to provide Feedback?</label>
-                                <div class="checkbox">
-								<label>
-									{{ form.feedback }}
-									Collect Feedback
-								</label>
-                            </div>
+                                          <div class="card">
 
-                        </div>
-                                </div><br>
-                                    <div style="margin-left: 20%" class="col-lg-8">
-                                        {{ form.question1 }}
-                                        {{ form.core1 }}
-                                        <br>
-                                    </div>
-                                            <button type="button" id ="question1but" class="button button-action button-circle" style="display: block ; margin-top: 55%; margin-left: 84%"onclick=question('question2','question1but','question2but')><i class="fa fa-plus"></i></button>
-                                   <div style="margin-left: 20%" class="col-lg-8">
-                                        {{ form.question2 }}
-                                        {{ form.core2 }}
-                                       <br>
-                                   </div>
-                                            <button type="button" id ="question2but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question3','question2but','question3but')><i class="fa fa-plus"></i></button>
-                                    <div style="margin-left: 20%" class="col-lg-8">
-                                        {{ form.question3 }}
-                                        {{ form.core3 }}
-                                        <br>
-                                    </div>
-                                            <button type="button" id ="question3but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question4','question3but','question4but')><i class="fa fa-plus"></i></button>
-                                      <div style="margin-left: 20%" class="col-lg-8">
-                                                {{ form.question4 }}
-                                                {{ form.core4 }}
-                                            <br>
-                                      </div>
-                                                    <button type="button" id ="question4but" class="button button-action button-circle" style="display: none ; margin-top: 5%; margin-left: 84%"onclick=question('question5','question4but','question5but')><i class="fa fa-plus"></i></button>
-                                       <div style="margin-left: 20%" class="col-lg-8">
-                                                {{ form.question5 }}
-                                                {{ form.core5 }}
-                                           <br>
-                                       </div>
-                                </div>
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Soft Skill</th>
+                                                    <th>Points</th>
+                                                </tr>
+                                            </thead>
+                                                <div class="checkbox">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>{{ form.creativity }}</td>
+                                                        <td>
+                                                            <label>
+                                                                Creativity
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <input id="creativityval" type="number" name="creativityvalue" value=0 onchange="fetch()" disabled>
+                                                                <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form.presentation }}</td>
+                                                        <td>
+                                                            <label>
+                                                                Presentation
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <input id="presentationval" type="number" name="presentationvalue" value=0 onchange="fetch()" disabled>
+                                                                <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form.content }}</td>
+                                                        <td>
+                                                            <label>
+                                                                Content
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                                <input id="contentval" type="number" name="contentvalue" value=0 onchange="fetch()" disabled>
+                                                                <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form.rebuttal }}</td>
+                                                        <td>
+                                                             <label>
+                                                                Rebuttal
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                                <input id="rebuttalval" type="number" name="rebuttalvalue" value=0 onchange="fetch()" disabled>
+                                                                <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form.communication }}</td>
+                                                        <td>
+                                                            <label>
+                                                                Communication
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                                <input id="communicationval" type="number" name="communicationvalue" value=0 onchange="fetch()" disabled>
+                                                                <br>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ form.feasibility }}</td>
+                                                        <td>
+                                                            <label>
+                                                                Feasibility
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                                <input id="feasibilityval" type="number" name="feasibilityvalue" value=0 onchange="fetch()" disabled>
+                                                                <br>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
                                                 </div>
-
+                                        </table>
                                             </div>
-                                        </div>
+                                                </div>
+                                          </div>
+                                      </div>
+                                        <br>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Custom (Optional)</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ form.question1 }}</td>
+                                            <td>{{ form.core1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form.question2 }}</td>
+                                            <td>{{ form.core2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form.question3 }}</td>
+                                            <td>{{ form.core3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ form.question4 }}</td>
+                                            <td>{{ form.core4 }}</td>
+                                        </tr>
+                                       <tr>
+                                           <td>{{ form.question5 }}</td>
+                                           <td>{{ form.core5 }}</td>
+                                       </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+                            <label>Require Judge to provide Feedback?</label>
+                            <div class="checkbox"><label>
+                                {{ form.feedback }}
+                                Collect Feedback
+                            </label></div>
+                        </div>
+                    </div><br><br></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        </div>
                                     <div class="wizard-footer">
                                         <div class="pull-right">
                                             <input type='button' class='btn btn-next btn-fill btn-rose btn-wd' name='next' value='Next' />
-                                            <input type='submit' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' id="finish" value='Finish' />
+                                            {% if offline == '2' %}
+                                                <input type='submit' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' id="finish" value='Finish'/>
+                                            {% else %}
+                                                <input type='submit' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' id="finish" value='Finish' disabled/>
+                                            {% endif %}
                                         </div>
                                         <div class="pull-left">
                                             <input type='button' class='btn btn-previous btn-fill btn-rose btn-wd' name='previous' value='Previous' />
@@ -401,14 +467,8 @@
         var c5 = document.getElementById("core5").value;
         var progress = parseInt(creativity)+parseInt(feasibility)+parseInt(communication)+parseInt(content)+parseInt(presentation)+parseInt(rebuttal);
         progress = progress+parseInt(c1)+parseInt(c2)+parseInt(c3)+parseInt(c4)+parseInt(c5);
-        if (progress > maxscore()){
-            alert("Oops, Exceeded Maximum");
-            return;
-        }
-        else {
-            document.getElementById("total").value = progress;
-            document.getElementById("totalbox").value = progress;
-        }
+        document.getElementById("total").value = progress;
+        document.getElementById("totalbox").value = progress;
         if (progress==maxscore())
             document.getElementById('finish').disabled = false;
         else

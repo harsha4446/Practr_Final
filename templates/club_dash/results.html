@@ -241,14 +241,7 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                    <h3>Results</h3>
-                {% if not user.judge %}
-                <div class="pull-right">
-                    <button class="btn btn-primary btn-raised btn-round" data-toggle="modal" data-target="#audience">
-                        Finish And Short-List
-                    </button>
-                </div>
-                {% endif %}
+                    <h3>{{ round.title }}</h3>
                     <br>
                     <div class="row">
                         <div class="col-md-12">
@@ -256,33 +249,49 @@
                                 <div class="card-header card-header-icon" data-background-color="rose">
                                     <i class="material-icons">assignment</i>
                                 </div>
-                                <h4 class="card-title">Results</h4>
+                                <h4 class="card-title">Submissions</h4>
                             <br><br><br><br>
                                 <div class="card-content">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Username</th>
                                                     <th>Name</th>
                                                     <th>Phone</th>
-                                                    <th>Score</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {% for student in scores %}
                                                 <tr>
+                                                    <td> {{ student.rcode }} </td>
                                                     <td> {{ student.student.email }}</td>
                                                     <td> {{ student.student.name }}</td>
                                                     <td class="text-left"> {{ student.student.phoneno }}</td>
-                                                    <td> {{ student.total }}</td>
                                                     <td class="td-actions text-right">
-                                                        <a href="">
-                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Performance Review">
-                                                            <i class="material-icons">edit</i>
+                                                        {% if student.data1.url != '' %}
+                                                        <a href="/user/club_dashboard/download/{{ student.id }}/1">
+                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Download file 1">
+                                                            <i class="material-icons">vertical_align_bottom</i>
                                                         </button>
                                                         </a>
+                                                        {% endif %}
+                                                        {% if student.data2.url != '' %}
+                                                        <a href="/user/club_dashboard/download/{{ student.id }}/2">
+                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Download file 2">
+                                                            <i class="material-icons">vertical_align_bottom</i>
+                                                        </button>
+                                                        </a>
+                                                        {% endif %}
+                                                        {% if student.data3.url != '' %}
+                                                        <a href="/user/club_dashboard/download/{{ student.id }}/3">
+                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Download file 3">
+                                                            <i class="material-icons">vertical_align_bottom</i>
+                                                        </button>
+                                                        </a>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -290,39 +299,6 @@
                                         </table>
                                     </div>
                                 </div>
-                            <div class="modal fade" id="audience" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                <i class="material-icons">clear</i>
-                                            </button>
-                                            <div  style="text-align: center;">
-                                                <h4 class="modal-title">Participants Limit From Previous Rounds?</h4>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h4 class="modal-title">Use database from</h4>
-                                            <form method="post" action="/user/club_dashboard/audience/{{ round.id }}/{{ event }}/{{ type }}/">
-                                                {% csrf_token %}
-                                            <select class="selectpicker" data-style="btn btn-primary btn-round" title="Single Select" data-size="7">
-                                                <option disabled selected>Choose</option>
-                                                <option value="2">This Round Results</option>
-                                                <option value="3">Aggregate Of Prevoius Available Rounds</option>
-                                            </select>
-                                            <br><br>
-                                            <h4 class="modal-title">Audience Moving Forward?</h4>
-                                                <br><br>
-                                                <input name="qualified" type="range" min="1" max="{{max}}"  step="1"/>
-                                            <br><h4 class="modal-title">participants/teams</h4>
-                                                <div class="modal-footer">
-                                            <button type="submit" class="btn btn-info btn-simple">Apply</button>
-                                        </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             </div>
                         </div>
                     </div>

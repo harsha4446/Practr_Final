@@ -40,6 +40,7 @@ def getlevel(score):
         return 5
 
 
+
 def studentprofile(request, id=None):
     id = int (id)
     user = student.objects.get(id=id)
@@ -79,6 +80,7 @@ def studentprofile(request, id=None):
         context = {}
         return context
 
+
 def profile_page(request, id=None):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/home/')
@@ -88,11 +90,13 @@ def profile_page(request, id=None):
         context = studentprofile(request,id)
         return render(request, 'profile_page/profile_page.html', context)
 
+
 def profile_club(request,id=None):
     club = clubs.objects.get(id=id)
     user = student.objects.get(email=club.club_email)
     context = {'user': user, 'club': club}
     return render(request, 'profile_page/club_profile.html', context)
+
 
 def connect(request, id= None):
     if id != None:

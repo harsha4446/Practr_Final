@@ -477,6 +477,10 @@
                                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/1/1">
                                                             <button class="btn btn-facebook">Offline Case</button>
                                                         </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/1/2">
+                                                            <button class="btn btn-facebook">Dummy Case</button>
+                                                        </a>
                                                         <br><br>
                                                     </div>
                                                 </div>
@@ -921,7 +925,7 @@
                                    <i class="material-icons">assignment</i>
                                </div>
                                <div class="card-content">
-                                   <h4 class="card-title">Top 10</h4>
+                                   <h4 class="card-title">Top 5</h4>
                                    <div style="text-align: right">
                                                     <div class="dropdown">
                                                         <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core1 == '1' %}Marketing{% elif core1 == '2' %}Finance{% elif core1 == '3' %}Public Relations
@@ -977,7 +981,7 @@
                                             <tbody>
                                             {% for object in table1 %}
                                                 <tr>
-                                                    <td>{{ object.student.id }}</td>
+                                                    <td>{{ object.rcode }}</td>
                                                     <td>{{ object.student.name }}</td>
                                                     <td>{{ object.student.email }}</td>
                                                     <td>{{ object.student.student_detail.year }}</td>
@@ -997,7 +1001,7 @@
                                     <i class="material-icons">assignment</i>
                                 </div>
                                 <div class="card-content">
-                                    <h4 class="card-title">Top 10</h4>
+                                    <h4 class="card-title">Top 5</h4>
                                     <div style="text-align: right">
                                                     <div class="dropdown">
                                                         <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core2 == '1' %}Marketing{% elif core2 == '2' %}Finance{% elif core2 == '3' %}Public Relations
@@ -1053,7 +1057,7 @@
                                             <tbody>
                                             {% for object in table2 %}
                                                 <tr>
-                                                    <td>{{ object.student.id }}</td>
+                                                    <td>{{ object.rcode }}</td>
                                                     <td>{{ object.student.name }}</td>
                                                     <td>{{ object.student.email }}</td>
                                                     <td>{{ object.student.student_detail.year }}</td>

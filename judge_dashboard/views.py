@@ -33,9 +33,13 @@ def judge_view(request,id):
     round = rounds.objects.get(id=id)
     registered = None
     try:
-        registered = round_scores.objects.filter(round=round,submitted=True)
+        if round.offline == '0':
+            registered = round_scores.objects.filter(round=round,submitted=True)
+        else:
+            registered = round_scores.objects.filter(round=round)
     except event_registered.DoesNotExist:
         registered = None
+    print(registered)
     context = {'user': user, 'registered': registered, 'round': round.id}
     return render(request, 'judge_dash/dashboard.html', context)
 
@@ -43,24 +47,40 @@ def assessment(request,pk=None,id=None):
     user = request.user
     round = rounds.objects.get(id=id)
     scores = None
+    total = None
     if pk != '0':
         judging = student.objects.get(id=pk)
         scores = round_scores.objects.get(student=judging,round=round)
+        total = event_registered_details.objects.get(event=scores.round.email, student=judging)
     if request.POST:
-        scores.judged = True
-        scores.question1 = request.POST.get("question1",0)
-        scores.question2 = request.POST.get("question2",0)
-        scores.question3 = request.POST.get("question3",0)
-        scores.question4 = request.POST.get("question4",0)
-        scores.question5 = request.POST.get("question5",0)
-        scores.creativity = request.POST.get("creativity1",0)
-        scores.communication = request.POST.get("communication1",0)
-        scores.content = request.POST.get("content1",0)
-        scores.feasibility = request.POST.get("feasibility1",0)
-        scores.rebuttal = request.POST.get("rebuttal1",0)
-        scores.presentation = request.POST.get("presentation1",0)
-        scores.feedback = request.POST.get("feedback",'')
+        if scores.judged == False:
+            scores.question1 = request.POST.get("question1",0)
+            scores.question2 = request.POST.get("question2",0)
+            scores.question3 = request.POST.get("question3",0)
+            scores.question4 = request.POST.get("question4",0)
+            scores.question5 = request.POST.get("question5",0)
+            scores.creativity = request.POST.get("creativity1",0)
+            scores.communication = request.POST.get("communication1",0)
+            scores.content = request.POST.get("content1",0)
+            scores.feasibility = request.POST.get("feasibility1",0)
+            scores.rebuttal = request.POST.get("rebuttal1",0)
+            scores.presentation = request.POST.get("presentation1",0)
+            scores.feedback = request.POST.get("feedback",'')
+        else:
+            scores.question1 = int((int (scores.question1) + int (request.POST.get("question1", 0)))/2)
+            scores.question2 = int((int (scores.question2) + int (request.POST.get("question2", 0)))/2)
+            scores.question3 = int((int (scores.question3) + int (request.POST.get("question3", 0)))/2)
+            scores.question4 = int((int (scores.question4) + int (request.POST.get("question4", 0)))/2)
+            scores.question5 = int((int (scores.question5) + int (request.POST.get("question5", 0)))/2)
+            scores.creativity = int((int (scores.creativity) + int (request.POST.get("creativity1", 0)))/2)
+            scores.communication = int((int (scores.communication) + int (request.POST.get("communication1", 0)))/2)
+            scores.content = int((int (scores.content) + int (request.POST.get("content1", 0)))/2)
+            scores.feasibility = int((int (scores.feasibility) + int (request.POST.get("feasibility1", 0)))/2)
+            scores.rebuttal = int((int (scores.rebuttal) + int (request.POST.get("rebuttal1", 0)))/2)
+            scores.presentation = int((int (scores.presentation) + int (request.POST.get("presentation1", 0)))/2)
+            scores.feedback = scores.feedback + '<br>' + request.POST.get("feedback", '')
         scores.total = int (scores.question1)+int(scores.question2)+int(scores.question3)+int(scores.question4)+int(scores.question5)+int(scores.creativity)+int(scores.feasibility)+int(scores.content)+int(scores.communication)+int(scores.rebuttal)+int(scores.presentation)
+        scores.judged = True
         scores.save()
         return HttpResponseRedirect("/user/judge_dashboard/judge_view/"+id)
     context = {'user':user,'round':round,'scores':scores}

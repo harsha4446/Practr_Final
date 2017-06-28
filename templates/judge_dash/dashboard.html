@@ -100,38 +100,38 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="/user/club_dashboard" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">dashboard</i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">
-                                        Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul>
-                            </li>
+{#                            <li class="dropdown">#}
+{#                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                                    <i class="material-icons">notifications</i>#}
+{#                                    <span class="notification">5</span>#}
+{#                                    <p class="hidden-lg hidden-md">#}
+{#                                        Notifications#}
+{#                                        <b class="caret"></b>#}
+{#                                    </p>#}
+{#                                </a>#}
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li>#}
+{#                                        <a href="#">Mike John responded to your email</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">You have 5 new tasks</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">You're now friend with Andrew</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">Another Notification</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">Another One</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
                             <li>
                                 <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
@@ -140,16 +140,16 @@
                             </li>
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group form-search is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
+{#                        <form class="navbar-form navbar-right" role="search">#}
+{#                            <div class="form-group form-search is-empty">#}
+{#                                <input type="text" class="form-control" placeholder="Search">#}
+{#                                <span class="material-input"></span>#}
+{#                            </div>#}
+{#                            <button type="submit" class="btn btn-white btn-round btn-just-icon">#}
+{#                                <i class="material-icons">search</i>#}
+{#                                <div class="ripple-container"></div>#}
+{#                            </button>#}
+{#                        </form>#}
                     </div>
                 </div>
             </nav>
@@ -211,10 +211,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>College</th>
-                                                    <th>Year</th>
-                                                    <th>Degree</th>
-                                                    <th class="text-right">Experience</th>
+                                                    <th class="text-center">Score</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -226,10 +223,7 @@
                                                 <tr class="success">
                                                 {% endif %}
                                                     <td> {{ student.rcode }}</td>
-                                                    <td> {{ student.student.student_detail.college }}</td>
-                                                    <td class="text-left"> {{ student.student.student_detail.year }}</td>
-                                                    <td> {{ student.student.student_detail.degree }}</td>
-                                                    <td class="text-right"> {{ student.student.experience }} Practr events</td>
+                                                    <td class="text-center"> {{ student.total }}</td>
                                                     <td class="td-actions text-right">
                                                         <a href="/user/judge_dashboard/judge/{{ student.student.id }}/{{ round }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge The Case">

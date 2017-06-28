@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
@@ -262,6 +262,10 @@
                                                         <a href="/user/club_dashboard/addRound/{{ event.id }}/{{ type }}/1">
                                                             <button class="btn btn-facebook">Offline Case</button>
                                                         </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/{{ type }}/2">
+                                                            <button class="btn btn-facebook">Dummy Case</button>
+                                                        </a>
                                                         <br><br>
                                                     </div>
                                                 </div>
@@ -328,13 +332,13 @@
                                                 {% endif %}
                                                     <td> {{ round.id }}</td>
                                                     <td> <a href="/user/caseView/{{ round.id }}"> {{ round.title }}</a></td>
-                                                    <td>{% if round.offline %}Offline{% else %}Online{% endif %}</td>
+                                                    <td>{% if round.offline == '1'%}Offline{% elif round.offline == '2' %}Dummy{% else %}Online{% endif %}</td>
                                                     <td> {{ round.created }}</td>
                                                     <td> {{ round.author }}</td>
                                                     {% if round.finished %}
-                                                    <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ round.qualified }}</a></td>
+                                                    <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">View</a></td>
                                                     {% else %}
-                                                    <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">{{ count }}</a></td>
+                                                    <td class="text-center"><a href="/user/club_dashboard/members/{{ round.id }}/{{ type }}/">View</a></td>
                                                     {% endif %}
                                                     <td class="text-center">{% if round.team_size == 1 %}Solo{% else %}Team{% endif %}</td>
                                                     <td class="text-center"> {% if round.deadline %}{{ round.deadline }}{% else %}Not Set{% endif %}</td>
@@ -351,9 +355,15 @@
 {#                                                        </button>#}
 {#                                                            </a>#}
                                                         {% else %}
-                                                        <button type="button" rel="tooltip" class="text-center btn btn-success" data-toggle="modal" data-target="#deadline{{ round.id }}" title="Publish Case">
-                                                            <i class="material-icons">publish</i>
-                                                        </button>
+                                                            {% if event.live %}
+                                                                <button type="button" rel="tooltip" class="text-center btn btn-success" data-toggle="modal" data-target="#deadline{{ round.id }}" title="Publish Case">
+                                                                    <i class="material-icons">publish</i>
+                                                                </button>
+                                                             {% else %}
+                                                                 <button type="button" rel="tooltip" class="text-center btn btn-success" disabled title="Close Registrations to Publish Case">
+                                                                    <i class="material-icons">publish</i>
+                                                                    </button>
+                                                                {% endif %}
                                                         {% endif %}
                                                         <a href="/user/judge_dashboard/judge/0/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="text-center btn btn-success" title="View Assessment Form">
@@ -361,7 +371,7 @@
                                                         </button>
                                                         </a>
                                                         {% if not round.finished and not user.judge and round.published %}
-                                                            <a href="/user/club_dashboard/audience/{{ round.email.id }}/{{ round.type }}/">
+                                                            <a href="/user/club_dashboard/finishRound/{{ round.id }}">
                                                             <button type="button" rel="tooltip" class="text-center btn btn-success" title="Finish Event">
                                                                 <i class="material-icons">border_color</i>
                                                             </button>
@@ -672,7 +682,7 @@
                                                            </div>
                                                         </div>
                                                     </div>
-                                                    {% if user.judge and round.published %}
+                                                    {% if user.judge and round.published and not round.finished %}
                                                         <a href="/user/judge_dashboard/judge_view/{{ round.id }}">
                                                         <button type="button" rel="tooltip" class="btn btn-success" title="Judge">
                                                             <i class="material-icons">send</i>

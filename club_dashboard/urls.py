@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^teams/(?P<id>\d+)/(?P<type>\d+)/(?P<size>\d+)/$', views.teamCreate, name='teamcreate'),
     url(r'^edit/$', views.edit_profile, name='edit'),
     url(r'^editEvent/(?P<access>\d+)/(?P<id>\d+)/$', views.add_event, name='editEvent'),
+    url(r'^download/(?P<id>.+)/(?P<file>\d+)$', views.download,name='download'),
+    url(r'^finishRound/(?P<id>\d+)/$', views.finishRound, name='finish'),
 ]

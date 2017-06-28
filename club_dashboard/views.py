@@ -1,13 +1,20 @@
 from django.shortcuts import render
 from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail
 from . forms import addEvent, addRound, rooms, deadlines, newJudge
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 import time
 from django.contrib import auth
+from django.utils.encoding import smart_str
+from django.conf import settings
+from wsgiref.util import FileWrapper
+import mimetypes
+import os
+
+
 # Create your views here.
 
 
-def updateScores(scores):
+def updatePractrScores(scores):
     for object in scores:
         studentscore,create = student_scores.objects.get_or_create(username=object.student)
         multiplier = rounds.objects.get(id=object.round.id)
@@ -46,7 +53,7 @@ def dashboard(request,core1='1',core2='2'):
         count4 = rounds.objects.filter(email=event, type=4).count()
         count5 = rounds.objects.filter(email=event, type=5).count()
         count6 = rounds.objects.filter(email=event, type=6).count()
-        registered = event_registered_details.objects.filter(event=event).order_by('-id')[:10]
+        registered = event_registered_details.objects.filter(event=event).order_by('-id')[:5]
         marketingcount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__marketing=True).count()
         financecount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__finance=True).count()
         prcount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__public_relations=True).count()
@@ -63,9 +70,8 @@ def dashboard(request,core1='1',core2='2'):
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
-    table1 = round_scores.objects.filter(round__email=event, round__type=1)
-    table2 = round_scores.objects.filter(round__email=event, round__type=2)
-
+    table1 = round_scores.objects.filter(round__email=event, round__type=1).order_by('-total')[:5]
+    table2 = round_scores.objects.filter(round__email=event, round__type=2).order_by('-total')[:5]
     if core1 != '1' or core2 != '2':
         if core1 == '1':
             table1 = round_scores.objects.filter(round__email=event, round__type=1)
@@ -248,7 +254,19 @@ def add_round(request, id=None, operation=None, offline=None,existing=None):
         round.type = operation
         round.author = request.user.name
         round.offline = offline
+        round.max_score = request.POST.get("max_score",100)
+        if offline == '2':
+            round.question1 = "Score Obtained"
+            round.core1 = round.max_score
         round.save()
+        type = int (operation)
+        audience = round_scores.objects.filter(round__email=event, round__type=type, qualified=True)
+        for student in audience:
+            code = event_registered_details.objects.get(student=student.student,event=event)
+            x,created = round_scores.objects.get_or_create(student=student.student, round=round, rcode=code.rcode)
+            if offline != '0':
+                x.submitted = True
+            x.save()
         return HttpResponseRedirect("/user/club_dashboard/caseView/"+id+"/"+operation)
     context = {"form":form, "offline":offline,'existing':existing}
     return render (request,'club_dash/add_round.html',context)
@@ -306,8 +324,25 @@ def publish(request, id=None, event=None, type=None):
     else:
         if request.POST:
             round.published = True
-            temp = request.POST['deadline']
             round.deadline = request.POST['deadline']
+            if round.offline != '0':
+                if type == '1':
+                    registered = event_registered_details.objects.filter(event=round.email,marketing=True)
+                elif type == '2':
+                    registered = event_registered_details.objects.filter(event=round.email,finance=True)
+                elif type == '3':
+                    registered = event_registered_details.objects.filter(event=round.email,public_relations=True)
+                elif type == '4':
+                    registered = event_registered_details.objects.filter(event=round.email,human_resources=True)
+                elif type == '5':
+                    registered = event_registered_details.objects.filter(event=round.email,ent_dev=True)
+                else:
+                    registered = event_registered_details.objects.filter(event=round.email,best_manager=True)
+                for student in registered:
+                    score,created = round_scores.objects.get_or_create(student=student.student,round=round)
+                    score.submitted = True
+                    score.rcode = student.rcode
+                    score.save()
     round.save()
     return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
 
@@ -374,61 +409,85 @@ def teamSize(request, id, event,type):
     return HttpResponseRedirect('/user/club_dashboard/caseView/'+event+'/'+type)
 
 
-def audience(request, event,type):
-    id = request.POST.get("case_id")
+def finishRound(request, id=None):
     round = rounds.objects.get(id=id)
-    #round.enddate = str (datetime.date.today)
     round.finished = True
-    #if round.qualified == 0:
     parameter = round_scores.objects.filter(round=round)
-    updateScores(parameter)
-    #if block section end
-    round.qualified = request.POST.get("qualified")
+    updatePractrScores(parameter)
     round.save()
+    scores = round_scores.objects.filter(round=round)
+    print(scores)
+    for score in scores:
+        student = event_registered_details.objects.get(student=score.student, event=round.email)
+        print(student)
+        if score.round.type == 1:
+            student.mkttotal = student.mkttotal + score.total
+        if score.round.type == 2:
+            student.fintotal = student.fintotal + score.total
+        if score.round.type == 3:
+            student.prtotal = student.prtotal + score.total
+        if score.round.type == 4:
+            student.hrtotal = student.hrtotal + score.total
+        if score.round.type == 5:
+            student.edtotal = student.edtotal + score.total
+        if score.round.type == 6:
+            student.bmtotal = student.bmtotal + score.total
+        student.save()
+    return HttpResponseRedirect('/user/club_dashboard/caseView/' + str(round.email.id) + '/' + str(round.type))
+
+
+def audience(request, event, type):
+    qualify = request.POST.get("qualified")
     mainevent = events.objects.get(id=event)
-    qualify = int (round.qualified)
-    reset = round_scores.objects.filter(round=round)
-    for userr in reset:
-        userr.qualified = False
-        userr.save()
-    qualified = round_scores.objects.filter(round=round).order_by('-total')[:qualify]
-    for userq in qualified:
-        userq.qualified = True
-        userq.save()
-        obj = event_registered_details.objects.get(student=userq.student, event=mainevent)
-        if type == '1':
-            obj.marketing = True
-        if type == '2':
-            obj.finance = True
-        if type == '3':
-            obj.public_relations = True
-        if type == '4':
-            obj.human_resources = True
-        if type == '5':
-            obj.ent_dev = True
-        if type == '6':
-            obj.best_manager = True
-        obj.save()
-    disqualified = round_scores.objects.filter(round=round, qualified=False)
-    print(disqualified)
-    for userd in disqualified:
-        userd.qualified = False
-        userd.save()
-        obj = event_registered_details.objects.get(student=userd.student, event=mainevent)
-        if type == '1':
-            obj.marketing = False
-        if type == '2':
-            obj.finance = False
-        if type == '3':
-            obj.public_relations = False
-        if type == '4':
-            obj.human_resources = False
-        if type == '5':
-            obj.ent_dev = False
-        if type == '6':
-            obj.best_manager = False
-        obj.save()
-    return HttpResponseRedirect('/user/club_dashboard/caseView/' + event + '/' + type)
+    qualify = int (qualify)
+    qualified = None
+    disqualified = None
+    if type == '1':
+        qualified = event_registered_details.objects.filter(event=mainevent,marketing=True).order_by('-mkttotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent,marketing=True)
+    if type == '2':
+        qualified = event_registered_details.objects.filter(event=mainevent, finance=True).order_by('-fintotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, finance=True)
+    if type == '3':
+        qualified = event_registered_details.objects.filter(event=mainevent, public_relations=True).order_by('-prtotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, public_relations=True)
+    if type == '4':
+        qualified = event_registered_details.objects.filter(event=mainevent, human_resources=True).order_by('-hrtotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, human_resources=True)
+    if type == '5':
+        qualified = event_registered_details.objects.filter(event=mainevent, ent_dev=True).order_by('-edtotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, ent_dev=True)
+    if type == '6':
+        qualified = event_registered_details.objects.filter(event=mainevent, best_manager=True).order_by('-bmtotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, best_manager=True)
+    for student in disqualified:
+        if student not in qualified:
+            if type == '1':
+                student.marketing = False
+            if type == '2':
+                student.finance = False
+            if type == '3':
+                student.public_relations = False
+            if type == '4':
+                student.human_resources = False
+            if type == '5':
+                student.ent_dev = False
+            if type == '6':
+                student.best_manager = False
+            student.save()
+            scores = round_scores.objects.filter(round__email=mainevent, student=student.student)
+            for obj in scores:
+                obj.qualified = False
+                obj.save()
+            final = event_registered.objects.get(current_user=student.student)
+            event_registered.rmregister(final.current_user,mainevent)
+    return HttpResponseRedirect('/user/club_dashboard/masterTable/' + type)
 
 
 def addSub(request,id,type):
@@ -506,10 +565,14 @@ def master_table(request, type):
     club = clubs.objects.get(club_email=user.email)
     event = events.objects.get(email=club, current=True)
     type = int (type)
-    registered = round_scores.objects.filter(round__email=event, round__type=type)
-    total = registered.count()
-    cases = rounds.objects.filter(email=event,type=type,published=True,finished=False)
-    context ={'user':user,'registered':registered,'max':total,'cases':cases,'event':event,'type':type}
+    registered = round_scores.objects.filter(round__email=event, round__type=type,qualified=True)
+    distinct_registered = round_scores.objects.filter(round__email=event, round__type=type,qualified=True).values('rcode','student__name','student__phoneno','student__email').distinct()
+    score_total = event_registered_details.objects.filter(event=event)
+    all_rounds = rounds.objects.filter(email=event, type=type,finished=True).order_by('-created')
+    total = distinct_registered.count()
+    #cases = rounds.objects.filter(email=event,type=type,published=True,finished=False)
+    context ={'user':user,'registered':registered,'max':total,'event':event,'type':type,'rounds':all_rounds,
+              'distinct':distinct_registered,'scoretotal':score_total}
     return render(request,'club_dash/audience_master.html',context)
 
 
@@ -588,7 +651,10 @@ def edit_profile(request):
     user = request.user
     club = clubs.objects.get(club_email=user.email)
     flag = 0
-    event = events.objects.get(email=club,current=True)
+    try:
+        event = events.objects.get(email=club,current=True)
+    except events.DoesNotExist:
+        event = None
     if request.POST:
         club.name = request.POST.get("club_name")
         club.website = request.POST.get("website",'')
@@ -612,3 +678,25 @@ def edit_profile(request):
         user.save()
     context = {'user':user,'club':club,'flag':flag,'event':event}
     return render(request,'club_dash/edit_profile.html',context)
+
+
+def download(request,id=None,file=0):
+    scores = round_scores.objects.get(id=id)
+    if file == '1':
+        path = scores.data1.path
+        name = scores.data1.name
+        size = scores.data1.size
+    elif file == '2':
+        path = scores.data2.path
+        name = scores.data2.name
+        size = scores.data2.size
+    else:
+        path = scores.data3.path
+        name = scores.data3.name
+        size = scores.data3.size
+    wrapper = FileWrapper(open(path, "rb" ))
+    response = HttpResponse(wrapper,content_type=mimetypes.guess_type(path))
+    #response['Content-Type'] = "application/force-download"
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(name)
+    response['Content-Length'] = size
+    return response

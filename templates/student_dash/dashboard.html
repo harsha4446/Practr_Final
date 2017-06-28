@@ -70,30 +70,30 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="/user/student_dashboard/clubs">
-                            <i class="material-icons">apps</i>
-                            <p>Clubs</p>
-                        </a>
-                    </li>
+{#                    <li>#}
+{#                        <a href="/user/student_dashboard/clubs">#}
+{#                            <i class="material-icons">apps</i>#}
+{#                            <p>Clubs</p>#}
+{#                        </a>#}
+{#                    </li>#}
                     <li>
                         <a href="/user/student_dashboard/events">
                             <i class="material-icons">apps</i>
                             <p>Events</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="/user/network">
-                            <i class="material-icons">apps</i>
-                            <p>Network</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user/student_dashboard/search">
-                            <i class="material-icons">apps</i>
-                            <p>Find Students</p>
-                        </a>
-                    </li>
+{#                    <li>#}
+{#                        <a href="/user/network">#}
+{#                            <i class="material-icons">apps</i>#}
+{#                            <p>Network</p>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="/user/student_dashboard/search">#}
+{#                            <i class="material-icons">apps</i>#}
+{#                            <p>Find Students</p>#}
+{#                        </a>#}
+{#                    </li>#}
                 </ul>
             </div>
         </div>
@@ -178,7 +178,7 @@
                     <div class="card">
                             <div class="col-md-6 col-md-offset-3 text-center">
                             <h2 class="title">Available Cases</h2>
-                            <h5 class="description">From Events: {% for event in registered %}{{ event.name }}{% endfor %}</h5>
+                            <h5 class="description">From Events: {% for event in rcode %}{{ event.event.name }}({{ event.rcode }}){% endfor %}</h5>
                                 <ul class="nav nav-pills nav-pills-warning col-md-12 col-md-offset-3">
                                         <li class="active">
                                             <a href="#due" data-toggle="tab">Due</a>
@@ -194,14 +194,14 @@
                             <div class="tab-pane active" id="due">
                             <br><br><br><br>
                         {% for round in rounds %}
-                            {% if not round.finished %}
+                            {% if not round.finished and round.offline == '0' %}
                         <div class="col-md-4">
                             <div class="card card-product">
+                            <a href="/user/caseView/{{ round.id }}/">
                                 <div class="card-image" data-header-animation="true">
-                                    <a href="/user/caseView/{{ round.id }}/">
                                         <img class="img" style="height: 220px; width: 100%" src="{{ round.email.logo.url }}">
-                                    </a>
                                 </div>
+                            </a>
                                 <div class="card-content">
                                     <div class="card-actions">
                                         {% if round.type == 1 %}
@@ -227,7 +227,7 @@
                                             {% endif %}
                                     </div>
                                     <h4 class="card-title">
-                                        <a href="#pablo">{{ round.title }}</a>
+                                        <a href="/user/caseView/{{ round.id }}/">{{ round.title }}</a>
                                     </h4>
                                     <div class="card-description">
                                         {{ round.deadline }}
@@ -285,11 +285,11 @@
                             {% if round.finished %}
                         <div class="col-md-4">
                             <div class="card card-product">
+                             <a href="/user/caseView/{{ round.id }}/">
                                 <div class="card-image" data-header-animation="true">
-                                    <a href="/user/caseView/{{ round.id }}/">
                                         <img class="img" style="height: 220px; width: 100%" src="{{ round.email.logo.url }}">
-                                    </a>
                                 </div>
+                             </a>
                                 <div class="card-content">
                                     <div class="card-actions">
                                         {% if round.type == 1 %}
@@ -315,7 +315,7 @@
                                             {% endif %}
                                     </div>
                                     <h4 class="card-title">
-                                        <a>{{ round.title }}</a>
+                                        <a href="/user/caseView/{{ round.id }}/">{{ round.title }}</a>
                                     </h4>
                                     <div class="card-description">
                                         {{ round.deadline }}

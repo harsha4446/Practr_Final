@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
     <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Club Dashboard</title>
+    <title>Edit Profile</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -325,23 +325,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card card-profile">
-                                <div class="card-avatar">
-                                    <a href="">
-                                        <img class="img" src="{{ club.logo.url }}" style="height: 180px;width: 180px;"/>
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <h6 class="category text-gray">{{ user.email }}</h6>
-                                    <h4 class="card-title">{{ club.name }}</h4>
-                                    <p class="description">
-                                        {{ club.about|slice:":100" }}
-                                    </p>
-                                    <a href="" class="btn btn-rose btn-round">Profile</a>
-                                </div>
-                            </div>
-                        </div>
+{#                        <div class="col-md-4">#}
+{#                            <div class="card card-profile">#}
+{#                                <div class="card-avatar">#}
+{#                                    <a href="">#}
+{#                                        <img class="img" src="{{ club.logo.url }}" style="height: 180px;width: 180px;"/>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                                <div class="card-content">#}
+{#                                    <h6 class="category text-gray">{{ user.email }}</h6>#}
+{#                                    <h4 class="card-title">{{ club.name }}</h4>#}
+{#                                    <p class="description">#}
+{#                                        {{ club.about|slice:":100" }}#}
+{#                                    </p>#}
+{#                                    <a href="" class="btn btn-rose btn-round">Profile</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
                 </div>
             </div>
