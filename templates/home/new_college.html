@@ -50,15 +50,22 @@
                                         <div class="tab-pane" id="about">
                               <div class="row">
                                   <h4 class="info-text"> Let's start with the basics</h4>
-                                  <div class="col-sm-4 col-sm-offset-1">
-                                     <div class="picture-container">
-                                          <div class="picture">
-                                              <img src="{% static 'assets_old/img/default-avatar.png'%}" class="picture-src" id="wizardPicturePreview" title="College Logo"/>
-                                              {{ college.logo }}
-                                          </div>
-                                          <h6>Choose Picture</h6>
-                                      </div>
-                                  </div>
+                                  <div class="col-sm-3 col-sm-offset-2">
+                                   <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail img-circle">
+                                                    <img src="{% static 'assets_old/img/default-avatar.png'%}" alt="...">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+                                                <div>
+                                                    <span class="btn btn-round btn-rose btn-file">
+                                                        <span class="fileinput-new">Add Photo</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                         {{ college.logo }}
+                                                    </span>
+                                                    <br />
+                                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                                </div>
+                                   </div></div>
                                   <div class="col-sm-6">
                                       <div class="form-group label-floating">
                                                             <label class="control-label">College Name:

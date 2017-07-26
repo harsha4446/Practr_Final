@@ -13,23 +13,18 @@
 
 	<!--     Fonts and icons     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
-
+    <link href="{% static 'assets_old/css/material-dashboard.css'%}" rel="stylesheet" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
 	<!-- CSS Files -->
     <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
-	<link href="{% static 'assets/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />
+{#	<link href="{% static 'assets/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />#}
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="{%static 'assets/css/demo.css'%}" rel="stylesheet" />
 </head>
 <body>
 <div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg'%}')">
-
-	<!--  Made With Get Shit Done Kit  -->
-		<a href="/home" class="made-with-mk">
-			<div class="brand">PR</div>
-			<div class="made-with">Take me  <strong>Home</strong></div>
-		</a>
-
 
     <!--   Big container   -->
     <div class="container">
@@ -62,7 +57,7 @@
                                     <div class="col-sm-10 col-sm-offset-1">
                                         {% if event.marketing and flag1 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
+                                            <div class="choice" data-toggle="wizard-checkbox" onclick="test()">
                                                 <input type="checkbox" name="marketing" value="True">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
@@ -73,7 +68,7 @@
                                         {% endif %}
                                         {% if event.finance and flag2 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
+                                            <div class="choice" data-toggle="wizard-checkbox" onclick="test()">
                                                 <input type="checkbox" name="finance" value="True">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
@@ -84,7 +79,7 @@
                                         {% endif %}
                                         {% if event.public_relations and flag3 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
+                                            <div class="choice" data-toggle="wizard-checkbox" onclick="test()">
                                                 <input type="checkbox" name="public_relations" value="True">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
@@ -95,7 +90,7 @@
                                         {% endif %}
                                         {% if event.human_resources and flag4 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
+                                            <div class="choice" data-toggle="wizard-checkbox" onclick="test()">
                                                 <input type="checkbox" name="human_resources" value="True">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
@@ -106,7 +101,7 @@
                                         {% endif %}
                                         {% if event.ent_dev and flag5 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
+                                            <div class="choice" data-toggle="wizard-checkbox" onclick="test()">
                                                 <input type="checkbox" name="ent_dev" value="True">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
@@ -117,7 +112,7 @@
                                         {% endif %}
                                         {% if event.best_manager and flag6 %}
                                         <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-checkbox">
+                                            <div class="choice" data-toggle="wizard-checkbox" onclick="test()">
                                                 <input type="checkbox" name="best_manager" value="True">
                                                 <div class="icon">
                                                     <i class="fa fa-pencil"></i>
@@ -131,8 +126,7 @@
                         </div>
                         <div class="wizard-footer height-wizard">
                             <div class="pull-right">
-                                <button type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm'>Finish </button>
-
+                                <button type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' id="finish" disabled>Finish </button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -165,4 +159,9 @@
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 	<script src="{% static 'assets_old/js/jquery.validate.min.js'%}"></script>
 
+    <script>
+        function test(){
+            document.getElementById('finish').disabled=false;
+        }
+    </script>
 </html>

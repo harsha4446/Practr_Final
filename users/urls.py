@@ -6,7 +6,10 @@ app_name= 'users'
 
 urlpatterns = [
     url(r'^$', views.index,name='index'),
-    url(r'^register$', views.register, name='register'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^forgetPassword/$', views.forget_pass, name='passforget'),
+    url(r'^passReset/(?P<id>\d+)/$', views.reset_pass, name='passreset'),
+    url(r'^register/(?P<flag>\d+)/$', views.register, name='register'),
     url(r'^logout$', views.user_logout, name='logout'),
     url(r'^caseView/(?P<id>\d+)/$', views.case_view, name='case'),
     url(r'^student_details/', include('profile_page.urls')),

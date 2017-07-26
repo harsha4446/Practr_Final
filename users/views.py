@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
 from . models import student, interests, student_detail, judge_detail,colleges, clubs, room_judge, rounds
 from .forms import RegisterModel,LoginForm, StudentInfo, JudgeInfo, \
     interestModel, defaultForm, newClub,newCollege, clubsetup
@@ -25,12 +27,40 @@ def index(request):
     return render(request,'home/index.html',context)
 
 
-def register(request):
+def forget_pass(request):
+    if request.POST:
+        username = request.POST.get("username")
+        try:
+            user = student.objects.get(email=username)
+        except:
+            user = None
+        subject = "Practr: Reset Your Password"
+        message = "Hi, "+user.name+" it seems you forgot your password. Click the link below to reset it " \
+                                   "www.practr.in/home/passReset/"+str(user.id)
+        from_email = settings.EMAIL_HOST_USER
+        to_email = [username,]
+        send_mail(subject,message,from_email,to_email,fail_silently=True)
+    return render(request,'home/forgot_password.html',context={})
+
+
+def reset_pass(request, id):
+    user = student.objects.get(id=id)
+    if request.POST:
+        password = request.POST.get("password")
+        user.set_password(password)
+        user.save()
+        auth.login(request,user)
+        return HttpResponseRedirect('/user/club_dashboard')
+    return render(request,'home/reset_password.html',context={})
+
+
+def register(request,flag='0'):
     formst = RegisterModel(request.POST or None)
     formcl = RegisterModel(request.POST or None)
     formun = RegisterModel(request.POST or None)
     all_colleges = colleges.objects.filter()
-    context = {"formst":formst, "formcl":formcl,"formun":formun,"all_colleges":all_colleges}
+    context = {"formst":formst, "formcl":formcl,"formun":formun,"all_colleges":all_colleges,
+               "flag":flag}
     return render(request, 'home/register.html', context)
 
 
@@ -39,14 +69,17 @@ def registerClub(request):
     password = request.POST.get('password')
     name = request.POST.get('name')
     phoneno = request.POST.get('phoneno')
-    new_user = student.objects.create_user(username, password, name, phoneno)
-    new_user.club = True
-    new_user.save()
-    club = clubs(club_email=new_user)
-    club.college = request.POST.get("college_name")
-    college = colleges.objects.get(college_name=club.college)
-    club.email = college
-    club.save()
+    try:
+        new_user = student.objects.create_user(username, password, name, phoneno)
+        new_user.club = True
+        new_user.save()
+        club = clubs(club_email=new_user)
+        club.college = request.POST.get("college_name")
+        college = colleges.objects.get(college_name=club.college)
+        club.email = college
+        club.save()
+    except:
+        return HttpResponseRedirect('/home/register/2')
     return HttpResponseRedirect('/home/')
 
 
@@ -55,11 +88,14 @@ def registerStudent(request):
     password =  request.POST.get('password')
     name =  request.POST.get('name')
     phoneno =  request.POST.get('phoneno')
-    new_user = student.objects.create_user(username, password, name, phoneno)
-    new_user.save()
-    user_info = student_detail(email=new_user, )
-    user_info.college = request.POST.get('college_name')
-    user_info.save()
+    try:
+        new_user = student.objects.create_user(username, password, name, phoneno)
+        new_user.save()
+        user_info = student_detail(email=new_user, )
+        user_info.college = request.POST.get('college_name')
+        user_info.save()
+    except:
+        return HttpResponseRedirect('/home/register/1')
     return HttpResponseRedirect('/home/')
 
 
@@ -68,9 +104,12 @@ def registerUni(request):
     password = request.POST.get('password')
     name = request.POST.get('name')
     phoneno = request.POST.get('phoneno')
-    new_user = student.objects.create_user(username, password, name, phoneno)
-    new_user.college = True
-    new_user.save()
+    try:
+        new_user = student.objects.create_user(username, password, name, phoneno)
+        new_user.college = True
+        new_user.save()
+    except:
+        return HttpResponseRedirect('/home/register/3')
     return HttpResponseRedirect('/home/')
 
 

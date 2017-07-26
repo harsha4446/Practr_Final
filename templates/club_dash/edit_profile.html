@@ -50,9 +50,6 @@
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
-                                <li>
-                                    <a href="#">My Profile</a>
-                                </li>
                                 <li class="active">
                                     <a href="/user/club_dashboard/edit">Edit Profile</a>
                                 </li>
@@ -294,6 +291,19 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>About Me</label>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label"></label>
+                                                        <textarea class="form-control" rows="5" required name="about">{{ club.about }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label>Change Password</label>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group label-floating">
@@ -305,17 +315,6 @@
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">New Password</label>
                                                     <input name="new_password" type="password" class="form-control" value="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>About Me</label>
-                                                    <div class="form-group label-floating">
-                                                        <label class="control-label"></label>
-                                                        <textarea class="form-control" rows="5" required name="about">{{ club.about }}</textarea>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

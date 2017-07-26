@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
@@ -72,41 +72,47 @@
                     </li>
                 {% if not user.judge %}
                 <li>
-                        <a data-toggle="collapse" href="#cases">
-                            <i class="material-icons">image</i>
+                        <a data-toggle="collapse" href="#cases" aria-expanded="false">
+                            <i class="material-icons">event</i>
                             <p>Core Events
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="cases">
+                        <div class="collapse in" id="cases">
                             <ul class="nav">
                                 {% if event.marketing %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/1">Marketing</a>
                                 </li>
                                 {% endif %}
                                 {% if event.finance %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/2">Finance</a>
                                 </li>
                                 {% endif %}
                                 {% if event.public_relations %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/3">Public Relations</a>
                                 </li>
                                 {% endif %}
                                 {% if event.human_resources %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/4">Human Resources</a>
                                 </li>
                                 {% endif %}
                                 {% if event.ent_dev %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/5">Entrepreneurship Development</a>
                                 </li>
                                 {% endif %}
                                 {% if event.best_manager %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/6">Best Manager</a>
                                 </li>
                                 {% endif %}
@@ -115,31 +121,37 @@
                     </li>
                 {% endif %}
                     {% if not user.judge %}
-                    <li>
-                        <a data-toggle="collapse" href="#pagesExamples" aria-expanded="true">
-                            <i class="material-icons">image</i>
-                            <p>Core Events
+                        <li>
+                        <a data-toggle="collapse" href="#pagesExamples">
+                            <i class="material-icons">gavel</i>
+                            <p>Performance
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse in" id="pagesExamples">
+                        <div class="collapse" id="pagesExamples">
                             <ul class="nav">
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
                                     <a href="/user/club_dashboard/masterTable/1">Marketing</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
                                     <a href="/user/club_dashboard/masterTable/2">Finance</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
                                     <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
                                     <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
                                     <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
                                     <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
                                 </li>
                             </ul>
@@ -175,33 +187,33 @@
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">
-                                        Notifications
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Mike John responded to your email</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
-                                </ul>
-                            </li>
+{#                            <li class="dropdown">#}
+{#                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                                    <i class="material-icons">notifications</i>#}
+{#                                    <span class="notification">5</span>#}
+{#                                    <p class="hidden-lg hidden-md">#}
+{#                                        Notifications#}
+{#                                        <b class="caret"></b>#}
+{#                                    </p>#}
+{#                                </a>#}
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li>#}
+{#                                        <a href="#">Mike John responded to your email</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">You have 5 new tasks</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">You're now friend with Andrew</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">Another Notification</a>#}
+{#                                    </li>#}
+{#                                    <li>#}
+{#                                        <a href="#">Another One</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
                             <li>
                                 <a href="/user/club_dashboard/edit" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
@@ -240,27 +252,33 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Username</th>
                                                     <th>Name</th>
                                                     <th>Phone</th>
-                                                    <th>Score</th>
-                                                    <th class="text-right">Actions</th>
+{#                                                    {% if not user.judge %}#}
+{#                                                    <th>Score</th>#}
+{#                                                    {% endif %}#}
+{#                                                    <th class="text-right">Actions</th>#}
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             {% for student in audience %}
                                                 <tr>
+                                                    <td>{{ student.rcode }}</td>
                                                     <td> {{ student.student.email }}</td>
                                                     <td> {{ student.student.name }}</td>
                                                     <td class="text-left"> {{ student.student.phoneno }}</td>
-                                                    <td> {{ student.total }}</td>
-                                                    <td class="td-actions text-right">
-                                                        <a href="">
-                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Performance Review">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        </a>
-                                                    </td>
+{#                                                    <td> {{ student.total }}</td>#}
+{#                                                    {% if not user.judge %}#}
+{#                                                    <td class="td-actions text-right">#}
+{#                                                        <a href="">#}
+{#                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Performance Review">#}
+{#                                                            <i class="material-icons">edit</i>#}
+{#                                                        </button>#}
+{#                                                        </a>#}
+{#                                                    </td>#}
+{#                                                    {% endif %}#}
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

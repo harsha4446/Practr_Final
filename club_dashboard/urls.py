@@ -31,4 +31,7 @@ urlpatterns = [
     url(r'^editEvent/(?P<access>\d+)/(?P<id>\d+)/$', views.add_event, name='editEvent'),
     url(r'^download/(?P<id>.+)/(?P<file>\d+)$', views.download,name='download'),
     url(r'^finishRound/(?P<id>\d+)/$', views.finishRound, name='finish'),
+    url(r'^exportScores/(?P<type>\d+)/$', views.export_scores, name='excel_score'),
+    url(r'^exportRegistrations/$', views.export_registrations, name='excel_registrations'),
+    url(r'^exportRound/(?P<id>\d+)/$', views.export_roundScore, name='excel_round'),
 ]

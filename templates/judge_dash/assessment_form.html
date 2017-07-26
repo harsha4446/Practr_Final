@@ -180,7 +180,7 @@
                                 <br>
                             {% endif %}
 				</div>
-                {% if round.question1 != '' %}
+                {% if round.core1 != 0 and round.core1 %}
                 <div class="title">
                         <h2>Custom Skill Assesment</h2><br>
 							<h4>{{ round.question1 }}</h4>
@@ -195,7 +195,7 @@
                             <br>
 				</div>
                 {% endif %}
-                {% if round.question2 != '' %}
+                {% if round.core2 != 0 and round.core2 %}
                 <div class="title">
 							<h4>{{ round.question2 }}</h4>
                             <br>
@@ -209,7 +209,7 @@
                             <br>
 				</div>
                 {% endif %}
-                {% if round.question3 != '' %}
+                {% if round.core3 != 0 and round.core3 %}
                 <div class="title">
 							<h4>{{ round.question3 }}</h4>
                             <br>
@@ -223,7 +223,7 @@
                             <br>
 				</div>
                 {% endif %}
-                {% if round.question4 != '' %}
+                {% if round.core4 != 0 and round.core4 %}
                 <div class="title">
 							<h4>{{ round.question4 }}</h4>
                             <br>
@@ -237,7 +237,7 @@
                             <br>
 				</div>
                 {% endif %}
-                {% if round.question5 != '' %}
+                {% if round.core5 != 0 and round.core5 %}
                 <div class="title">
 							<h4>{{ round.question5 }}</h4>
                             <br>

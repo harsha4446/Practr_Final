@@ -57,7 +57,7 @@ class student(AbstractBaseUser):
     judge = models.BooleanField(default=False)
     college = models.BooleanField(default=False)
     club = models.BooleanField(default=False)
-    about = models.CharField(max_length=500,default='', blank=True)
+    about = models.CharField(max_length=1000,default='', blank=True)
     dob = models.DateField(default=datetime.date.today)
     experience = models.PositiveSmallIntegerField(default=0)
     location = models.CharField(max_length=100, blank=True, choices=(('Bangalore', 'Bangalore'),
@@ -116,7 +116,8 @@ class student_detail(models.Model):
     email = models.OneToOneField(student, on_delete=models.CASCADE, primary_key=True)
     label = models.CharField(max_length=50,default='')
     degree = models.CharField(max_length=100, default='', choices=(('B.COM', 'B.COM'),
-                                                        ('BBA', 'BBA')),)
+                                                        ('BBA', 'BBA'),
+                                                        ('BMS', 'BMS')),)
     college = models.CharField(max_length=150, default='')
     year = models.CharField(max_length=10, choices=(('First', 'First'),
                                                     ('Second', 'Second'),
@@ -125,10 +126,10 @@ class student_detail(models.Model):
     section = models.CharField(default='',max_length=10)
 
     def __str__(self):
-        return self.label
+        return self.email.email
 
     def __unicode__(self):
-        return self.label
+        return self.email.email
 
     def __college(self):
         return self.college
@@ -200,7 +201,7 @@ class events(models.Model):
     name = models.CharField(max_length=150, default='')
     live = models.BooleanField(default=False)
     registration = models.BooleanField(default=False)
-    about = models.CharField(max_length=400, default='')
+    about = models.CharField(max_length=1000, default='')
     website = models.CharField(max_length=250, default='')
     logo = models.ImageField(upload_to=upload_loction,null=True,blank=True,default='default/club_default.jpg')
     inter_type = models.BooleanField(default=False)
@@ -279,17 +280,17 @@ class rounds(models.Model):
     ext_judge = models.BooleanField(default=False)
     title = models.CharField(max_length=150, default='')
     sub_title = models.CharField(max_length=150, default='',blank=True)
-    about = models.CharField(max_length=30000, default='', blank=True)
-    task1 = models.CharField(max_length=150, default='',blank=True)
-    task2 = models.CharField(max_length=150, default='', blank=True)
-    tast3 = models.CharField(max_length=150, default='', blank=True)
-    task4 = models.CharField(max_length=150, default='', blank=True)
-    task5 = models.CharField(max_length=150, default='', blank=True)
-    resource1 = models.CharField(max_length=150, default='',blank=True)
-    resource2 = models.CharField(max_length=150, default='', blank=True)
-    resource3 = models.CharField(max_length=150, default='', blank=True)
-    resource4 = models.CharField(max_length=150, default='', blank=True)
-    resource5 = models.CharField(max_length=150, default='', blank=True)
+    about = models.CharField(max_length=60000, default='', blank=True)
+    task1 = models.CharField(max_length=500, default='',blank=True)
+    task2 = models.CharField(max_length=500, default='', blank=True)
+    tast3 = models.CharField(max_length=500, default='', blank=True)
+    task4 = models.CharField(max_length=500, default='', blank=True)
+    task5 = models.CharField(max_length=500, default='', blank=True)
+    resource1 = models.CharField(max_length=200, default='',blank=True)
+    resource2 = models.CharField(max_length=200, default='', blank=True)
+    resource3 = models.CharField(max_length=200, default='', blank=True)
+    resource4 = models.CharField(max_length=200, default='', blank=True)
+    resource5 = models.CharField(max_length=200, default='', blank=True)
     resource1data = models.FileField(upload_to=case_data, null=True, blank=True)
     resource2data = models.FileField(upload_to=case_data, null=True, blank=True)
     resource3data = models.FileField(upload_to=case_data, null=True, blank=True)
@@ -302,15 +303,15 @@ class rounds(models.Model):
     communication = models.BooleanField(default=False)
     feasibility = models.BooleanField(default=False)
     feedback = models.BooleanField(default=False)
-    question1 = models.CharField(max_length=150, default='',blank=True,null=True)
+    question1 = models.CharField(max_length=500, default='',blank=True,null=True)
     core1 = models.IntegerField(default=0,blank=True,null=True)
-    question2 = models.CharField(max_length=150, default='', blank=True,null=True)
+    question2 = models.CharField(max_length=500, default='', blank=True,null=True)
     core2 = models.IntegerField(default=0,blank=True,null=True)
-    question3 = models.CharField(max_length=150, default='', blank=True,null=True)
+    question3 = models.CharField(max_length=500, default='', blank=True,null=True)
     core3 = models.IntegerField(default=0,blank=True,null=True)
-    question4 = models.CharField(max_length=150, default='', blank=True,null=True)
+    question4 = models.CharField(max_length=500, default='', blank=True,null=True)
     core4 = models.IntegerField(default=0,blank=True,null=True)
-    question5 = models.CharField(max_length=150, default='', blank=True,null=True)
+    question5 = models.CharField(max_length=500, default='', blank=True,null=True)
     core5 = models.IntegerField(default=0,blank=True,null=True)
     # core1 = models.IntegerField(choices=((1, 'Marketing'), (2, 'Finance'), (3, 'Public Relations'),
     #                                         (4,'Human Resources'),(5,'Entrpreneur and Development'),(6,'Best Manager')),default=1,null=True)
@@ -461,7 +462,7 @@ class round_scores(models.Model):
     rebuttal = models.IntegerField(default=0, blank=True, null=True)
     communication = models.IntegerField(default=0, blank=True, null=True)
     feasibility = models.IntegerField(default=0, blank=True, null=True)
-    feedback = models.CharField(default='Not Available', max_length=2000, null=True)
+    feedback = models.CharField(default='No Feedback Available', max_length=2000, null=True)
     submitted = models.BooleanField(default=False)
     judged = models.BooleanField(default=False)
     data1 = models.FileField(upload_to=round_data, null=True, blank=True)
@@ -469,10 +470,11 @@ class round_scores(models.Model):
     data3 = models.FileField(upload_to=round_data, null=True, blank=True)
     total = models.IntegerField(default=0)
     qualified = models.BooleanField(default=True)
+    late = models.BooleanField(default=False)
     rcode = models.CharField(default='',max_length=10)
 
     def __str__(self):
-        return '%s' % self.student.email
+        return '%s-%s' % (self.student.email, self.round.title)
 
     def __unicode__(self):
         return '%s' % self.student.email
@@ -521,6 +523,7 @@ class judge_detail(models.Model):
 
 class sub_head(models.Model):
     student = models.OneToOneField(student)
+    event = models.ForeignKey(events,on_delete=models.CASCADE)
     type = models.IntegerField(default=0)
 
     def __str__(self):

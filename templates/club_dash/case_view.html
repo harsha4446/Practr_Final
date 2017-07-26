@@ -50,12 +50,11 @@
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
-                                <li>
-                                    <a href="#">My Profile</a>
-                                </li>
+                                {% if not user.judge %}
                                 <li>
                                     <a href="/user/club_dashboard/edit">Edit Profile</a>
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a href="/home/logout">Log Out</a>
                                 </li>
@@ -71,9 +70,9 @@
                         </a>
                     </li>
                 {% if not user.judge %}
-                <li class="active">
+                <li>
                         <a data-toggle="collapse" href="#cases" aria-expanded="false">
-                            <i class="material-icons">image</i>
+                            <i class="material-icons">event</i>
                             <p>Core Events
                                 <b class="caret"></b>
                             </p>
@@ -82,31 +81,37 @@
                             <ul class="nav">
                                 {% if event.marketing %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/1">Marketing</a>
                                 </li>
                                 {% endif %}
                                 {% if event.finance %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/2">Finance</a>
                                 </li>
                                 {% endif %}
                                 {% if event.public_relations %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/3">Public Relations</a>
                                 </li>
                                 {% endif %}
                                 {% if event.human_resources %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/4">Human Resources</a>
                                 </li>
                                 {% endif %}
                                 {% if event.ent_dev %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/5">Entrepreneurship Development</a>
                                 </li>
                                 {% endif %}
                                 {% if event.best_manager %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/6">Best Manager</a>
                                 </li>
                                 {% endif %}
@@ -117,7 +122,7 @@
                     {% if not user.judge %}
                         <li>
                         <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="material-icons">image</i>
+                            <i class="material-icons">gavel</i>
                             <p>Performance
                                 <b class="caret"></b>
                             </p>
@@ -125,21 +130,27 @@
                         <div class="collapse" id="pagesExamples">
                             <ul class="nav">
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
                                     <a href="/user/club_dashboard/masterTable/1">Marketing</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
                                     <a href="/user/club_dashboard/masterTable/2">Finance</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
                                     <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
                                     <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
                                     <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
                                 </li>
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
                                     <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
                                 </li>
                             </ul>
@@ -202,12 +213,14 @@
 {#                                    </li>#}
 {#                                </ul>#}
 {#                            </li>#}
+                            {% if not user.judge %}
                             <li>
                                 <a href="/user/club_dashboard/edit" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
                             </li>
+                            {% endif %}
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
 {#                        <form class="navbar-form navbar-right" role="search">#}
@@ -234,11 +247,12 @@
                                 <div class="card-header card-header-icon" data-background-color="rose">
                                     <i class="material-icons">assignment</i>
                                 </div>
+                            <br>
                                 <h4 class="card-title">All Cases</h4>
                                 <div class="pull-right" style="padding-right: 3%;">
-                                    <button class="btn btn-social btn-fill btn-facebook" data-toggle="modal" data-target="#format">
+                                    <!--<button class="btn btn-social btn-fill btn-facebook" data-toggle="modal" data-target="#format">
                                         Format
-                                    </button>
+                                    </button>-->
                                     <button class="btn btn-social btn-fill btn-facebook" data-toggle="modal" data-target="#myModal">
                                         Add Case
                                     </button>
@@ -305,7 +319,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <!--<th>ID</th>-->
                                                     <th>Case Title </th>
                                                     <th>Type </th>
                                                     <th>Date Created</th>
@@ -330,7 +344,7 @@
                                                 {% else %}
                                                 <tr class="danger">
                                                 {% endif %}
-                                                    <td> {{ round.id }}</td>
+{#                                                    <td> {{ round.id }}</td>#}
                                                     <td> <a href="/user/caseView/{{ round.id }}"> {{ round.title }}</a></td>
                                                     <td>{% if round.offline == '1'%}Offline{% elif round.offline == '2' %}Dummy{% else %}Online{% endif %}</td>
                                                     <td> {{ round.created }}</td>
@@ -366,14 +380,21 @@
                                                                 {% endif %}
                                                         {% endif %}
                                                         <a href="/user/judge_dashboard/judge/0/{{ round.id }}">
-                                                        <button type="button" rel="tooltip" class="text-center btn btn-success" title="View Assessment Form">
+                                                        <button type="button" rel="tooltip" class="text-center btn btn-info" title="View Assessment Form">
                                                             <i class="material-icons">border_color</i>
                                                         </button>
                                                         </a>
+                                                        {% if round.finished %}
+                                                            <a href="/user/club_dashboard/exportRound/{{ round.id }}">
+                                                                <button type="button" rel="tooltip" class="text-center btn btn-success" title="Export Scores Table">
+                                                                    <i class="material-icons">publish</i>
+                                                                </button>
+                                                            </a>
+                                                        {% endif %}
                                                         {% if not round.finished and not user.judge and round.published %}
                                                             <a href="/user/club_dashboard/finishRound/{{ round.id }}">
                                                             <button type="button" rel="tooltip" class="text-center btn btn-success" title="Finish Event">
-                                                                <i class="material-icons">border_color</i>
+                                                                <i class="material-icons">check</i>
                                                             </button>
                                                             </a>
                                                         {% endif %}
@@ -404,7 +425,7 @@
                                                                             <h4 class="card-title">Set Deadline</h4>
                                                                             <div class="form-group">
                                                                                 <label class="label-control">Late Submissions Are Flagged</label>
-                                                                                <input type="text" name="deadline" id = "datetime1" class="form-control datetimepicker" value="10/10/2016" />
+                                                                                <input type="text" name="deadline" id = "datetime1" class="form-control datetimepicker" value="2017/07/24" />
                                                                             </div>
                                                                             <div class="col-md-6" style="display:none">
                                                                                     <legend>Sliders</legend>
@@ -690,12 +711,8 @@
                                                         </a>
                                                     {% endif %}
                                                     {% if not round.published %}
-                                                        {% if round.offline %}
-                                                            <a href="/user/club_dashboard/addRound/{{ event.id }}/{{ type }}/1/{{ round.id }}">
-                                                        {% else %}
-                                                            <a href="/user/club_dashboard/addRound/{{ event.id }}/{{ type }}/0/{{ round.id }}">
-                                                        {% endif %}
-                                                                <button type="button" rel="tooltip" class="btn btn-success" title="Edit Case">
+                                                            <a href="/user/club_dashboard/addRound/{{ event.id }}/{{ type }}/{{ round.offline }}/{{ round.id }}">
+                                                                <button type="button" rel="tooltip" class="btn btn-warning" title="Edit Case">
                                                                         <i class="material-icons">edit</i>
                                                                     </button>
                                                             </a>

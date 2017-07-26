@@ -50,12 +50,11 @@
                         </a>
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
-                                <li>
-                                    <a href="#">My Profile</a>
-                                </li>
+                                {% if not user.judge %}
                                 <li>
                                     <a href="/user/club_dashboard/edit">Edit Profile</a>
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a href="/home/logout">Log Out</a>
                                 </li>
@@ -64,102 +63,98 @@
                     </div>
                 </div>
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
+                {% if not user.judge %}
                 <li>
-                        <a data-toggle="collapse" href="#cases">
-                            <i class="material-icons">image</i>
+                        <a data-toggle="collapse" href="#cases" aria-expanded="false">
+                            <i class="material-icons">event</i>
                             <p>Core Events
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="cases">
+                        <div class="collapse in" id="cases">
                             <ul class="nav">
                                 {% if event.marketing %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/1">Marketing</a>
                                 </li>
                                 {% endif %}
                                 {% if event.finance %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/2">Finance</a>
                                 </li>
                                 {% endif %}
                                 {% if event.public_relations %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/3">Public Relations</a>
                                 </li>
                                 {% endif %}
                                 {% if event.human_resources %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/4">Human Resources</a>
                                 </li>
                                 {% endif %}
                                 {% if event.ent_dev %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/5">Entrepreneurship Development</a>
                                 </li>
                                 {% endif %}
                                 {% if event.best_manager %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/6">Best Manager</a>
                                 </li>
                                 {% endif %}
                             </ul>
                         </div>
                     </li>
-                <li>
-                        <a data-toggle="collapse" href="#coreevents">
-                            <i class="material-icons">image</i>
+                {% endif %}
+                    {% if not user.judge %}
+                        <li>
+                        <a data-toggle="collapse" href="#pagesExamples">
+                            <i class="material-icons">gavel</i>
                             <p>Performance
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="coreevents">
+                        <div class="collapse" id="pagesExamples">
                             <ul class="nav">
-                                {% if event.marketing %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
                                     <a href="/user/club_dashboard/masterTable/1">Marketing</a>
                                 </li>
-                                {% endif %}
-                                {% if event.finance %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
                                     <a href="/user/club_dashboard/masterTable/2">Finance</a>
                                 </li>
-                                {% endif %}
-                                {% if event.public_relations %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
                                     <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
                                 </li>
-                                {% endif %}
-                                {% if event.human_resources %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
                                     <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
                                 </li>
-                                {% endif %}
-                                {% if event.ent_dev %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
                                     <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
                                 </li>
-                                {% endif %}
-                                {% if event.best_manager %}
                                 <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
                                     <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
                                 </li>
-                                {% endif %}
                             </ul>
                         </div>
-                    </li>
-                    {% if user.judge %}
-                    <li>
-                        <a href="/user/judge_dashboard/judge_view">
-                            <i class="material-icons">dashboard</i>
-                            <p>Judge</p>
-                        </a>
                     </li>
                     {% endif %}
                 </ul>
@@ -218,12 +213,14 @@
 {#                                    </li>#}
 {#                                </ul>#}
 {#                            </li>#}
+                            {% if not user.judge %}
                             <li>
                                 <a href="/user/club_dashboard/edit" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
                             </li>
+                            {% endif %}
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
 {#                        <form class="navbar-form navbar-right" role="search">#}

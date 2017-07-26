@@ -5,11 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 import time
 from django.contrib import auth
 from django.utils.encoding import smart_str
-from django.conf import settings
 from wsgiref.util import FileWrapper
 import mimetypes
-import os
-
 
 # Create your views here.
 
@@ -19,18 +16,18 @@ def updatePractrScores(scores):
         studentscore,create = student_scores.objects.get_or_create(username=object.student)
         multiplier = rounds.objects.get(id=object.round.id)
         multiplier = multiplier.weight
-        studentscore.creativity = int (studentscore.creativity +  (multiplier*object.creativity))
-        studentscore.content = int (studentscore.content +(multiplier * object.content))
-        studentscore.presentation = int (studentscore.presentation + (multiplier * object.presentation))
-        studentscore.rebuttal = int (studentscore.rebuttal + (multiplier * object.rebuttal))
-        studentscore.communication = int (studentscore.communication + (multiplier * object.communication))
-        studentscore.feasibility = int (studentscore.feasibility + (multiplier * object.feasibility))
+        studentscore.creativity = int (studentscore.creativity +  (float(multiplier)*object.creativity))
+        studentscore.content = int (studentscore.content +(float(multiplier) * object.content))
+        studentscore.presentation = int (studentscore.presentation + (float(multiplier) * object.presentation))
+        studentscore.rebuttal = int (studentscore.rebuttal + (float(multiplier) * object.rebuttal))
+        studentscore.communication = int (studentscore.communication + (float(multiplier) * object.communication))
+        studentscore.feasibility = int (studentscore.feasibility + (float(multiplier) * object.feasibility))
         studentscore.save()
 
 
 def percentage(x,total):
-    if x != 0:
-        return int((x/total)*100)
+    if x > 0:
+        return int((float(x)/float(total))*100)
     else:
         return 0
 
@@ -54,14 +51,14 @@ def dashboard(request,core1='1',core2='2'):
         count5 = rounds.objects.filter(email=event, type=5).count()
         count6 = rounds.objects.filter(email=event, type=6).count()
         registered = event_registered_details.objects.filter(event=event).order_by('-id')[:5]
-        marketingcount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__marketing=True).count()
-        financecount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__finance=True).count()
-        prcount = event_registered.objects.filter(registered_to=event, registered_to__event_registered_details__public_relations=True).count()
-        hrcount = event_registered.objects.filter(registered_to=event,registered_to__event_registered_details__human_resources=True).count()
-        edcount = event_registered.objects.filter(registered_to=event,registered_to__event_registered_details__ent_dev=True).count()
-        bmcount = event_registered.objects.filter(registered_to=event,registered_to__event_registered_details__best_manager=True).count()
+        marketingcount = event_registered_details.objects.filter(event=event,marketing=True).count()
+        financecount = event_registered_details.objects.filter(event=event,finance=True).count()
+        prcount = event_registered_details.objects.filter(event=event,public_relations=True).count()
+        hrcount = event_registered_details.objects.filter(event=event,human_resources=True).count()
+        edcount = event_registered_details.objects.filter(event=event,ent_dev=True).count()
+        bmcount = event_registered_details.objects.filter(event=event,best_manager=True).count()
         total =  marketingcount+financecount+prcount+hrcount+edcount+bmcount
-        marketingcount = percentage(marketingcount,total)
+        marketingcount = percentage(marketingcount, total)
         financecount = percentage(financecount, total)
         prcount = percentage(prcount, total)
         hrcount = percentage(hrcount, total)
@@ -70,33 +67,33 @@ def dashboard(request,core1='1',core2='2'):
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
-    table1 = round_scores.objects.filter(round__email=event, round__type=1).order_by('-total')[:5]
-    table2 = round_scores.objects.filter(round__email=event, round__type=2).order_by('-total')[:5]
+    table1 = event_registered_details.objects.filter(event=event, marketing=True).order_by('-mkttotal')[:5]
+    table2 = event_registered_details.objects.filter(event=event, finance=True).order_by('-fintotal')[:5]
     if core1 != '1' or core2 != '2':
         if core1 == '1':
-            table1 = round_scores.objects.filter(round__email=event, round__type=1)
-        if core1 == '2':
-            table1 = round_scores.objects.filter(round__email=event, round__type=2)
-        if core1 == '3':
-            table1 = round_scores.objects.filter(round__email=event, round__type=3)
-        if core1 == '4':
-            table1 = round_scores.objects.filter(round__email=event, round__type=4)
-        if core1 == '5':
-            table1 = round_scores.objects.filter(round__email=event, round__type=5)
-        if core1 == '6':
-            table1 = round_scores.objects.filter(round__email=event, round__type=6)
+            table1 = event_registered_details.objects.filter(event=event, marketing=True).order_by('-mkttotal')[:5]
+        elif core1 == '2':
+            table1 = event_registered_details.objects.filter(event=event, finance=True).order_by('-fintotal')[:5]
+        elif core1 == '3':
+            table1 = event_registered_details.objects.filter(event=event, public_relations=True).order_by('-prtotal')[:5]
+        elif core1 == '4':
+            table1 = event_registered_details.objects.filter(event=event, human_resources=True).order_by('-hrtotal')[:5]
+        elif core1 == '5':
+            table1 = event_registered_details.objects.filter(event=event, ent_dev=True).order_by('-edtotal')[:5]
+        elif core1 == '6':
+            table1 = event_registered_details.objects.filter(event=event, best_manager=True).order_by('-bmtotal')[:5]
         if core2 == '1':
-            table2 = round_scores.objects.filter(round__email=event, round__type=1)
-        if core2 == '2':
-            table2 = round_scores.objects.filter(round__email=event, round__type=2)
-        if core2 == '3':
-            table2 = round_scores.objects.filter(round__email=event, round__type=3)
-        if core2 == '4':
-            table2 = round_scores.objects.filter(round__email=event, round__type=4)
-        if core2 == '5':
-            table2 = round_scores.objects.filter(round__email=event, round__type=5)
-        if core2 == '6':
-            table2 = round_scores.objects.filter(round__email=event, round__type=6)
+            table2 = event_registered_details.objects.filter(event=event, marketing=True).order_by('-mkttotal')[:5]
+        elif core2 == '2':
+            table2 = event_registered_details.objects.filter(event=event, finance=True).order_by('-fintotal')[:5]
+        elif core2 == '3':
+            table2 = event_registered_details.objects.filter(event=event, public_relations=True).order_by('-prtotal')[:5]
+        elif core2 == '4':
+            table2 = event_registered_details.objects.filter(event=event, human_resources=True).order_by('-hrtotal')[:5]
+        elif core2 == '5':
+            table2 = event_registered_details.objects.filter(event=event, ent_dev=True).order_by('-edtotal')[:5]
+        elif core2 == '6':
+            table2 = event_registered_details.objects.filter(event=event, best_manager=True).order_by('-bmtotal')[:5]
 
     context = {"user":user, "event":event, "club":club,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
                'count5':count5, 'count6':count6,'registered':registered,'table1':table1,'table2':table2,
@@ -110,6 +107,9 @@ def live(request, id):
     if event.live:
         event.live = False
         event.current = False
+        heads = sub_head.objects.filter(event=event)
+        for student in heads:
+            student.student.delete()
         event.delete()
     else:
         event.live = True
@@ -318,6 +318,7 @@ def case_view(request, id, type):
 
 def publish(request, id=None, event=None, type=None):
     round = rounds.objects.get(id=id)
+    event_detail = events.objects.get(id=event)
     if round.published:
         round.published = False
         round.deadline = None
@@ -325,6 +326,24 @@ def publish(request, id=None, event=None, type=None):
         if request.POST:
             round.published = True
             round.deadline = request.POST['deadline']
+            if type == '1':
+                audience = event_registered_details.objects.filter(event=event,marketing=True)
+            elif type == '2':
+                audience = event_registered_details.objects.filter(event=event,finance=True)
+            elif type == '3':
+                audience = event_registered_details.objects.filter(event=event,public_relations=True)
+            elif type == '4':
+                audience = event_registered_details.objects.filter(event=event,human_resources=True)
+            elif type == '5':
+                audience = event_registered_details.objects.filter(event=event,ent_dev=True)
+            else:
+                audience = event_registered_details.objects.filter(event=event,best_manager=True)
+            for student in audience:
+                print(student)
+                x, created = round_scores.objects.get_or_create(student=student.student, round=round, rcode=student.rcode)
+                if round.offline != '0':
+                    x.submitted = True
+                x.save()
             if round.offline != '0':
                 if type == '1':
                     registered = event_registered_details.objects.filter(event=round.email,marketing=True)
@@ -350,6 +369,7 @@ def publish(request, id=None, event=None, type=None):
 def members(request, id, type):
     current_user = request.user
     round = rounds.objects.get(id=id)
+    event = events.objects.get(id=round.email.id)
     audience = None
     if round.finished:
         audience = round_scores.objects.filter(round=round,submitted=True)
@@ -366,14 +386,14 @@ def members(request, id, type):
             audience = event_registered_details.objects.filter(event=round.email,ent_dev=True)
         if type == '6':
             audience = event_registered_details.objects.filter(event=round.email,best_manager=True)
-    context = {'user':current_user, 'audience':audience}
+    context = {'user':current_user, 'audience':audience,'event':event}
     return render(request,'club_dash/members.html',context)
 
 
 def result(request, round=None):
     user = request.user
     round = rounds.objects.get(id=round)
-    event = round.email.id
+    event = round.email
     type = round.type
     scores = round_scores.objects.filter(round=round).order_by('-total')
     count = round_scores.objects.filter(round=round).count()
@@ -416,10 +436,8 @@ def finishRound(request, id=None):
     updatePractrScores(parameter)
     round.save()
     scores = round_scores.objects.filter(round=round)
-    print(scores)
     for score in scores:
         student = event_registered_details.objects.get(student=score.student, event=round.email)
-        print(student)
         if score.round.type == 1:
             student.mkttotal = student.mkttotal + score.total
         if score.round.type == 2:
@@ -437,6 +455,7 @@ def finishRound(request, id=None):
 
 
 def audience(request, event, type):
+
     qualify = request.POST.get("qualified")
     mainevent = events.objects.get(id=event)
     qualify = int (qualify)
@@ -481,12 +500,12 @@ def audience(request, event, type):
             if type == '6':
                 student.best_manager = False
             student.save()
-            scores = round_scores.objects.filter(round__email=mainevent, student=student.student)
+            scores = round_scores.objects.filter(round__email=mainevent, student=student.student, round__type=int(type))
             for obj in scores:
                 obj.qualified = False
                 obj.save()
-            final = event_registered.objects.get(current_user=student.student)
-            event_registered.rmregister(final.current_user,mainevent)
+            #final = event_registered.objects.get(current_user=student.student)
+            #event_registered.rmregister(final.current_user,mainevent)
     return HttpResponseRedirect('/user/club_dashboard/masterTable/' + type)
 
 
@@ -506,7 +525,7 @@ def addSub(request,id,type):
     club = clubs.objects.get(club_email=request.user.email)
     set_type.club = club
     set_type.save()
-    details = sub_head(student=head,type=type)
+    details = sub_head(student=head,type=type, event=event)
     details.save()
     if type == '1':
         event.subhead1 = True
@@ -556,7 +575,7 @@ def registered_members(request,id):
     user = request.user
     event = events.objects.get(id=id)
     registered = event_registered_details.objects.filter(event=event).order_by('-id')
-    context = {'user':user,'registered':registered}
+    context = {'user':user,'registered':registered,'event':event}
     return render(request, 'club_dash/registeredmembers.html',context)
 
 
@@ -571,8 +590,12 @@ def master_table(request, type):
     all_rounds = rounds.objects.filter(email=event, type=type,finished=True).order_by('-created')
     total = distinct_registered.count()
     #cases = rounds.objects.filter(email=event,type=type,published=True,finished=False)
+    dis_registered = round_scores.objects.filter(round__email=event, round__type=type, qualified=False)
+    dis_distinct_registered = round_scores.objects.filter(round__email=event, round__type=type, qualified=False).values(
+        'rcode', 'student__name', 'student__phoneno', 'student__email').distinct()
     context ={'user':user,'registered':registered,'max':total,'event':event,'type':type,'rounds':all_rounds,
-              'distinct':distinct_registered,'scoretotal':score_total}
+              'distinct':distinct_registered,'scoretotal':score_total,'dis_registered':dis_registered,
+              'dis_distinct':dis_distinct_registered}
     return render(request,'club_dash/audience_master.html',context)
 
 
@@ -699,4 +722,179 @@ def download(request,id=None,file=0):
     #response['Content-Type'] = "application/force-download"
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(name)
     response['Content-Length'] = size
+    return response
+
+
+def export_scores(request,type=None):
+    import openpyxl
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=Scores.xlsx'
+    user = request.user
+    club = clubs.objects.get(club_email=user.email)
+    event = events.objects.get(email=club,current=True)
+    all_rounds = rounds.objects.filter(email=event,type=type,finished=True).order_by('-created')
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = "Scores"
+    row_num = 0
+    columns = [
+        (u"ID", 80),
+        (u"Name", 20),
+        (u"Email", 20),
+        (u"Phone", 20),
+    ]
+    for round in all_rounds:
+        columns = columns + [(u""+round.title,20),]
+    columns = columns + [(u"Total",20),]
+    for col_num in range(0,len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+    if type == '1':
+        queryset = event_registered_details.objects.filter(marketing=True)
+        scores = round_scores.objects.filter(round__type=1)
+    elif type == '2':
+        queryset = event_registered_details.objects.filter(finance=True)
+        scores = round_scores.objects.filter(round__type=2)
+    elif type == '3':
+        queryset = event_registered_details.objects.filter(public_relations=True)
+        scores = round_scores.objects.filter(round__type=3)
+    elif type == '4':
+        queryset = event_registered_details.objects.filter(human_resources=True)
+        scores = round_scores.objects.filter(round__type=4)
+    elif type == '5':
+        queryset = event_registered_details.objects.filter(ent_dev=True)
+        scores = round_scores.objects.filter(round__type=5)
+    else:
+        queryset = event_registered_details.objects.filter(best_manager=True)
+        scores = round_scores.objects.filter(round__type=6)
+    for obj in queryset:
+        row_num += 1
+        row = [
+            obj.rcode,
+            obj.student.name,
+            obj.student.email,
+            obj.student.phoneno,
+        ]
+        for x in all_rounds:
+            for score in scores:
+                if score.round == x:
+                    print("Here")
+                    if score.student == obj.student:
+                        print("Here too")
+                        row = row + [score.total,]
+        if type == '1':
+            row = row + [obj.mkttotal,]
+        elif type == '2':
+            row = row + [obj.fintotal,]
+        elif type == '3':
+            row = row + [obj.prtotal,]
+        elif type == '4':
+            row = row + [obj.hrtotal,]
+        elif type == '5':
+            row = row + [obj.edtotal,]
+        else:
+            row = row + [obj.bmtotal,]
+        for col_num in range(0,len(columns)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+    wb.save(response)
+    return response
+
+
+def export_registrations(request):
+    import openpyxl
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=Registrations.xlsx'
+    user = request.user
+    club = clubs.objects.get(club_email=user.email)
+    event = events.objects.get(email=club, current=True)
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = "Registrations"
+    row_num = 0
+    columns = [
+        (u"ID", 80),
+        (u"Name", 20),
+        (u"Email", 20),
+        (u"Phone", 20),
+        (u"Course", 20),
+        (u"Year", 20),
+        (u"Section", 20),
+        (u"Core Events", 20),
+    ]
+    for col_num in range(0,len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+    queryset = event_registered_details.objects.filter(event=event).order_by('-id')
+    for obj in queryset:
+        row_num += 1
+        core_events = ""
+        if obj.marketing:
+            core_events = core_events + "MKT" + " "
+        if obj.finance:
+            core_events = core_events + "FIN" + " "
+        if obj.public_relations:
+            core_events = core_events + "PR" + " "
+        if obj.human_resources:
+            core_events = core_events + "HR" + " "
+        if obj.ent_dev:
+            core_events = core_events + "ED" + " "
+        if obj.best_manager:
+            core_events = core_events + "BM" + " "
+        row = [
+            obj.rcode,
+            obj.student.name,
+            obj.student.email,
+            obj.student.phoneno,
+            obj.student.student_detail.degree,
+            obj.student.student_detail.year,
+            obj.student.student_detail.section,
+            core_events,
+        ]
+        for col_num in range(0, len(columns)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+    wb.save(response)
+    return response
+
+
+def export_roundScore(request,id=None):
+    import openpyxl
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=RoundScores.xlsx'
+    round = rounds.objects.get(id=id)
+    wb = openpyxl.Workbook()
+    ws = wb.get_active_sheet()
+    ws.title = "" + round.title
+    row_num = 0
+    columns = [
+        (u"ID", 80),
+        (u"Name", 20),
+        (u"Email", 20),
+        (u"Phone", 20),
+        (u"Course", 20),
+        (u"Year", 20),
+        (u"Section", 20),
+        (u"Score", 20),
+    ]
+    for col_num in range(0, len(columns)):
+        c = ws.cell(row=row_num + 1, column=col_num + 1)
+        c.value = columns[col_num][0]
+    queryset = round_scores.objects.filter(round=round).order_by('-total')
+    for obj in queryset:
+        row_num += 1
+        row = [
+            obj.rcode,
+            obj.student.name,
+            obj.student.email,
+            obj.student.phoneno,
+            obj.student.student_detail.degree,
+            obj.student.student_detail.year,
+            obj.student.student_detail.section,
+            obj.total,
+        ]
+        for col_num in range(0, len(columns)):
+            c = ws.cell(row=row_num + 1, column=col_num + 1)
+            c.value = row[col_num]
+    wb.save(response)
     return response

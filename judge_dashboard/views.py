@@ -28,13 +28,13 @@ def dashboard(request):
 
 def judge_view(request,id):
     user = request.user
-    context = {'user': user, }
     details = judge_detail.objects.get(email=user)
     round = rounds.objects.get(id=id)
     registered = None
     try:
         if round.offline == '0':
-            registered = round_scores.objects.filter(round=round,submitted=True)
+            #registered = round_scores.objects.filter(round=round,submitted=True)
+            registered = round_scores.objects.filter(round=round)
         else:
             registered = round_scores.objects.filter(round=round)
     except event_registered.DoesNotExist:
@@ -78,8 +78,13 @@ def assessment(request,pk=None,id=None):
             scores.feasibility = int((int (scores.feasibility) + int (request.POST.get("feasibility1", 0)))/2)
             scores.rebuttal = int((int (scores.rebuttal) + int (request.POST.get("rebuttal1", 0)))/2)
             scores.presentation = int((int (scores.presentation) + int (request.POST.get("presentation1", 0)))/2)
-            scores.feedback = scores.feedback + '<br>' + request.POST.get("feedback", '')
+            if request.POST.get("feedback") != '':
+                if scores.feedback == 'No Feedback Available':
+                    scores.feedback = request.POST.get("feedback", '')
+                else:
+                    scores.feedback = scores.feedback + '<br>' + request.POST.get("feedback", '')
         scores.total = int (scores.question1)+int(scores.question2)+int(scores.question3)+int(scores.question4)+int(scores.question5)+int(scores.creativity)+int(scores.feasibility)+int(scores.content)+int(scores.communication)+int(scores.rebuttal)+int(scores.presentation)
+        scores.total = int (float(round.weight)*scores.total)
         scores.judged = True
         scores.save()
         return HttpResponseRedirect("/user/judge_dashboard/judge_view/"+id)

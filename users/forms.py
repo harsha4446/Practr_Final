@@ -6,14 +6,19 @@ from django.contrib.auth import (authenticate,login,logout,get_user_model)
 User = get_user_model()
 
 class RegisterModel(forms.ModelForm):
-    password=forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    password=forms.CharField(widget=forms.PasswordInput(attrs={'id':'password','class': 'form-control', 'placeholder': 'Password'}))
     email = forms.EmailField(label="", required=True, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
     name = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}))
     phoneno = forms.CharField(label="", required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone','min':'10','max':'10'}))
     class Meta:
         model = student
         fields = ['email','password','name','phoneno',]
-
+    def clean(self):
+        username = self.cleaned_data.get("email")
+        user = student.objects.filter(email=username)
+        if user:
+            raise forms.ValidationError("Email Already Exists")
+        return super(RegisterModel, self).clean()
 
 class LoginForm(forms.Form):
     username = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control', }))

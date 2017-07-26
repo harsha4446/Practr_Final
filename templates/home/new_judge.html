@@ -58,7 +58,6 @@
                                      <div class="picture-container">
                                           <div class="picture">
                                               <img src="{% static 'assets_old/img/default-avatar.png'%}" class="picture-src" id="wizardPicturePreview" title=""/>
-                                              {{ default.profile_picture }}
                                           </div>
                                           <h6>Choose Picture</h6>
                                       </div>
@@ -66,7 +65,7 @@
                                   <div class="col-sm-6">
                                       <div class="form-group">
                                         <label>Date of Birth <small>(required)</small></label>
-                                        <input type="text" name="dob" class="form-control datepicker" value="YYYY-MM-DD" />
+                                        <input type="text" name="dob" class="form-control datepicker" value="1998/01/01" />
                                       </div>
                                       <div class="form-group label-floating">
                                                             <label class="control-label">Location
@@ -86,7 +85,6 @@
                                                             </label>
                                                             {{ formInfo.website }}
                                       </div>
-
                                   </div>
 
                               </div>

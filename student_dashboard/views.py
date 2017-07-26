@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from .forms import dataForm,detailFrom
 from django.contrib import auth
+import datetime
 
 # Create your views here.
 
@@ -223,8 +224,8 @@ def event_register(request, id = None):
                     regdetails.rcode = event.prefix + '00' + code_id
                 if (len(code_id) == 2):
                     regdetails.rcode = event.prefix + '0' + code_id
+                compute(regdetails.id, event.id)
             regdetails.save()
-            compute(regdetails.id, event.id)
             return HttpResponseRedirect("/user/student_dashboard/events")
         else:
             event_registered.register(current_user, event)
@@ -241,8 +242,8 @@ def event_register(request, id = None):
                     regdetails.rcode = event.prefix + '00' + code_id
                 if (len(code_id) == 2):
                     regdetails.rcode = event.prefix + '0' + code_id
+                compute(regdetails.id, event.id)
             regdetails.save()
-            compute(regdetails.id, event.id)
             return HttpResponseRedirect("/user/student_dashboard/events")
     context = {'event':event, "network":network, "flag1":flag1,"flag2":flag2,"flag3":flag3,
                "flag4":flag4,"flag5":flag5,"flag6":flag6}
@@ -277,6 +278,12 @@ def upload_files(request,id):
                 scores.data3 = form.cleaned_data.get("data3")
             scores.rcode = details.rcode
             scores.submitted = True
+            deadline = scores.round.deadline
+            try:
+                if deadline < datetime.datetime.now():
+                    scores.late = True
+            except:
+                scores.late = False
             scores.save()
             return HttpResponseRedirect("/user/student_dashboard")
 
@@ -294,27 +301,27 @@ def review(request,id):
     scores = round_scores.objects.get(student=user,round=round)
     feasibility=creativity=communication=content=presentation=rebuttal=0
     if round.creativity:
-        creativity = int((scores.creativity/round.creativityvalue)*100)
+        creativity = int((float(scores.creativity)/round.creativityvalue)*100)
         creativity = str(creativity)
     if round.communication:
-        communication = int ((scores.communication/round.communicationvalue)*100)
+        communication = int ((float(scores.communication)/round.communicationvalue)*100)
         communication = str(communication)
     if round.content:
-        content = int((scores.content/round.contentvalue)*100)
+        content = int((float(scores.content)/round.contentvalue)*100)
         content = str(content)
     if round.presentation:
-        presentation = int ((scores.presentation/round.presentationvalue)*100)
+        presentation = int ((float(scores.presentation)/round.presentationvalue)*100)
         presentation = str (presentation)
     if round.rebuttal:
-        rebuttal = int ((scores.rebuttal/round.rebuttalvalue)*100)
+        rebuttal = int ((float(scores.rebuttal)/round.rebuttalvalue)*100)
         rebuttal = str (rebuttal)
     if round.feasibility:
-        feasibility = int ((scores.feasibility/round.feasibilityvalue)*100)
+        feasibility = int ((float(scores.feasibility)/round.feasibilityvalue)*100)
         feasibility = str (feasibility)
     print(creativity)
     context = {'user':request.user,'scores':scores, 'round':round,'creativity':creativity,'communication':communication,'content':content,
                'presentation':presentation,'rebuttal':rebuttal,'feasibility':feasibility,}
-    return render(request, 'student_dash/performance_review.html', context)
+    return render(request, 'student_dash/performance_review_new.html', context)
 
 
 def edit_profile(request):

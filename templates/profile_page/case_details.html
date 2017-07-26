@@ -191,20 +191,34 @@
                                    </div>
                                   <div class="list">
                                    <ul>
+                                   {% if round.resource1 or round.resource2 or round.resource3 or round.resource4 or round.resource5 %}
                                    {% if round.resource1 %}
-                                     <li>{{ round.resource1 }}</li>
+                                       <a href="{{ round.resource1 }}">
+                                            <button class="">Resource 1</button>
+                                       </a>
                                    {% endif %}
                                    {% if round.resource2 %}
-                                     <li>{{ round.resource2 }}</li>
+                                     <a href="{{ round.resource2 }}" target="_self">
+                                            <button class="">Resource 2</button>
+                                       </a>
                                    {% endif %}
                                    {% if round.resource3 %}
-                                     <li>{{ round.resource3 }}</li>
+                                     <a href="{{ round.resource3 }}">
+                                            <button class="">Resource 3</button>
+                                       </a>
                                    {% endif %}
                                    {% if round.resource4 %}
-                                     <li>{{ round.resource4 }}</li>
+                                     <a href="{{ round.resource4 }}">
+                                            <button class="">Resource 4</button>
+                                       </a>
                                    {% endif %}
                                    {% if round.resource5 %}
-                                     <li>{{ round.resource5 }}</li>
+                                     <a href="{{ round.resource5 }}">
+                                            <button class="">Resource 5</button>
+                                       </a>
+                                   {% endif %}
+                                   {% else %}
+                                   <li><h5>No Resources Available</h5></li>
                                    {% endif %}
                                     </ul>
                                    </div>

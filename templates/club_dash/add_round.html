@@ -113,16 +113,16 @@
                                       <div class="form-group">
                                           <div  class="col-lg-10">
                                               {{ form.task1 }}<br></div>
-                                        <button type="button" id ="task1but" class="button button-action button-circle" style="display: block ; margin-top: 5%; margin-left: 84%"onclick=task('task2','task1but','task2but')><i class="fa fa-plus"></i></button>
+                                        <button type="button" id ="task1but" class="button button-action button-circle" style="display: block ; margin-top: 5%; margin-left: 84%" onclick=task('task2','task1but','task2but')><i class="fa fa-plus"></i></button>
                                            <div  class="col-lg-10">
                                               {{ form.task2 }}<br></div>
-                                        <button type="button"id ="task2but" class="button button-action button-circle " style="display: none;margin-top: 4%; margin-left: 84% "onclick=task('task3','task2but','task3but')><i class="fa fa-plus"></i></button>
+                                        <button type="button" id ="task2but" class="button button-action button-circle " style="display: none;margin-top: 4%; margin-left: 84% " onclick=task('task3','task2but','task3but')><i class="fa fa-plus"></i></button>
                                     <div  class="col-lg-10">
                                               {{ form.task3 }}<br></div>
-                                        <button type="button"id ="task3but" class="button button-action button-circle" style="display: none; margin-top: 4%; margin-left: 84%"onclick=task('task4','task3but','task4but')><i class="fa fa-plus"></i></button>
+                                        <button type="button" id ="task3but" class="button button-action button-circle" style="display: none; margin-top: 4%; margin-left: 84%" onclick=task('task4','task3but','task4but')><i class="fa fa-plus"></i></button>
                                      <div  class="col-lg-10">
                                               {{ form.task4 }}<br></div>
-                                      <button type="button"id ="task4but" class="button button-action button-circle" style="display: none;margin-top: 4%; margin-left: 84%"onclick=task('task5','task4but','task5but')><i class="fa fa-plus"></i></button>
+                                      <button type="button" id ="task4but" class="button button-action button-circle" style="display: none;margin-top: 4%; margin-left: 84%" onclick=task('task5','task4but','task5but')><i class="fa fa-plus"></i></button>
                                       <div class="col-lg-10">
                                               {{ form.task5 }}
                                       </div>
@@ -516,29 +516,17 @@
                 document.getElementById('question3').value="{{ existing.question3 }}";
                 document.getElementById('question4').value="{{ existing.question4 }}";
                 document.getElementById('question5').value="{{ existing.question5 }}";
-                document.getElementById('creativityval').value = {{ existing.creativityvalue }};
-                document.getElementById('presentationval').value = {{ existing.presentationvalue }};
-                document.getElementById('contentval').value = {{ existing.contentvalue }};
-                document.getElementById('rebuttalval').value = {{ existing.rebuttalvalue }};
-                document.getElementById('feasibilityval').value = {{ existing.feasibilityvalue }};
-                document.getElementById('communicationval').value = {{ existing.communicationvalue }};
+{#                document.getElementById('creativityval').value = {{ existing.creativityvalue }};#}
+{#                document.getElementById('presentationval').value = {{ existing.presentationvalue }};#}
+{#                document.getElementById('contentval').value = {{ existing.contentvalue }};#}
+{#                document.getElementById('rebuttalval').value = {{ existing.rebuttalvalue }};#}
+{#                document.getElementById('feasibilityval').value = {{ existing.feasibilityvalue }};#}
+{#                document.getElementById('communicationval').value = {{ existing.communicationvalue }};#}
                 document.getElementById('core1').value = {{ existing.core1 }};
                 document.getElementById('core2').value = {{ existing.core2 }};
                 document.getElementById('core3').value = {{ existing.core3 }};
                 document.getElementById('core4').value = {{ existing.core4 }};
                 document.getElementById('core5').value = {{ existing.core5 }};
-                if({{ existing.creativity }})
-                    document.getElementById('creativityval').disabled = !this.checked;
-                if({{ existing.content }})
-                    document.getElementById('content').checked = true;
-                if({{ existing.content }})
-                    document.getElementById('content').checked = true;
-                if({{ existing.content }})
-                    document.getElementById('content').checked = true;
-                if({{ existing.content }})
-                    document.getElementById('content').checked = true;
-                if({{ existing.content }})
-                    document.getElementById('content').checked = true;
             });
         </script>
 

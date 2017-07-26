@@ -45,7 +45,7 @@ def studentprofile(request, id=None):
     id = int (id)
     user = student.objects.get(id=id)
     try:
-        scores = student_scores.objects.get(username=user)
+        scores,created = student_scores.objects.get_or_create(username=user)
         creativitymax = getmax(scores.creativity)
         presentationmax = getmax(scores.presentation)
         rebuttalmax = getmax(scores.rebuttal)
@@ -58,12 +58,12 @@ def studentprofile(request, id=None):
         communicationlevel = getlevel(communicationmax)
         contentlevel = getlevel(contentmax)
         feasibilitylevel = getlevel(feasibilitymax)
-        creativitypercent = int ((scores.creativity/creativitymax)*100)
-        feasibilitypercent = int((scores.feasibility / feasibilitymax) * 100)
-        presentationpercent = int((scores.presentation / presentationmax) * 100)
-        rebuttalpercent = int((scores.rebuttal / rebuttalmax) * 100)
-        communicationpercent = int((scores.communication / communicationmax) * 100)
-        contentpercent = int((scores.content / contentmax) * 100)
+        creativitypercent = int ((float(scores.creativity)/creativitymax)*100)
+        feasibilitypercent = int((float(scores.feasibility) / feasibilitymax) * 100)
+        presentationpercent = int((float(scores.presentation) / presentationmax) * 100)
+        rebuttalpercent = int((float(scores.rebuttal) / rebuttalmax) * 100)
+        communicationpercent = int((float(scores.communication) / communicationmax) * 100)
+        contentpercent = int((float(scores.content) / contentmax) * 100)
         user_details = student_detail.objects.get(email=user)
         context = {"user": user, "details": user_details,
                'creativitymax': creativitymax, 'presentationmax': presentationmax, 'rebuttalmax': rebuttalmax,
