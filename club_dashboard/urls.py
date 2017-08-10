@@ -34,4 +34,8 @@ urlpatterns = [
     url(r'^exportScores/(?P<type>\d+)/$', views.export_scores, name='excel_score'),
     url(r'^exportRegistrations/$', views.export_registrations, name='excel_registrations'),
     url(r'^exportRound/(?P<id>\d+)/$', views.export_roundScore, name='excel_round'),
+    url(r'^eventFeed/$', views.event_feed, name='eventFeed'),
+    url(r'^studentList/$', views.student_list, name='studentlist'),
+    url(r'^eventRegister/(?P<id>\d+)/$', views.event_register, name='register'),
+
 ]

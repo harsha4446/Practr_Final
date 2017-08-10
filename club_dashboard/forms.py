@@ -8,17 +8,11 @@ class addEvent(forms.ModelForm):
     about = forms.CharField(label="", required=True, widget=forms.Textarea(attrs={'id':'about2','class': 'form-control', 'rows': 3}))
     website = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'id':'website','class': 'form-control'}))
     logo = forms.ImageField(required=False)
-    team_size1 = forms.IntegerField(required=False)
-    team_size2 = forms.IntegerField(required=False)
-    team_size3 = forms.IntegerField(required=False)
-    team_size4 = forms.IntegerField(required=False)
-    team_size5 = forms.IntegerField(required=False)
-    team_size6 = forms.IntegerField(required=False)
     class Meta:
         model = events
         fields = ['name', 'about', 'website', 'logo', 'inter_type', 'marketing',
                   'finance', 'public_relations', 'human_resources', 'ent_dev', 'best_manager',
-                  'team_size1', 'team_size2', 'team_size3', 'team_size4', 'team_size5', 'team_size6',]
+                  'corp_strg','quiz','team',]
 
 
 class addRound(forms.ModelForm):

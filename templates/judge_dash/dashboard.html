@@ -218,7 +218,11 @@
                                             <tbody>
                                             {% for student in registered %}
                                                 {% if not student.judged %}
-                                                <tr>
+                                                    {% if student.late %}
+                                                        <tr class="danger">
+                                                    {% else %}
+                                                        <tr>
+                                                    {% endif %}
                                                 {% else %}
                                                 <tr class="success">
                                                 {% endif %}

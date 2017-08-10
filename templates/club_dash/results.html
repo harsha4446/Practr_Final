@@ -157,6 +157,30 @@
                         </div>
                     </li>
                     {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">face</i>
+                            <p>Students</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Network</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/eventFeed">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Events</p>
+                        </a>
+                    </li>
+                {% endif %}
                 </ul>
             </div>
         </div>
@@ -257,6 +281,7 @@
                                                     <th>Username</th>
                                                     <th>Name</th>
                                                     <th>Phone</th>
+                                                    <th>Submitted On</th>
                                                     <th class="text-right">Actions</th>
                                                 </tr>
                                             </thead>
@@ -267,6 +292,7 @@
                                                     <td> {{ student.student.email }}</td>
                                                     <td> {{ student.student.name }}</td>
                                                     <td class="text-left"> {{ student.student.phoneno }}</td>
+                                                    <td> {{ student.submission_time }}</td>
                                                     <td class="td-actions text-right">
                                                         {% if student.data1.url != '' %}
                                                         <a href="/user/club_dashboard/download/{{ student.id }}/1">

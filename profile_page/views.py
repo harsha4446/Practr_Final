@@ -103,4 +103,7 @@ def connect(request, id= None):
         new_friend = student.objects.get(id = id)
         current_user = request.user
         follow_table.make_friend(current_user,new_friend)
-    return HttpResponseRedirect('/profile_page/'+id)
+    if request.user.club:
+        return HttpResponseRedirect('/user/club_dashboard/studentList')
+    else:
+        return HttpResponseRedirect('/profile_page/'+id)

@@ -158,6 +158,30 @@
                         </div>
                     </li>
                     {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">face</i>
+                            <p>Students</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Network</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/eventFeed">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Events</p>
+                        </a>
+                    </li>
+                {% endif %}
                 </ul>
             </div>
         </div>

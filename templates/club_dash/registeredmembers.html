@@ -154,6 +154,30 @@
                             </ul>
                         </div>
                     </li>
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">face</i>
+                            <p>Students</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Netword</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/eventFeed">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Events</p>
+                        </a>
+                    </li>
+                {% endif %}
                 </ul>
             </div>
         </div>
@@ -287,9 +311,9 @@
                                                     <td>{{ student.student.student_detail.degree }}</td>
                                                     <td>{{ student.student.student_detail.year }}</td>
                                                     <td>{{ student.student.student_detail.section }}</td>
-                                                    <td>{% if student.marketing %}MKT {% endif %}{% if student.finance %} FIN {% endif %}
-                                                    {% if student.public_relations %} PR {% endif %}{% if student.human_resources %} HR {% endif %}
-                                                    {% if student.ent_dev %} ED {% endif %}{% if student.best_manager %} BM{% endif %}</td>
+                                                    <td>{% if student.regmarketing %}MKT {% endif %}{% if student.regfinance %} FIN {% endif %}
+                                                    {% if student.regpublic_relations %} PR {% endif %}{% if student.reghuman_resources %} HR {% endif %}
+                                                    {% if student.regent_dev %} ED {% endif %}{% if student.regbest_manager %} BM{% endif %}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

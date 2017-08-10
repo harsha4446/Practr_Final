@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail
+from users.models import clubs, events, student,colleges, rounds, register_table,student, student_scores, event_registered, round_room, room_judge, round_scores, event_registered_details,sub_head, judge_detail, student_detail, follow_table, teams
 from . forms import addEvent, addRound, rooms, deadlines, newJudge
 from django.http import HttpResponseRedirect, HttpResponse
 import time
@@ -50,6 +50,9 @@ def dashboard(request,core1='1',core2='2'):
         count4 = rounds.objects.filter(email=event, type=4).count()
         count5 = rounds.objects.filter(email=event, type=5).count()
         count6 = rounds.objects.filter(email=event, type=6).count()
+        count7 = rounds.objects.filter(email=event, type=7).count()
+        count8 = rounds.objects.filter(email=event, type=8).count()
+        count9 = rounds.objects.filter(email=event, type=9).count()
         registered = event_registered_details.objects.filter(event=event).order_by('-id')[:5]
         marketingcount = event_registered_details.objects.filter(event=event,marketing=True).count()
         financecount = event_registered_details.objects.filter(event=event,finance=True).count()
@@ -57,13 +60,19 @@ def dashboard(request,core1='1',core2='2'):
         hrcount = event_registered_details.objects.filter(event=event,human_resources=True).count()
         edcount = event_registered_details.objects.filter(event=event,ent_dev=True).count()
         bmcount = event_registered_details.objects.filter(event=event,best_manager=True).count()
-        total =  marketingcount+financecount+prcount+hrcount+edcount+bmcount
+        cscount = event_registered_details.objects.filter(event=event, corp_strg=True).count()
+        qucount = event_registered_details.objects.filter(event=event, quiz=True).count()
+        tecount = event_registered_details.objects.filter(event=event, team=True).count()
+        total =  marketingcount+financecount+prcount+hrcount+edcount+bmcount+cscount+qucount+tecount
         marketingcount = percentage(marketingcount, total)
         financecount = percentage(financecount, total)
         prcount = percentage(prcount, total)
         hrcount = percentage(hrcount, total)
         edcount = percentage(edcount, total)
         bmcount = percentage(bmcount, total)
+        cscount = percentage(cscount,total)
+        qucount = percentage(qucount,total)
+        tecount = percentage(tecount,total)
     except events.DoesNotExist:
         context= {"user":user, "club":club,}
         return render(request,'club_dash/noEvent.html',context)
@@ -82,6 +91,12 @@ def dashboard(request,core1='1',core2='2'):
             table1 = event_registered_details.objects.filter(event=event, ent_dev=True).order_by('-edtotal')[:5]
         elif core1 == '6':
             table1 = event_registered_details.objects.filter(event=event, best_manager=True).order_by('-bmtotal')[:5]
+        elif core1 == '7':
+            table1 = event_registered_details.objects.filter(event=event, corp_strg=True).order_by('-cstotal')[:5]
+        elif core1 == '8':
+            table1 = event_registered_details.objects.filter(event=event, quiz=True).order_by('-qutotal')[:5]
+        elif core1 == '9':
+            table1 = event_registered_details.objects.filter(event=event, team=True).order_by('-tetotal')[:5]
         if core2 == '1':
             table2 = event_registered_details.objects.filter(event=event, marketing=True).order_by('-mkttotal')[:5]
         elif core2 == '2':
@@ -94,11 +109,18 @@ def dashboard(request,core1='1',core2='2'):
             table2 = event_registered_details.objects.filter(event=event, ent_dev=True).order_by('-edtotal')[:5]
         elif core2 == '6':
             table2 = event_registered_details.objects.filter(event=event, best_manager=True).order_by('-bmtotal')[:5]
+        elif core2 == '7':
+            table2 = event_registered_details.objects.filter(event=event, corp_strg=True).order_by('-cstotal')[:5]
+        elif core2 == '8':
+            table2 = event_registered_details.objects.filter(event=event, quiz=True).order_by('-qutotal')[:5]
+        elif core2 == '9':
+            table2 = event_registered_details.objects.filter(event=event, team=True).order_by('-tetotal')[:5]
 
     context = {"user":user, "event":event, "club":club,'count1':count1, 'count2':count2, 'count3':count3, 'count4':count4,
-               'count5':count5, 'count6':count6,'registered':registered,'table1':table1,'table2':table2,
-               'core1':core1,'core2':core2,'marketingcount':marketingcount,'financecount':financecount,
-               'prcount':prcount,'hrcount':hrcount,'edcount':edcount,'bmcount':bmcount}
+               'count5':count5, 'count6':count6,'count7':count7,'count8':count8,'count9':count9,'registered':registered,
+               'table1':table1,'table2':table2,'core1':core1,'core2':core2,'marketingcount':marketingcount,
+               'financecount':financecount,'prcount':prcount,'hrcount':hrcount,'edcount':edcount,'bmcount':bmcount,
+               'cscount': cscount,'qucount':qucount,'tecount':tecount,}
     return render(request,'club_dash/dashboard.html',context)
 
 
@@ -110,7 +132,8 @@ def live(request, id):
         heads = sub_head.objects.filter(event=event)
         for student in heads:
             student.student.delete()
-        event.delete()
+        #event.delete()
+        event.save()
     else:
         event.live = True
         event.current = True
@@ -142,23 +165,54 @@ def add_event(request,access = None, id=None):
         event.name = form.cleaned_data.get("name")
         event.about = form.cleaned_data.get("about")
         event.website = form.cleaned_data.get("website")
-        if request.POST.get("multi") != None:
-            event.multiregistration = True
-        if access == 1:
+        if access == '1':
             event.inter_type = True
+            event.team_size1 = request.POST.get("teamsize1")
+            event.team_size2 = request.POST.get("teamsize2")
+            event.team_size3 = request.POST.get("teamsize3")
+            event.team_size4 = request.POST.get("teamsize4")
+            event.team_size5 = request.POST.get("teamsize5")
+            event.team_size6 = request.POST.get("teamsize6")
+            event.team_size7 = request.POST.get("teamsize7")
+            event.team_size8 = request.POST.get("teamsize8")
+            event.team_size9 = request.POST.get("teamsize9")
+            if request.POST.get("mktlabel") != '':
+                event.mktlabel = request.POST.get("mktlabel", "Marketing")
+            if request.POST.get("finlabel") != '':
+                event.finlabel = request.POST.get("finlabel", "Finance")
+            if request.POST.get("prlabel") != '':
+                event.prlabel = request.POST.get("prlabel", "Public Relation")
+            if request.POST.get("hrlabel") != '':
+                event.hrlabel = request.POST.get("hrlabel", "Human Resource")
+            if request.POST.get("edlabel") != '':
+                event.edlabel = request.POST.get("edlabel", "Entrepreneurship Development")
+            if request.POST.get("bmlabel") != '':
+                event.bmlabel = request.POST.get("bmlabel", "Best Manager")
+            if request.POST.get("cslabel") != '':
+                event.cslabel = request.POST.get("cslabel", "Corporate Strategy")
+            if request.POST.get("qulabel") != '':
+                event.qulabel = request.POST.get("qulabel", "Quiz")
+            if request.POST.get("telabel") != '':
+                event.telabel = request.POST.get("telabel", "Team")
+        else:
+            event.prefix = request.POST.get("prefix")
+            event.prefix = event.prefix.upper()
+            event.tprefix = request.POST.get("tprefix")
+            event.tprefix = event.tprefix.upper()
+            if request.POST.get("multi") != None:
+                event.multiregistration = True
         event.marketing = form.cleaned_data.get("marketing")
         event.finance = form.cleaned_data.get("finance")
         event.public_relations = form.cleaned_data.get("public_relations")
         event.human_resources = form.cleaned_data.get("human_resources")
         event.ent_dev = form.cleaned_data.get("ent_dev")
         event.best_manager = form.cleaned_data.get("best_manager")
+        event.corp_strg = form.cleaned_data.get("corp_strg")
+        event.quiz = form.cleaned_data.get("quiz")
+        event.team = form.cleaned_data.get("team")
         event.firstyear = request.POST.get("first",False)
         event.secondyear = request.POST.get("second",False)
         event.thirdyear = request.POST.get("third",False)
-        event.prefix = request.POST.get("prefix")
-        event.prefix = event.prefix.upper()
-        event.tprefix = request.POST.get("tprefix")
-        event.tprefix = event.tprefix.upper()
         if not event.firstyear:
             event.quota11 = 0
             event.quota21 = 0
@@ -166,6 +220,9 @@ def add_event(request,access = None, id=None):
             event.quota41 = 0
             event.quota51 = 0
             event.quota61 = 0
+            event.quota71 = 0
+            event.quota81 = 0
+            event.quota91 = 0
         if not event.secondyear:
             event.quota12 = 0
             event.quota22 = 0
@@ -173,6 +230,9 @@ def add_event(request,access = None, id=None):
             event.quota42 = 0
             event.quota52 = 0
             event.quota62 = 0
+            event.quota72 = 0
+            event.quota82 = 0
+            event.quota92 = 0
         if not event.thirdyear:
             event.quota13 = 0
             event.quota23 = 0
@@ -180,17 +240,19 @@ def add_event(request,access = None, id=None):
             event.quota43 = 0
             event.quota53 = 0
             event.quota63 = 0
-        if request.POST.get("solo",False) != None:
-            event.team_size1 = event.team_size2 = event.team_size3 = event.team_size4 = event.team_size5 = event.team_size6 = 1
-        else:
-            event.team_size1 = event.team_size2 = event.team_size3 = event.team_size4 = event.team_size5 = event.team_size6 = request.POST.get("team")
+            event.quota73 = 0
+            event.quota83 = 0
+            event.quota93 = 0
         if form.cleaned_data.get("logo"):
             event.logo = form.cleaned_data.get("logo")
         event.current = True
         event.save()
         return HttpResponseRedirect("/user/club_dashboard")
     context = {"form":form, "user":request.user, 'existing':exiting}
-    return render(request,'club_dash/add_event.html',context)
+    if access == '1':
+        return render(request, 'club_dash/add_inter_event.html', context)
+    else:
+        return render(request,'club_dash/add_event.html',context)
 
 
 def add_round(request, id=None, operation=None, offline=None,existing=None):
@@ -308,6 +370,15 @@ def case_view(request, id, type):
         elif type == '6':
             register = event_registered_details.objects.filter(event=event, best_manager=True).count()
             corename = 'Best Manager'
+        elif type == '7':
+            register = event_registered_details.objects.filter(event=event, corp_strg=True).count()
+            corename = 'Corperate Strategy'
+        elif type == '8':
+            register = event_registered_details.objects.filter(event=event, quiz=True).count()
+            corename = 'Quiz'
+        elif type == '9':
+            register = event_registered_details.objects.filter(event=event, team=True).count()
+            corename = 'Team'
         all_rooms = round_room.objects.all()
     except register_table.DoesNotExist:
         register = 0
@@ -336,28 +407,21 @@ def publish(request, id=None, event=None, type=None):
                 audience = event_registered_details.objects.filter(event=event,human_resources=True)
             elif type == '5':
                 audience = event_registered_details.objects.filter(event=event,ent_dev=True)
-            else:
+            elif type == '6':
                 audience = event_registered_details.objects.filter(event=event,best_manager=True)
+            elif type == '7':
+                audience = event_registered_details.objects.filter(event=event,corp_strg=True)
+            elif type == '8':
+                audience = event_registered_details.objects.filter(event=event,quiz=True)
+            else:
+                audience = event_registered_details.objects.filter(event=event, team=True)
             for student in audience:
-                print(student)
                 x, created = round_scores.objects.get_or_create(student=student.student, round=round, rcode=student.rcode)
                 if round.offline != '0':
                     x.submitted = True
                 x.save()
             if round.offline != '0':
-                if type == '1':
-                    registered = event_registered_details.objects.filter(event=round.email,marketing=True)
-                elif type == '2':
-                    registered = event_registered_details.objects.filter(event=round.email,finance=True)
-                elif type == '3':
-                    registered = event_registered_details.objects.filter(event=round.email,public_relations=True)
-                elif type == '4':
-                    registered = event_registered_details.objects.filter(event=round.email,human_resources=True)
-                elif type == '5':
-                    registered = event_registered_details.objects.filter(event=round.email,ent_dev=True)
-                else:
-                    registered = event_registered_details.objects.filter(event=round.email,best_manager=True)
-                for student in registered:
+                for student in audience:
                     score,created = round_scores.objects.get_or_create(student=student.student,round=round)
                     score.submitted = True
                     score.rcode = student.rcode
@@ -386,6 +450,12 @@ def members(request, id, type):
             audience = event_registered_details.objects.filter(event=round.email,ent_dev=True)
         if type == '6':
             audience = event_registered_details.objects.filter(event=round.email,best_manager=True)
+        if type == '7':
+            audience = event_registered_details.objects.filter(event=round.email,corp_strg=True)
+        if type == '8':
+            audience = event_registered_details.objects.filter(event=round.email,quiz=True)
+        if type == '9':
+            audience = event_registered_details.objects.filter(event=round.email,team=True)
     context = {'user':current_user, 'audience':audience,'event':event}
     return render(request,'club_dash/members.html',context)
 
@@ -450,6 +520,12 @@ def finishRound(request, id=None):
             student.edtotal = student.edtotal + score.total
         if score.round.type == 6:
             student.bmtotal = student.bmtotal + score.total
+        if score.round.type == 7:
+            student.cstotal = student.cstotal + score.total
+        if score.round.type == 8:
+            student.cstotal = student.qutotal + score.total
+        if score.round.type == 9:
+            student.cstotal = student.tetotal + score.total
         student.save()
     return HttpResponseRedirect('/user/club_dashboard/caseView/' + str(round.email.id) + '/' + str(round.type))
 
@@ -485,6 +561,18 @@ def audience(request, event, type):
         qualified = event_registered_details.objects.filter(event=mainevent, best_manager=True).order_by('-bmtotal')[
                     :qualify]
         disqualified = event_registered_details.objects.filter(event=mainevent, best_manager=True)
+    if type == '7':
+        qualified = event_registered_details.objects.filter(event=mainevent, corp_strg=True).order_by('-cstotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, corp_strg=True)
+    if type == '8':
+        qualified = event_registered_details.objects.filter(event=mainevent, quiz=True).order_by('-qutotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, quiz=True)
+    if type == '9':
+        qualified = event_registered_details.objects.filter(event=mainevent, team=True).order_by('-tetotal')[
+                    :qualify]
+        disqualified = event_registered_details.objects.filter(event=mainevent, team=True)
     for student in disqualified:
         if student not in qualified:
             if type == '1':
@@ -499,6 +587,12 @@ def audience(request, event, type):
                 student.ent_dev = False
             if type == '6':
                 student.best_manager = False
+            if type == '7':
+                student.corp_strg = False
+            if type == '8':
+                student.quiz = False
+            if type == '9':
+                student.team = False
             student.save()
             scores = round_scores.objects.filter(round__email=mainevent, student=student.student, round__type=int(type))
             for obj in scores:
@@ -539,6 +633,12 @@ def addSub(request,id,type):
         event.subhead5 = True
     if type == '6':
         event.subhead6 = True
+    if type == '7':
+        event.subhead7 = True
+    if type == '8':
+        event.subhead8 = True
+    if type == '9':
+        event.subhead9 = True
     event.save()
     judge_setup = judge_detail(email=head,club=club,type=type)
     judge_setup.save()
@@ -553,18 +653,27 @@ def quotaset(request,id=None):
     event.quota41 = request.POST.get("quota41",0)
     event.quota51 = request.POST.get("quota51",0)
     event.quota61 = request.POST.get("quota61",0)
+    event.quota71 = request.POST.get("quota71", 0)
+    event.quota81 = request.POST.get("quota81", 0)
+    event.quota91 = request.POST.get("quota91", 0)
     event.quota12 = request.POST.get("quota12",0)
     event.quota22 = request.POST.get("quota22",0)
     event.quota32 = request.POST.get("quota32",0)
     event.quota42 = request.POST.get("quota42",0)
     event.quota52 = request.POST.get("quota52",0)
     event.quota62 = request.POST.get("quota62",0)
+    event.quota72 = request.POST.get("quota72", 0)
+    event.quota82 = request.POST.get("quota82", 0)
+    event.quota92 = request.POST.get("quota92", 0)
     event.quota13 = request.POST.get("quota13",0)
     event.quota23 = request.POST.get("quota23",0)
     event.quota33 = request.POST.get("quota33",0)
     event.quota43 = request.POST.get("quota43",0)
     event.quota53 = request.POST.get("quota53",0)
     event.quota63 = request.POST.get("quota63",0)
+    event.quota73 = request.POST.get("quota73", 0)
+    event.quota83 = request.POST.get("quota83", 0)
+    event.quota93 = request.POST.get("quota93", 0)
     event.prefix = request.POST.get("prefix",'')
     event.save()
     time.sleep(2)
@@ -764,9 +873,18 @@ def export_scores(request,type=None):
     elif type == '5':
         queryset = event_registered_details.objects.filter(ent_dev=True)
         scores = round_scores.objects.filter(round__type=5)
-    else:
+    elif type == '6':
         queryset = event_registered_details.objects.filter(best_manager=True)
         scores = round_scores.objects.filter(round__type=6)
+    elif type == '7':
+        queryset = event_registered_details.objects.filter(corp_strg=True)
+        scores = round_scores.objects.filter(round__type=7)
+    elif type == '8':
+        queryset = event_registered_details.objects.filter(quiz=True)
+        scores = round_scores.objects.filter(round__type=8)
+    else:
+        queryset = event_registered_details.objects.filter(team=True)
+        scores = round_scores.objects.filter(round__type=9)
     for obj in queryset:
         row_num += 1
         row = [
@@ -792,8 +910,14 @@ def export_scores(request,type=None):
             row = row + [obj.hrtotal,]
         elif type == '5':
             row = row + [obj.edtotal,]
-        else:
+        elif type == '6':
             row = row + [obj.bmtotal,]
+        elif type == '7':
+            row = row + [obj.cstotal,]
+        elif type == '8':
+            row = row + [obj.qutotal,]
+        else:
+            row = row + [obj.tetotal,]
         for col_num in range(0,len(columns)):
             c = ws.cell(row=row_num + 1, column=col_num + 1)
             c.value = row[col_num]
@@ -898,3 +1022,167 @@ def export_roundScore(request,id=None):
             c.value = row[col_num]
     wb.save(response)
     return response
+
+
+def event_feed(request):
+    current_user = request.user
+    try:
+        all_events = events.objects.filter(current=True, registration=True,inter_type=True)
+        #For when we need to register to club first(works, KEEP THIS CODE)
+        # register = register_table.objects.get(current_user=current_user)
+        # clubs = register.registered_to.all()
+        # for x in clubs:
+        #     y = events.objects.filter(email = x, current=True, live=True, registration=True)
+        #     if all_events is None:
+        #         all_events = y
+        #     else:
+        #         all_events = all_events | y
+    except:
+        all_events = None
+    context = { "user": current_user, "events": all_events}
+    return render(request, 'club_dash/event_feed.html', context)
+
+
+def student_list(request):
+    user =  request.user
+    club = clubs.objects.get(club_email=user.email)
+    college = club.email
+    try:
+        event = events.objects.get(email=club,current=True)
+    except:
+        event = None
+    students = student_detail.objects.filter(college=college.college_name)
+    context = {'user':user,'event':event,'students':students}
+    return render(request,'club_dash/student_list.html',context)
+
+
+def event_register(request, id = None):
+    current_user = request.user
+    club = clubs.objects.get(club_email=current_user.email)
+    event = events.objects.get(id=id)
+    try:
+        network = follow_table.objects.get(current_user=current_user)
+        network = network.connected_to.all()
+    except:
+        network = None
+    if request.POST:
+        rcode = teams.objects.filter(event=event).values('club').distinct().count()
+        rcode = str(rcode)
+        if (len(rcode) == 1):
+            rcode = '00' + rcode
+        if (len(rcode) == 2):
+            rcode = '0' + rcode
+        for x in range(0,event.team_size1):
+            member = request.POST.get("mkt"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.marketing = True
+            regdetails.regmarketing = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event,club=club, student=member, type=1)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size2):
+            member = request.POST.get("fin"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.finance = True
+            regdetails.regfinance = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=2)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size3):
+            member = request.POST.get("pr"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.public_relations = True
+            regdetails.regpublic_relations = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=3)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size4):
+            member = request.POST.get("hr"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.human_relations = True
+            regdetails.reghuman_relations = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=4)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size5):
+            member = request.POST.get("ed"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.ent_dev = True
+            regdetails.regent_dev = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=5)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size6):
+            member = request.POST.get("bm"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.best_manager = True
+            regdetails.regbest_manager = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=6)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size7):
+            member = request.POST.get("cs"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.corp_strg = True
+            regdetails.regcorpstrg = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=7)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size8):
+            member = request.POST.get("qu"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.quiz = True
+            regdetails.regquiz = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=8)
+            team.tcode = rcode
+            team.save()
+        for x in range(0,event.team_size9):
+            member = request.POST.get("te"+str(x))
+            member = student.objects.get(email=member)
+            event_registered.register(member, event)
+            regdetails , created = event_registered_details.objects.get_or_create(event=event, student=member)
+            regdetails.team = True
+            regdetails.regteam = True
+            regdetails.rcode = rcode
+            regdetails.save()
+            team, created = teams.objects.get_or_create(event=event, club=club, student=member, type=9)
+            team.tcode = rcode
+            team.save()
+        return HttpResponseRedirect("/user/club_dashboard/eventFeed")
+    context = {'event':event, "network":network,'team1':range(0,event.team_size1),'team2':range(0,event.team_size2),
+               'team3': range(0, event.team_size3),'team4':range(0,event.team_size4),'team5':range(0,event.team_size5),
+               'team6': range(0, event.team_size6),'team7':range(0,event.team_size7),'team8':range(0,event.team_size8),
+               'team9': range(0, event.team_size9),}
+    return render(request,'club_dash/register_details.html',context)

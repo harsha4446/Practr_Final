@@ -75,7 +75,7 @@
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse in" id="cases">
+                        <div class="collapse" id="cases">
                             <ul class="nav">
                                 {% if event.marketing %}
                                 <li>
@@ -155,6 +155,30 @@
                         </div>
                     </li>
                     {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">face</i>
+                            <p>Students</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/studentList">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Network</p>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if not user.judge %}
+                    <li>
+                        <a href="/user/club_dashboard/eventFeed">
+                            <i class="material-icons active">dashboard</i>
+                            <p>Events</p>
+                        </a>
+                    </li>
+                {% endif %}
                 </ul>
             </div>
         </div>
@@ -316,6 +340,15 @@
                                                                         {% if event.best_manager %}
                                                                         <th>B.M</th>
                                                                         {% endif %}
+                                                                        {% if event.corp_strg %}
+                                                                        <th>C.S</th>
+                                                                        {% endif %}
+                                                                        {% if event.quiz %}
+                                                                        <th>QUIZ</th>
+                                                                        {% endif %}
+                                                                        {% if event.team %}
+                                                                        <th>Team</th>
+                                                                        {% endif %}
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -328,6 +361,9 @@
                                                                         {% if event.human_resources %}<td><input name = "quota41" type="number" min="0" max="400" value="{{ event.quota41 }}" maxlength="3"></td>{% endif %}
                                                                         {% if event.ent_dev %}<td><input name = "quota51" type="number" min="0" max="400" value="{{ event.quota51 }}" maxlength="3"></td>{% endif %}
                                                                         {% if event.best_manager %}<td><input name = "quota61" type="number" min="0" max="400" value="{{ event.quota61 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.corp_strg %}<td><input name = "quota71" type="number" min="0" max="400" value="{{ event.quota71 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.quiz %}<td><input name = "quota81" type="number" min="0" max="400" value="{{ event.quota81 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.team %}<td><input name = "quota91" type="number" min="0" max="400" value="{{ event.quota91 }}" maxlength="3"></td>{% endif %}
                                                                     </tr>
                                                                     {% endif %}
                                                                     {% if event.secondyear %}
@@ -339,6 +375,9 @@
                                                                         {% if event.human_resources %}<td><input name = "quota42" type="number" min="0" max="400" value="{{ event.quota42 }}" maxlength="3"></td>{% endif %}
                                                                         {% if event.ent_dev %}<td><input name = "quota52" type="number" min="0" max="400" value="{{ event.quota52 }}" maxlength="3"></td>{% endif %}
                                                                         {% if event.best_manager %}<td><input name = "quota62" type="number" min="0" max="400" value="{{ event.quota62 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.corp_strg %}<td><input name = "quota72" type="number" min="0" max="400" value="{{ event.quota72 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.quiz %}<td><input name = "quota82" type="number" min="0" max="400" value="{{ event.quota82 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.team %}<td><input name = "quota92" type="number" min="0" max="400" value="{{ event.quota92 }}" maxlength="3"></td>{% endif %}
                                                                     </tr>
                                                                     {% endif %}
                                                                     {% if event.thirdyear %}
@@ -350,6 +389,9 @@
                                                                         {% if event.human_resources %}<td><input name = "quota43" type="number" min="0" max="400" value="{{ event.quota43 }}" maxlength="3"></td>{% endif %}
                                                                         {% if event.ent_dev %}<td><input name = "quota53" type="number" min="0" max="400" value="{{ event.quota53 }}" maxlength="3"></td>{% endif %}
                                                                         {% if event.best_manager %}<td><input name = "quota63" type="number" min="0" max="400" value="{{ event.quota63 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.corp_strg %}<td><input name = "quota73" type="number" min="0" max="400" value="{{ event.quota73 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.quiz %}<td><input name = "quota83" type="number" min="0" max="400" value="{{ event.quota83 }}" maxlength="3"></td>{% endif %}
+                                                                        {% if event.team %}<td><input name = "quota93" type="number" min="0" max="400" value="{{ event.quota93 }}" maxlength="3"></td>{% endif %}
                                                                     </tr>
                                                                     {% endif %}
                                                                     </tbody>
@@ -376,6 +418,9 @@
                                                         {% if event.human_resources and hrcount != 0 %}Human Resources: {{ hrcount }}%<br>{% endif %}
                                                         {% if event.ent_dev and edcount != 0 %}Entrepreneurship Development: {{ edcount }}%<br>{% endif %}
                                                         {% if event.best_manager and bmcount != 0 %}Best Manager: {{ bmcount }}%<br>{% endif %}
+                                                        {% if event.corp_strg and cscount != 0 %}Corperate Strategy: {{ cscount }}%<br>{% endif %}
+                                                        {% if event.quiz and qucount != 0 %}Quiz: {{ qucount }}%<br>{% endif %}
+                                                        {% if event.team and tecount != 0 %}Team: {{ tecount }}%<br>{% endif %}
                                                         <br>
                                                     </div>
                                                 </div>
@@ -411,7 +456,9 @@
                                                     <td> {{ student.student.student_detail.year }}</td>
                                                     <td>{% if student.marketing %}MKT {% endif %}{% if student.finance %} FIN {% endif %}
                                                     {% if student.public_relations %} PR {% endif %}{% if student.human_resources %} HR {% endif %}
-                                                    {% if student.ent_dev %} ED {% endif %}{% if student.best_manager %} BM{% endif %}</td>
+                                                    {% if student.ent_dev %} ED {% endif %}{% if student.best_manager %} BM{% endif %}
+                                                    {% if student.corp_strg %} CS{% endif %}{% if student.quiz %} QUIZ{% endif %}
+                                                    {% if student.team %} TEAM{% endif %}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -906,6 +953,237 @@
                                 </div>
                             </div>
                         {% endif %}
+                    {% if event.corp_strg %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <h6 class="category">Corporate Strategy</h6>
+                                            {% if event.subhead7 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type7">Add Event Head</button>
+                                            {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/7">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">visibility</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count7 }}</h3>
+                                        <br>
+                                        </a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#cs">Create Case</button>
+                                    <div class="modal fade" id="cs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Select a type </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/7/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/7/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/7/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% if event.quiz %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <h6 class="category">Quiz</h6>
+                                            {% if event.subhead8 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type8">Add Event Head</button>
+                                            {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/8">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">visibility</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count8 }}</h3>
+                                        <br>
+                                        </a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#quiz">Create Case</button>
+                                    <div class="modal fade" id="quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Select a type </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/8/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/8/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/8/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% if event.team %}
+                         <div class="col-lg-4">
+                                <div class="card card-pricing card-raised">
+                                    <div class="content">
+                                        <h6 class="category">Team</h6>
+                                            {% if event.subhead9 %}
+                                            <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
+                                            {% else %}
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#type9">Add Event Head</button>
+                                            {% endif %}
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/9">
+                                        <div class="icon icon-rose">
+                                            <i class="material-icons">visibility</i>
+                                        </div>
+                                        <h3 class="card-title">Cases: {{ count9 }}</h3>
+                                        <br>
+                                        </a>
+                                        <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#team">Create Case</button>
+                                    <div class="modal fade" id="team" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                        <i class="material-icons">clear</i>
+                                                    </button>
+                                                    <div  style="text-align: center;">
+                                                        <h4 class="modal-title">Select a type </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div  style="text-align: center;">
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/9/0">
+                                                            <button class="btn btn-facebook">Online Case</button>
+                                                        </a>
+                                                        OR
+                                                        <a href="/user/club_dashboard/addRound/{{ event.id }}/9/1">
+                                                            <button class="btn btn-facebook">Offline Case</button>
+                                                        </a>
+                                                        <br><br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal fade" id="type9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Add Sub-Event Head</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <form method="post" action="/user/club_dashboard/addSub/{{ event.id }}/9/">
+                                                    {% csrf_token %}
+                                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                                    <input type="text" name="name" class="form-control" placeholder="Sub-Event Head Name">
+                                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                                    <br><br>
+                                                    <div class="footer text-center">
+                                                        <button type="submit" class="btn btn-primary btn-round">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
               </div>
             </div>
            </div>
@@ -930,7 +1208,8 @@
                                    <div style="text-align: right">
                                                     <div class="dropdown">
                                                         <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core1 == '1' %}Marketing{% elif core1 == '2' %}Finance{% elif core1 == '3' %}Public Relations
-                                                            {% elif core1 == '4'%}Human Resource{% elif core1 == '5' %}Entrepreneurship Development{% else %}Best Manager{% endif %}
+                                                            {% elif core1 == '4'%}Human Resource{% elif core1 == '5' %}Entrepreneurship Development{% elif core1 == '6' %}Best Manager
+                                                            {% elif core1 == '7'%}Corperate Strategy{% elif core1 == '8'%}Quiz{% else%}Team{% endif %}
                                                             <b class="caret"></b>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-left">
@@ -965,6 +1244,21 @@
                                                                 <a href="/user/club_dashboard/6/{{ core2 }}">Best Manager</a>
                                                             </li>
                                                             {% endif %}
+                                                            {% if event.corp_strg %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/7/{{ core2 }}">Corperate Strategy</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.quiz %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/8/{{ core2 }}">Quiz</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.team %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/9/{{ core2 }}">Team</a>
+                                                            </li>
+                                                            {% endif %}
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -987,7 +1281,8 @@
                                                     <td>{{ object.student.email }}</td>
                                                     <td>{{ object.student.student_detail.year }}</td>
                                                     <td class="text-primary">{% if core1 == '1' %}{{ object.mkttotal }}{% elif core1 == '2' %}{{ object.fintotal }}{% elif core1 == '3' %}{{ object.prtotal }}
-                                                            {% elif core1 == '4'%}{{ object.hrtotal }}{% elif core1 == '5' %}{{ object.edtotal }}{% else %}{{ object.bmtotal }}{% endif %}</td>
+                                                            {% elif core1 == '4'%}{{ object.hrtotal }}{% elif core1 == '5' %}{{ object.edtotal }}{% elif core1 == '6' %}{{ object.bmtotal }}
+                                                            {% elif core1 == '7' %}{{ object.cstotal }}{% elif core1 == '8' %}{{ object.qutotal }}{% else %}{{ object.tetotal }}{% endif %}</td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -1007,7 +1302,8 @@
                                     <div style="text-align: right">
                                                     <div class="dropdown">
                                                         <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core2 == '1' %}Marketing{% elif core2 == '2' %}Finance{% elif core2 == '3' %}Public Relations
-                                                            {% elif core2 == '4'%}Human Resource{% elif core2 == '5' %}Entrepreneurship Development{% else %}Best Manager{% endif %}
+                                                            {% elif core2 == '4'%}Human Resource{% elif core2 == '5' %}Entrepreneurship Development{% elif core2 == '6' %}Best Manager
+                                                            {% elif core2 == '7' %}Corperate Strategy{% elif core2 == '8' %}Quiz{% else %}Team{% endif %}
                                                             <b class="caret"></b>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-left">
@@ -1042,6 +1338,21 @@
                                                                 <a href="/user/club_dashboard/{{ core1 }}/6">Best Manager</a>
                                                             </li>
                                                             {% endif %}
+                                                            {% if event.corp_strg %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/7">Coreperate Strategy</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.quiz %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/8">Quiz</a>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if event.team %}
+                                                            <li>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/9">Team</a>
+                                                            </li>
+                                                            {% endif %}
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -1064,7 +1375,8 @@
                                                     <td>{{ object.student.email }}</td>
                                                     <td>{{ object.student.student_detail.year }}</td>
                                                     <td class="text-primary">{% if core2 == '1' %}{{ object.mkttotal }}{% elif core2 == '2' %}{{ object.fintotal }}{% elif core2 == '3' %}{{ object.prtotal }}
-                                                            {% elif core2 == '4'%}{{ object.hrtotal }}{% elif core2 == '5' %}{{ object.edtotal }}{% else %}{{ object.bmtotal }}{% endif %}</td>
+                                                            {% elif core2 == '4'%}{{ object.hrtotal }}{% elif core2 == '5' %}{{ object.edtotal }}{% elif core2 == '6' %}{{ object.bmtotal }}
+                                                            {% elif core2 == '7' %}{{ object.cstotal }}{% elif core2 == '8' %}{{ object.qutotal }}{% else %}{{ object.tetotal }}{% endif %}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -1144,9 +1456,11 @@
 <script>
 var dataPreferences = {
             labels: [{% if event.marketing and marketingcount != 0 %}'{{ marketingcount }}%',{% endif %}{% if event.finance and financecount != 0%}'{{ financecount }}%',{% endif %}{% if event.public_relations and prcount != 0 %}'{{ prcount }}%',{% endif %}
-                {% if event.human_resources and hrcount != 0 %}'{{ hrcount }}%',{% endif %}{% if event.ent_dev and edcount != 0 %}'{{ edcount }}%',{% endif %}{% if event.best_manager and bmcount != 0 %}'{{ bmcount }}%'{% endif %}],
+                {% if event.human_resources and hrcount != 0 %}'{{ hrcount }}%',{% endif %}{% if event.ent_dev and edcount != 0 %}'{{ edcount }}%',{% endif %}{% if event.best_manager and bmcount != 0 %}'{{ bmcount }}%',{% endif %}
+                {% if event.corp_strg and cscount != 0 %}'{{ cscount }}%'{% endif %},{% if event.quiz and qucount != 0 %}'{{ qucount }}%',{% endif %}{% if event.team and tecount != 0 %}'{{ tecount }}%'{% endif %}],
             series: [{% if event.marketing and marketingcount != 0 %}{{ marketingcount }},{% endif %}{% if event.finance and financecount != 0 %} {{ financecount }},{% endif %}{% if event.public_relations and prcount != 0%} {{ prcount }},{% endif %}
-                {% if event.human_resources and hrcount != 0 %}{{ hrcount }},{% endif %}{% if event.ent_dev and edcount != 0 %}{{ edcount }},{% endif %}{% if event.best_manager and bmcount != 0 %}{{ bmcount }}{% endif %}]
+                {% if event.human_resources and hrcount != 0 %}{{ hrcount }},{% endif %}{% if event.ent_dev and edcount != 0 %}{{ edcount }},{% endif %}{% if event.best_manager and bmcount != 0 %}{{ bmcount }},{% endif %}
+                {% if event.corp_strg and cscount != 0 %}{{ cscount }},{% endif %}{% if event.quiz and qucount != 0 %}{{ qucount }},{% endif %}{% if event.team and tecount != 0 %}{{ tecount }},{% endif %}]
         };
         var optionsPreferences = {
             height: '280px'

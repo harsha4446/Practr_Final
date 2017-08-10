@@ -143,7 +143,7 @@ def event_feed(request):
     all_events = None
     details = student_detail.objects.get(email=current_user)
     try:
-        all_events = events.objects.filter(current=True, registration=True, email__college=details.college)
+        all_events = events.objects.filter(current=True, registration=True, email__college=details.college,inter_type=False)
         #For when we need to register to club first(works, KEEP THIS CODE)
         # register = register_table.objects.get(current_user=current_user)
         # clubs = register.registered_to.all()
@@ -236,6 +236,12 @@ def event_register(request, id = None):
             regdetails.public_relations = request.POST.get("public_relations",False)
             regdetails.best_manager = request.POST.get("best_manager",False)
             regdetails.ent_dev = request.POST.get("ent_dev",False)
+            regdetails.regmarketing = regdetails.marketing
+            regdetails.reghuman_resources = regdetails.human_resources
+            regdetails.regfinance = regdetails.finance
+            regdetails.regpublic_relations = regdetails.public_relations
+            regdetails.regbest_manager =regdetails.ent_dev
+            regdetails.regent_dev = request.POST.get("ent_dev", False)
             if regdetails.rcode == '':
                 code_id = str(event_registered_details.objects.filter(event=event).count())
                 if (len(code_id) == 1):
@@ -280,6 +286,7 @@ def upload_files(request,id):
             scores.submitted = True
             deadline = scores.round.deadline
             try:
+                scores.submission_time = datetime.datetime.now()
                 if deadline < datetime.datetime.now():
                     scores.late = True
             except:

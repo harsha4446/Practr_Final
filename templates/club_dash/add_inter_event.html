@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Create Event</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
+    <link href="{% static 'assets_old/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets_old/css/material-dashboard.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets_old/css/button.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets_old/css/demo.css' %}" rel="stylesheet"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"/>
+</head>
+<body>
+<div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg' %}')">
+
+
+    <!--   Big container   -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+                    <div class="card wizard-card" data-color="blue" id="wizardProfile">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                            <div class="wizard-header">
+                                <h3 class="wizard-title">
+                                    Build Your Event
+                                </h3>
+                                <h5>This information will let us know more about your event.</h5>
+                            </div>
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li>
+                                        <a href="#about" data-toggle="tab">About</a>
+                                    </li>
+                                    <li>
+                                        <a href="#events" data-toggle="tab">Settings</a>
+                                    </li>
+                                    <li>
+                                        <a href="#settings" data-toggle="tab">Events</a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="about">
+                                    <div class="row">
+                                        <h4 class="info-text"> Let's start with the basic information</h4>
+                                        <div class="col-sm-4 col-sm-offset-1">
+                                            <div class="picture-container">
+                                          <div class="picture">
+                                              <img src="{{ existing.logo.url }}" class="picture-src" id="wizardPicturePreview" style="width: inherit;height: inherit"/>
+                                              {{ form.logo }}
+                                          </div>
+                                          <h6>Choose Picture</h6>
+                                      </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label> Name Of Event <small>(required)</small></label>
+                                        {{ form.name }}
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Website <small>(optional)</small></label>
+                                        {{ form.website }}
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-10 col-sm-offset-1">
+                                      <div class="form-group">
+                                          <label>About<small> (required)</small></label>
+                                          {{ form.about }}
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                                <div class="tab-pane" id="settings">
+                                    <h4 class="info-text"> What are your core events? </h4>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card-fluid">
+                                                <div class="card-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-shopping">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center"></th>
+                                                                <th>Event</th>
+                                                                <th class="text-right">Number of Participants</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.marketing }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">record_voice_over</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Marketing</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="mktlabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="mktsize" name="teamsize1" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="mkt(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="mkt(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.finance }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">attach_money</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Finance</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="finlabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="finsize" name="teamsize2" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="fin(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="fin(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.public_relations }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">group</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Public Relations</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="prlabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="prsize" name="teamsize3" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="pr(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="pr(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.human_resources }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">supervisor_account</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Human Resources</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="hrlabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="hrsize" name="teamsize4" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="hr(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="hr(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.ent_dev }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">rowing</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Entrepreneurship Development</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="edlabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="edsize" name="teamsize5" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="ed(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="ed(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.best_manager }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">remove_red_eye</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Best Manager</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="bmlabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="bmsize" name="teamsize6" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="bm(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="bm(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.corp_strg }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">explore</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Corporate Strategy</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="cslabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="cssize" name="teamsize7" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="cs(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="cs(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.quiz }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">hourglass_empty</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Quiz</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="qulabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="qusize" name="teamsize8" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="qu(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="qu(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="choice" data-toggle="wizard-checkbox">
+                                                                        {{ form.team }}
+                                                                        <div class="icon">
+                                                                            <i class="material-icons">group_work</i>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </td>
+                                                                <td class="td-name">
+                                                                    <a href="#jacket">Team</a>
+                                                                    <br/>
+                                                                    <small>
+                                                                        <div class="form-group form-search is-empty">
+                                                                            <input type="text" name="telabel" class="form-control"
+                                                                                   placeholder="Custom Label">
+                                                                            <span class="material-input"></span>
+                                                                        </div>
+                                                                    </small>
+                                                                </td>
+                                                                <td class="td-number">
+                                                                    <br><br><br>
+                                                                    <input type="number" id="tesize" name="teamsize9" value=0 class="form-control">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="te(1)"><i
+                                                                                class="material-icons">remove</i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-round btn-info btn-xs" onclick="te(2)"><i
+                                                                                class="material-icons">add</i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="events">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 class="info-text">Accepting Registrations From</h4>
+                                        </div>
+                                        <div class="info-text">
+                                            <input style="margin: 10px" type="checkbox" name="first" value="True">First
+                                            Year
+                                            <input style="margin: 10px" type="checkbox" name="second" value="True">Second
+                                            Year
+                                            <input style="margin: 10px" type="checkbox" name="third" value="True">Third
+                                            year
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <div class="form-group form-search is-empty">
+                                                <input type="number" class="form-control" placeholder="Contingent Size" id="con_size">
+                                                <span class="material-input"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wizard-footer">
+                                <div class="pull-right">
+                                    <input type='button' class='btn btn-next btn-fill btn-rose btn-wd' name='next'
+                                           value='Next'/>
+                                    <input type='submit' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish'
+                                           value='Finish'/>
+                                </div>
+                                <div class="pull-left">
+                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd'
+                                           name='previous' value='Previous'/>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- wizard container -->
+            </div>
+        </div><!-- end row -->
+    </div> <!--  big container -->
+
+    <div class="footer">
+        <div class="container">
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<!--   Core JS Files   -->
+<script src="{% static 'assets/js/jquery-2.2.4.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/js/jquery.bootstrap.wizard.js' %}" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="{% static 'assets/js/gsdk-bootstrap-wizard.js' %}"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+<script>
+    function test(variable) {
+        document.getElementById('single').checked = false;
+        document.getElementById('multi').checked = false;
+        document.getElementById(variable).checked = true;
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById('name').value = "{{ existing.name }}";
+        document.getElementById('about2').value = "{{ existing.about }}";
+        document.getElementById('website').value = "{{ existing.website }}";
+    });
+</script>
+
+<script type="text/javascript">
+    function mkt(operation) {
+        x = document.getElementById('mktsize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('mktsize').value = x;
+    }
+    function fin(operation) {
+        x = document.getElementById('finsize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('finsize').value = x;
+    }
+    function pr(operation) {
+        x = document.getElementById('prsize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('prsize').value = x;
+    }
+    function hr(operation) {
+        x = document.getElementById('hrsize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('hrsize').value = x;
+    }
+    function ed(operation) {
+        x = document.getElementById('edsize').value;
+        if (operation == 1){
+           if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('edsize').value = x;
+    }
+    function mkt(operation) {
+        x = document.getElementById('mktsize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('mktsize').value = x;
+    }
+    function bm(operation) {
+        x = document.getElementById('bmsize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('bmsize').value = x;
+    }
+    function cs(operation) {
+        x = document.getElementById('cssize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('cssize').value = x;
+    }
+    function qu(operation) {
+        x = document.getElementById('qusize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('qusize').value = x;
+    }
+    function te(operation) {
+        x = document.getElementById('tesize').value;
+        if (operation == 1){
+            if (x!=0)
+                x--;
+        }
+        else if (operation == 2){
+            x++;
+        }
+        document.getElementById('tesize').value = x;
+    }
+</script>
+
+</html>
