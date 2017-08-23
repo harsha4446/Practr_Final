@@ -2,323 +2,650 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
-    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png' %}"/>
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png' %}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Judge Dashboard</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
     <!-- Bootstrap core CSS     -->
-    <link href="{% static 'assets/css/bootstrap.min.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
     <!--  Material Dashboard CSS    -->
-    <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets/css/material-dashboard.css' %}" rel="stylesheet"/>
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{% static 'assets/css/demo.css'%}" rel="stylesheet" />
+    <link href="{% static 'assets/css/demo.css' %}" rel="stylesheet"/>
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"/>
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="sidebar" data-active-color="blue" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
-            <!--
-        Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
-        Tip 2: you can also add an image using data-image tag
-        Tip 3: you can change the color of the sidebar with data-background-color="white | black"
-    -->
-            <div class="logo">
-                <a href="/home" class="simple-text">
-                    Practr
-                </a>
-            </div>
-            <div class="logo logo-mini">
-                <a href="/home" class="simple-text">
-                    PR
-                </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <div class="user">
-                    <div class="photo">
-                        <img src={{ user.profile_picture }} />
-                    </div>
-                    <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            {{ user.name }}
-                            <b class="caret"></b>
-                        </a>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav">
-{#                                <li>#}
-{#                                    <a href="#">My Profile</a>#}
-{#                                </li>#}
-{#                                <li>#}
-{#                                    <a href="#">Edit Profile</a>#}
-{#                                </li>#}
-                                <li>
-                                    <a href="/home/logout">Log Out</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <ul class="nav">
-                    <li>
-                        <a href="/user/club_dashboard">
-                            <i class="material-icons">dashboard</i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <i class="material-icons">dashboard</i>
-                            <p>Judge</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<div class="wrapper">
+    <div class="sidebar" data-active-color="blue" data-background-color="black"
+         data-image="{% static 'assets/img/sidebar-1.jpg' %}">
+        <!--
+    Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
+    Tip 2: you can also add an image using data-image tag
+    Tip 3: you can change the color of the sidebar with data-background-color="white | black"
+-->
+        <div class="logo">
+            <a href="/home" class="simple-text">
+                Practr
+            </a>
         </div>
-        <div class="main-panel">
-            <nav class="navbar navbar-transparent navbar-absolute">
-                <div class="container-fluid">
-                    <div class="navbar-minimize">
-                        <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
-                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
-                        </button>
-                    </div>
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#"> Dashboard </a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
+        <div class="logo logo-mini">
+            <a href="/home" class="simple-text">
+                PR
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <div class="user">
+                <div class="photo">
+                    <img src={{ user.profile_picture }}/>
+                </div>
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                        {{ user.name }}
+                        <b class="caret"></b>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <ul class="nav">
+                            {#                                <li>#}
+                            {#                                    <a href="#">My Profile</a>#}
+                            {#                                </li>#}
+                            {#                                <li>#}
+                            {#                                    <a href="#">Edit Profile</a>#}
+                            {#                                </li>#}
                             <li>
-                                <a href="/user/club_dashboard" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">dashboard</i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
+                                <a href="/home/logout">Log Out</a>
                             </li>
-{#                            <li class="dropdown">#}
-{#                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
-{#                                    <i class="material-icons">notifications</i>#}
-{#                                    <span class="notification">5</span>#}
-{#                                    <p class="hidden-lg hidden-md">#}
-{#                                        Notifications#}
-{#                                        <b class="caret"></b>#}
-{#                                    </p>#}
-{#                                </a>#}
-{#                                <ul class="dropdown-menu">#}
-{#                                    <li>#}
-{#                                        <a href="#">Mike John responded to your email</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a href="#">You have 5 new tasks</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a href="#">You're now friend with Andrew</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a href="#">Another Notification</a>#}
-{#                                    </li>#}
-{#                                    <li>#}
-{#                                        <a href="#">Another One</a>#}
-{#                                    </li>#}
-{#                                </ul>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">#}
-{#                                    <i class="material-icons">person</i>#}
-{#                                    <p class="hidden-lg hidden-md">Profile</p>#}
-{#                                </a>#}
-{#                            </li>#}
-                            <li class="separator hidden-lg hidden-md"></li>
                         </ul>
-{#                        <form class="navbar-form navbar-right" role="search">#}
-{#                            <div class="form-group form-search is-empty">#}
-{#                                <input type="text" class="form-control" placeholder="Search">#}
-{#                                <span class="material-input"></span>#}
-{#                            </div>#}
-{#                            <button type="submit" class="btn btn-white btn-round btn-just-icon">#}
-{#                                <i class="material-icons">search</i>#}
-{#                                <div class="ripple-container"></div>#}
-{#                            </button>#}
-{#                        </form>#}
                     </div>
                 </div>
-            </nav>
-            <div class="content">
-                <div class="container-fluid">
-                    <h3>My Cases</h3>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
+            </div>
+            <ul class="nav">
+                <li>
+                    <a href="/user/club_dashboard">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="material-icons">dashboard</i>
+                        <p>Judge</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-minimize">
+                    <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
+                        <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                        <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                    </button>
+                </div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"> Dashboard </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/user/club_dashboard" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="material-icons">dashboard</i>
+                                <p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li>
+                        {#                            <li class="dropdown">#}
+                        {#                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+                        {#                                    <i class="material-icons">notifications</i>#}
+                        {#                                    <span class="notification">5</span>#}
+                        {#                                    <p class="hidden-lg hidden-md">#}
+                        {#                                        Notifications#}
+                        {#                                        <b class="caret"></b>#}
+                        {#                                    </p>#}
+                        {#                                </a>#}
+                        {#                                <ul class="dropdown-menu">#}
+                        {#                                    <li>#}
+                        {#                                        <a href="#">Mike John responded to your email</a>#}
+                        {#                                    </li>#}
+                        {#                                    <li>#}
+                        {#                                        <a href="#">You have 5 new tasks</a>#}
+                        {#                                    </li>#}
+                        {#                                    <li>#}
+                        {#                                        <a href="#">You're now friend with Andrew</a>#}
+                        {#                                    </li>#}
+                        {#                                    <li>#}
+                        {#                                        <a href="#">Another Notification</a>#}
+                        {#                                    </li>#}
+                        {#                                    <li>#}
+                        {#                                        <a href="#">Another One</a>#}
+                        {#                                    </li>#}
+                        {#                                </ul>#}
+                        {#                            </li>#}
+                        {#                            <li>#}
+                        {#                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">#}
+                        {#                                    <i class="material-icons">person</i>#}
+                        {#                                    <p class="hidden-lg hidden-md">Profile</p>#}
+                        {#                                </a>#}
+                        {#                            </li>#}
+                        <li class="separator hidden-lg hidden-md"></li>
+                    </ul>
+                    {#                        <form class="navbar-form navbar-right" role="search">#}
+                    {#                            <div class="form-group form-search is-empty">#}
+                    {#                                <input type="text" class="form-control" placeholder="Search">#}
+                    {#                                <span class="material-input"></span>#}
+                    {#                            </div>#}
+                    {#                            <button type="submit" class="btn btn-white btn-round btn-just-icon">#}
+                    {#                                <i class="material-icons">search</i>#}
+                    {#                                <div class="ripple-container"></div>#}
+                    {#                            </button>#}
+                    {#                        </form>#}
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                <h3>My Cases</h3>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
                             <div class="col-md-6 col-md-offset-3 text-center">
-                            <h2 class="title">{{ round.email.name }}</h2>
-{#                            <h5 class="description">You are judging {{ round.title }}</h5>#}
-{#                                <button class="btn btn-rose">Handover</button>#}
-{#                                <ul class="nav nav-pills nav-pills-warning col-md-12 col-md-offset-3">#}
-{#                                        <li class="active">#}
-{#                                            <a href="#due" data-toggle="tab">Judge</a>#}
-{#                                        </li>#}
-{#                                    </ul>#}
-                                <div class="modal fade" id="addJudge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                         <div class="modal-dialog">
-                                                           <div class="modal-content">
-                                                             <div class="modal-header">
-                                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                                 <i class="material-icons">clear</i>
-                                                               </button>
-                                                               <div  style="text-align: center;">
-                                                               <h4 class="modal-title">Add Judge</h4>
-                                                               </div>
-                                                             </div>
-                                                             <div class="modal-body">
-                                                             <div  style="text-align: center;">
-                                                                 <form method="post" action="/user/club_dashboard/addJudge/{{ round.id }}/{{ round.email.id }}/{{ type }}/">
-                                                                     {% csrf_token %}
-                                                                 {{ judgeForm.judge_email }}
-                                                                 {{ judgeForm.judge_password }}
-                                                                 <br><br>
-                                                                 <div class="footer text-center">
-                                                                    <button type="submit" class="btn btn-primary btn-round">Add</button>
-                                                                </div>
-                                                                 </form>
-                                                             </div>
-                                                            </div>
-                                                           </div>
+                                <h2 class="title">{{ round.email.name }}</h2>
+                                {#                            <h5 class="description">You are judging {{ round.title }}</h5>#}
+                                {#                                <button class="btn btn-rose">Handover</button>#}
+                                {#                                <ul class="nav nav-pills nav-pills-warning col-md-12 col-md-offset-3">#}
+                                {#                                        <li class="active">#}
+                                {#                                            <a href="#due" data-toggle="tab">Judge</a>#}
+                                {#                                        </li>#}
+                                {#                                    </ul>#}
+                                <div class="modal fade" id="addJudge" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">
+                                                    <i class="material-icons">clear</i>
+                                                </button>
+                                                <div style="text-align: center;">
+                                                    <h4 class="modal-title">Add Judge</h4>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div style="text-align: center;">
+                                                    <form method="post"
+                                                          action="/user/club_dashboard/addJudge/{{ round.id }}/{{ round.email.id }}/{{ type }}/">
+                                                        {% csrf_token %}
+                                                        {{ judgeForm.judge_email }}
+                                                        {{ judgeForm.judge_password }}
+                                                        <br><br>
+                                                        <div class="footer text-center">
+                                                            <button type="submit" class="btn btn-primary btn-round">
+                                                                Add
+                                                            </button>
                                                         </div>
-                                                    </div>
-                            </div>
-                             <div class="card-content col-md-12">
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="due">
-                                <div class="card-header card-header-icon" data-background-color="rose">
-                                    <i class="material-icons">assignment</i>
-                                </div>
-                                <h4 class="card-title">Participants List</h4>
-                                        <br><br>
-                                <div class="card-content">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th class="text-center">Score</th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for student in registered %}
-                                                {% if not student.judged %}
-                                                    {% if student.late %}
-                                                        <tr class="danger">
-                                                    {% else %}
-                                                        <tr>
-                                                    {% endif %}
-                                                {% else %}
-                                                <tr class="success">
-                                                {% endif %}
-                                                    <td> {{ student.rcode }}</td>
-                                                    <td class="text-center"> {{ student.total }}</td>
-                                                    <td class="td-actions text-right">
-                                                        <a href="/user/judge_dashboard/judge/{{ student.student.id }}/{{ round }}">
-                                                        <button type="button" rel="tooltip" class="btn btn-success" title="Judge The Case">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-content col-md-12">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="due">
+                                        <div class="card-header card-header-icon" data-background-color="rose">
+                                            <i class="material-icons">assignment</i>
                                         </div>
+                                        <h4 class="card-title">Participants List</h4>
+                                        <br><br>
+                                        <div class="card-content">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th class="text-center">Score</th>
+                                                        <th class="text-center">No. Times Judged</th>
+                                                        <th class="text-right">Actions</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for student in registered %}
+                                                        {% if not student.judged %}
+                                                            {% if student.late %}
+                                                                <tr class="danger">
+                                                                    {% else %}
+                                                                <tr>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <tr class="success">
+                                                        {% endif %}
+                                                    <td> {{ student.rcode }}</td>
+                                                    <td class="text-center"> {{ student.total|floatformat:2 }}</td>
+                                                    <td class="text-center">{{ student.judged_value }}</td>
+                                                    <td class="td-actions text-right">
+{#                                                        <a href="/user/judge_dashboard/judge/{{ student.student.id }}/{{ round.id }}">#}
+                                                            <button type="button" rel="tooltip" class="btn btn-success"
+                                                                    title="Judge The Case" data-toggle="modal" data-target="#judge{{ student.student.id }}">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+{#                                                        </a>#}
+                                                    </td>
+                                                    </tr>
+                                                        <div class="modal fade" id="judge{{ student.student.id }}"
+                                                             tabindex="-1"
+                                                             role="dialog" aria-labelledby="myModalLabel"
+                                                             aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-hidden="true">
+                                                                            <i class="material-icons">clear</i>
+                                                                        </button>
+                                                                        <div style="text-align: center;">
+                                                                            <h4 class="modal-title">Judging: {{ student.rcode }}</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                    <form method="post" action="/user/judge_dashboard/judge/{{ student.student.id }}/{{ round.id }}/">
+                                                                    {% csrf_token %}
+                                                                        <div style="text-align: center;">
+                                                                            <div class="title">
+                                                                                <h2>Soft Skill Assesment</h2><br>
+                                                                                {% if round.creativity %}
+                                                                                    <h4>How much would you rate their
+                                                                                        Creativity</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.creativityvalue }}"
+                                                                                               id="sg1{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="creativity(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.creativityvalue }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text"
+                                                                                               name="creativity1{{ student.student.id }}"
+                                                                                               id="sp1{{ student.student.id }}" value="1"
+                                                                                               min="1"
+                                                                                               max="{{ round.creativityvalue }}"
+                                                                                               onchange="creativity(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                {% endif %}
+                                                                                {% if round.content %}
+                                                                                    <h4>How much would you rate their
+                                                                                        Content</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.contentvalue }}"
+                                                                                               id="sg2{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="content(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.contentvalue }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text"
+                                                                                               name="content1{{ student.student.id }}" id="sp2{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.contentvalue }}"
+                                                                                               onchange="content(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                {% endif %}
+                                                                                {% if round.presentation %}
+                                                                                    <h4>How much would you rate their
+                                                                                        Presentation</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.presentationvalue }}"
+                                                                                               id="sg3{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="presentation(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.presentationvalue }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text"
+                                                                                               name="presentation1{{ student.student.id }}"
+                                                                                               id="sp3{{ student.student.id }}" value="1"
+                                                                                               min="1"
+                                                                                               max="{{ round.presentationvalue }}"
+                                                                                               onchange="presentation(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                {% endif %}
+                                                                                {% if round.rebuttal %}
+                                                                                    <h4>How much would you rate their
+                                                                                        Rebuttal</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="0"
+                                                                                               max="{{ round.rebuttalvalue }}"
+                                                                                               id="sg4{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="rebuttal(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.rebuttalvalue }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text"
+                                                                                               name="rebuttal1{{ student.student.id }}" id="sp4{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.rebuttalvalue }}"
+                                                                                               onchange="rebuttal(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                {% endif %}
+                                                                                {% if round.communication %}
+                                                                                    <h4>How much would you rate their
+                                                                                        Communication</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.communicationvalue }}"
+                                                                                               id="sg5{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="communication(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.communicationvalue }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text"
+                                                                                               name="communication1{{ student.student.id }}"
+                                                                                               id="sp5{{ student.student.id }}" value="1"
+                                                                                               min="1"
+                                                                                               max="{{ round.communicationvalue }}"
+                                                                                               onchange="communication(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                {% endif %}
+                                                                                {% if round.feasibility %}
+                                                                                    <h4>How much would you rate their
+                                                                                        Feasibility</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.feasibilityvalue }}"
+                                                                                               id="sg6{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="feasability(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.feasibilityvalue }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text"
+                                                                                               name="feasibility1{{ student.student.id }}"
+                                                                                               id="sp6{{ student.student.id }}" value="1"
+                                                                                               min="1"
+                                                                                               max="{{ round.feasibilityvalue }}"
+                                                                                               onchange="feasability(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                {% endif %}
+                                                                            </div>
+                                                                            {% if round.core1 != 0 and round.core1 %}
+                                                                                <div class="title">
+                                                                                    <h2>Custom Skill Assesment</h2><br>
+                                                                                    <h4>{{ round.question1 }}</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.core1 }}"
+                                                                                               id="get1{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="fetch1(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.core1 }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text" id="put1{{ student.student.id }}"
+                                                                                               name="question1{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.core1 }}"
+                                                                                               onchange="fetch1(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            {% if round.core2 != 0 and round.core2 %}
+                                                                                <div class="title">
+                                                                                    <h4>{{ round.question2 }}</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.core2 }}"
+                                                                                               id="get2{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="fetch2(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.core2 }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text" id="put2{{ student.student.id }}"
+                                                                                               name="question2{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.core2 }}"
+                                                                                               onchange="fetch2(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            {% if round.core3 != 0 and round.core3 %}
+                                                                                <div class="title">
+                                                                                    <h4>{{ round.question3 }}</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.core3 }}"
+                                                                                               id="get3{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="fetch3(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.core3 }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text" id="put3{{ student.student.id }}"
+                                                                                               name="question3{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.core3 }}"
+                                                                                               onchange="fetch3(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            {% if round.core4 != 0 and round.core4 %}
+                                                                                <div class="title">
+                                                                                    <h4>{{ round.question4 }}</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.core4 }}"
+                                                                                               id="get4{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="fetch4(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.core4 }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text" id="put4{{ student.student.id }}"
+                                                                                               name="question4{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.core4 }}"
+                                                                                               onchange="fetch4(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            {% if round.core5 != 0 and round.core5 %}
+                                                                                <div class="title">
+                                                                                    <h4>{{ round.question5 }}</h4>
+                                                                                    <br>
+                                                                                    <div>
+                                                                                        <input type="range" min="1"
+                                                                                               max="{{ round.core5 }}"
+                                                                                               id="get5{{ student.student.id }}" step="1"
+                                                                                               value="0"
+                                                                                               onchange="fetch5(1,{{ student.student.id }})"/>
+                                                                                        <div class="pull-right">
+                                                                                            {{ round.core5 }}
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <input type="text" id="put5{{ student.student.id }}"
+                                                                                               name="question5{{ student.student.id }}"
+                                                                                               value="1" min="1"
+                                                                                               max="{{ round.core5 }}"
+                                                                                               onchange="fetch5(2,{{ student.student.id }})"/>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            {% if round.offline != '2' %}
+                                                                                <div class="title">
+                                                                                    <h2>Overall Comments</h2><br>
+                                                                                    <div>
+                                                                                        <div class="form-group label-floating">
+                                                                                            <label class="control-label">Feedback</label>
+                                                                                            {% if round.feedback %}
+                                                                                                <textarea
+                                                                                                        class="form-control"
+                                                                                                        rows="3"
+                                                                                                        required
+                                                                                                        name="feedback{{ student.student.id }}"></textarea>
+                                                                                            {% else %}
+                                                                                                <textarea
+                                                                                                        class="form-control"
+                                                                                                        rows="3"
+                                                                                                        name="feedback{{ student.student.id }}"></textarea>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                            <div id="buttons">
+                                                                                <div>
+                                                                                    {% if user.judge %}
+                                                                                        <button type="submit"
+                                                                                                class="btn btn-primary btn-round">
+                                                                                            Submit
+                                                                                        </button>
+                                                                                        {#							<button style="margin-left:20px;" class="btn btn-primary btn-round">#}
+                                                                                        {#								<i class="material-icons">favorite</i> Endorse and Submit.#}
+                                                                                        {#							</button>#}
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                            <br><br>
+                                                                        </div>
+                                                                    </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <nav class="pull-left">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Home
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/practr/?fref=nf">
+                                        Blog
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <p class="copyright pull-right">
+                            &copy;
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>
+                            <a href="/home">Practr</a>, made for you
+                        </p>
+                    </div>
+                </footer>
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/practr/?fref=nf">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <p class="copyright pull-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        <a href="/home">Practr</a>, made for you
-                    </p>
-                </div>
-            </footer>
         </div>
     </div>
-        </div>
-    </div>
+</div>
 </body>
 <!--   Core JS Files   -->
-<script src="{% static 'assets/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets/js/jquery-ui.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets/js/bootstrap.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets/js/material.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets/js/perfect-scrollbar.jquery.min.js'%}" type="text/javascript"></script>
+<script src="{% static 'assets/js/jquery-3.1.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/js/jquery-ui.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/js/material.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/js/perfect-scrollbar.jquery.min.js' %}" type="text/javascript"></script>
 <!-- Forms Validations Plugin -->
-<script src="{% static 'assets/js/jquery.validate.min.js'%}"></script>
+<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-<script src="{% static 'assets/js/moment.min.js'%}"></script>
+<script src="{% static 'assets/js/moment.min.js' %}"></script>
 <!--  Charts Plugin -->
-<script src="{% static 'assets/js/chartist.min.js'%}"></script>
+<script src="{% static 'assets/js/chartist.min.js' %}"></script>
 <!--  Plugin for the Wizard -->
-<script src="{% static 'assets/js/jquery.bootstrap-wizard.js'%}"></script>
+<script src="{% static 'assets/js/jquery.bootstrap-wizard.js' %}"></script>
 <!--  Notifications Plugin    -->
-<script src="{% static 'assets/js/bootstrap-notify.js'%}"></script>
+<script src="{% static 'assets/js/bootstrap-notify.js' %}"></script>
 <!-- DateTimePicker Plugin -->
-<script src="{% static 'assets/js/bootstrap-datetimepicker.js'%}"></script>
+<script src="{% static 'assets/js/bootstrap-datetimepicker.js' %}"></script>
 <!-- Vector Map plugin -->
-<script src="{% static 'assets/js/jquery-jvectormap.js'%}"></script>
+<script src="{% static 'assets/js/jquery-jvectormap.js' %}"></script>
 <!-- Sliders Plugin -->
-<script src="{% static 'assets/js/nouislider.min.js'%}"></script>
+<script src="{% static 'assets/js/nouislider.min.js' %}"></script>
 <!--  Google Maps Plugin    -->
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- Select Plugin -->
-<script src="{% static 'assets/js/jquery.select-bootstrap.js'%}"></script>
+<script src="{% static 'assets/js/jquery.select-bootstrap.js' %}"></script>
 <!--  DataTables.net Plugin    -->
-<script src="{% static 'assets/js/jquery.datatables.js'%}"></script>
+<script src="{% static 'assets/js/jquery.datatables.js' %}"></script>
 <!-- Sweet Alert 2 plugin -->
-<script src="{% static 'assets/js/sweetalert2.js'%}"></script>
+<script src="{% static 'assets/js/sweetalert2.js' %}"></script>
 <!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-<script src="{% static 'assets/js/jasny-bootstrap.min.js'%}"></script>
+<script src="{% static 'assets/js/jasny-bootstrap.min.js' %}"></script>
 <!--  Full Calendar Plugin    -->
-<script src="{% static 'assets/js/fullcalendar.min.js'%}"></script>
+<script src="{% static 'assets/js/fullcalendar.min.js' %}"></script>
 <!-- TagsInput Plugin -->
-<script src="{% static 'assets/js/jquery.tagsinput.js'%}"></script>
+<script src="{% static 'assets/js/jquery.tagsinput.js' %}"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="{% static 'assets/js/material-dashboard.js'%}"></script>
+<script src="{% static 'assets/js/material-dashboard.js' %}"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="{% static 'assets/js/demo.js'%}"></script>
+<script src="{% static 'assets/js/demo.js' %}"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
@@ -326,5 +653,189 @@
         demo.initVectorMap();
     });
 </script>
+<script>
+    function fetch1(flag,id)
+    {
+        var x = "get1"+id;
+        var y = "put1"+id;
+        if (flag == 1) {
+            var get1 = document.getElementById(x).value;
+            document.getElementById(y).value = get1;
+        }
+        else{
+            var put1 = document.getElementById(y).value;
+            document.getElementById(x).value = put1;
+        }
+    }
+    function fetch2(flag,id)
+    {
+        var x = "get2"+id;
+        var y = "put2"+id;
+        if (flag == 1) {
+            var get2 = document.getElementById(x).value;
+            document.getElementById(y).value = get2;
+        }
+        else{
+            var put2 = document.getElementById(y).value;
+            document.getElementById(x).value = put2;
+        }
+    }
+    function fetch3(flag,id)
+    {
+        var x = "get3"+id;
+        var y = "put3"+id;
+        if (flag == 1) {
+            var get3 = document.getElementById(x).value;
+            document.getElementById(y).value = get3;
+        }
+        else{
+            var put3 = document.getElementById(y).value;
+            document.getElementById(x).value = put3;
+        }
+    }
+    function fetch4(flag,id)
+    {
+        var x = "get4"+id;
+        var y = "put4"+id;
+        if (flag == 1) {
+            var get4 = document.getElementById(x).value;
+            document.getElementById(y).value = get4;
+        }
+        else{
+            var put4 = document.getElementById(y).value;
+            document.getElementById(x).value = put4;
+        }
+    }
+    function fetch5(flag,id)
+    {
+        var x = "get1"+id;
+        var y = "put1"+id;
+        if (flag == 1) {
+            var get5 = document.getElementById(x).value;
+            document.getElementById(y).value = get5;
+        }
+        else{
+            var put5 = document.getElementById(y).value;
+            document.getElementById(x).value = put5;
+        }
+    }
+    function creativity(flag,id)
+    {
+        var x = "sg1"+id;
+        var y = "sp1"+id;
+        if (flag==1) {
+            var sg1 = document.getElementById(x).value;
+            document.getElementById(y).value = sg1;
+        }
+        else {
+            var sp1 = document.getElementById(y).value;
+            document.getElementById(x).value = sp1;
+            total();
+        }
+        total();
+    }
+    function content(flag,id)
+    {
+        var x = "sg2"+id;
+        var y = "sp2"+id;
+        if (flag==1) {
+            var sg2 = document.getElementById(x).value;
+            document.getElementById(y).value = sg2;
+        }
+        else {
+            var sp2 = document.getElementById(y).value;
+            document.getElementById(x).value = sp2;
+        }
+        total();
+    }
+    function presentation(flag,id)
+    {
+        var x = "sg3"+id;
+        var y = "sp3"+id;
+       if (flag==1) {
+            var sg3 = document.getElementById(x).value;
+            document.getElementById(y).value = sg3;
+        }
+        else {
+            var sp3 = document.getElementById(y).value;
+            document.getElementById(x).value = sp3;
+        }
+        total();
+    }
+    function rebuttal(flag,id)
+    {
+        var x = "sg4"+id;
+        var y = "sp4"+id;
+        if (flag==1) {
+            var sg4 = document.getElementById(x).value;
+            document.getElementById(y).value = sg4;
+        }
+        else {
+            var sp4 = document.getElementById(y).value;
+            document.getElementById(x).value = sp4;
+        }
+        total();
+    }
+    function communication(flag,id)
+    {
+        var x = "sg5"+id;
+        var y = "sp5"+id;
+        if (flag==1) {
+            var sg5 = document.getElementById(x).value;
+            document.getElementById(y).value = sg5;
+        }
+        else {
+            var sp5 = document.getElementById(y).value;
+            document.getElementById(x).value = sp5;
+        }
+        total();
+    }
+    function feasability(flag,id)
+    {
+        var x = "sg6"+id;
+        var y = "sp6"+id;
+        if (flag==1) {
+            var sg6 = document.getElementById(x).value;
+            document.getElementById(y).value = sg6;
+            total()
+        }
+        else {
+            var sp6 = document.getElementById(y).value;
+            document.getElementById(x).value = sp6;
+        }
+        total();
+    }
+{#    function total()#}
+{#    {#}
+{#        if (!progress)#}
+{#            var progress = 0;#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var creativity = document.getElementById("sp1").value;#}
+{#            progress = progress + creativity;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var feasibility = document.getElementById("sp2").value;#}
+{#            progress = progress + feasibility;#}
+{##}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var communication = document.getElementById("sp3").value;#}
+{#            progress = progress + communication;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var content = document.getElementById("sp4").value;#}
+{#            progress = progress + content;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var presentation=document.getElementById("sp5").value;#}
+{#            progress = progress + presentation;#}
+{#        }#}
+{#        if(document.getElementById("sp1").value) {#}
+{#            var rebuttal=document.getElementById("sp6").value;#}
+{#            progress = progress + rebuttal;#}
+{#        }#}
+{#        document.getElementById("pbar").value=progress;#}
+{#    }#}
+    </script>
 
 </html>

@@ -70,9 +70,9 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                {% if not user.judge %}
+                {% if not user.judge and event %}
                 <li>
-                        <a data-toggle="collapse" href="#cases" aria-expanded="false">
+                        <a data-toggle="collapse" href="#cases" aria-expanded="true">
                             <i class="material-icons">event</i>
                             <p>Core Events
                                 <b class="caret"></b>
@@ -83,77 +83,125 @@
                                 {% if event.marketing %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">Marketing</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">{{ event.mktlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.finance %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">Finance</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">{{ event.finlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.public_relations %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">Public Relations</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">{{ event.prlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.human_resources %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">Human Resources</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">{{ event.hrlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.ent_dev %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">Entrepreneurship Development</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">{{ event.edlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.best_manager %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">Best Manager</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">{{ event.bmlabel }}</a>
+                                </li>
+                                {% endif %}
+                                {% if event.corp_strg %}
+                                <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/7">{{ event.cslabel }}</a>
+                                </li>
+                                {% endif %}
+                                {% if event.quiz %}
+                                <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/8">{{ event.qulabel }}</a>
+                                </li>
+                                {% endif %}
+                                {% if event.team %}
+                                <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/9">{{ event.telabel }}</a>
                                 </li>
                                 {% endif %}
                             </ul>
                         </div>
                     </li>
                 {% endif %}
-                    {% if not user.judge %}
+                    {% if not user.judge and event %}
                         <li>
                         <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="material-icons">gavel</i>
+                            <i class="material-icons active">gavel</i>
                             <p>Performance
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="pagesExamples">
                             <ul class="nav">
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
-                                    <a href="/user/club_dashboard/masterTable/1">Marketing</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
-                                    <a href="/user/club_dashboard/masterTable/2">Finance</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
-                                    <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
-                                    <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
-                                    <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
-                                </li>
+                                {% if event.marketing %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
+                                        <a href="/user/club_dashboard/masterTable/1">{{ event.mktlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.finance %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
+                                        <a href="/user/club_dashboard/masterTable/2">{{ event.finlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.public_relations %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
+                                        <a href="/user/club_dashboard/masterTable/3">{{ event.prlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.human_resources %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
+                                        <a href="/user/club_dashboard/masterTable/4">{{ event.hrlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.ent_dev %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
+                                        <a href="/user/club_dashboard/masterTable/5">{{ event.edlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.best_manager %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/6">{{ event.bmlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.corp_strg %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/7">{{ event.cslabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.quiz %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/8">{{ event.qulabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.team %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/9">{{ event.telabel }}</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </li>
@@ -161,23 +209,23 @@
                 {% if not user.judge %}
                     <li>
                         <a href="/user/club_dashboard/studentList">
-                            <i class="material-icons active">face</i>
-                            <p>Students</p>
+                            <i class="material-icons">face</i>
+                            <p>All Students</p>
                         </a>
                     </li>
                 {% endif %}
                 {% if not user.judge %}
                     <li>
-                        <a href="/user/club_dashboard/studentList">
-                            <i class="material-icons active">dashboard</i>
-                            <p>Network</p>
+                        <a href="/user/club_dashboard/network">
+                            <i class="material-icons">dashboard</i>
+                            <p>Club Network</p>
                         </a>
                     </li>
                 {% endif %}
                 {% if not user.judge %}
                     <li>
                         <a href="/user/club_dashboard/eventFeed">
-                            <i class="material-icons active">dashboard</i>
+                            <i class="material-icons">dashboard</i>
                             <p>Events</p>
                         </a>
                     </li>

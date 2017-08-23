@@ -88,7 +88,7 @@ def profile_page(request, id=None):
         return HttpResponseRedirect('/user/judge_details')
     else:
         context = studentprofile(request,id)
-        return render(request, 'profile_page/profile_page.html', context)
+        return render(request, 'profile_page/profile_page_new.html', context)
 
 
 def profile_club(request,id=None):
@@ -103,7 +103,8 @@ def connect(request, id= None):
         new_friend = student.objects.get(id = id)
         current_user = request.user
         follow_table.make_friend(current_user,new_friend)
+        follow_table.make_friend(new_friend, current_user)
     if request.user.club:
         return HttpResponseRedirect('/user/club_dashboard/studentList')
     else:
-        return HttpResponseRedirect('/profile_page/'+id)
+        return HttpResponseRedirect('/user/student_dashboard/search/')

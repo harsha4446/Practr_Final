@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^case_content/(?P<id>\d+)/$', views.case_content, name='context'),
     url(r'^review/(?P<id>\d+)/$', views.review, name='review'),
     url(r'^edit/$', views.edit_profile, name='edit'),
+    url(r'^network/$', views.network, name='network'),
 
 ]

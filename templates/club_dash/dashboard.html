@@ -67,9 +67,9 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                {% if not user.judge %}
+                {% if not user.judge and event %}
                 <li>
-                        <a data-toggle="collapse" href="#cases" aria-expanded="false">
+                        <a data-toggle="collapse" href="#cases" aria-expanded="true">
                             <i class="material-icons">event</i>
                             <p>Core Events
                                 <b class="caret"></b>
@@ -80,77 +80,125 @@
                                 {% if event.marketing %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">Marketing</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">{{ event.mktlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.finance %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">Finance</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">{{ event.finlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.public_relations %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">Public Relations</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">{{ event.prlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.human_resources %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">Human Resources</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">{{ event.hrlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.ent_dev %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">Entrepreneurship Development</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">{{ event.edlabel }}</a>
                                 </li>
                                 {% endif %}
                                 {% if event.best_manager %}
                                 <li>
                                     <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">Best Manager</a>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">{{ event.bmlabel }}</a>
+                                </li>
+                                {% endif %}
+                                {% if event.corp_strg %}
+                                <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/7">{{ event.cslabel }}</a>
+                                </li>
+                                {% endif %}
+                                {% if event.quiz %}
+                                <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/8">{{ event.qulabel }}</a>
+                                </li>
+                                {% endif %}
+                                {% if event.team %}
+                                <li>
+                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/9">{{ event.telabel }}</a>
                                 </li>
                                 {% endif %}
                             </ul>
                         </div>
                     </li>
                 {% endif %}
-                    {% if not user.judge %}
+                    {% if not user.judge and event %}
                         <li>
                         <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="material-icons">gavel</i>
+                            <i class="material-icons active">gavel</i>
                             <p>Performance
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="pagesExamples">
                             <ul class="nav">
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
-                                    <a href="/user/club_dashboard/masterTable/1">Marketing</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
-                                    <a href="/user/club_dashboard/masterTable/2">Finance</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
-                                    <a href="/user/club_dashboard/masterTable/3">Public Relations</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
-                                    <a href="/user/club_dashboard/masterTable/4">Human Resources</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
-                                    <a href="/user/club_dashboard/masterTable/5">Entrepreneurship Development</a>
-                                </li>
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/masterTable/6">Best Manager</a>
-                                </li>
+                                {% if event.marketing %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
+                                        <a href="/user/club_dashboard/masterTable/1">{{ event.mktlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.finance %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
+                                        <a href="/user/club_dashboard/masterTable/2">{{ event.finlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.public_relations %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
+                                        <a href="/user/club_dashboard/masterTable/3">{{ event.prlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.human_resources %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
+                                        <a href="/user/club_dashboard/masterTable/4">{{ event.hrlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.ent_dev %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
+                                        <a href="/user/club_dashboard/masterTable/5">{{ event.edlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.best_manager %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/6">{{ event.bmlabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.corp_strg %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/7">{{ event.cslabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.quiz %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/8">{{ event.qulabel }}</a>
+                                    </li>
+                                {% endif %}
+                                {% if event.team %}
+                                    <li>
+                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
+                                        <a href="/user/club_dashboard/masterTable/9">{{ event.telabel }}</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </li>
@@ -158,23 +206,23 @@
                 {% if not user.judge %}
                     <li>
                         <a href="/user/club_dashboard/studentList">
-                            <i class="material-icons active">face</i>
-                            <p>Students</p>
+                            <i class="material-icons">face</i>
+                            <p>All Students</p>
                         </a>
                     </li>
                 {% endif %}
                 {% if not user.judge %}
                     <li>
-                        <a href="/user/club_dashboard/studentList">
-                            <i class="material-icons active">dashboard</i>
-                            <p>Network</p>
+                        <a href="/user/club_dashboard/network">
+                            <i class="material-icons">dashboard</i>
+                            <p>Club Network</p>
                         </a>
                     </li>
                 {% endif %}
                 {% if not user.judge %}
                     <li>
                         <a href="/user/club_dashboard/eventFeed">
-                            <i class="material-icons active">dashboard</i>
+                            <i class="material-icons">dashboard</i>
                             <p>Events</p>
                         </a>
                     </li>
@@ -293,16 +341,20 @@
                                     <div class="panel-body">
                                         <div class="row">
                                                 <h5 style="text-align: center;">
+                                                {% if not event.inter_type %}
                                                     <button class="btn btn-raised btn-round btn-info" data-toggle="modal" data-target="#noticeModal">
                                                         Set Quota
                                                     </button>
+                                                {% endif %}
                                                     {% if event.registration %}
                                                         <button type="button" class="btn btn-raised btn-round btn-info" style="margin-right: auto" onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Close Registrations</button>
                                                     {% else %}
                                                         {% if event.live %}
                                                     <button type="button" class="btn btn-raised btn-round btn-info"  onclick="demo.showSwal('warning-message-and-cancel', '/user/club_dashboard/registration/{{ event.id }}')">Open Registrations</button>
                                                             {% else %}
-                                                            <button type="button" class="btn btn-raised btn-round btn-info" disabled title="Cannot Open Registrations Until Event Goes Live!">Open Registrations</button>
+                                                                {% if not event.inter_type %}
+                                                                    <button type="button" class="btn btn-raised btn-round btn-info" disabled title="Cannot Open Registrations Until Event Goes Live!">Open Registrations</button>
+                                                                {% endif %}
                                                             {% endif %}
                                                     {% endif %}
                                                 </h5>
@@ -412,15 +464,15 @@
                                                     <div id="piebhai" class="ct-chart"></div>
                                                     <div class="" style="text-align: center;">
                                                         <h3>Legend</h3>
-                                                        {% if event.marketing and marketingcount != 0 %}Marketing: {{ marketingcount }}%<br>{% endif %}
-                                                        {% if event.finance and financecount != 0%}Finance: {{ financecount }}%<br>{% endif %}
-                                                        {% if event.public_relations and prcount != 0 %}Public Relations: {{ prcount }}%<br>{% endif %}
-                                                        {% if event.human_resources and hrcount != 0 %}Human Resources: {{ hrcount }}%<br>{% endif %}
-                                                        {% if event.ent_dev and edcount != 0 %}Entrepreneurship Development: {{ edcount }}%<br>{% endif %}
-                                                        {% if event.best_manager and bmcount != 0 %}Best Manager: {{ bmcount }}%<br>{% endif %}
-                                                        {% if event.corp_strg and cscount != 0 %}Corperate Strategy: {{ cscount }}%<br>{% endif %}
-                                                        {% if event.quiz and qucount != 0 %}Quiz: {{ qucount }}%<br>{% endif %}
-                                                        {% if event.team and tecount != 0 %}Team: {{ tecount }}%<br>{% endif %}
+                                                        {% if event.marketing and marketingcount != 0 %}{{ event.mktlabel }}: {{ marketingcount }}%<br>{% endif %}
+                                                        {% if event.finance and financecount != 0%}{{ event.finlabel }}: {{ financecount }}%<br>{% endif %}
+                                                        {% if event.public_relations and prcount != 0 %}{{ event.prlabel }}: {{ prcount }}%<br>{% endif %}
+                                                        {% if event.human_resources and hrcount != 0 %}{{ event.hrlabel }}: {{ hrcount }}%<br>{% endif %}
+                                                        {% if event.ent_dev and edcount != 0 %}{{ event.edlabel }}: {{ edcount }}%<br>{% endif %}
+                                                        {% if event.best_manager and bmcount != 0 %}{{ event.bmlabel }}: {{ bmcount }}%<br>{% endif %}
+                                                        {% if event.corp_strg and cscount != 0 %}{{ event.cslabel }}: {{ cscount }}%<br>{% endif %}
+                                                        {% if event.quiz and qucount != 0 %}{{ event.qulabel }}: {{ qucount }}%<br>{% endif %}
+                                                        {% if event.team and tecount != 0 %}{{ event.telabel }}: {{ tecount }}%<br>{% endif %}
                                                         <br>
                                                     </div>
                                                 </div>
@@ -454,11 +506,11 @@
                                                     <td> {{ student.student.name }}</td>
                                                     <td class="text-left"> {{ student.student.phoneno }}</td>
                                                     <td> {{ student.student.student_detail.year }}</td>
-                                                    <td>{% if student.marketing %}MKT {% endif %}{% if student.finance %} FIN {% endif %}
-                                                    {% if student.public_relations %} PR {% endif %}{% if student.human_resources %} HR {% endif %}
-                                                    {% if student.ent_dev %} ED {% endif %}{% if student.best_manager %} BM{% endif %}
-                                                    {% if student.corp_strg %} CS{% endif %}{% if student.quiz %} QUIZ{% endif %}
-                                                    {% if student.team %} TEAM{% endif %}</td>
+                                                    <td>{% if student.regmarketing %}MKT {% endif %}{% if student.regfinance %} FIN {% endif %}
+                                                    {% if student.regpublic_relations %} PR {% endif %}{% if student.reghuman_resources %} HR {% endif %}
+                                                    {% if student.regent_dev %} ED {% endif %}{% if student.regbest_manager %} BM{% endif %}
+                                                    {% if student.regcorp_strg %} CS{% endif %}{% if student.regquiz %} QUIZ{% endif %}
+                                                    {% if student.regteam %} TEAM{% endif %}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
@@ -491,7 +543,7 @@
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
 
-                                        <h6 class="category">Marketing</h6>
+                                        <h6 class="category">{{ event.mktlabel }}</h6>
                                             {% if event.subhead1 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -572,7 +624,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Finance</h6>
+                                        <h6 class="category">{{ event.finlabel }}</h6>
                                             {% if event.subhead2 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -649,7 +701,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Public Relations</h6>
+                                        <h6 class="category">{{ event.prlabel }}</h6>
                                              {% if event.subhead3 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -726,7 +778,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Human Resource</h6>
+                                        <h6 class="category">{{ event.hrlabel }}</h6>
                                              {% if event.subhead4 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -803,7 +855,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Entrepreneurship Development</h6>
+                                        <h6 class="category">{{ event.edlabel }}</h6>
                                             {% if event.subhead5 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -880,7 +932,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Best Manager</h6>
+                                        <h6 class="category">{{ event.bmlabel }}</h6>
                                             {% if event.subhead6 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -957,7 +1009,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Corporate Strategy</h6>
+                                        <h6 class="category">{{ event.cslabel }}</h6>
                                             {% if event.subhead7 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -965,7 +1017,7 @@
                                             {% endif %}
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/7">
                                         <div class="icon icon-rose">
-                                            <i class="material-icons">visibility</i>
+                                            <i class="material-icons">explore</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count7 }}</h3>
                                         <br>
@@ -1034,7 +1086,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Quiz</h6>
+                                        <h6 class="category">{{ event.qulabel }}</h6>
                                             {% if event.subhead8 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -1042,7 +1094,7 @@
                                             {% endif %}
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/8">
                                         <div class="icon icon-rose">
-                                            <i class="material-icons">visibility</i>
+                                            <i class="material-icons">hourglass</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count8 }}</h3>
                                         <br>
@@ -1111,7 +1163,7 @@
                          <div class="col-lg-4">
                                 <div class="card card-pricing card-raised">
                                     <div class="content">
-                                        <h6 class="category">Team</h6>
+                                        <h6 class="category">{{ event.telabel }}</h6>
                                             {% if event.subhead9 %}
                                             <button type="button" class="btn btn-rose btn-round">Event Head Created</button>
                                             {% else %}
@@ -1119,7 +1171,7 @@
                                             {% endif %}
                                     <a href="/user/club_dashboard/caseView/{{ event.id }}/9">
                                         <div class="icon icon-rose">
-                                            <i class="material-icons">visibility</i>
+                                            <i class="material-icons">group_work</i>
                                         </div>
                                         <h3 class="card-title">Cases: {{ count9 }}</h3>
                                         <br>
@@ -1207,56 +1259,56 @@
                                    <h4 class="card-title">Top 5</h4>
                                    <div style="text-align: right">
                                                     <div class="dropdown">
-                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core1 == '1' %}Marketing{% elif core1 == '2' %}Finance{% elif core1 == '3' %}Public Relations
-                                                            {% elif core1 == '4'%}Human Resource{% elif core1 == '5' %}Entrepreneurship Development{% elif core1 == '6' %}Best Manager
-                                                            {% elif core1 == '7'%}Corperate Strategy{% elif core1 == '8'%}Quiz{% else%}Team{% endif %}
+                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core1 == '1' %}{{ event.mktlabel }}{% elif core1 == '2' %}{{ event.finlabel }}{% elif core1 == '3' %}{{ event.prlabel }}
+                                                            {% elif core1 == '4'%}{{ event.hrlabel }}{% elif core1 == '5' %}{{ event.edlabel }}{% elif core1 == '6' %}{{ event.bmlabel }}
+                                                            {% elif core1 == '7'%}{{ event.cslabel }}{% elif core1 == '8'%}{{ event.qulabel }}{% else%}{{ event.telabel }}{% endif %}
                                                             <b class="caret"></b>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-left">
                                                             <li class="dropdown-header">Core Event</li>
                                                             {% if event.marketing %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/1/{{ core2 }}">Marketing</a>
+                                                                <a href="/user/club_dashboard/1/{{ core2 }}">{{ event.mktlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.finance %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/2/{{ core2 }}">Finance</a>
+                                                                <a href="/user/club_dashboard/2/{{ core2 }}">{{ event.finlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.public_relations %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/3/{{ core2 }}">Public Relations</a>
+                                                                <a href="/user/club_dashboard/3/{{ core2 }}">{{ event.prlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.human_resources %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/4/{{ core2 }}">Human Resources</a>
+                                                                <a href="/user/club_dashboard/4/{{ core2 }}">{{ event.hrlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.ent_dev %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/5/{{ core2 }}">Entrepreneurship Development</a>
+                                                                <a href="/user/club_dashboard/5/{{ core2 }}">{{ event.edlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.best_manager %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/6/{{ core2 }}">Best Manager</a>
+                                                                <a href="/user/club_dashboard/6/{{ core2 }}">{{ event.bmlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.corp_strg %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/7/{{ core2 }}">Corperate Strategy</a>
+                                                                <a href="/user/club_dashboard/7/{{ core2 }}">{{ event.cslabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.quiz %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/8/{{ core2 }}">Quiz</a>
+                                                                <a href="/user/club_dashboard/8/{{ core2 }}">{{ event.qulabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.team %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/9/{{ core2 }}">Team</a>
+                                                                <a href="/user/club_dashboard/9/{{ core2 }}">{{ event.telabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                         </ul>
@@ -1301,56 +1353,56 @@
                                     <h4 class="card-title">Top 5</h4>
                                     <div style="text-align: right">
                                                     <div class="dropdown">
-                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core2 == '1' %}Marketing{% elif core2 == '2' %}Finance{% elif core2 == '3' %}Public Relations
-                                                            {% elif core2 == '4'%}Human Resource{% elif core2 == '5' %}Entrepreneurship Development{% elif core2 == '6' %}Best Manager
-                                                            {% elif core2 == '7' %}Corperate Strategy{% elif core2 == '8' %}Quiz{% else %}Team{% endif %}
+                                                        <button href="#pablo" class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{% if core2 == '1' %}{{ event.mktlabel }}{% elif core2 == '2' %}{{ event.finlabel }}{% elif core2 == '3' %}{{ event.prlabel }}
+                                                            {% elif core2 == '4'%}{{ event.hrlabel }}{% elif core2 == '5' %}{{ event.edlabel }}{% elif core2 == '6' %}{{ event.bmlabel }}
+                                                            {% elif core2 == '7' %}{{ event.cslabel }}{% elif core2 == '8' %}{{ event.qulabel }}{% else %}{{ event.telabel }}{% endif %}
                                                             <b class="caret"></b>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-left">
                                                             <li class="dropdown-header">Core Event</li>
                                                             {% if event.marketing %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/1">Marketing</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/1">{{ event.mktlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.finance %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/2">Finance</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/2">{{ event.finlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.public_relations %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/3">Public Relations</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/3">{{ event.prlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.human_resources %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/4">Human Resources</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/4">{{ event.hrlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.ent_dev %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/5">Entrepreneurship Development</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/5">{{ event.edlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.best_manager %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/6">Best Manager</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/6">{{ event.bmlabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.corp_strg %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/7">Coreperate Strategy</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/7">{{ event.cslabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.quiz %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/8">Quiz</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/8">{{ event.qulabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if event.team %}
                                                             <li>
-                                                                <a href="/user/club_dashboard/{{ core1 }}/9">Team</a>
+                                                                <a href="/user/club_dashboard/{{ core1 }}/9">{{ event.telabel }}</a>
                                                             </li>
                                                             {% endif %}
                                                         </ul>
@@ -1395,6 +1447,21 @@
       </div>
      </div>
      </div>
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = 'DCERDwSBXd';var d=document;var w=window;function l(){
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)};i[r].l=1*new Date();a=s.createElement(o);
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104882550-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 <!--   Core JS Files   -->
 <script src="{% static 'assets/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
@@ -1454,7 +1521,7 @@
     });
 </script>
 <script>
-var dataPreferences = {
+    var dataPreferences = {
             labels: [{% if event.marketing and marketingcount != 0 %}'{{ marketingcount }}%',{% endif %}{% if event.finance and financecount != 0%}'{{ financecount }}%',{% endif %}{% if event.public_relations and prcount != 0 %}'{{ prcount }}%',{% endif %}
                 {% if event.human_resources and hrcount != 0 %}'{{ hrcount }}%',{% endif %}{% if event.ent_dev and edcount != 0 %}'{{ edcount }}%',{% endif %}{% if event.best_manager and bmcount != 0 %}'{{ bmcount }}%',{% endif %}
                 {% if event.corp_strg and cscount != 0 %}'{{ cscount }}%'{% endif %},{% if event.quiz and qucount != 0 %}'{{ qucount }}%',{% endif %}{% if event.team and tecount != 0 %}'{{ tecount }}%'{% endif %}],

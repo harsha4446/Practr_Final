@@ -1,0 +1,150 @@
+.ct-chart .ct-legend {
+  position: relative;
+  z-index: 10;
+  list-style: none;
+  text-align: center;
+}
+.ct-chart .ct-legend li {
+  position: relative;
+  padding-left: 23px;
+  margin-right: 10px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  display: inline-block;
+}
+.ct-chart .ct-legend li:before {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 0;
+  content: '';
+  border: 3px solid transparent;
+  border-radius: 2px;
+}
+.ct-chart .ct-legend li .inactive:before {
+  background: transparent;
+}
+.ct-chart .ct-legend li:nth-child(1)::before {
+  background-color: #800080;
+}
+.ct-chart .ct-legend li:nth-child(2)::before {
+  background-color: #FF00FF;
+}
+.ct-chart .ct-legend li:nth-child(3)::before {
+  background-color: #000080;
+}
+.ct-chart .ct-legend li:nth-child(4)::before {
+  background-color: #0000FF;
+}
+.ct-chart .ct-legend li:nth-child(5)::before {
+  background-color: #008080;
+}
+.ct-chart .ct-legend li:nth-child(6)::before {
+  background-color: #00FFFF;
+}
+.ct-chart .ct-legend li:nth-child(7)::before {
+  background-color: #008000;
+}
+.ct-chart .ct-legend li:nth-child(8)::before {
+  background-color: #00FF00;
+}
+.ct-chart .ct-legend li:nth-child(9)::before {
+  background-color: #808000;
+}
+.ct-chart .ct-legend li:nth-child(10)::before {
+  background-color: #FFFF00;
+}
+.ct-chart .ct-legend li:nth-child(11)::before {
+  background-color: #800000;
+}
+.ct-chart .ct-legend li:nth-child(12)::before {
+  background-color: #FF0000;
+}
+.ct-chart .ct-legend li:nth-child(13)::before {
+  background-color: #000000;
+}
+.ct-chart .ct-legend li:nth-child(14)::before {
+  background-color: #C0C0C0;
+
+}.ct-chart .ct-legend li:nth-child(15)::before {
+  background-color: #FF5722;
+}
+ .ct-chart .ct-legend li:nth-child(16)::before {
+  background-color: #795548;
+}
+.ct-chart .ct-legend li:nth-child(1n+16)::before {
+  background-color: #607D8B;
+}
+.ct-chart .ct-legend .ct-legend-inside {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(1) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(1) .ct-line {
+  stroke: #800080;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(2) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(2) .ct-line {
+  stroke: #FF00FF;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(3) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(3) .ct-line {
+  stroke: #000080;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(4) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(4) .ct-line {
+  stroke: #0000FF;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(5) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(5) .ct-line {
+  stroke: #008080;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(6) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(6) .ct-line {
+  stroke: #00FFFF;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(7) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(7) .ct-line {
+  stroke: #008000;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(8) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(8) .ct-line {
+  stroke: #00FF00;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(9) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(9) .ct-line {
+  stroke: #808000;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(10) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(10) .ct-line {
+  stroke: #FFFF00;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(11) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(11) .ct-line {
+  stroke: #800000;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(12) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(12) .ct-line {
+  stroke: #FF0000;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(13) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(13) .ct-line {
+  stroke: #000000;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(14) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(14) .ct-line {
+  stroke: #C0C0C0;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(15) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(15) .ct-line {
+  stroke: #FF5722;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(16) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(16) .ct-line {
+  stroke: #F06292;
+}
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(1n+16) .ct-point,
+.ct-chart g:not(.ct-grids):not(.ct-labels) g:nth-child(1n+16) .ct-line {
+  stroke: #607D8B;
+}

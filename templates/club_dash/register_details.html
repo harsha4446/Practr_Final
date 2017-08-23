@@ -419,7 +419,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                            <div class="modal fade" id="te" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+                                            <div class="modal fade" id="te" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -456,7 +456,29 @@
                         </div>
                         <div class="wizard-footer height-wizard">
                             <div class="pull-right">
-                                <button type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' id="finish" disabled>Finish </button>
+                                <button type='button' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' id="finish" data-toggle="modal" data-target="#prefix" disabled>Finish </button>
+                            </div>
+                            <div class="modal fade" id="prefix" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                <i class="material-icons">clear</i>
+                                            </button>
+                                            <div  style="text-align: center;">
+                                                <h4 class="modal-title">Team Code</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div  style="text-align: center;">
+                                                <input type="text" name="prefix" maxlength="10" required class="form-control" placeholder="Enter Team Prefix">
+                                                <br><br>
+                                                <button type="submit" class="btn btn-facebook">Finish</button>
+                                                <br><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="clearfix"></div>
                         </div>

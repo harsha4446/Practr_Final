@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
     <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Registrations</title>
+    <title>Club Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -22,7 +22,7 @@
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-active-color="rose" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
+        <div class="sidebar" data-active-color="blue" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
             <!--
         Tip 1: You can change the color of active element of the sidebar using: data-active-color="purple | blue | green | orange | red | rose"
         Tip 2: you can also add an image using data-image tag
@@ -41,7 +41,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="{{ user.profile_picture.url }}" style="height: 100%"/>
+                        <img src="{{ user.profile_picture.url }}" style="height: 100%" />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -51,13 +51,10 @@
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">My Profile</a>
-                                </li>
-                                <li>
                                     <a href="/user/club_dashboard/edit">Edit Profile</a>
                                 </li>
                                 <li>
-                                     <a href="/home/logout">Log Out</a>
+                                    <a href="/home/logout">Log Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -217,7 +214,7 @@
                 {% if not user.judge %}
                     <li>
                         <a href="/user/club_dashboard/network">
-                            <i class="material-icons">dashboard</i>
+                            <i class="material-icons active">dashboard</i>
                             <p>Club Network</p>
                         </a>
                     </li>
@@ -249,7 +246,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> Registrations </a>
+                        <a class="navbar-brand" href="/user/club_dashboard"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -309,90 +306,47 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                 <div class="pull-right">
-                    <a href="/user/club_dashboard/exportRegistrations">
-                        <button class="btn btn-primary btn-raised btn-round">
-                            Export Table
-                        </button>
-                    </a>
-                </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header card-header-icon" data-background-color="purple">
-                                    <i class="material-icons">assignment</i>
+                    <h3>My Network</h3>
+                    <br>
+                    {% if students.count == 0 %}
+                        <div class="row" style="text-align: center; margin-top: 10%">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="card">
+                                    <h3>Your Network Is Empty!</h3>
+                                    <a href="/user/club_dashboard/studentList/">
+                                        <button class="btn btn-social btn-fill btn-facebook">
+                                            Find Students
+                                        </button>
+                                    </a>
+                                    <br><br>
                                 </div>
-                                <div class="card-content">
-                                    <h4 class="card-title">Registered Students</h4>
-                                    <div class="toolbar">
-                                        <!--        Here you can write extra buttons/actions for the toolbar              -->
-                                    </div>
-                                    <div class="material-datatables">
-                                        <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
-                                                    <th>Course</th>
-                                                    <th>Year</th>
-                                                    {% if event.inter_type %}
-                                                        <th>College</th>
-                                                    {% else %}
-                                                        <th>Section</th>
-                                                    {% endif %}
-                                                    <th>Core Events</th>
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Phone</th>
-                                                    <th>Course</th>
-                                                    <th>Year</th>
-                                                    {% if event.inter_type %}
-                                                        <th>College</th>
-                                                    {% else %}
-                                                        <th>Section</th>
-                                                    {% endif %}
-                                                    <th>Core Events</th>
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                            {% for student in registered %}
-                                                <tr>
-                                                    <td>{{ student.rcode }}</td>
-                                                    <td>{{ student.student.name }}</td>
-                                                    <td>{{ student.student.email }}</td>
-                                                    <td>{{ student.student.phoneno }}</td>
-                                                    <td>{{ student.student.student_detail.degree }}</td>
-                                                    <td>{{ student.student.student_detail.year }}</td>
-                                                    {% if event.inter_type %}
-                                                        <td>{{ student.student.student_detail.college }}</td>
-                                                    {% else %}
-                                                        <td>{{ student.student.student_detail.section }}</td>
-                                                    {% endif %}
-                                                    <td>{% if student.regmarketing %}MKT {% endif %}{% if student.regfinance %} FIN {% endif %}
-                                                    {% if student.regpublic_relations %} PR {% endif %}{% if student.reghuman_resources %} HR {% endif %}
-                                                    {% if student.regent_dev %} ED {% endif %}{% if student.regbest_manager %} BM{% endif %}
-                                                    {% if student.regcorp_strg %} CS{% endif %}{% if student.regquiz %} QUIZ{% endif %}
-                                                        {% if student.regteam %} TEAM{% endif %}</td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- end content-->
                             </div>
-                            <!--  end card  -->
                         </div>
-                        <!-- end col-md-12 -->
+                {% else %}
+                    <div class="row">
+                        {% for student in students %}
+                            <div class="col-md-4">
+                            <div class="card card-profile">
+                                    <div class="card-avatar">
+                                        <a href='/profile_page/student/{{ student.id }}/'>
+                                            <img class="img" src="{{ student.profile_picture.url }}" style="height: 100%;width: 100%;"/>
+                                        </a>
+                                    </div>
+                                    <div class="card-content">
+                                        <h6 class="category text-gray">{{ student.email }}</h6>
+                                        <h4 class="card-title">{{ student.name }}</h4>
+                                        <p class="description">
+                                            Year: {{ student.student_detail.year }}<br>
+                                            Contact: {{ student.phoneno }}
+                                        </p>
+                                        <a href="/user/network/unfollow/{{ student.id }}/1" class="btn btn-facebook btn-round">Remove</a>
+                                    </div>
+                                </div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    <!-- end row -->
+                {% endif %}
+                <br>
                 </div>
             </div>
             <footer class="footer">
@@ -465,47 +419,12 @@
 <script src="{% static 'assets/js/demo.js'%}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#datatables').DataTable({
-            "pagingType": "full_numbers",
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            responsive: true,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search records",
-            }
 
-        });
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
 
-
-        var table = $('#datatables').DataTable();
-
-        // Edit record
-        table.on('click', '.edit', function() {
-            $tr = $(this).closest('tr');
-
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        });
-
-        // Delete a record
-        table.on('click', '.remove', function(e) {
-            $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-
-        //Like record
-        table.on('click', '.like', function() {
-            alert('You clicked on Like button');
-        });
-
-        $('.card .material-datatables label').addClass('form-group');
+        demo.initVectorMap();
     });
 </script>
 
 </html>
-
-

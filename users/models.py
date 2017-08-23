@@ -117,7 +117,8 @@ class student_detail(models.Model):
     label = models.CharField(max_length=50,default='')
     degree = models.CharField(max_length=100, default='', choices=(('B.COM', 'B.COM'),
                                                         ('BBA', 'BBA'),
-                                                        ('BMS', 'BMS')),)
+                                                        ('BMS', 'BMS'),
+                                                        ('Other','Other')),)
     college = models.CharField(max_length=150, default='')
     year = models.CharField(max_length=10, choices=(('First', 'First'),
                                                     ('Second', 'Second'),
@@ -126,7 +127,7 @@ class student_detail(models.Model):
     section = models.CharField(default='',max_length=10)
 
     def __str__(self):
-        return self.email.email
+        return '%s-%s' % (self.email.email, self.college)
 
     def __unicode__(self):
         return self.email.email
@@ -158,13 +159,22 @@ class colleges(models.Model):
     college_name = models.CharField(max_length=200,choices=(('Christ University B.COM', 'Christ University B.COM'),
                                                     ('Christ University D.M.S', 'Christ University D.M.S'),
                                                     ('Christ University D.P.S', 'Christ University D.P.S'),
+                                                    ('Christ University, Bannerghatta', 'Christ University, Bannerghatta'),
+                                                    ('Presidency College','Presidency College'),
                                                     ('Jain University SCS', 'Jain University SCS'),
                                                     ('Jain University CMS', 'Jain University CMS'),
                                                     ('Mount Carmel B.COM', 'Mount Carmel B.COM'),
                                                     ('Mount Carmel BBA', 'Mount Carmel BBA'),
-                                                    ('St.Josephs B.COM', 'St.Josephs B.COM')),
-
-                            default='')
+                                                    ('St.Josephs B.COM', 'St.Josephs B.COM'),
+                                                    ('Kristu Jayanti College B.COM', 'Kristu Jayanti College  B.COM'),
+                                                    ('Kristu Jayanti College BBA','Kristu Jayanti College BBA'),
+                                                    ('KLE CBALC Belgaum', 'KLE CBALC Belgaum'),
+                                                    ('Bishop Cotton Womens College', 'Bishop Cotton Womens College'),
+                                                    ('Garden City College', 'Garden City College'),
+                                                    ('Trinity College of Commerce', 'Trinity College of Commerce'),
+                                                    ('Manipal University DOC', 'Manipal University DOC'),
+                                                    ('Vidhyaashram FGC', 'Vidhyaashram FGC')),
+                                                    default='')
     phone = models.CharField(max_length=10, default='')
     logo = models.ImageField(upload_to=upload_loction_college,null=True,blank=True, default='default/new_logo.png')
 
@@ -464,18 +474,19 @@ class event_registered_details(models.Model):
     quiz = models.BooleanField(default=0)
     team = models.BooleanField(default=0)
     rcode = models.CharField(default='',max_length=10)
-    mkttotal = models.IntegerField(default=0)
-    fintotal = models.IntegerField(default=0)
-    prtotal = models.IntegerField(default=0)
-    hrtotal = models.IntegerField(default=0)
-    edtotal = models.IntegerField(default=0)
-    bmtotal = models.IntegerField(default=0)
-    cstotal = models.IntegerField(default=0)
-    qutotal = models.IntegerField(default=0)
-    tetotal = models.IntegerField(default=0)
+    mkttotal = models.FloatField(default=0)
+    fintotal = models.FloatField(default=0)
+    prtotal = models.FloatField(default=0)
+    hrtotal = models.FloatField(default=0)
+    edtotal = models.FloatField(default=0)
+    bmtotal = models.FloatField(default=0)
+    cstotal = models.FloatField(default=0)
+    qutotal = models.FloatField(default=0)
+    tetotal = models.FloatField(default=0)
 
     def __str__(self):
-        return '%s' % self.student.email
+        college = student_detail.objects.get(email=self.student)
+        return '%s-%s' % (self.student.email,college.college)
 
 
     def __unicode__(self):
@@ -501,24 +512,25 @@ class teams(models.Model):
 class round_scores(models.Model):
     round = models.ForeignKey(rounds, related_name='round_score', on_delete=models.CASCADE)
     student = models.ForeignKey(student)
-    question1 = models.IntegerField(default=0, blank=True, null=True)
-    question2 = models.IntegerField(default=0, blank=True, null=True)
-    question3 = models.IntegerField(default=0, blank=True, null=True)
-    question4 = models.IntegerField(default=0, blank=True, null=True)
-    question5 = models.IntegerField(default=0, blank=True, null=True)
-    creativity = models.IntegerField(default=0, blank=True, null=True)
-    content = models.IntegerField(default=0, blank=True, null=True)
-    presentation = models.IntegerField(default=0, blank=True, null=True)
-    rebuttal = models.IntegerField(default=0, blank=True, null=True)
-    communication = models.IntegerField(default=0, blank=True, null=True)
-    feasibility = models.IntegerField(default=0, blank=True, null=True)
+    question1 = models.FloatField(default=0, blank=True, null=True)
+    question2 = models.FloatField(default=0, blank=True, null=True)
+    question3 = models.FloatField(default=0, blank=True, null=True)
+    question4 = models.FloatField(default=0, blank=True, null=True)
+    question5 = models.FloatField(default=0, blank=True, null=True)
+    creativity = models.FloatField(default=0, blank=True, null=True)
+    content = models.FloatField(default=0, blank=True, null=True)
+    presentation = models.FloatField(default=0, blank=True, null=True)
+    rebuttal = models.FloatField(default=0, blank=True, null=True)
+    communication = models.FloatField(default=0, blank=True, null=True)
+    feasibility = models.FloatField(default=0, blank=True, null=True)
     feedback = models.CharField(default='No Feedback Available', max_length=2000, null=True)
     submitted = models.BooleanField(default=False)
     judged = models.BooleanField(default=False)
+    judged_value = models.IntegerField(default=0)
     data1 = models.FileField(upload_to=round_data, null=True, blank=True)
     data2 = models.FileField(upload_to=round_data, null=True, blank=True)
     data3 = models.FileField(upload_to=round_data, null=True, blank=True)
-    total = models.IntegerField(default=0)
+    total = models.FloatField(default=0)
     qualified = models.BooleanField(default=True)
     late = models.BooleanField(default=False)
     submission_time = models.DateTimeField(blank=True,null=True)

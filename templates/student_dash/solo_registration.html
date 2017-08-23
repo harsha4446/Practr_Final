@@ -2,235 +2,645 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets_old/img/practr_small.png'%}" />
-    <link rel="icon" type="image/png" href="{% static 'assets_old/img/practr_small.png'%}" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Practr Registration</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-    <!-- Bootstrap core CSS     -->
-    <link href="{% static 'assets_old/css/bootstrap.min.css'%}" rel="stylesheet" />
-    <!--  Material Dashboard CSS    -->
-    <link href="{% static 'assets_old/css/material-dashboard.css'%}" rel="stylesheet" />
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{% static 'assets_old/css/demo.css'%}" rel="stylesheet" />
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Registration</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width"/>
+
     <!--     Fonts and icons     -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href="{% static 'assets_old/css/material-dashboard.css' %}" rel="stylesheet"/>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"/>
+    <!-- CSS Files -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    {#	<link href="{% static 'assets/css/gsdk-bootstrap-wizard.css'%}" rel="stylesheet" />#}
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="{% static 'assets/css/demo.css' %}" rel="stylesheet"/>
 </head>
-
 <body>
-    <!--<div class="wrapper">-->
-        <div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg'%}')">
+<div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/login.jpeg' %}')">
 
+    <!--   Big container   -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
 
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <!--      Wizard container        -->
-                        <div class="wizard-container">
-                            <div class="card wizard-card" data-color="blue" id="wizardProfile">
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
-                                    <div class="wizard-header">
-                                        <h3 class="wizard-title">
-                                            Build Your Profile
-                                        </h3>
-                                        <h5>This information will let us know more about you.</h5>
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+
+                    <div class="card wizard-card" data-color="blue" id="wizardProfile">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+                            {% csrf_token %}
+                            <div class="wizard-header">
+                                <h3>
+                                    <b>{{ event.name }}</b> REGISTRATION <br>
+                                    <small>This Information Will Let Us Register you.</small>
+                                    <br>
+                                    <small>You Can Team Up With Students In Your Network.</small>
+                                    <br>
+                                </h3>
+                            </div>
+
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li><a href="#core" data-toggle="tab">Core Events</a></li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="core">
+                                    <h4 class="info-text">
+                                        {% if event.multiregistration %}
+                                            You Can Register For Multiple Events.
+                                        {% else %}
+                                            You Can Register To Only One Event.
+                                        {% endif %}
+                                    </h4>
+                                    <div class="row">
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            {% if event.marketing and flag1 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('mktbox')">
+                                                        {% if event.team_size1 > 1 %}
+                                                            <a href="#mkt" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="marketing" value="True"
+                                                               id="mktbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">record_voice_over</i>
+                                                        </div>
+                                                        <h6>{{ event.mktlabel }}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="mkt" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.mktlabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team1 %}
+                                                                        <select name="mkt{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}:
+                                                                            </option>
+                                                                            {% for student in network %}
+                                                                                {% if student.flag %}
+                                                                                    <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if event.finance and flag2 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('finbox')">
+                                                        {% if event.team_size2 > 1 %}
+                                                            <a href="#fin" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="finance" value="True"
+                                                               id="finbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">attach_money</i>
+                                                        </div>
+                                                        <h6>{{ event.finlabel }}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="fin" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.finlabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team2 %}
+                                                                        <select name="fin{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                {% if student.flag %}
+                                                                                    <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if event.public_relations and flag3 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('prbox')">
+                                                        {% if event.team_size3 > 1 %}
+                                                            <a href="#pr" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="public_relations" value="True"
+                                                               id="prbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">group</i>
+                                                        </div>
+                                                        <h6>{{ event.prlabel }}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="pr" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.prlabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team3 %}
+                                                                        <select name="pr{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="wizard-navigation">
-                                        <ul>
-                                            <li>
-                                                <a href="#account" data-toggle="tab">Core Events</a>
-                                            </li>
-                                        </ul>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-lg-offset-1">
+                                            {% if event.human_resources and flag4 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('hrbox')">
+                                                        {% if event.team_size4 > 1 %}
+                                                            <a href="#hr" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="human_resources" value="True"
+                                                               id="hrbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">supervisor_account</i>
+                                                        </div>
+                                                        <h6>{{ event.hrlabel }}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="hr" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.hrlabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team4 %}
+                                                                        <select name="hr{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if event.ent_dev and flag5 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('edbox')">
+                                                        {% if event.team_size5 > 1 %}
+                                                            <a href="#ed" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="ent_dev" value="True"
+                                                               id="edbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">rowing</i>
+                                                        </div>
+                                                        <h6>{{ event.edlabel }}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="ed" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.edlabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team5 %}
+                                                                        <select name="ed{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if event.best_manager and flag6 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('bmbox')">
+                                                        {% if event.team_size6 > 1 %}
+                                                            <a href="#bm" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="best_manager" value="True"
+                                                               id="bmbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">visibility</i>
+                                                        </div>
+                                                        <h6>{{ event.bmlabel }}</h6>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="bm" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.bmlabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team6 %}
+                                                                        <select name="bm{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="tab-content">
-
-                                        <div class="tab-pane" id="account">
-                                <h4 class="info-text"> Which Core Event would you like to register for? </h4>
-                                <div class="row">
-                                <div class="form-group">
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        {% if event.marketing and flag1 %}
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" onclick="test('mkt')">
-                                                <input type="checkbox" name="marketing" value="True" id="mkt">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-lg-offset-1">
+                                            {% if event.corp_strg and flag7 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('csbox')">
+                                                        {% if event.team_size7 > 1 %}
+                                                            <a href="#cs" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="corp_strg" value="True"
+                                                               id="csbox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">visibility</i>
+                                                        </div>
+                                                        <h6>{{ event.cslabel }}</h6>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <h6>Marketing</h6>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% if event.finance and flag2 %}
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" onclick="test('fin')">
-                                                <input type="checkbox" name="finance" value="True" id="fin">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
+                                                <div class="modal fade" id="cs" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.cslabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team7 %}
+                                                                        <select name="cs{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                {% if student.flag %}
+                                                                                    <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <h6>Finance</h6>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% if event.public_relations and flag3 %}
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" onclick="test('pr')">
-                                                <input type="checkbox" name="public_relations" value="True" id="pr">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
+                                            {% endif %}
+                                            {% if event.quiz and flag8 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('qubox')">
+                                                        {% if event.team_size8 > 1 %}
+                                                            <a href="#qu" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="quiz" value="True" id="qubox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">visibility</i>
+                                                        </div>
+                                                        <h6>{{ event.qulabel }}</h6>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <h6>Public Relations</h6>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% if event.human_resources and flag4 %}
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" onclick="test('hr')">
-                                                <input type="checkbox" name="human_resources" value="True" id="hr">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
+                                                <div class="modal fade" id="qu" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.qulabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team8 %}
+                                                                        <select name="qu{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                {% if student.flag %}
+                                                                                    <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <h6>Human Resources</h6>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% if event.ent_dev and flag5 %}
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" onclick="test('ed')">
-                                                <input type="checkbox" name="ent_dev" value="True" id="ed">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
+                                            {% endif %}
+                                            {% if event.team and flag9 %}
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio"
+                                                         onclick="test('tebox')">
+                                                        {% if event.team_size9 > 1 %}
+                                                            <a href="#te" data-toggle="modal">
+                                                        {% endif %}
+                                                        <input type="checkbox" name="team" value="True" id="tebox">
+                                                        <div class="icon">
+                                                            <i class="material-icons">visibility</i>
+                                                        </div>
+                                                        <h6>{{ event.telabel }}</h6>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <h6>Entrepreneurship Development</h6>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                        {% if event.best_manager and flag6 %}
-                                        <div class="col-sm-4">
-                                            <div class="choice" data-toggle="wizard-radio" onclick="test('bm')">
-                                                <input type="checkbox" name="best_manager" value="True" id="bm">
-                                                <div class="icon">
-                                                    <i class="fa fa-pencil"></i>
+                                                <div class="modal fade" id="te" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-hidden="true">
+                                                                    <i class="material-icons">clear</i>
+                                                                </button>
+                                                                <div style="text-align: center;">
+                                                                    <h4 class="modal-title">{{ event.telabel }}
+                                                                        Members</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div style="text-align: center;">
+                                                                    {% for x in team9 %}
+                                                                        <select name="te{{ x }}" class="form-control">
+                                                                            <option disabled selected>
+                                                                                Team Mate {{ x|add:1 }}</option>
+                                                                            {% for student in network %}
+                                                                                {% if student.flag %}
+                                                                                    <option value="{{ student.email }}">{{ student.email }}</option>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                        <br>
+                                                                    {% endfor %}
+                                                                    <br><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-simple"
+                                                                        data-dismiss="modal">Done
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <h6>Best Manager</h6>
-                                            </div>
+                                            {% endif %}
                                         </div>
-                                        {% endif %}
+                                    </div>
                                 </div>
+                                <div class="wizard-footer height-wizard">
+                                    <div class="pull-right">
+                                        <button type='submit' class='btn btn-finish btn-fill btn-warning btn-wd btn-sm'
+                                                id="finish" disabled>Finish
+                                        </button>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
-                        </div>
-
-                                    </div>
-                                    <div class="wizard-footer">
-                                        <div class="pull-right">
-                                            <input type='submit' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' id="finish" value='Finish' disabled/>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- wizard container -->
+                        </form>
                     </div>
-                </div>
+                </div> <!-- wizard container -->
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/practr/?fref=nf">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <p class="copyright pull-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                        <a href="/home">Practr</a>, made for you
-                    </p>
-                </div>
-            </footer>
+        </div><!-- end row -->
+    </div> <!--  big container -->
+
+    <div class="footer">
+        <div class="container">
+
         </div>
     </div>
+
 </div>
+
 </body>
+
 <!--   Core JS Files   -->
-<script src="{% static 'assets_old/js/jquery-3.1.1.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets_old/js/jquery-ui.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets_old/js/bootstrap.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets_old/js/material.min.js'%}" type="text/javascript"></script>
-<script src="{% static 'assets_old/js/perfect-scrollbar.jquery.min.js'%}" type="text/javascript"></script>
-<!-- Forms Validations Plugin -->
-<script src="{% static 'assets_old/js/jquery.validate.min.js'%}"></script>
-<!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-<script src="{% static 'assets_old/js/moment.min.js'%}"></script>
-<!--  Charts Plugin -->
-<script src="{% static 'assets_old/js/chartist.min.js'%}"></script>
+<script src="{% static 'assets_old/js/jquery-2.2.4.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets_old/js/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets_old/js/jquery.bootstrap.wizard.js' %}" type="text/javascript"></script>
+
 <!--  Plugin for the Wizard -->
-<script src="{% static 'assets_old/js/jquery.bootstrap-wizard.js'%}"></script>
-<!--  Notifications Plugin    -->
-<script src="{% static 'assets_old/js/bootstrap-notify.js'%}"></script>
-<!-- Vector Map plugin -->
-<script src="{% static 'assets_old/js/jquery-jvectormap.js'%}"></script>
-<!-- Sliders Plugin -->
-<script src="{% static 'assets_old/js/nouislider.min.js'%}"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<!-- Select Plugin -->
-<script src="{% static 'assets_old/js/jquery.select-bootstrap.js'%}"></script>
-<!--  DataTables.net Plugin    -->
-<script src="{% static 'assets_old/js/jquery.datatables.js'%}"></script>
-<!-- Sweet Alert 2 plugin -->
-<script src="{% static 'assets_old/js/sweetalert2.js'%}"></script>
-<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-<script src="{% static 'assets_old/js/jasny-bootstrap.min.js'%}"></script>
-<!--  Full Calendar Plugin    -->
-<script src="{% static 'assets_old/js/fullcalendar.min.js'%}"></script>
-<!-- TagsInput Plugin -->
-<script src="{% static 'assets_old/js/jquery.tagsinput.js'%}"></script>
-<!-- Material Dashboard javascript methods -->
-<script src="{% static 'assets_old/js/material-dashboard.js'%}"></script>
-<!-- DateTimePicker Plugin -->
-<script src="{% static 'assets/js/bootstrap-datetimepicker.js'%}"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="{% static 'assets_old/js/demo.js'%}"></script>
-<script type="text/javascript">
-    $().ready(function() {
-        demo.initMaterialWizard();
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        md.initSliders();
-        demo.initFormExtendedDatetimepickers();
-    });
-</script>
+<script src="{% static 'assets_old/js/gsdk-bootstrap-wizard.js' %}"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="{% static 'assets_old/js/jquery.validate.min.js' %}"></script>
+
 <script>
-        function test(variable){
-            document.getElementById('mkt').checked = false;
-            document.getElementById('fin').checked = false;
-            document.getElementById('pr').checked = false;
-            document.getElementById('hr').checked = false;
-            document.getElementById('ed').checked = false;
-            document.getElementById('bm').checked = false;
-            var x = document.getElementById(variable);
-            x.checked = true;
-            document.getElementById('finish').disabled=false;
-        }
-    </script>
+    function test(variable) {
+        document.getElementById('finish').disabled = false;
+        {% if event.marketing %}
+            document.getElementById('mktbox').checked = false;
+        {% endif %}
+        {% if event.finance %}
+            document.getElementById('finbox').checked = false;
+        {% endif %}
+        {% if event.public_relations %}
+            document.getElementById('prbox').checked = false;
+        {% endif %}
+        {% if event.human_resources %}
+            document.getElementById('hrbox').checked = false;
+        {% endif %}
+        {% if event.ent_dev %}
+            document.getElementById('edbox').checked = false;
+        {% endif %}
+        {% if event.best_manager %}
+            document.getElementById('bmbox').checked = false;
+        {% endif %}
+        {% if event.corp_strg %}
+            document.getElementById('csbox').checked = false;
+        {% endif %}
+        {% if event.quiz %}
+            document.getElementById('qubox').checked = false;
+        {% endif %}
+        {% if event.team %}
+            document.getElementById('tebox').checked = false;
+        {% endif %}
+        var x = document.getElementById(variable);
+        x.checked = true;
+    }
+</script>
 
 </html>

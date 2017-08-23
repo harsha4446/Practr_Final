@@ -9,23 +9,13 @@
     <title>Create Case</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-{#    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>#}
-{#    <script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ofcynuu46egfihego9sep30f5whg38rp0ytvx8o7m3y2d3ly"></script>#}
-{#    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ofcynuu46egfihego9sep30f5whg38rp0ytvx8o7m3y2d3ly"></script>#}
-{#    <script>tinymce.init({ selector:'textarea' });</script>#}
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-    <!-- include summernote css/js-->
-    <link href="{% static 'assets/SummerNote/summernote.css' %}" rel="stylesheet">
-    <script src="{% static 'assets/SummerNote/summernote.js' %}"></script>
-
-
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ofcynuu46egfihego9sep30f5whg38rp0ytvx8o7m3y2d3ly"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ofcynuu46egfihego9sep30f5whg38rp0ytvx8o7m3y2d3ly"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
     <link href="{% static 'assets_old/css/bootstrap.min.css'%}" rel="stylesheet" />
     <link href="{% static 'assets_old/css/material-dashboard.css'%}" rel="stylesheet" />
-    <link href="{% static 'assets_old/css/button.css'%}" rel="stylesheet" />
+     <link href="{% static 'assets_old/css/button.css'%}" rel="stylesheet" />
     <link href="{% static 'assets_old/css/demo.css'%}" rel="stylesheet" />
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
@@ -97,9 +87,9 @@
                                        <br><br>
                                        <label>Weightage</label><br>
                                       <div>
-                                       <input style="margin: 10px" type="checkbox" id="low" name="low" value="True" onchange="test(1)">Low(x0.3)
-                                       <input style="margin: 10px" type="checkbox" id="med" name="medium" value="True" onchange="test(2)">Medium(x0.6)
-                                       <input style="margin: 10px" type="checkbox" id="high"  name="high" value="True" checked onchange="test(3)">High(x1.0)
+                                          <input type="range" min="0" max="1" id="weightg" step="0.05" value="1" onchange="fetchweight(1)"/>
+                                          <br>
+                                          <input type="text" id="weightp" name="weight" value="1" min="0" max="1" onchange="fetchweight(2)">
                                        </div>
                                       <br><br>
                                       <label>Max Score</label><br>
@@ -115,10 +105,8 @@
                                     <div class="col-md-8 col-md-offset-2">
                                          <div class="form-group">
                                             <label>Paste and edit your case here</label>
-{#                                            {{ form.about }}#}
-                                             <textarea name="summernote" id="summernote" class="form-control"></textarea>
+                                            {{ form.about }}
                                           </div>
-{#                                        <div id="case_content">Hello Summernotee</div>#}
                                     </div>
                                     <div class="col-md-8 col-md-offset-2">
                                          <label>Task(s)</label><br>
@@ -420,13 +408,19 @@
 <script type="text/javascript">
     $().ready(function() {
         demo.initMaterialWizard();
+        document.getElementById('creativity').checked = false;
+        document.getElementById('creativityval').value = 0;
+        document.getElementById('presentation').checked = false;
+        document.getElementById('presentationval').value = 0;
+        document.getElementById('content').checked = false;
+        document.getElementById('contentval').value = 0;
+        document.getElementById('rebuttal').checked = false;
+        document.getElementById('rebuttalval').value = 0;
+        document.getElementById('communication').checked = false;
+        document.getElementById('communicationval').value = 0;
+        document.getElementById('feasibility').checked = false;
+        document.getElementById('feasibilityval').value = 0;
     });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#case_content').summernote();
-        alert("Here2");
-});
 </script>
  <script>
 
@@ -500,18 +494,15 @@
         return maxi;
     }
 
-    function test(variable) {
-        document.getElementById("low").checked = false;
-        document.getElementById("med").checked = false;
-        document.getElementById("high").checked = false;
-        if (variable == 1){
-            document.getElementById("low").checked = true;
-        }
-        else if(variable == 2){
-            document.getElementById("med").checked = true;
+    function fetchweight(flag)
+    {
+        if (flag == 1) {
+            var get = document.getElementById("weightg").value;
+            document.getElementById("weightp").value = get;
         }
         else{
-            document.getElementById("high").checked = true;
+            var put = document.getElementById("weightp").value;
+            document.getElementById("weightg").value = put;
         }
     }
     </script>

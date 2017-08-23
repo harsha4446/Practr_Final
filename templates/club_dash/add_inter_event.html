@@ -44,10 +44,10 @@
                                         <a href="#about" data-toggle="tab">About</a>
                                     </li>
                                     <li>
-                                        <a href="#events" data-toggle="tab">Settings</a>
+                                        <a href="#settings" data-toggle="tab">Settings</a>
                                     </li>
                                     <li>
-                                        <a href="#settings" data-toggle="tab">Events</a>
+                                        <a href="#events" data-toggle="tab">Events</a>
 
                                     </li>
                                 </ul>
@@ -83,7 +83,7 @@
                                   </div>
                               </div>
                             </div>
-                                <div class="tab-pane" id="settings">
+                                <div class="tab-pane" id="events">
                                     <h4 class="info-text"> What are your core events? </h4>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -434,7 +434,36 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="events">
+                                <div class="tab-pane" id="settings">
+                                {% if access != '1' %}
+                                    <div class="row">
+                                        <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="col-sm-4 col-sm-offset-2">
+                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip"
+                                                     title="Allow Multiple Registrations" onclick="test('multi')">
+                                                    <input type="checkbox" name="multi" value="Multiple Registration"
+                                                           id="multi">
+                                                    <div class="icon">
+                                                        <i class="fa fa-group"></i>
+                                                    </div>
+                                                    <h6>Yes</h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="choice" data-toggle="wizard-radio" rel="tooltip"
+                                                     title="Single Registation?" onclick="test('single')">
+                                                    <input type="checkbox" name="single" value="Single Registation"
+                                                           id="single">
+                                                    <div class="icon">
+                                                        <i class="fa fa-male"></i>
+                                                    </div>
+                                                    <h6>No</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <h4 class="info-text">Accepting Registrations From</h4>
@@ -448,6 +477,7 @@
                                             year
                                         </div>
                                     </div>
+                                    {% if access == '1' %}
                                     <div class="row">
                                         <div class="col-md-6 col-md-offset-3">
                                             <div class="form-group form-search is-empty">
@@ -456,6 +486,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% endif %}
+                                    {% if access != '1' %}
+                                        <h4 class="info-text">Event ID Prefix</h4>
+                                        <div class="info-text" style="text-align: center">
+                                            <input style="width: 125px;margin-left: 40%" type="text" required
+                                                   name="prefix" minlength="3" maxlength="4" class="form-control"
+                                                   value="{{ existing.prefix }}" placeholder="Solo Prefix">
+                                            <input style="width: 125px;margin-left: 40%" type="text" required
+                                                   name="tprefix" minlength="3" maxlength="4" class="form-control"
+                                                   value="{{ existing.tprefix }}" placeholder="Team Prefix">
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="wizard-footer">
@@ -627,5 +669,19 @@
         document.getElementById('tesize').value = x;
     }
 </script>
+    <script>
+        function test(variable) {
+            document.getElementById('single').checked = false;
+            document.getElementById('multi').checked = false;
+            document.getElementById(variable).checked = true;
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            document.getElementById('name').value = "{{ existing.name }}";
+            document.getElementById('about2').value = "{{ existing.about }}";
+            document.getElementById('website').value = "{{ existing.website }}";
+        });
+    </script>
 
 </html>

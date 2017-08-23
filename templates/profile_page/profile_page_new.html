@@ -30,19 +30,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/user/student_dashboard">Practr</a>
+                <a class="navbar-brand" href="/user/club_dashboard">Practr</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/user/student_dashboard">
+                        <a href="/user/club_dashboard">
                             <i class="material-icons">dashboard</i> Dashboard
-                        </a>
-                    </li>
-                    
-                    <li class=" active ">
-                        <a href="#">
-                            <i class="material-icons">lock_open</i> Connect
                         </a>
                     </li>
                 </ul>
@@ -57,7 +51,7 @@
                         <div class="col-md-4">
                             <div class="card card-profile">
                                 <div class="card-avatar">
-                                        <img class="img" src="{{ user.profile_picture.url }}" style="height: 180px;width: 180px;" />
+                                        <img class="img" src="{{ user.profile_picture.url }}" style="height: 100%;width: 100%;" />
                                 </div>
                                 <div class="card-content">
                                     <h6 class="category text-gray">{{ details.college }}</h6>
@@ -159,9 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-               
             </div>
             <footer class="footer">
                 <div class="container">

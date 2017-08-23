@@ -82,18 +82,18 @@
                             <p>Events</p>
                         </a>
                     </li>
-{#                    <li>#}
-{#                        <a href="/user/network">#}
-{#                            <i class="material-icons">apps</i>#}
-{#                            <p>Network</p>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <a href="/user/student_dashboard/search">#}
-{#                            <i class="material-icons">apps</i>#}
-{#                            <p>Find Students</p>#}
-{#                        </a>#}
-{#                    </li>#}
+                    <li>
+                        <a href="/user/student_dashboard/network">
+                            <i class="material-icons">apps</i>
+                            <p>Network</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/student_dashboard/search">
+                            <i class="material-icons">apps</i>
+                            <p>Find Students</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -174,7 +174,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                         <div class="col-md-8">
                             <div class="card">
@@ -280,34 +280,35 @@
                                 </div>
                             </div>
                         </div>
-{#                        <div class="col-md-4">#}
-{#                            <div class="card card-profile">#}
-{#                                <br><br>#}
-{#                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">#}
-{#                                                <div class="fileinput-new thumbnail">#}
-{#                                                    <img src="{{ user.profile_picture.url }}" alt="...">#}
-{#                                                </div>#}
-{#                                                <div class="fileinput-preview fileinput-exists thumbnail"></div>#}
-{#                                                <div>#}
-{#                                                    <span class="btn btn-rose btn-round btn-file">#}
-{#                                                        <span class="fileinput-new">Select image</span>#}
-{#                                                        <span class="fileinput-exists">Change</span>#}
-{#                                                        <input type="file" name="profile_picture" />#}
-{#                                                    </span>#}
-{#                                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                            </div>#}
-{#                                <div class="card-content">#}
-{#                                    <h6 class="category text-gray">{{ user.email }}</h6>#}
-{#                                    <h4 class="card-title">{{ user.name }}</h4>#}
-{#                                    <p class="description">#}
-{#                                        {{ user.about|slice:":100" }}#}
-{#                                    </p>#}
-{#                                    <a href="/profile_page/student/{{ user.id }}/" class="btn btn-rose btn-round">Profile</a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
+                        <div class="col-md-4">
+                            <div class="card card-profile">
+                                <br><br>
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail">
+                                                    <img src="{{ user.profile_picture.url }}" style="width: 180px;height: 180px;">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                                <div>
+                                                    <span class="btn btn-rose btn-round btn-file">
+                                                        <span class="fileinput-new">Select image</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="file" name="profile_pic"/>
+                                                    </span>
+                                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                                </div>
+                                            </div>
+
+                                <div class="card-content">
+                                    <h6 class="category text-gray">{{ user.email }}</h6>
+                                    <h4 class="card-title">{{ user.name }}</h4>
+                                    <p class="description">
+                                        {{ user.about|slice:":100" }}
+                                    </p>
+                                    <a href="/profile_page/student/{{ user.id }}/" class="btn btn-rose btn-round">Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
                     </div>
                     </form>
                 </div>

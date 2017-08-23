@@ -50,6 +50,8 @@ def reset_pass(request, id):
         user.set_password(password)
         user.save()
         auth.login(request,user)
+        if not user.activated:
+            return HttpResponseRedirect('/home/newstudent_info/')
         return HttpResponseRedirect('/user/club_dashboard')
     return render(request,'home/reset_password.html',context={})
 
@@ -141,6 +143,7 @@ def new_student(request):
         user_info.industry_exp = formInfo.cleaned_data.get("industry_exp")
         user_info.degree = formInfo.cleaned_data.get("degree")
         user_info.section = formInfo.cleaned_data.get("section")
+        user_info.year = formInfo.cleaned_data.get("year")
         user_info.save()
         user_interest = interests(email=request.user, )
         user_interest.label = request.user.email

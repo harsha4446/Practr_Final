@@ -21,12 +21,13 @@ urlpatterns = [
     url(r'^addJudge/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.addJudge, name='addJudge'),
     url(r'^teamSize/(?P<id>\d+)/(?P<event>\d+)/(?P<type>\d+)/$', views.teamSize, name='team'),
     url(r'^audience/(?P<event>\d+)/(?P<type>\d+)/$', views.audience, name='audience'),
+    url(r'^eliminate/(?P<event>\d+)/(?P<type>\d+)/(?P<rcode>[\w\s]+)/$', views.eliminate, name='eliminate'),
+    url(r'^interAudience/(?P<event>\d+)/(?P<type>\d+)/$', views.interAudience, name='interaudience'),
     url(r'^addSub/(?P<id>\d+)/(?P<type>\d+)/$', views.addSub, name='addSub'),
     url(r'^quotaset/(?P<id>\d+)$', views.quotaset, name='quota'),
     url(r'^registration/(?P<id>\d+)/$', views.activate_registraion,name='openRegistration'),
     url(r'^registered_members/(?P<id>\d+)/$', views.registered_members, name='members'),
     url(r'^masterTable/(?P<type>\d+)/$', views.master_table, name='master'),
-    url(r'^teams/(?P<id>\d+)/(?P<type>\d+)/(?P<size>\d+)/$', views.teamCreate, name='teamcreate'),
     url(r'^edit/$', views.edit_profile, name='edit'),
     url(r'^editEvent/(?P<access>\d+)/(?P<id>\d+)/$', views.add_event, name='editEvent'),
     url(r'^download/(?P<id>.+)/(?P<file>\d+)$', views.download,name='download'),
@@ -37,5 +38,6 @@ urlpatterns = [
     url(r'^eventFeed/$', views.event_feed, name='eventFeed'),
     url(r'^studentList/$', views.student_list, name='studentlist'),
     url(r'^eventRegister/(?P<id>\d+)/$', views.event_register, name='register'),
+    url(r'^network/$', views.network, name='network'),
 
 ]

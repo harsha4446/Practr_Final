@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/practr_small.png'%}" />
     <link rel="icon" type="image/png" href="{% static 'assets/img/practr_small.png'%}" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Club Dashboard</title>
+    <title>Student Network</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS     -->
@@ -41,7 +41,7 @@
             <div class="sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="{{ user.profile_picture.url }}" style="height: 100%" />
+                        <img src="{{ user.profile_picture.url }}" style="height: 100%"/>
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -51,10 +51,13 @@
                         <div class="collapse" id="collapseExample">
                             <ul class="nav">
                                 <li>
-                                    <a href="/user/club_dashboard/edit">Edit Profile</a>
+                                    <a href="/profile_page/student/{{ user.id }}/">My Profile</a>
                                 </li>
                                 <li>
-                                    <a href="/home/logout">Log Out</a>
+                                    <a href="/user/student_dashboard/edit">Edit Profile</a>
+                                </li>
+                                <li>
+                                     <a href="/home/logout">Log Out</a>
                                 </li>
                             </ul>
                         </div>
@@ -62,171 +65,35 @@
                 </div>
                 <ul class="nav">
                     <li>
-                        <a href="/user/club_dashboard">
+                        <a href="/user/student_dashboard/">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                {% if not user.judge and event %}
-                <li>
-                        <a data-toggle="collapse" href="#cases" aria-expanded="true">
-                            <i class="material-icons">event</i>
-                            <p>Core Events
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="cases">
-                            <ul class="nav">
-                                {% if event.marketing %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/1">{{ event.mktlabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.finance %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/2">{{ event.finlabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.public_relations %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/3">{{ event.prlabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.human_resources %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/4">{{ event.hrlabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.ent_dev %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/5">{{ event.edlabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.best_manager %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/6">{{ event.bmlabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.corp_strg %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/7">{{ event.cslabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.quiz %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/8">{{ event.qulabel }}</a>
-                                </li>
-                                {% endif %}
-                                {% if event.team %}
-                                <li>
-                                    <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                    <a href="/user/club_dashboard/caseView/{{ event.id }}/9">{{ event.telabel }}</a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </li>
-                {% endif %}
-                    {% if not user.judge and event %}
-                        <li>
-                        <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="material-icons active">gavel</i>
-                            <p>Performance
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse" id="pagesExamples">
-                            <ul class="nav">
-                                {% if event.marketing %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">record_voice_over</i></div>
-                                        <a href="/user/club_dashboard/masterTable/1">{{ event.mktlabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.finance %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">attach_money</i></div>
-                                        <a href="/user/club_dashboard/masterTable/2">{{ event.finlabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.public_relations %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">group</i></div>
-                                        <a href="/user/club_dashboard/masterTable/3">{{ event.prlabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.human_resources %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">supervisor_account</i></div>
-                                        <a href="/user/club_dashboard/masterTable/4">{{ event.hrlabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.ent_dev %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">rowing</i></div>
-                                        <a href="/user/club_dashboard/masterTable/5">{{ event.edlabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.best_manager %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                        <a href="/user/club_dashboard/masterTable/6">{{ event.bmlabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.corp_strg %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                        <a href="/user/club_dashboard/masterTable/7">{{ event.cslabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.quiz %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                        <a href="/user/club_dashboard/masterTable/8">{{ event.qulabel }}</a>
-                                    </li>
-                                {% endif %}
-                                {% if event.team %}
-                                    <li>
-                                        <div class="col-sm-2 col-sm-offset-1"><i class="material-icons">visibility</i></div>
-                                        <a href="/user/club_dashboard/masterTable/9">{{ event.telabel }}</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </li>
-                    {% endif %}
-                {% if not user.judge %}
+{#                    <li>#}
+{#                        <a href="/user/student_dashboard/clubs">#}
+{#                            <i class="material-icons">apps</i>#}
+{#                            <p>Clubs</p>#}
+{#                        </a>#}
+{#                    </li>#}
                     <li>
-                        <a href="/user/club_dashboard/studentList">
-                            <i class="material-icons active">face</i>
-                            <p>All Students</p>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if not user.judge %}
-                    <li>
-                        <a href="/user/club_dashboard/network">
-                            <i class="material-icons">dashboard</i>
-                            <p>Club Network</p>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if not user.judge %}
-                    <li>
-                        <a href="/user/club_dashboard/eventFeed">
-                            <i class="material-icons">dashboard</i>
+                        <a href="/user/student_dashboard/events">
+                            <i class="material-icons">apps</i>
                             <p>Events</p>
                         </a>
                     </li>
-                {% endif %}
+                    <li class="active">
+                        <a href="/user/student_dashboard/network">
+                            <i class="material-icons">apps</i>
+                            <p>Network</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/student_dashboard/search">
+                            <i class="material-icons">face</i>
+                            <p>Find Students</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -246,12 +113,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="/user/club_dashboard"> Dashboard </a>
+                        <a class="navbar-brand" href="#"> Dashboard </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/user/club_dashboard" class="dropdown-toggle">
+                                <a href="/user/student_dashboard" class="dropdown-toggle">
                                     <i class="material-icons">dashboard</i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
@@ -284,7 +151,7 @@
 {#                                </ul>#}
 {#                            </li>#}
                             <li>
-                                <a href="/user/club_dashboard/edit" class="dropdown-toggle">
+                                <a href="/user/student_dashboard/edit" class="dropdown-toggle">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
@@ -306,34 +173,46 @@
             </nav>
             <div class="content">
                 <div class="container-fluid">
-                    <h3>All Students</h3>
+                    <h3>My Network</h3>
                     <br>
+                {% if students.count == 0 %}
+                        <div class="row" style="text-align: center; margin-top: 10%">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="card">
+                                    <h3>Your Network Is Empty! Add Students To Your Network To Form Teams. </h3>
+                                    <a href="/user/student_dashboard/search/">
+                                        <button class="btn btn-social btn-fill btn-facebook">
+                                            Find Students
+                                        </button>
+                                    </a>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                {% else %}
                     <div class="row">
                         {% for student in students %}
                             <div class="col-md-4">
                             <div class="card card-profile">
                                     <div class="card-avatar">
-                                        <a href='/profile_page/student/{{ student.email.id }}/'>
-                                            <img class="img" src="{{ student.email.profile_picture.url }}" style="height: 100%;width: 100%;"/>
+                                        <a href='/profile_page/student/{{ student.id }}/'>
+                                            <img class="img" src="{{ student.profile_picture.url }}" style="height: 100%;width: 100%;"/>
                                         </a>
                                     </div>
                                     <div class="card-content">
-                                        <h6 class="category text-gray">{{ student.email.email }}</h6>
-                                        <h4 class="card-title">{{ student.email.name }}</h4>
+                                        <h6 class="category text-gray">{{ student.email }}</h6>
+                                        <h4 class="card-title">{{ student.name }}</h4>
                                         <p class="description">
-                                            Year: {{ student.email.student_detail.year }}<br>
-                                            Contact: {{ student.email.phoneno }}
+                                            Section: {{ student.student_detail.section }}<br>
+                                            Contact: {{ student.phoneno }}
                                         </p>
-                                        {% if student.flag  %}
-                                            <a href="/user/network/unfollow/{{ student.email.id }}/1" class="btn btn-facebook btn-round">Remove</a>
-                                        {% else %}
-                                            <a href="/profile_page/connect/{{ student.email.id }}/" class="btn btn-facebook btn-round">Connect</a>
-                                        {% endif %}
+                                        <a href="/user/network/unfollow/{{ student.id }}/2" class="btn btn-facebook btn-round">Remove</a>
                                     </div>
                                 </div>
                         </div>
                         {% endfor %}
                     </div>
+                {% endif %}
                 <br>
                 </div>
             </div>
